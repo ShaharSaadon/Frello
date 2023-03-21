@@ -6,6 +6,7 @@ import CarIndex from './views/CarIndex.vue'
 import ReviewIndex from './views/ReviewIndex.vue'
 import LoginSignup from './views/LoginSignup.vue'
 import UserDetails from './views/UserDetails.vue'
+import BoardIndex from './views/BoardIndex.vue'
 import BoardDetails from './views/BoardDetails.vue'
 
 const routes = [
@@ -21,6 +22,11 @@ const routes = [
   },
   {
     path: '/board',
+    name: 'BoardIndex',
+    component: BoardIndex
+  },
+  {
+    path: '/board/:id',
     name: 'BoardDetails',
     component: BoardDetails
   },
