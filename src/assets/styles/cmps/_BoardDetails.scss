@@ -1,0 +1,12 @@
+.board-details{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--bgc-board-details);
+
+    .board-header{
+        background-color: var(--bgc-board-details);
+        height: 3em; // need to remove
+    }
+
+}

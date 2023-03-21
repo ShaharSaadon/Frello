@@ -1,42 +1,52 @@
 <template>
-    <li class="group-preview">
-        <h1>group-preview</h1>
-        <!-- <pre>{{ group }}</pre> -->
-        <TaskList :tasks="tasks" />
-    </li>
+  <li class="group-preview-wrapper">
+    <div class="group-preview-content">
+      <header class="group-preview-header flex space-between align-center">
+        <h3>{{ group.title }}</h3>
+        <span>...</span>
+      </header>
+
+      <TaskList :tasks="tasks" />
+
+      <footer class="flex">
+        <p class="add-a-card"> Add a card</p>
+        <span className="icon" v-html="getSvg('filter')"></span>
+        
+      </footer>
+    </div>
+  </li>
 </template>
 
 <script>
-import TaskList from '../cmps/TaskList.vue'
+import TaskList from "../cmps/TaskList.vue";
+import { svgService } from "../services/svg.service.js"
 
 export default {
-    name: 'GroupPreview',
-    props: {
-        group: {
-            type: Object,
-            required: true,
-        }
+  name: "GroupPreview",
+  props: {
+    group: {
+      type: Object,
+      required: true,
     },
-    data() {
-        return {
-
-        }
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    getSvg(iconName) {
+      return svgService.getTrelloSvg(iconName);
     },
-    methods: {
-
+  },
+  computed: {
+    tasks() {
+      return this.group.tasks;
     },
-    computed: {
-        tasks() {
-            return this.group.tasks
-        }
-    },
-    created() {
-
-    },
-    components: {
-        TaskList
-    },
-}
+  },
+  created() {},
+  components: {
+    TaskList,
+  },
+};
 </script>
 
 <style></style>
