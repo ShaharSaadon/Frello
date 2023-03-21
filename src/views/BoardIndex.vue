@@ -4,9 +4,9 @@
 
     <ul class="board-list">
       <li v-for="board in boards" :key="board._id">
-        <p>
+        <router-link :to="'board/' + board._id ">
           {{board.title}}
-        </p>
+        </router-link>
         <button @click="removeBoard(board._id)">x</button>
         <button @click="updateBoard(board)">Update</button>
 

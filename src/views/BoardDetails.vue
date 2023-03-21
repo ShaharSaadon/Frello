@@ -1,88 +1,64 @@
 <template>
-  <div class="board-details">
-    <!-- <h1>Board</h1> -->
-    <!-- <ul class="group-list">
-      <li v-for="group in groups" :key="group._id">
-        <p>
-          {{group.title}}
-        </p>
-        <button @click="removeGroup(group._id)">x</button>
+  <section v-if="board">
+    <h1>Board Details - {{ board.title }}</h1>
+    <!-- <pre>{{ board }}</pre> -->
+    
+    <GroupList :groups="board.groups"/>
+    <!-- group list ->groupPreview->taskList->taskPreview->taskDetails -->
+    
+    <!-- <h3>{{ board.boardname }} score: {{ board.score }}</h3>
+    <img style="max-width: 200px;" :src="board.imgUrl" />
+    <ul>
+      <li v-for="review in board.givenReviews" :key="review._id">
+        {{ review.txt }}
+        <RouterLink :to="`/board/${review.aboutBoard._id}`">
+          About {{ review.aboutBoard.fullname }}
+        </RouterLink>
       </li>
     </ul>
-    <form @submit.prevent="addGroup()">
-      <h2>Add group</h2>
-      <input type="text" v-model="groupToAdd.title" />
-      <button>Save</button>
-    </form> -->
-  </div>
+
+    <details>
+      <summary>Full JSON</summary>
+      <pre>{{ board }}</pre>
+    </details> -->
+  </section>
 </template>
 
 <script>
-// import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-// import { groupService } from '../services/group.service.local'
-// import { getActionRemoveGroup, getActionUpdateGroup, getActionAddGroupMsg } from '../store/group.store'
-// export default {
-//   data() {
-//     return {
-//       groupToAdd: groupService.getEmptyGroup()
-//     }
-//     },
-//     computed: {
-//       loggedInUser() {
-//         return this.$store.getters.loggedinUser
-//       },
-//       groups() {
-//         return this.$store.getters.groups
-//       }
-//     },
-//     created() {
-//       this.$store.dispatch({type: 'loadGroups'})
-//     },
-//     methods: {
-//       async addGroup() {
-//         try {
-//           await this.$store.dispatch({type: 'addGroup', group: this.groupToAdd})
-//           showSuccessMsg('Group added')
-//           this.groupToAdd = groupService.getEmptyGroup()
-//         } catch(err) {
-//           console.log(err)
-//           showErrorMsg('Cannot add group')
-//         }
-//       },
-//       async removeGroup(groupId) {
-//         try {
-//           await this.$store.dispatch(getActionRemoveGroup(groupId))
-//           showSuccessMsg('Group removed')
-
-//         } catch(err) {
-//           console.log(err)
-//           showErrorMsg('Cannot remove group')
-//         }
-//       },
-//       async updateGroup(group) {
-//         try {
-//           group = {...group}
-//           group.price = +prompt('New price?', group.price)
-//           await this.$store.dispatch(getActionUpdateGroup(group))
-//           showSuccessMsg('Group updated')
-
-//         } catch(err) {
-//           console.log(err)
-//           showErrorMsg('Cannot update group')
-//         }
-//       },
-//       async addGroupMsg(groupId) {
-//         try {
-//           await this.$store.dispatch(getActionAddGroupMsg(groupId))
-//           showSuccessMsg('Group msg added')
-//         } catch(err) {
-//           console.log(err)
-//           showErrorMsg('Cannot add group msg')
-//         }
-//       },
-//       printGroupToConsole(group) {
-//         console.log('Group msgs:', group.msgs)
-//       }
-//     }
-//   }
+// import {boardService} from '../services/board.service'
+import GroupList from '../cmps/GroupList.vue'
+export default {
+  data() {
+    return {
+      // board: null
+    }
+  },
+  async created() {
+    // const board = await boardService.getById(id)
+    // this.board = board
+  },
+  watch: {
+    boardId: {
+      handler() {
+        if(this.boardId){
+            this.$store.dispatch({ type: "loadAndWatchBoard", boardId: this.boardId })
+        }
+      },
+      immediate: true,
+    },
+  },
+  computed: {
+    board() {
+      return this.$store.getters.watchedBoard
+    },
+    boardId() {
+      return this.$route.params.id
+    },
+    isMe() {
+      return this.boardId === this.$store.getters.loggedinBoard._id
+    },
+  },components:{
+    GroupList,
+  }
+}
 </script>

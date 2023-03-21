@@ -23,10 +23,13 @@ export function getActionUpdateBoard(board) {
 
 export const boardStore = {
     state: {
-        boards: []
+        boards: [],
+        watchedBoard: null,
     },
     getters: {
         boards({ boards }) { return boards },
+        watchedBoard({ watchedBoard }) { return watchedBoard }
+
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -42,6 +45,9 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
+        setWatchedBoard(state, { board }) {
+            state.watchedBoard = board
+        },    
     },
     actions: {
         async addBoard(context, { board }) {
@@ -79,6 +85,16 @@ export const boardStore = {
                 context.commit(getActionRemoveBoard(boardId))
             } catch (err) {
                 console.log('boardStore: Error in removeBoard', err)
+                throw err
+            }
+        },
+        async loadAndWatchBoard({ commit }, { boardId }) {
+            try {
+                const board = await boardService.getById(boardId)
+                commit({ type: 'setWatchedBoard', board })
+                
+            } catch (err) {
+                console.log('boardStore: Error in loadAndWatchBoard', err)
                 throw err
             }
         },
