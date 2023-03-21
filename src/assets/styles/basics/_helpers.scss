@@ -60,8 +60,19 @@
     &.align-center {
         align-items: center;
     }
+
+    &.space-between{
+        justify-content: space-between;
+    }
 }
 
+  
+  /* GRID  */
+  
+  .grid {
+    display: grid;
+  }
+  
 // Media helpers
 
 .square-ratio {

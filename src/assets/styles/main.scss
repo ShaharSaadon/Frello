@@ -12,14 +12,17 @@
 @import "basics/forms";
 
 // Components
+@import "cmps/MainApp";
 @import "cmps/AppHeader";
 @import "cmps/UserMsg";
 @import "cmps/ReviewList";
 @import "cmps/CarList";
-@import "cmps/TaskList";
-@import "cmps/TaskPreview";
+@import "cmps/BoardDetails";
 @import "cmps/GroupList";
 @import "cmps/GroupPreview";
+@import "cmps/TaskList";
+@import "cmps/TaskPreview";
+@import "cmps/HomePageHeader";
 @import "cmps/TaskDetails";
 
 

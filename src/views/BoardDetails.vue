@@ -1,11 +1,13 @@
 <template>
-  <section v-if="board">
-    <h1>Board Details - {{ board.title }}</h1>
+  <section v-if="board" class="board-details">
+    <header class="board-header">
+      <h1>Board Details - {{ board.title }}</h1>
+    </header>
     <!-- <pre>{{ board }}</pre> -->
-    
-    <GroupList :groups="groups"/>
+
+    <GroupList :groups="groups" />
     <!-- group list ->groupPreview->taskList->taskPreview->taskDetails -->
-    
+
     <!-- <h3>{{ board.boardname }} score: {{ board.score }}</h3>
     <img style="max-width: 200px;" :src="board.imgUrl" />
     <ul>
@@ -26,12 +28,12 @@
 
 <script>
 // import {boardService} from '../services/board.service'
-import GroupList from '../cmps/GroupList.vue'
+import GroupList from "../cmps/GroupList.vue";
 export default {
   data() {
     return {
       // board: null
-    }
+    };
   },
   async created() {
     // const board = await boardService.getById(id)
@@ -40,8 +42,8 @@ export default {
   watch: {
     boardId: {
       handler() {
-        if(this.boardId){
-            this.$store.dispatch({ type: "loadAndWatchBoard", boardId: this.boardId })
+        if (this.boardId) {
+          this.$store.dispatch({ type: "loadAndWatchBoard", boardId: this.boardId });
         }
       },
       immediate: true,
@@ -49,17 +51,17 @@ export default {
   },
   computed: {
     board() {
-      return this.$store.getters.watchedBoard
+      return this.$store.getters.watchedBoard;
     },
     boardId() {
-      return this.$route.params.id
+      return this.$route.params.id;
     },
-    groups(){
-      return this.board.groups
-    }
-
-  },components:{
+    groups() {
+      return this.board.groups;
+    },
+  },
+  components: {
     GroupList,
-  }
-}
+  },
+};
 </script>

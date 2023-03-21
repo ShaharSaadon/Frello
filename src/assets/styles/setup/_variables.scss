@@ -5,6 +5,7 @@ $clr3: #574f7d;
 $clr4: #95adbe;
 $clr5: #dff0ea;
 $clr6: #fff;
+$clr7: #0065FF; //HomePage Hover Color
 
 // Labels Colors
 $clr-label-light-green: #B7DDB0;
@@ -58,6 +59,7 @@ $clr-base-6: #2979BF; // add a card bgc
 $clr-base-7: #DE350B; // notification color
 
 
+
 // Dynamic Color
 $clr-dynamic-button: rgba(255, 255, 255, 0.2);
 $clr-dynamic-button-hovered: rgba(255, 255, 255, 0.3);
@@ -72,6 +74,14 @@ $clr-dynamic-text-transparent: hsla(0, 0%, 100%, 0.16);
 
 // Trello Workspace logo
 $clr-trello-workspace-logo : linear-gradient(#1C6543, #268558);
+
+// box shadow
+$box-shadow-task-preview: 0 1px 0 #091e4240;
+
+
+:root {
+    --bgc-board-details: #9ea8ba;
+}
 
 
 // Breakpoints

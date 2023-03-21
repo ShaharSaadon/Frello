@@ -1,0 +1,76 @@
+.home-page-header{
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    margin: 0 auto;
+    align-items: stretch;
+    border-bottom: 1px black solid;
+
+    .logo{
+        padding:16px;
+    }
+
+    .nav-link{
+        padding: 16px;
+        cursor: pointer;
+        
+        &:hover{
+            color: $clr7;
+        }
+    }
+
+    .nav-link-signup{
+        background-color: $clr7;
+        color: $clr6
+    }
+}
+
+.home-page-main-container{
+    background: url(https://images.ctfassets.net/rz1oowkt5gyp/6bFuTiN5YQ78rFkHb3aJlo/b608362b08e14f5dec4c4aeea3a3ca72/white-wave-mobile.svg) center bottom -0.5px / 100% 24% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto no-repeat scroll padding-box border-box rgb(82, 67, 170);
+    padding-top: 100px;
+    height: 90vh;
+    color: $clr6;
+    display: grid;
+    grid-template-columns: 
+    1fr 570px 630px 1fr;
+
+    .left-box{
+        grid-column: 2;
+    }
+    .right-box{
+        grid-column: 3;
+        img{
+            width: 100%;
+        }
+    }
+    h1{
+        font-size: 3rem;
+        line-height: 1.25
+    }
+    p{
+        font-size: 20px;
+    }
+
+    .email-signup{
+        font-size: 1rem;
+        padding: 0.7rem 0.75rem 0.8rem;
+        border: 1px solid rgb(223,225,230);
+        border-radius: 0.3rem;
+        max-width: 300px;
+        width: 376px;
+        transition: all 250ms ease-out 0s;
+    }
+
+    .signup-form{
+        display: flex;
+        gap:12px;
+        margin-block-end: 12px;
+    }
+    
+    button{
+        background-color: $clr7;
+        border-radius: 0.3rem;
+        font-size: 1rem;
+        padding: 0.7rem 1rem 0.8rem;
+    }
+}
