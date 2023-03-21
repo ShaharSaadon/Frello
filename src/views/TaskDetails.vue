@@ -1,65 +1,64 @@
 <template>
-  <section >
-    <h1>Task Details</h1>
-    <!-- <pre>{{ board }}</pre> -->
-    
-    <!-- <GroupList :groups="groups"/> -->
-    <!-- group list ->groupPreview->taskList->taskPreview->taskDetails -->
-    
-    <!-- <h3>{{ board.boardname }} score: {{ board.score }}</h3>
-    <img style="max-width: 200px;" :src="board.imgUrl" />
-    <ul>
-      <li v-for="review in board.givenReviews" :key="review._id">
-        {{ review.txt }}
-        <RouterLink :to="`/board/${review.aboutBoard._id}`">
-          About {{ review.aboutBoard.fullname }}
-        </RouterLink>
-      </li>
-    </ul>
+  <section class="task-details">
+    <main class="container">
+      <div class="header">
+        <span></span>
+        <div class="title">
+          <textarea data-autosize="true">asdasdasdasdasdasdasdasd</textarea>
+        </div>
+        <p>in list {{ task.title }} </p>
+      </div>
+      <div class="main-content"></div>
+      <div class="sidebar flex">
+        <h3>Suggested</h3>
+        <button class="button-link">Join</button>
+        <h3>Add to card</h3>
+        <button class="button-link">Members</button>
+        <button class="button-link">Labels</button>
+        <button class="button-link">Checklist</button>
+        <button class="button-link">Dates</button>
+        <button class="button-link">Attachment</button>
+        <button class="button-link">Cover</button>
+        <button class="button-link">Custom Fields</button>
+      </div>
 
-    <details>
-      <summary>Full JSON</summary>
-      <pre>{{ board }}</pre>
-    </details> -->
+    </main>
   </section>
 </template>
 
 <script>
 // import {boardService} from '../services/board.service'
 // import GroupList from '../cmps/GroupList.vue'
-// export default {
-//   data() {
-//     return {
-//       // board: null
-//     }
-//   },
-//   async created() {
-//     // const board = await boardService.getById(id)
-//     // this.board = board
-//   },
-//   watch: {
-//     boardId: {
-//       handler() {
-//         if(this.boardId){
-//             this.$store.dispatch({ type: "loadAndWatchBoard", boardId: this.boardId })
-//         }
-//       },
-//       immediate: true,
-//     },
-//   },
-//   computed: {
-//     board() {
-//       return this.$store.getters.watchedBoard
-//     },
-//     boardId() {
-//       return this.$route.params.id
-//     },
-//     groups(){
-//       return this.board.groups
-//     }
+import { svgService } from "../services/svg.service.js"
 
-//   },components:{
-//     GroupList,
-//   }
-// }
+export default {
+  props: {
+    task: {
+      type: Object,
+      required: true,
+    }
+  },
+  data() {
+    return {
+      // board: null
+    }
+  },
+  async created() {
+    // const board = await boardService.getById(id)
+    // this.board = board
+  },
+  watch: {
+  },
+  computed: {
+
+  },
+  methods: {
+    // getSvg(iconName) {
+    //   return svgService.getTrelloSvg(iconName)
+    // },
+  },
+  components: {
+
+  }
+}
 </script>

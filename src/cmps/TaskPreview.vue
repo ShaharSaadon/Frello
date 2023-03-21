@@ -2,7 +2,7 @@
     <li class="task-preview">
         <h1>task-preview</h1>
         <RouterLink :to="'/board/' + boardId + '/' + task.id">{{ task.title }}</RouterLink>
-        <RouterView />
+        <RouterView :task="task"/>
     </li>
 </template>
 
