@@ -8,6 +8,7 @@ import LoginSignup from './views/LoginSignup.vue'
 import UserDetails from './views/UserDetails.vue'
 import BoardIndex from './views/BoardIndex.vue'
 import BoardDetails from './views/BoardDetails.vue'
+import TaskDetails from './views/TaskDetails.vue'
 
 const routes = [
   {
@@ -28,7 +29,14 @@ const routes = [
   {
     path: '/board/:id',
     name: 'BoardDetails',
-    component: BoardDetails
+    component: BoardDetails,
+    children: [
+      {
+        path: ':taskId',
+        name: 'TaskDetails',
+        component: TaskDetails
+      },
+    ]
   },
   {
     path: '/review',

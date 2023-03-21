@@ -3,7 +3,7 @@
     <h1>Board Details - {{ board.title }}</h1>
     <!-- <pre>{{ board }}</pre> -->
     
-    <GroupList :groups="board.groups"/>
+    <GroupList :groups="groups"/>
     <!-- group list ->groupPreview->taskList->taskPreview->taskDetails -->
     
     <!-- <h3>{{ board.boardname }} score: {{ board.score }}</h3>
@@ -54,9 +54,10 @@ export default {
     boardId() {
       return this.$route.params.id
     },
-    isMe() {
-      return this.boardId === this.$store.getters.loggedinBoard._id
-    },
+    groups(){
+      return this.board.groups
+    }
+
   },components:{
     GroupList,
   }

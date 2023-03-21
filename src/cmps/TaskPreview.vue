@@ -1,18 +1,17 @@
 <template>
-    <li class="group-preview">
-        <h1>group-preview</h1>
-        <!-- <pre>{{ group }}</pre> -->
-        <TaskList :tasks="tasks" />
+    <li class="task-preview">
+        <h1>task-preview</h1>
+        <RouterLink :to="'/board/' + boardId + '/' + task.id">{{ task.title }}</RouterLink>
+        <RouterView />
     </li>
 </template>
 
 <script>
-import TaskList from '../cmps/TaskList.vue'
 
 export default {
-    name: 'GroupPreview',
+    name: 'TaskPreview',
     props: {
-        group: {
+        task: {
             type: Object,
             required: true,
         }
@@ -26,15 +25,14 @@ export default {
 
     },
     computed: {
-        tasks() {
-            return this.group.tasks
+        boardId() {
+            return this.$store.getters.watchedBoardId
         }
     },
     created() {
 
     },
     components: {
-        TaskList
     },
 }
 </script>

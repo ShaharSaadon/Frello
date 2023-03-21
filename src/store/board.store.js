@@ -28,8 +28,8 @@ export const boardStore = {
     },
     getters: {
         boards({ boards }) { return boards },
-        watchedBoard({ watchedBoard }) { return watchedBoard }
-
+        watchedBoard({ watchedBoard }) { return watchedBoard },
+        watchedBoardId({ watchedBoard }) { return watchedBoard._id }
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -47,7 +47,7 @@ export const boardStore = {
         },
         setWatchedBoard(state, { board }) {
             state.watchedBoard = board
-        },    
+        },
     },
     actions: {
         async addBoard(context, { board }) {
@@ -92,7 +92,7 @@ export const boardStore = {
             try {
                 const board = await boardService.getById(boardId)
                 commit({ type: 'setWatchedBoard', board })
-                
+
             } catch (err) {
                 console.log('boardStore: Error in loadAndWatchBoard', err)
                 throw err
