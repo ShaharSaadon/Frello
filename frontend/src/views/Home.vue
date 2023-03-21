@@ -3,6 +3,7 @@
     <h1>Home Page</h1>
     <h5 class="text-center">
       Powered up Frontend 
+      tomer
     </h5>
     <img alt="Vue logo" src="../assets/logo.png">
   </section>
