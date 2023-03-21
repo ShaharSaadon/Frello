@@ -9,12 +9,13 @@ import UserDetails from './views/UserDetails.vue'
 import BoardIndex from './views/BoardIndex.vue'
 import BoardDetails from './views/BoardDetails.vue'
 import TaskDetails from './views/TaskDetails.vue'
+import HomePage from './views/HomePage.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'HomePage',
+    component: HomePage
   },
   {
     path: '/car',
