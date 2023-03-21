@@ -6,7 +6,7 @@
       tomer
       Peri
     </h5>
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" src="../assets/imgs/bgc-basic/light-blue.svg">
   </section>
 
   
