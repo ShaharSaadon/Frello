@@ -4,7 +4,7 @@
       <h1>Board Details - {{ board.title }}</h1>
     </header>
 
-    <GroupList :groups="groups" @removed="removeGroup" @addGroup="addGroup" @addTask="addTask"/>
+    <GroupList :groups="groups" @updateGroup="updateGroup" @removed="removeGroup" @addGroup="addGroup" @addTask="addTask"/>
   </section>
 </template>
 
@@ -82,6 +82,16 @@ export default {
       } catch (err) {
         console.log(err);
         showErrorMsg("Cannot add Task");
+      }
+    },
+    async updateGroup(group) {
+      group = {...group}
+      try {
+        await this.$store.dispatch({ type: "updateGroup",  boardId: this.boardId, group});
+        showSuccessMsg("group updated");
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot update group");
       }
     },
   },
