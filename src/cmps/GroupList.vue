@@ -7,7 +7,7 @@
         :key="group.id"
         :group="group"
         @removed="$emit('removed', group.id)"
-        @addTask="$emit('addTask', group.id)"
+        @addTask="$emit('addTask', $event)"
         @updateGroup="$emit('updateGroup', $event)"
       />
 

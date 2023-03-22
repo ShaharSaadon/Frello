@@ -75,14 +75,16 @@ export default {
         showErrorMsg("Cannot add Group");
       }
     },
-    async addTask(groupId) {
-      try {
-        await this.$store.dispatch({ type: "addTask", groupId});
-        showSuccessMsg("Task added");
-      } catch (err) {
-        console.log(err);
-        showErrorMsg("Cannot add Task");
-      }
+    async addTask({newTask, groupId}) {
+      console.log('newTask',newTask)
+      console.log('newTask',groupId)
+      // try {
+      //   await this.$store.dispatch({ type: "addTask", groupId});
+      //   showSuccessMsg("Task added");
+      // } catch (err) {
+      //   console.log(err);
+      //   showErrorMsg("Cannot add Task");
+      // }
     },
     async updateGroup(group) {
       group = {...group}
