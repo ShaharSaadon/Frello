@@ -66,9 +66,9 @@ export default {
         showErrorMsg("Cannot remove Group");
       }
     },
-    async addGroup() {
+    async addGroup(group) {
       try {
-        await this.$store.dispatch({ type: "addGroup", boardId: this.boardId });
+        await this.$store.dispatch({ type: "addGroup", boardId: this.boardId, group});
         showSuccessMsg("Group added");
       } catch (err) {
         console.log(err);

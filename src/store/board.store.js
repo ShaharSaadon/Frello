@@ -76,12 +76,17 @@ export const boardStore = {
             board.groups.splice(idx, 1)
             // state.boards = state.boards.filter(board => board._id !== boardId)
         },
-
-
+        addGroup(state, { boardId, group }) {
+            var board = state.boards.find(board => board._id === boardId)
+            // const idx = board.groups.findIndex(group => group.id === groupId)
+            // board.groups.splice(idx, 1)
+            // state.boards = state.boards.filter(board => board._id !== boardId)
+            board.groups.push(group)
+        },
 
         // tasks
 
-        
+
     },
     actions: {
         async addBoard(context, { board }) {
@@ -125,18 +130,6 @@ export const boardStore = {
 
 
         // Group
-        async addGroup(context, { boardId, group }) {
-            console.log("group: ", group);
-            console.log("boardId: ", boardId);
-            // try {
-            //     board = await boardService.save(board)
-            //     context.commit(getActionAddBoard(board))
-            //     return board
-            // } catch (err) {
-            //     console.log('boardStore: Error in addBoard', err)
-            //     throw err
-            // }
-        },
         async updateGroup(context, { boardId, group }) {
             console.log("group: ", group);
             console.log("boardId: ", boardId);
@@ -148,6 +141,17 @@ export const boardStore = {
             //     console.log('boardStore: Error in updateBoard', err)
             //     throw err
             // }
+        },
+        async addGroup(context, { boardId, group }) {
+            console.log("group: ", group);
+            console.log("boardId: ", boardId);
+            try {
+                context.commit(getActionAddGroup(boardId, group))
+                context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+            } catch (err) {
+                console.log('boardStore: Error in removeGroup', err)
+                throw err
+            }
         },
         async removeGroup(context, { boardId, groupId }) {
             try {

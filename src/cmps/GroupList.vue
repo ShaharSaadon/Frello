@@ -1,7 +1,8 @@
 <template>
   <section class="group-list">
-    <ul v-if="groups.length" class="clean-list">
+    <ul class="clean-list">
       <GroupPreview
+        v-if="groups.length"
         v-for="group in groups"
         :key="group.id"
         :group="group"
@@ -9,14 +10,17 @@
       />
 
       <li class="group-preview-wrapper">
-        <button @click="$emit('addGroup')">Add another list</button>
+        <button @click="addGroup">Add another list</button>
       </li>
     </ul>
   </section>
 </template>
 <script>
-import {eventBus} from '../services/event-bus.service.js'
+import { eventBus } from "../services/event-bus.service.js";
+import { boardService } from "../services/board.service.local.js";
 import GroupPreview from "../cmps/GroupPreview.vue";
+
+
 export default {
   name: "GroupList",
   props: {
@@ -28,14 +32,19 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    addGroup(){
+      const group = boardService.getEmptyGroup()
+      console.log("group: ", group);
+      this.$emit('addGroup', group)
+    }
+  },
   computed: {},
   created() {
-      eventBus.on('removeTask', taskId =>{
-        console.log('heyThere',taskId)
-        this.$emit('removeTask',taskId,)
-      })
-  
+    eventBus.on("removeTask", (taskId) => {
+      console.log("heyThere", taskId);
+      this.$emit("removeTask", taskId);
+    });
   },
   components: {
     GroupPreview,
