@@ -3,8 +3,7 @@
     <main class="container">
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
-        <span></span>
-        <div class="title">
+        <div class="title icon-card">
           <textarea
             ref="textarea"
             v-model="taskToEdit.title"
@@ -16,7 +15,7 @@
         <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
-        <TaskDescription :taskDescription="task.description" />
+        <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
       </div>
       <div class="sidebar flex">
@@ -35,12 +34,9 @@
         <button class="button-link card-cover"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
         <h3>Actions</h3>
-        <button class="button-link archive"><span> Archive</span></button>
+        <button @click="removeTask" class="button-link archive"><span> Archive</span></button>
       </div>
 
-      <h1>{{ backUrl }}</h1>
-
-      <button @click="removeTask">x</button>
     </main>
   </section>
 </template>
@@ -100,6 +96,9 @@ export default {
         showErrorMsg("Cannot add Task");
       }
     },
+    saveTask({description}){
+      console.log("description: ", description);
+    }
   },
   components: {
     TaskDescription,

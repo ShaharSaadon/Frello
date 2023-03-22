@@ -17,7 +17,9 @@ $breakpoints: (
     @media (min-width: $size) {
         @content
     }
-};
+}
+
+;
 
 // instructions:
 // body {
@@ -104,4 +106,31 @@ $breakpoints: (
     &::before {
         content: $content;
     }
+}
+
+@mixin TaskDetailsCmps($content: "") {
+    margin-inline-start: $cmp-margin-left;
+    margin-bottom: $cmp-margin-bottom;
+    position: relative;
+
+
+    .icon {
+        @include trello-icon($content, $type: lg);
+
+        &::before {
+            position: absolute;
+            left: -36px;
+            top: 3px;
+            font-weight: 400;
+        }
+
+    }
+
+    .title {
+        font-size: rem(16px);
+        font-weight: 600;
+        margin-bottom: rem(18px);
+    }
+
+
 }
