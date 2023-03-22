@@ -48,7 +48,6 @@ export const boardStore = {
     getters: {
         boards({ boards }) { return boards },
         watchedBoard({ boards, watchedBoardId }) {
-            console.log("boards: ", boards);
             return boards.find(board => board._id === watchedBoardId)
         },
         watchedBoardId({ watchedBoardId }) { return watchedBoardId }
@@ -68,13 +67,13 @@ export const boardStore = {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
         setWatchedBoardId(state, { boardId }) {
-            console.log("boardId: ", boardId);
             state.watchedBoardId = boardId
         },
 
         removeGroup(state, { boardId, groupId }) {
-            console.log("groupId: ", groupId);
-            console.log("boardId: ", boardId);
+            var board = state.boards.find(board => board._id === boardId)
+            const idx = board.groups.findIndex(group => group.id === groupId)
+            board.groups.splice(idx, 1)
             // state.boards = state.boards.filter(board => board._id !== boardId)
         },
 
@@ -152,10 +151,8 @@ export const boardStore = {
         },
         async removeGroup(context, { boardId, groupId }) {
             try {
-                // var board = await boardService.removeGroup(boardId, groupId)
-
-                context.commit(getActionRemoveBoard(boardId, groupId))
-                // context.commit(getActionUpdateBoard(board))
+                context.commit(getActionRemoveGroup(boardId, groupId))
+                context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
             } catch (err) {
                 console.log('boardStore: Error in removeGroup', err)
                 throw err
