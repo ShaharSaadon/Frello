@@ -5,6 +5,7 @@
         v-for="task in tasks"
         :key="task.id"
         :task="task"
+        :groupId="groupId"
       />
     </ul>
   </section>
@@ -18,6 +19,10 @@ export default {
   props: {
     tasks: {
       type: Array,
+      required: true,
+    },
+    groupId: {
+      type: String,
       required: true,
     },
   },

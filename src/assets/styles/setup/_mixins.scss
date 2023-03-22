@@ -82,3 +82,24 @@ $breakpoints: (
         }
     }
 }
+
+@mixin trello-icon($content: "", $type: sm) {
+    font-family: "trellicons";
+    color: #42526e;
+
+    @if $type ==sm {
+        font-size: 1rem;
+    }
+
+    @else if $type ==md {
+        font-size: 1.25rem;
+    }
+
+    @else if $type ==lg {
+        font-size: 1.5rem;
+    }
+
+    &::before {
+        content: $content;
+    }
+}

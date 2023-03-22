@@ -10,7 +10,7 @@
     width: 100%;
     z-index: 20;
 
-     .container {
+    .container {
         display: grid;
         grid-template-columns: 1fr 186px;
         grid-template-rows: minmax(93px, fit-content) 1fr;
@@ -24,12 +24,26 @@
         z-index: 25;
     }
 
-     .sidebar {
+    .sidebar {
         flex-direction: column;
         gap: 8px;
 
-         h3 {
-            color: var(--ds-text-subtle, #5e6c84);
+        button.gear {
+            @include trello-icon($icon-gear, $type: sm);
+            background-color: $clr-base-3;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;            
+            position: relative;
+            &::before {
+                position: absolute;
+                top: 2px;
+                right: 2px;
+            }
+        }
+
+        h3 {
+            color: #5e6c84;
             font-size: 12px;
             font-weight: 600;
             line-height: 16px;
@@ -40,7 +54,8 @@
 
         }
 
-         .button-link {
+
+        .button-link {
             font-family: 'Segoe UI';
             background-color: $clr-base-3;
             border: none;
@@ -66,31 +81,57 @@
             user-select: none;
             white-space: nowrap;
             margin: 0;
+
+            &.member {
+                @include trello-icon($icon-member, $type: sm);
+            }
+
+            &.label {
+                @include trello-icon($icon-label, $type: sm);
+            }
+
+            &.checklist {
+                @include trello-icon($icon-checklist, $type: sm);
+            }
+
+            &.clock {
+                @include trello-icon($icon-clock, $type: sm);
+            }
+
+            &.attachment {
+                @include trello-icon($icon-attachment, $type: sm);
+            }
+
+            &.card-cover {
+                @include trello-icon($icon-card-cover, $type: sm);
+            }
+
+            &.archive {
+                @include trello-icon($icon-archive, $type: sm);
+            }
         }
     }
 
-     .header {
+    .header {
         grid-column: 1/ -1;
         min-height: 32px;
         padding: 12px 40px 8px 56px;
     }
 
-     textarea {
+    textarea {
         background: #0000;
         border-radius: 3px;
         box-shadow: none;
-        font-size: 20px;
+        font-size: em(20px);
         font-weight: 600;
-        height: 32px;
-        line-height: 24px;
+        height: em(32px);
+        line-height: em(24px);
         margin: -4px -8px;
-        min-height: 24px;
         padding: 4px 8px;
         resize: none;
         overflow: hidden;
         overflow-wrap: break-word;
-        min-height: 32px;
-        height: fit-content;
+        min-height: fit-content;
 
         &:focus {
             background-color: $clr-base-1;

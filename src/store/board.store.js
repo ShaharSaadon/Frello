@@ -40,6 +40,8 @@ export function getActionUpdateGroup(boardId, group) {
 }
 
 
+
+
 export const boardStore = {
     state: {
         boards: [],
@@ -162,5 +164,41 @@ export const boardStore = {
                 throw err
             }
         },
+
+        // Task
+        async addTask(context, { groupId }) {
+            
+            const savedBoard = await boardService.getById(context.state.watchedBoardId)
+            const currGroup = savedBoard.groups.find(g => (g.id === groupId))
+            const newTask = boardService.getEmptyTask()
+            
+            currGroup.tasks.push(newTask)
+            
+            try {
+                const board = await boardService.save(savedBoard)
+                context.commit(getActionUpdateBoard(board))
+                return board
+            } catch (err) {
+                console.log('boardStore: Error in add Task', err)
+                throw err
+            }
+
+        },
+        async removeTask(context, { groupId ,taskId}) {
+            const currBoardId = context.state.watchedBoardId
+            const savedBoard = await boardService.getById(currBoardId)
+            const currGroup = savedBoard.groups.find(g => (g.id === groupId))
+            const taskIdx = currGroup.tasks.findIndex(task => (task.id=taskId))
+            currGroup.tasks.splice(taskIdx,1)        
+            try {
+                const board = await boardService.save(savedBoard)
+                context.commit(getActionUpdateBoard(board))
+                return board
+            } catch (err) {
+                console.log('boardStore: Error in delete Task', err)
+                throw err
+            }
+        },
+
     }
 }
