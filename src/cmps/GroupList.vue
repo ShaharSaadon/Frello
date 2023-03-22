@@ -6,6 +6,7 @@
         :key="group.id"
         :group="group"
         @removed="$emit('removed', group.id)"
+        @addTask ="$emit('addTask',group.id)"
       />
 
       <li class="group-preview-wrapper">
@@ -31,11 +32,6 @@ export default {
   methods: {},
   computed: {},
   created() {
-      eventBus.on('removeTask', taskId =>{
-        console.log('heyThere',taskId)
-        this.$emit('removeTask',taskId,)
-      })
-  
   },
   components: {
     GroupPreview,

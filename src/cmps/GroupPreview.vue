@@ -11,15 +11,17 @@
         <span>...</span>
       </header>
 
-      <TaskList :tasks="tasks"/>
+      <TaskList :tasks="tasks" :groupId="group.id" />
+  <li class="task-preview">
+    bkabka
+  </li>
+  <button @click="$emit('removed')">x</button>
 
-      <button @click="$emit('removed')">x</button>
-
-      <footer class="flex">
-        <p class="add-a-card" @click="addTask">Add a card</p>
-        <span className="icon" v-html="getSvg('filter')"></span>
-      </footer>
-    </div>
+  <footer class="flex">
+    <p class="add-a-card" @click="$emit('addTask')">Add a card</p>
+    <span className="icon" v-html="getSvg('filter')"></span>
+  </footer>
+  </div>
   </li>
 </template>
 
@@ -44,7 +46,7 @@ export default {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      this.$store.dispatch({ type: 'addTask', group:this.group })
+      this.$store.dispatch({ type: 'addTask', group: this.group })
     }
   },
   computed: {
@@ -52,7 +54,7 @@ export default {
       return this.group.tasks;
     },
   },
-  created() {},
+  created() { },
   components: {
     TaskList,
   },
