@@ -3,9 +3,7 @@
     <main class="container">
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
-        <span></span>
-        <div class="title">
-          <!-- <h2>{{ rowCount }}</h2> -->
+        <div class="title icon-card">
           <textarea
             ref="textarea"
             v-model="taskToEdit.title"
@@ -17,7 +15,7 @@
         <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
-        <TaskDescription :taskDescription="task.description" />
+        <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
       </div>
       <div class="sidebar flex">
@@ -29,7 +27,6 @@
         <h3>Add to card</h3>
 
         <button class="button-link member"><span> Members</span></button>
-
         <button class="button-link label"><span> Labels</span></button>
         <button class="button-link checklist"><span> Checklist</span></button>
         <button class="button-link clock"><span> Dates</span></button>
@@ -37,12 +34,9 @@
         <button class="button-link card-cover"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
         <h3>Actions</h3>
-        <button class="button-link archive"><span> Archive</span></button>
+        <button @click="removeTask" class="button-link archive"><span> Archive</span></button>
       </div>
 
-      <h1>{{ backUrl }}</h1>
-
-      <button @click="removeTask">x</button>
     </main>
   </section>
 </template>
@@ -84,7 +78,6 @@ export default {
   },
   methods: {
     enter(ev) {
-      console.log("ev: ", ev);
       ev.preventDefault();
       ev.target.blur();
     },
@@ -102,6 +95,9 @@ export default {
         showErrorMsg("Cannot add Task");
       }
     },
+    saveTask({description}){
+      console.log("description: ", description);
+    }
   },
   components: {
     TaskDescription,

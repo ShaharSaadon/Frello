@@ -1,7 +1,7 @@
 <template>
     <header class="home-page-header flex space-between">
         <div class="left-nav flex">
-            <img src="../assets/imgs/trello-logo-gradient-blue-attribution_rgb@2x (1).png">
+            <img src="" alt="">
             <nav class="clean-list flex">
                 <a class="nav-link flex">Features <i className="icon" v-html="getSvg('arrowDown')"></i></a>
                 <a class="nav-link">Solutions <i className="icon" v-html="getSvg('arrowDown')"></i></a>
@@ -12,7 +12,9 @@
         </div>
         <div class="right-nav flex clean-list">
             <a class="nav-link">Login</a>
-            <a class="nav-link-signup nav-link"><RouterLink to="/board">Get Trello for free</RouterLink></a>
+            <a class="nav-link-signup nav-link">
+                <RouterLink to="/board">Get Trello for free</RouterLink>
+            </a>
         </div>
     </header>
 
@@ -21,8 +23,10 @@
             <h1>Trello brings all your tasks, teammates, and tools together</h1>
             <p>Keep everything in the same place-even if your team isn’t.</p>
             <form @submit.prevent="sendMsg" class="signup-form">
-                <input type="text" placeholder="Email" class="email-signup">
-                <button>Sign up - it's free!</button> 
+                <!-- <input type="text" placeholder="Email" class="email-signup"> -->
+                <RouterLink to="/board"> <button>Sign up - it's free!</button>
+                </RouterLink>
+
             </form>
 
             <p>Watch video <i className="icon" v-html="getSvg('playVideo')"></i></p>
@@ -43,22 +47,21 @@ export default {
 
         }
     },
+    created() {
+        this.$emit('toggleHeader')
+    },
+    unmounted() {
+        this.$emit('toggleHeader')
+    },
     methods: {
         getSvg(iconName) {
             return svgService.getTrelloSvg(iconName)
         }
     },
-    unmounted() {
-        console.log('bybye')
-        this.$emit('showHeader')
-    },
-
     computed: {
 
     },
-    created() {
 
-    },
     components: {
 
     },
