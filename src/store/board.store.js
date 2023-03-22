@@ -71,6 +71,10 @@ export const boardStore = {
         setWatchedBoardId(state, { boardId }) {
             state.watchedBoardId = boardId
         },
+        updateGroups(state, { boardId, groups }) {
+            var board = state.boards.find(board => board._id === boardId)
+            board.groups = groups
+        },
 
         removeGroup(state, { boardId, groupId }) {
             var board = state.boards.find(board => board._id === boardId)
@@ -85,7 +89,6 @@ export const boardStore = {
             var board = state.boards.find(board => board._id === boardId)
             const idx = board.groups.findIndex(g => g.id === group.id)
             board.groups.splice(idx, 1, group)
-            console.log("board: ", board);
         },
 
 
@@ -130,12 +133,20 @@ export const boardStore = {
                 throw err
             }
         },
+        async updateGroups(context, { boardId, groups }) {
+            try {
+                context.commit({type:'updateGroups', boardId, groups})
+                context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+            } catch (err) {
+                console.log('boardStore: Error in removeGroup', err)
+                throw err
+            }
+        },
+
 
 
         // Group
         async updateGroup(context, { boardId, group }) {
-            console.log("group: ", group);
-            console.log("boardId: ", boardId);
             try {
                 context.commit(getActionUpdateGroup(boardId, group))
                 context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
@@ -145,8 +156,6 @@ export const boardStore = {
             }
         },
         async addGroup(context, { boardId, group }) {
-            console.log("group: ", group);
-            console.log("boardId: ", boardId);
             try {
                 context.commit(getActionAddGroup(boardId, group))
                 context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))

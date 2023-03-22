@@ -1,16 +1,28 @@
 <template>
   <section class="group-list">
-    <ul class="clean-list">
-      <GroupPreview
+    <div class="draggable-group-list">
+      <Draggable
         v-if="groups.length"
-        v-for="group in groups"
-        :key="group.id"
-        :group="group"
-        @removed="$emit('removed', group.id)"
-        @addTask="$emit('addTask', $event)"
-        @updateGroup="$emit('updateGroup', $event)"
-      />
-
+        v-model="groupList"
+        class="list-group"
+        ghost-class="ghost"
+        item-key="name"
+        drag-class="drag"
+        @start="drag = true"
+        @end="drag = false"
+      >
+        <template #item="{ element }">
+          <div>
+            <GroupPreview
+              :key="element.id"
+              :group="element"
+              @removed="$emit('removed', element.id)"
+              @addTask="$emit('addTask', $event)"
+              @updateGroup="$emit('updateGroup', $event)"
+            />
+          </div>
+        </template>
+      </Draggable>
       <li class="group-preview-wrapper container">
         <transition>
           <div
@@ -35,13 +47,14 @@
           </div>
         </transition>
       </li>
-    </ul>
+    </div>
   </section>
 </template>
 <script>
 import { eventBus } from "../services/event-bus.service.js";
 import { boardService } from "../services/board.service.local.js";
 import GroupPreview from "../cmps/GroupPreview.vue";
+import Draggable from "vuedraggable";
 
 export default {
   name: "GroupList",
@@ -55,6 +68,7 @@ export default {
     return {
       groupToAdd: boardService.getEmptyGroup(),
       isOnAdd: false,
+      drag: false,
     };
   },
   methods: {
@@ -68,12 +82,20 @@ export default {
       this.isOnAdd = !this.isOnAdd;
     },
   },
-  computed: {},
+  computed: {
+    groupList: {
+      get() {
+        return this.groups;
+      },
+      set(groups) {
+        this.$emit("updateGroups", groups);
+      },
+    },
+  },
   created() {},
   components: {
     GroupPreview,
+    Draggable,
   },
 };
 </script>
-
-<style></style>

@@ -4,7 +4,15 @@
       <h1>Board Details - {{ board.title }}</h1>
     </header>
 
-    <GroupList :groups="groups" @updateGroup="updateGroup" @removed="removeGroup" @addGroup="addGroup" @addTask="addTask"/>
+    <GroupList
+      :groups="groups"
+      @updateGroup="updateGroup"
+      @removed="removeGroup"
+      @addGroup="addGroup"
+      @addTask="addTask"
+      @updateGroups="updateGroups"
+    />
+
   </section>
 </template>
 
@@ -13,11 +21,11 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { boardService } from "../services/board.service.local";
 import { getActionRemoveGroup, getActionUpdateBoard } from "../store/board.store";
 import GroupList from "../cmps/GroupList.vue";
+ 
 
 export default {
   data() {
     return {
-      // boardId: this.$route.params.id;
     };
   },
   async created() {},
@@ -41,22 +49,30 @@ export default {
     groups() {
       return this.board.groups;
     },
+    myList: {
+      get() {
+        return this.groups;
+      },
+      set(value) {
+        this.$store.commit("updateList", value);
+      },
+    },
   },
   components: {
     GroupList,
   },
   methods: {
-    async updateGroup() {
-      try {
-        const board = JSON.parse(JSON.stringify(this.board));
-        board.groups[0].title = prompt("New title?", board.groups[0].title);
-        await this.$store.dispatch(getActionUpdateBoard(board));
-        showSuccessMsg("Board updated");
-      } catch (err) {
-        console.log(err);
-        showErrorMsg("Cannot update board");
-      }
-    },
+    // async updateGroup() {
+    //   try {
+    //     const board = JSON.parse(JSON.stringify(this.board));
+    //     board.groups[0].title = prompt("New title?", board.groups[0].title);
+    //     await this.$store.dispatch(getActionUpdateBoard(board));
+    //     showSuccessMsg("Board updated");
+    //   } catch (err) {
+    //     console.log(err);
+    //     showErrorMsg("Cannot update board");
+    //   }
+    // },
     async removeGroup(groupId) {
       try {
         await this.$store.dispatch(getActionRemoveGroup(this.boardId, groupId));
@@ -68,34 +84,38 @@ export default {
     },
     async addGroup(group) {
       try {
-        await this.$store.dispatch({ type: "addGroup", boardId: this.boardId, group});
+        await this.$store.dispatch({ type: "addGroup", boardId: this.boardId, group });
         showSuccessMsg("Group added");
       } catch (err) {
         console.log(err);
         showErrorMsg("Cannot add Group");
       }
     },
-    async addTask({newTask, groupId}) {
-      console.log('newTask',newTask)
-      console.log('newTask',groupId)
-      // try {
-      //   await this.$store.dispatch({ type: "addTask", groupId});
-      //   showSuccessMsg("Task added");
-      // } catch (err) {
-      //   console.log(err);
-      //   showErrorMsg("Cannot add Task");
-      // }
+    async addTask({ newTask, groupId }) {
+      console.log("newTask", newTask);
+      console.log("newTask", groupId);
     },
     async updateGroup(group) {
-      group = {...group}
+      group = { ...group };
       try {
-        await this.$store.dispatch({ type: "updateGroup",  boardId: this.boardId, group});
+        await this.$store.dispatch({ type: "updateGroup", boardId: this.boardId, group });
         showSuccessMsg("group updated");
       } catch (err) {
         console.log(err);
         showErrorMsg("Cannot update group");
       }
     },
+    async updateGroups(groups) {
+      groups = JSON.parse(JSON.stringify(groups))
+      try {
+        await this.$store.dispatch({ type: "updateGroups", boardId: this.boardId, groups });
+        showSuccessMsg("board Drag updated");
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot Drag group");
+      }
+    },
   },
 };
 </script>
+
