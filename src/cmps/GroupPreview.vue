@@ -47,7 +47,10 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      cloneGroup: {...this.group},
+      isOnEdit: false,
+    };
   },
   methods: {
     getSvg(iconName) {
