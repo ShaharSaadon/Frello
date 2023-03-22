@@ -2,7 +2,8 @@
     <article class="task-description">
         <h1>task-description</h1>
         <button @click="openDescription" v-if="!isDescription && !isTextareaOpen">Add more detailed description...</button>
-        <textarea @blur="isTextareaOpen = false" ref="textarea" v-model="taskDescriptionEdit"></textarea>
+        <textarea @keydown.enter.prevent="enter" @blur="isTextareaOpen = false" ref="textarea"
+            v-model="taskDescriptionEdit"></textarea>
 
 
     </article>
@@ -16,6 +17,7 @@ export default {
         taskDescription: {
             type: String,
             required: true,
+            default: 'lalala'
         }
     },
     data() {
@@ -29,7 +31,11 @@ export default {
             this.isTextareaOpen = true
             this.$refs.textarea.focus()
             console.log("this.textareaOpen: ", this.isTextareaOpen);
-        }
+        },
+        enter(ev) {
+            ev.preventDefault();
+            ev.target.blur();
+        },
     },
     computed: {
         isDescription() {

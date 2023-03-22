@@ -12,7 +12,7 @@
 
     .container {
         display: grid;
-        grid-template-columns: 1fr 186px;
+        grid-template-columns: 1fr 192px;
         grid-template-rows: minmax(93px, fit-content) 1fr;
         margin: 48px 0 80px;
         width: rem(768px);
@@ -50,6 +50,7 @@
 
     .sidebar {
         flex-direction: column;
+        padding: 0 16px 8px 8px;
         gap: 8px;
 
         span {
@@ -106,8 +107,6 @@
             transition-duration: 85ms;
             transition-property: background-color, border-color, box-shadow;
             transition-timing-function: ease;
-            -webkit-user-select: none;
-            user-select: none;
             white-space: nowrap;
             margin: 0;
 
