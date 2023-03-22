@@ -1,6 +1,7 @@
 <template>
   <section class="task-details">
     <main class="container">
+      <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
         <span></span>
         <div class="title">
@@ -11,7 +12,7 @@
         <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
-        <!-- <TaskDescription :taskDescription="task.description" /> -->
+        <TaskDescription :taskDescription="task.description" />
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
       </div>
       <div class="sidebar flex">
@@ -19,22 +20,22 @@
           <h3>Suggested</h3>
           <button class="gear"></button>
         </div>
-        <button class="button-link member"> Join</button>
+        <button class="button-link member"> <span> Join</span></button>
         <h3>Add to card</h3>
-        
-        <button class="button-link member"> Members</button>
-        
-        <button class="button-link label"> Labels</button>
-        <button class="button-link checklist"> Checklist</button>
-        <button class="button-link clock"> Dates</button>
-        <button class="button-link attachment"> Attachment</button>
-        <button class="button-link card-cover"> Cover</button>
+
+        <button class="button-link member"><span> Members</span></button>
+
+        <button class="button-link label"><span> Labels</span></button>
+        <button class="button-link checklist"><span> Checklist</span></button>
+        <button class="button-link clock"><span> Dates</span></button>
+        <button class="button-link attachment"><span> Attachment</span></button>
+        <button class="button-link card-cover"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
         <h3>Actions</h3>
-        <button class="button-link archive"> Archive</button>
+        <button class="button-link archive"><span> Archive</span></button>
       </div>
 
-
+    <h1>{{ backUrl }}</h1>  
 
       <button @click="removeTask">x</button>
     </main>
@@ -46,7 +47,7 @@
 // import GroupList from '../cmps/GroupList.vue'
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { svgService } from "../services/svg.service.js"
-import  TaskDescription  from "../cmps/TaskDescription.vue"
+import TaskDescription from "../cmps/TaskDescription.vue"
 
 export default {
   props: {
@@ -70,10 +71,13 @@ export default {
   watch: {
   },
   computed: {
-        boardId() {
-            return this.$store.getters.watchedBoardId
-        },
-      },
+    boardId() {
+      return this.$store.getters.watchedBoardId
+    },
+    boardId() {
+      return this.$route.params.id
+    }
+  },
   methods: {
     enter(ev) {
       console.log("ev: ", ev);

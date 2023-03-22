@@ -11,8 +11,8 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
+    getEmptyGroup,
     getEmptyTask,
-    removeGroup,
 }
 window.cs = boardService
 

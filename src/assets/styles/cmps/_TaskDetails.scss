@@ -22,19 +22,48 @@
         border-radius: 2px;
         position: relative;
         z-index: 25;
+
+        .close {
+            background-color: inherit;
+            @include trello-icon($icon-close, $type: md);
+            position: absolute;
+            right: 0;
+            border-radius: 50%;
+            text-decoration: none;
+            width: 40px;
+            height: 40px;
+            top: 4px;
+            right: 4px;
+
+            &:hover {
+                background-color: $clr-base-3-hover;
+            }
+
+            &::before {
+                position: absolute;
+                right: 10px;
+                top: 4px;
+            }
+
+        }
     }
 
     .sidebar {
         flex-direction: column;
         gap: 8px;
 
+        span {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         button.gear {
             @include trello-icon($icon-gear, $type: sm);
             background-color: $clr-base-3;
             width: 20px;
             height: 20px;
-            border-radius: 4px;            
+            border-radius: 4px;
             position: relative;
+
             &::before {
                 position: absolute;
                 top: 2px;
@@ -81,6 +110,10 @@
             user-select: none;
             white-space: nowrap;
             margin: 0;
+
+            &:hover {
+                background-color: $clr-base-3-hover;
+            }
 
             &.member {
                 @include trello-icon($icon-member, $type: sm);

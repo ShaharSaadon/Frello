@@ -1,18 +1,21 @@
 <template>
   <header class="app-header">
-    <nav>
-      <i className="icon" v-html="getSvg('boxes')"></i>
-      <RouterLink to="/board">Trello</RouterLink>
-    
-      <RouterLink to="/login">Create</RouterLink>
-    </nav>
-    <section class="loggedin-user" v-if="loggedInUser">
-      <RouterLink :to="`/user/${loggedInUser._id}`">
-        {{ loggedInUser.fullname }}
+    <div class="flex align-center">
+      <span class="icon" v-html="getSvg('boxes')"></span>
+      <RouterLink class="router-logo" to="/board">
+        <div>
+          <div class="main-header-logo"></div>
+        </div>
       </RouterLink>
-      <span>{{ loggedInUser.score.toLocaleString() }}</span>
-      <img :src="loggedInUser.imgUrl" />
-    </section>
+    </div>
+    <div class="flex align-center">
+      <input class="main-header-search" placeholder="search" type="text">
+      <RouterLink class="profile" to="/board">
+        <div>
+          <div class="profile-img"></div>
+        </div>
+      </RouterLink>
+    </div>
   </header>
 </template>
 <script>
