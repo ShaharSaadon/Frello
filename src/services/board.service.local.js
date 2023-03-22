@@ -12,7 +12,7 @@ export const boardService = {
     remove,
     getEmptyBoard,
     getEmptyTask,
-    removeGroup,
+    getEmptyGroup,
 }
 window.cs = boardService
 
@@ -135,7 +135,7 @@ function getEmptyBoard() {
                         }
                     }
                 ],
-                "style": {}
+            
             }
         ],
     }
@@ -144,7 +144,7 @@ function getEmptyBoard() {
 function getEmptyTask() {
 return{
     id: utilService.makeId(),
-    title: 'new task',
+    title: '',
     description: 'description...'
 }
 }

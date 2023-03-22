@@ -11,23 +11,25 @@
         <span>...</span>
       </header>
 
-      <TaskList :tasks="tasks"  :groupId="group.id" />
-  <li class="task-preview">
-    bkabka
-  </li>
-  <button @click="$emit('removed')">x</button>
-
-  <footer class="flex">
-    <p class="add-a-card" @click="$emit('addTask')">Add a card</p>
-    <span className="icon" v-html="getSvg('filter')"></span>
-  </footer>
-  </div>
+      <TaskList :tasks="tasks" :groupId="group.id"/>
+      <!-- <TaskList :tasks="tasks" :groupId="group.id"/> -->
+      
+      <footer class="flex">
+        <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit=true" >Add a card</p>
+        <li class="task-preview" v-if="isOnEdit">
+            <textarea v-model="taskToAdd.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"> </textarea>
+        </li>
+        <span className="icon" v-html="getSvg('filter')"></span>
+      </footer>
+      <button @click="$emit('removed')">x</button>
+    </div>
   </li>
 </template>
 
 <script>
 import TaskList from "../cmps/TaskList.vue";
 import { svgService } from "../services/svg.service.js";
+import { boardService } from "../services/board.service.local.js";
 
 export default {
   name: "GroupPreview",
@@ -38,14 +40,20 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      isOnEdit:false,
+      taskToAdd: boardService.getEmptyTask(),
+
+    };
   },
   methods: {
     getSvg(iconName) {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      this.$store.dispatch({ type: 'addTask', group: this.group })
+      if(this.taskToAdd.title) this.$store.dispatch({ type: 'addTask', groupId: this.group.id, task:this.taskToAdd })
+      this.taskToAdd = boardService.getEmptyTask();
+      this.isOnEdit = false;
     }
   },
   computed: {

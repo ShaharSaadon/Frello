@@ -6,7 +6,9 @@ $breakpoints: (
     small: 40em,
     medium: 65em,
     large: 90em,
-    homePageHeader: em(1320px)
+    homePageHeader: em(1320px),
+    boardIndexBreak1: em(900px),
+    boardIndexBreak2: em(750px),
 );
 
 @mixin mq($key) {
