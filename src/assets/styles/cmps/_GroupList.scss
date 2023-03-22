@@ -7,4 +7,90 @@
         white-space: nowrap;
         overflow-x: scroll;
     }
+
+    .container{
+        padding: 0;
+        position: relative;
+        
+        .btn-add-another-list {
+            position: absolute;
+            width: em(272px);
+            background-color: #ffffff3d;
+            cursor: pointer;
+            border-radius: $border-radius-3;
+            min-height: em(32px);
+            padding: em(4px);
+            color: $clr-base-1;
+            padding: em(6px) em(8px);
+            transition: background-color .2s;
+    
+            .plus-icon {
+                @include trello-icon($icon-plus, $type: sm);
+                color: $clr-base-1;
+                margin-inline-end: em(2px);
+            }
+    
+            &:hover {
+                background-color: $clr-dynamic-button-hovered;
+            }
+        }
+
+    }
+
+
+}
+
+.add-new-group {
+    padding: em(4px);
+
+    form {
+        flex-direction: column;
+
+        input {
+            height: rem(36px);
+            width: 100%;
+            border-radius: $border-radius-3;
+            box-shadow: inset 0 0 0 2px #0079bf;
+            border: none;
+            margin: 0;
+            padding: rem(8px) rem(12px);
+
+            &:focus-visible {
+                outline: none;
+            }
+        }
+
+        div {
+            height: em(32px);
+            margin: em(4px) 0 0 0;
+
+            button {
+                height: 100%;
+                width: rem(72px);
+                margin: 0 rem(9px) 0 0;
+                border-radius: $border-radius-3;
+                background-color: $clr-base-8;
+                cursor: pointer;
+            }
+
+            span {
+                @include trello-icon($icon-close, $type: md);
+                cursor: pointer;
+                margin-inline-end: em(2px);
+            }
+
+        }
+    }
+}
+
+
+
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.2s;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }

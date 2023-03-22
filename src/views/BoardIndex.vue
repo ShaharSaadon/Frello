@@ -1,16 +1,9 @@
 <template>
-  <div class="board-index">
-    <h1>hello board</h1>
-
-    <ul class="board-list">
-      <li v-for="board in boards" :key="board._id">
-        <router-link :to="'board/' + board._id ">
-          {{board.title}}
-        </router-link>
-        <button @click="removeBoard(board._id)">x</button>
-        <button @click="updateBoard(board)">Update</button>
-
-      </li>
+  <div class="board-index main-container">
+    <h1>My Boards</h1>
+    <ul class="board-list clean-list">
+      <BoardPreview v-for="board in boards" :key="board._id" :board="board"
+      />
     </ul>
     <hr />
     <form @submit.prevent="addBoard()">
@@ -24,6 +17,7 @@
 <script>
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { boardService } from "../services/board.service.local";
+import BoardPreview from "../cmps/BoardPreview.vue";
 import {
   getActionRemoveBoard,
   getActionUpdateBoard,
@@ -56,6 +50,7 @@ export default {
         showErrorMsg("Cannot add board");
       }
     },
+
     async removeBoard(boardId) {
       try {
         await this.$store.dispatch(getActionRemoveBoard(boardId));
@@ -65,6 +60,7 @@ export default {
         showErrorMsg("Cannot remove board");
       }
     },
+
     async updateBoard(board) {
       try {
         board = { ...board };
@@ -77,5 +73,8 @@ export default {
       }
     },
   },
+  components:{
+    BoardPreview
+  }
 };
 </script>

@@ -135,7 +135,7 @@ function getEmptyBoard() {
                         }
                     }
                 ],
-                "style": {}
+            
             }
         ],
     }
@@ -144,7 +144,7 @@ function getEmptyBoard() {
 function getEmptyTask() {
 return{
     id: utilService.makeId(),
-    title: 'new task',
+    title: '',
     description: 'description...'
 }
 }

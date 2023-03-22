@@ -7,22 +7,33 @@
         :key="group.id"
         :group="group"
         @removed="$emit('removed', group.id)"
-        @addTask ="$emit('addTask',group.id)"
+        @addTask="$emit('addTask', group.id)"
+        @updateGroup="$emit('updateGroup', $event)"
       />
 
-      <li class="group-preview-wrapper">
-        <button v-if="!isOnAdd" @click="isOnAdd = true">Add another list</button>
+      <li class="group-preview-wrapper container">
+        <transition>
+          <div
+            class="btn-add-another-list flex align-center"
+            v-if="!isOnAdd"
+            @click="isOnAdd = true"
+          >
+            <span class="plus-icon"></span>
+            <span>Add another list</span>
+          </div>
+        </transition>
 
-        <div v-if="isOnAdd" class="group-preview-content add-new-group">
-          <form @submit.prevent="addGroup">
-            <textarea v-model="groupToAdd.title" @blur="isOnAdd = false" placeHolder="Enter list title..." rows="1"></textarea>
-            <button>Add list</button>
-            <button @click.prevent>x</button>
-          </form>
-
-          <!-- <footer class="flex">
-          </footer> -->
-        </div>
+        <transition>
+          <div v-if="isOnAdd" class="group-preview-content add-new-group">
+            <form @submit.prevent="addGroup" class="flex">
+              <input v-model="groupToAdd.title" placeHolder="Enter list title..." />
+              <div class="flex align-center">
+                <button>Add list</button>
+                <span @click.prevent="isOnAdd = false"></span>
+              </div>
+            </form>
+          </div>
+        </transition>
       </li>
     </ul>
   </section>
@@ -48,6 +59,7 @@ export default {
   },
   methods: {
     addGroup() {
+      if (!this.groupToAdd.title) return;
       this.$emit("addGroup", this.groupToAdd);
       this.groupToAdd = boardService.getEmptyGroup();
       this.isOnAdd = false;
@@ -57,8 +69,7 @@ export default {
     },
   },
   computed: {},
-  created() {
-  },
+  created() {},
   components: {
     GroupPreview,
   },

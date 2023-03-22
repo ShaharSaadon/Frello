@@ -76,19 +76,20 @@ export const boardStore = {
             var board = state.boards.find(board => board._id === boardId)
             const idx = board.groups.findIndex(group => group.id === groupId)
             board.groups.splice(idx, 1)
-            // state.boards = state.boards.filter(board => board._id !== boardId)
         },
         addGroup(state, { boardId, group }) {
             var board = state.boards.find(board => board._id === boardId)
-            // const idx = board.groups.findIndex(group => group.id === groupId)
-            // board.groups.splice(idx, 1)
-            // state.boards = state.boards.filter(board => board._id !== boardId)
             board.groups.push(group)
         },
+        updateGroup(state, { boardId, group }) {
+            var board = state.boards.find(board => board._id === boardId)
+            const idx = board.groups.findIndex(g => g.id === group.id)
+            board.groups.splice(idx, 1, group)
+            console.log("board: ", board);
+        },
 
-        // tasks
 
-
+        
     },
     actions: {
         async addBoard(context, { board }) {
@@ -135,14 +136,13 @@ export const boardStore = {
         async updateGroup(context, { boardId, group }) {
             console.log("group: ", group);
             console.log("boardId: ", boardId);
-            // try {
-            //     board = await boardService.save(board)
-            //     context.commit(getActionUpdateBoard(board))
-            //     return board
-            // } catch (err) {
-            //     console.log('boardStore: Error in updateBoard', err)
-            //     throw err
-            // }
+            try {
+                context.commit(getActionUpdateGroup(boardId, group))
+                context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+            } catch (err) {
+                console.log('boardStore: Error in removeGroup', err)
+                throw err
+            }
         },
         async addGroup(context, { boardId, group }) {
             console.log("group: ", group);
@@ -166,13 +166,13 @@ export const boardStore = {
         },
 
         // Task
-        async addTask(context, { groupId }) {
-            
+        async addTask(context, { groupId ,task}) {
+            console.log('groupId=',groupId)
+            console.log('task=',task)
             const savedBoard = await boardService.getById(context.state.watchedBoardId)
             const currGroup = savedBoard.groups.find(g => (g.id === groupId))
-            const newTask = boardService.getEmptyTask()
             
-            currGroup.tasks.push(newTask)
+            currGroup.tasks.push(task)
             
             try {
                 const board = await boardService.save(savedBoard)

@@ -1,18 +1,18 @@
 <template>
   <section class="task-list">
     <ul v-if="tasks.length" class="clean-list">
-      <TaskPreview
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-        :groupId="groupId"
-      />
+      <TaskPreview v-for="task in tasks" :key="task.id" :task="task" :groupId="groupId" />
+  
     </ul>
+    
   </section>
+
 </template>
 
 <script>
 import TaskPreview from "./TaskPreview.vue";
+import { svgService } from "../services/svg.service.js";
+
 export default {
   name: "TaskList",
   emits: ['removeTask'],
@@ -25,14 +25,21 @@ export default {
       type: String,
       required: true,
     },
+    isOnEdit:{
+      type:Boolean,
+      required: true,
+    },
   },
   data() {
     return {};
   },
   methods: {
-      },
+    getSvg(iconName) {
+      return svgService.getTrelloSvg(iconName);
+    },
+  },
   computed: {},
-  created() {},
+  created() { },
   components: {
     TaskPreview,
   },
