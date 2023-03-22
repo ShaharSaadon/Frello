@@ -24,7 +24,7 @@
       <footer class="flex">
         <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit = true">Add a card</p>
         <li class="task-preview" v-if="isOnEdit">
-            <textarea v-model="taskToAdd.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"> </textarea>
+            <textarea v-model="newTask.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"> </textarea>
         </li>
         <span @click="$emit('removed')"></span>
       </footer>
@@ -59,7 +59,9 @@ export default {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      this.$store.dispatch({ type: 'addTask', group: this.group })
+      this.$emit("addTask", {groupId:this.group.id,newTask:this.newTask});
+      this.newTask = boardService.getEmptyTask();
+      this.isOnEdit = false;
     },
     enter(ev){
       ev.preventDefault();
