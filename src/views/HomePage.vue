@@ -21,7 +21,7 @@
             <h1>Trello brings all your tasks, teammates, and tools together</h1>
             <p>Keep everything in the same place-even if your team isn’t.</p>
             <form @submit.prevent="sendMsg" class="signup-form">
-                <input type="text" placeholder="Email" class="email-signup">
+                <!-- <input type="text" placeholder="Email" class="email-signup"> -->
                 <button>Sign up - it's free!</button> 
             </form>
 
