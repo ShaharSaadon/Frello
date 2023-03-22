@@ -1,13 +1,17 @@
 <template>
   <section class="group-list">
-      <ul v-if="groups.length" class="clean-list">
-        <GroupPreview
-          v-for="group in groups"
-          :key="group.id"
-          :group="group"
-          @removed="$emit('removed', group.id)"
-        />
-      </ul>
+    <ul v-if="groups.length" class="clean-list">
+      <GroupPreview
+        v-for="group in groups"
+        :key="group.id"
+        :group="group"
+        @removed="$emit('removed', group.id)"
+      />
+
+      <li class="group-preview-wrapper">
+        <button @click="$emit('addGroup')">Add another list</button>
+      </li>
+    </ul>
   </section>
 </template>
 <script>
