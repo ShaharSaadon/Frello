@@ -25,10 +25,6 @@ export default {
       type: String,
       required: true,
     },
-    isOnEdit:{
-      type:Boolean,
-      required: true,
-    },
   },
   data() {
     return {};
