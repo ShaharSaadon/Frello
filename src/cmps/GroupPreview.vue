@@ -19,12 +19,11 @@
       </header>
 
       <TaskList :tasks="tasks" :groupId="group.id"/>
-      <!-- <TaskList :tasks="tasks" :groupId="group.id"/> -->
       
       <footer class="flex">
         <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit=true" >Add a card</p>
         <li class="task-preview" v-if="isOnEdit">
-            <textarea v-model="taskToAdd.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"> </textarea>
+            <textarea v-model="newTask.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"> </textarea>
         </li>
         <span className="icon" v-html="getSvg('filter')"></span>
       </footer>
@@ -50,6 +49,8 @@ export default {
     return {
       cloneGroup: {...this.group},
       isOnEdit: false,
+      newTask: boardService.getEmptyTask(),
+
     };
   },
   methods: {
@@ -57,7 +58,9 @@ export default {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      this.$store.dispatch({ type: 'addTask', group: this.group })
+      if (this.newTask.title) this.$store.dispatch({ type: 'addTask', groupId: this.group.id , task:this.newTask})
+      this.newTask = boardService.getEmptyTask();
+      this.isOnEdit = false;
     }
   },
   computed: {
