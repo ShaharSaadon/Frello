@@ -58,9 +58,10 @@ export default {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      if (this.newTask.title) this.$store.dispatch({ type: 'addTask', groupId: this.group.id , task:this.newTask})
-      this.newTask = boardService.getEmptyTask();
-      this.isOnEdit = false;
+      this.$emit('addTask', {newTask:this.newTask, groupId:this.group.id})
+      // this.$store.dispatch({ type: 'addTask', groupId: this.group.id , task:this.newTask})
+      // this.newTask = boardService.getEmptyTask();
+      // this.isOnEdit = false;
     }
   },
   computed: {
