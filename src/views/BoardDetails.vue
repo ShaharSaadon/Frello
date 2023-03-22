@@ -4,9 +4,8 @@
       <h1>Board Details - {{ board.title }}</h1>
     </header>
 
-    <GroupList :groups="groups" @removed="removeGroup" />
+    <GroupList :groups="groups" @removed="removeGroup" @addGroup="addGroup" />
   </section>
-
 </template>
 
 <script>
@@ -18,16 +17,14 @@ import GroupList from "../cmps/GroupList.vue";
 export default {
   data() {
     return {
-      // board: null
+      // boardId: this.$route.params.id;
     };
   },
-  async created() {
-    // const board = await boardService.getById(id)
-    // this.board = board
-  },
+  async created() {},
   watch: {
     boardId: {
       handler() {
+        console.log("this.boardId: ", this.boardId);
         if (this.boardId) {
           this.$store.commit({ type: "setWatchedBoardId", boardId: this.boardId });
         }
@@ -40,6 +37,7 @@ export default {
       return this.$store.getters.watchedBoard;
     },
     boardId() {
+      console.log("this.$route.params.id:", this.$route.params.id);
       return this.$route.params.id;
     },
     groups() {
@@ -61,16 +59,24 @@ export default {
         showErrorMsg("Cannot update board");
       }
     },
-    async removeGroup(groupId){
+    async removeGroup(groupId) {
       try {
-        await this.$store.dispatch(getActionRemoveGroup(this.boardId ,groupId));
+        await this.$store.dispatch(getActionRemoveGroup(this.boardId, groupId));
         showSuccessMsg("Group removed");
       } catch (err) {
         console.log(err);
         showErrorMsg("Cannot remove Group");
       }
-    }
-
+    },
+    async addGroup() {
+      try {
+        await this.$store.dispatch({ type: "addGroup", boardId: this.boardId });
+        showSuccessMsg("Group added");
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot add Group");
+      }
+    },
   },
 };
 </script>

@@ -47,7 +47,10 @@ export const boardStore = {
     },
     getters: {
         boards({ boards }) { return boards },
-        watchedBoard({boards, watchedBoardId }) { return boards.find(board => board._id === watchedBoardId) },
+        watchedBoard({ boards, watchedBoardId }) {
+            console.log("boards: ", boards);
+            return boards.find(board => board._id === watchedBoardId)
+        },
         watchedBoardId({ watchedBoardId }) { return watchedBoardId }
     },
     mutations: {
@@ -65,7 +68,14 @@ export const boardStore = {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
         setWatchedBoardId(state, { boardId }) {
+            console.log("boardId: ", boardId);
             state.watchedBoardId = boardId
+        },
+
+        removeGroup(state, { boardId, groupId }) {
+            console.log("groupId: ", groupId);
+            console.log("boardId: ", boardId);
+            // state.boards = state.boards.filter(board => board._id !== boardId)
         },
     },
     actions: {
@@ -136,12 +146,15 @@ export const boardStore = {
         },
         async removeGroup(context, { boardId, groupId }) {
             try {
-                var board = await boardService.removeGroup(boardId, groupId)
-                context.commit(getActionUpdateBoard(board))
+                // var board = await boardService.removeGroup(boardId, groupId)
+
+                context.commit(getActionRemoveBoard(boardId, groupId))
+                // context.commit(getActionUpdateBoard(board))
             } catch (err) {
                 console.log('boardStore: Error in removeGroup', err)
                 throw err
             }
         },
+
     }
 }
