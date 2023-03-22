@@ -60,6 +60,14 @@ export default {
     },
     addTask() {
       this.$store.dispatch({ type: 'addTask', group: this.group })
+    },
+    enter(ev){
+      ev.preventDefault();
+      ev.target.blur();
+      this.updateGroup()
+    },
+    updateGroup(){
+      this.$emit('updateGroup', this.cloneGroup)
     }
   },
   computed: {
