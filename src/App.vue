@@ -1,6 +1,6 @@
 <template>
   <section class="main-app">
-    <AppHeader/>
+    <AppHeader v-if="!isHomePage"/>
     <RouterView @showHeader="showHeader"/>
     <UserMsg/>
   </section>
