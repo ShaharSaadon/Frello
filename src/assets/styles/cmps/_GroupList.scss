@@ -1,7 +1,10 @@
-.group-list{
+.group-list {
     height: 100%;
 
-    ul{
+    ul {
         height: 100%;
+        // white-space: nowrap;
+        white-space: nowrap;
+        overflow-x: scroll;
     }
 }

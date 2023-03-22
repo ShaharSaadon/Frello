@@ -10,7 +10,18 @@
       />
 
       <li class="group-preview-wrapper">
-        <button @click="addGroup">Add another list</button>
+        <button v-if="!isOnAdd" @click="isOnAdd = true">Add another list</button>
+
+        <div v-if="isOnAdd" class="group-preview-content add-new-group">
+          <form @submit.prevent="addGroup">
+            <textarea v-model="groupToAdd.title" @blur="isOnAdd = false" placeHolder="Enter list title..." rows="1"></textarea>
+            <button>Add list</button>
+            <button @click.prevent>x</button>
+          </form>
+
+          <!-- <footer class="flex">
+          </footer> -->
+        </div>
       </li>
     </ul>
   </section>
@@ -19,7 +30,6 @@
 import { eventBus } from "../services/event-bus.service.js";
 import { boardService } from "../services/board.service.local.js";
 import GroupPreview from "../cmps/GroupPreview.vue";
-
 
 export default {
   name: "GroupList",
@@ -30,14 +40,20 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      groupToAdd: boardService.getEmptyGroup(),
+      isOnAdd: false,
+    };
   },
   methods: {
-    addGroup(){
-      const group = boardService.getEmptyGroup()
-      console.log("group: ", group);
-      this.$emit('addGroup', group)
-    }
+    addGroup() {
+      this.$emit("addGroup", this.groupToAdd);
+      this.groupToAdd = boardService.getEmptyGroup();
+      this.isOnAdd = false;
+    },
+    toggleIsOnAdd() {
+      this.isOnAdd = !this.isOnAdd;
+    },
   },
   computed: {},
   created() {

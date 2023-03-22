@@ -49,7 +49,7 @@ async function save(board) {
 function getEmptyGroup() {
     return {
         "id": utilService.makeId(),
-        "title": "Group " + utilService.getRandomIntInclusive(0, 1000),
+        "title": "",
         "archivedAt": 0,
         "tasks": [],
         "style": {}
