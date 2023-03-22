@@ -4,7 +4,6 @@ import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'board_db'
-
 export const boardService = {
     query,
     getById,
@@ -63,7 +62,9 @@ function getEmptyBoard() {
         isStarred: false,
         archivedAt: '',
         createdBy: {},
-        style: {},
+        style: {
+            "background-image": `${_getRandomBackground()}`
+        },
         groups: [
             {
                 "id": "g101",
@@ -79,7 +80,8 @@ function getEmptyBoard() {
                         "title": "Add Samples"
                     }
                 ],
-                "style": {}
+                "style": {
+                }
             },
             {
                 "id": "g102",
@@ -135,7 +137,7 @@ function getEmptyBoard() {
                         }
                     }
                 ],
-            
+                
             }
         ],
     }
@@ -149,6 +151,14 @@ return{
 }
 }
 
+
+function _getRandomBackground(){
+    const backgrounds = ["gray","green","light-blue","orenge","preple","pink"]
+    const background =  backgrounds[utilService.getRandomIntInclusive(0,5)]
+    const strHtml= `url(../src/assets/imgs/bgc-basic/${background}.svg)`
+    console.log('strHtml=',strHtml)
+    return strHtml
+}
 
 // TEST DATA
 // ; (async () => {

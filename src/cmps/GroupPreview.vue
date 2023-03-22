@@ -24,7 +24,7 @@
       <footer class="flex">
         <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit = true">Add a card</p>
         <li class="task-preview" v-if="isOnEdit">
-            <textarea v-model="newTask.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"> </textarea>
+            <textarea v-model="newTask.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"  @keydown.enter.prevent="enter"> </textarea>
         </li>
         <span @click="$emit('removed')"></span>
       </footer>

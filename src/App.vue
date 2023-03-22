@@ -1,7 +1,7 @@
 <template>
   <section class="main-app">
-    <AppHeader v-if="!isHomePage"/>
-    <RouterView @showHeader="showHeader"/>
+    <AppHeader v-if="isHomePage"/>
+    <RouterView @toggleHeader="isHomePage=!isHomePage"/>
     <UserMsg/>
   </section>
 </template>
@@ -25,10 +25,6 @@ export default {
     this.$store.dispatch({ type: "loadBoards" });
   },
   methods: {
-    showHeader(){
-      console.log('hye')
-      this.isHomePage=false
-    }
   },
   components: {
     AppHeader,
