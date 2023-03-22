@@ -21,6 +21,19 @@
         header {
             height: em(40px);
             padding-inline: em(16px);
+
+            textarea {
+                background: transparent;
+                border-radius: $border-radius-3;
+                box-shadow: none;
+                font-weight: 600;
+                margin: 0;
+                padding: em(4px) em(8px);
+
+                &:focus{
+                    
+                }
+            }
         }
 
         footer {
@@ -42,7 +55,7 @@
             span {
                 color: $clr-base-4;
                 cursor: pointer;
-                margin: em(2px) em(8px) 0 0; 
+                margin: em(2px) em(8px) 0 0;
                 padding: em(4px);
             }
         }

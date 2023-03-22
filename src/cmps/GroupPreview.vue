@@ -2,16 +2,20 @@
   <li class="group-preview-wrapper">
     <div class="group-preview-content">
       <header class="group-preview-header flex space-between align-center">
-        <h3>{{ group.title }}</h3>
+        <!-- <h3>{{ group.title }}</h3> -->
+
+        <form @submit.prevent>
+          <textarea v-model="group.title" id="w3review" name="w3review" rows="1" cols="50"></textarea>
+        </form>
+
         <span>...</span>
       </header>
 
       <TaskList :tasks="tasks" />
 
       <footer class="flex">
-        <p class="add-a-card"> Add a card</p>
+        <p class="add-a-card">Add a card</p>
         <span className="icon" v-html="getSvg('filter')"></span>
-        
       </footer>
     </div>
   </li>
@@ -19,7 +23,7 @@
 
 <script>
 import TaskList from "../cmps/TaskList.vue";
-import { svgService } from "../services/svg.service.js"
+import { svgService } from "../services/svg.service.js";
 
 export default {
   name: "GroupPreview",

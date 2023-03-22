@@ -1,6 +1,6 @@
 <template>
   <section class="main-app">
-    <!-- <AppHeader /> -->
+    <AppHeader />
     <RouterView/>
     <UserMsg/>
   </section>
