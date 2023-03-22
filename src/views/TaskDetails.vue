@@ -78,7 +78,6 @@ export default {
   },
   methods: {
     enter(ev) {
-      console.log("ev: ", ev);
       ev.preventDefault();
       ev.target.blur();
     },

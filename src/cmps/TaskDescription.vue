@@ -2,8 +2,9 @@
     <article class="task-description">
 
         <h1 class="title"><span class="icon"></span> Description</h1>
-        <button class="btn-add-description" @click="openEdit" v-if="!isDescription && !isEdit">Add more
-            detailed description...</button>
+        <button class="btn-add-description" @click="openEdit" v-if="!isDescription && !isEdit">
+            Add more detailed description...</button>
+
         <div v-else-if="isEdit" class="description-editor">
             <textarea @blur="saveDescription" ref="textarea" v-model="taskDescriptionEdit"
                 placeholder="Add some description"></textarea>
@@ -12,6 +13,7 @@
                 <button class="btn-cancel">Cancel</button>
             </div>
         </div>
+        
         <pre :style="preStyle" v-else @click="openEdit">{{ taskDescriptionEdit }}</pre>
     </article>
 </template>
