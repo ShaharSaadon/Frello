@@ -77,7 +77,9 @@ export default {
     },
     async addTask({newTask, groupId}) {
       console.log('newTask',newTask)
-      console.log('newTask',groupId)
+      console.log('groupId',groupId)
+      this.$store.dispatch({ type: 'addTask', groupId ,newTask })
+
       // try {
       //   await this.$store.dispatch({ type: "addTask", groupId});
       //   showSuccessMsg("Task added");
