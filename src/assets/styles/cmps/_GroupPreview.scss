@@ -20,7 +20,7 @@
 
         header {
             height: em(40px);
-            padding-inline: em(16px);
+            padding-inline: em(8px);
 
             textarea {
                 background: transparent;
@@ -29,6 +29,7 @@
                 font-weight: 600;
                 margin: 0;
                 padding: em(4px) em(8px);
+                resize: none;
 
                 &:focus {
                     overflow: hidden;

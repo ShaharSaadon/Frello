@@ -11,6 +11,7 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
+    removeGroup,
 }
 window.cs = boardService
 
@@ -82,7 +83,7 @@ function getEmptyBoard() {
                         "id": "c104",
                         "title": "Help me",
                         "status": "in-progress", // monday
-                        "priority": "high", 
+                        "priority": "high",
                         "description": "description",
                         "comments": [
                             {
@@ -127,6 +128,14 @@ function getEmptyBoard() {
             }
         ],
     }
+}
+
+
+async function removeGroup(boardId, groupId) {
+    var board = await getById(boardId)
+    const idx = board.groups.findIndex(group => group.id === groupId)
+    board.groups.splice(idx, 1)
+    return await save(board)
 }
 
 

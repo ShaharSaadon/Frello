@@ -13,6 +13,8 @@
 
       <TaskList :tasks="tasks" />
 
+      <button @click="$emit('removed')">x</button>
+
       <footer class="flex">
         <p class="add-a-card">Add a card</p>
         <span className="icon" v-html="getSvg('filter')"></span>

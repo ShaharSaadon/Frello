@@ -3,32 +3,18 @@
     <header class="board-header">
       <h1>Board Details - {{ board.title }}</h1>
     </header>
-    <!-- <pre>{{ board }}</pre> -->
 
-    <GroupList :groups="groups" />
-    <!-- group list ->groupPreview->taskList->taskPreview->taskDetails -->
-
-    <!-- <h3>{{ board.boardname }} score: {{ board.score }}</h3>
-    <img style="max-width: 200px;" :src="board.imgUrl" />
-    <ul>
-      <li v-for="review in board.givenReviews" :key="review._id">
-        {{ review.txt }}
-        <RouterLink :to="`/board/${review.aboutBoard._id}`">
-          About {{ review.aboutBoard.fullname }}
-        </RouterLink>
-      </li>
-    </ul>
-
-    <details>
-      <summary>Full JSON</summary>
-      <pre>{{ board }}</pre>
-    </details> -->
+    <GroupList :groups="groups" @removed="removeGroup" />
   </section>
+
 </template>
 
 <script>
-// import {boardService} from '../services/board.service'
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
+import { boardService } from "../services/board.service.local";
+import { getActionRemoveGroup, getActionUpdateBoard } from "../store/board.store";
 import GroupList from "../cmps/GroupList.vue";
+
 export default {
   data() {
     return {
@@ -43,7 +29,7 @@ export default {
     boardId: {
       handler() {
         if (this.boardId) {
-          this.$store.dispatch({ type: "loadAndWatchBoard", boardId: this.boardId });
+          this.$store.commit({ type: "setWatchedBoardId", boardId: this.boardId });
         }
       },
       immediate: true,
@@ -62,6 +48,29 @@ export default {
   },
   components: {
     GroupList,
+  },
+  methods: {
+    async updateGroup() {
+      try {
+        const board = JSON.parse(JSON.stringify(this.board));
+        board.groups[0].title = prompt("New title?", board.groups[0].title);
+        await this.$store.dispatch(getActionUpdateBoard(board));
+        showSuccessMsg("Board updated");
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot update board");
+      }
+    },
+    async removeGroup(groupId){
+      try {
+        await this.$store.dispatch(getActionRemoveGroup(this.boardId ,groupId));
+        showSuccessMsg("Group removed");
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot remove Group");
+      }
+    }
+
   },
 };
 </script>

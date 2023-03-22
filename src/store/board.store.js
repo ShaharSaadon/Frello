@@ -20,16 +20,35 @@ export function getActionUpdateBoard(board) {
     }
 }
 
+export function getActionRemoveGroup(boardId, groupId) {
+    return {
+        type: 'removeGroup',
+        boardId, groupId
+    }
+}
+export function getActionAddGroup(boardId, group) {
+    return {
+        type: 'addGroup',
+        boardId, group
+    }
+}
+export function getActionUpdateGroup(boardId, group) {
+    return {
+        type: 'updateGroup',
+        boardId, group
+    }
+}
+
 
 export const boardStore = {
     state: {
         boards: [],
-        watchedBoard: null,
+        watchedBoardId: null,
     },
     getters: {
         boards({ boards }) { return boards },
-        watchedBoard({ watchedBoard }) { return watchedBoard },
-        watchedBoardId({ watchedBoard }) { return watchedBoard._id }
+        watchedBoard({boards, watchedBoardId }) { return boards.find(board => board._id === watchedBoardId) },
+        watchedBoardId({ watchedBoardId }) { return watchedBoardId }
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -45,8 +64,8 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
-        setWatchedBoard(state, { board }) {
-            state.watchedBoard = board
+        setWatchedBoardId(state, { boardId }) {
+            state.watchedBoardId = boardId
         },
     },
     actions: {
@@ -88,13 +107,39 @@ export const boardStore = {
                 throw err
             }
         },
-        async loadAndWatchBoard({ commit }, { boardId }) {
-            try {
-                const board = await boardService.getById(boardId)
-                commit({ type: 'setWatchedBoard', board })
 
+
+        // Group
+        async addGroup(context, { boardId, group }) {
+            console.log("group: ", group);
+            console.log("boardId: ", boardId);
+            // try {
+            //     board = await boardService.save(board)
+            //     context.commit(getActionAddBoard(board))
+            //     return board
+            // } catch (err) {
+            //     console.log('boardStore: Error in addBoard', err)
+            //     throw err
+            // }
+        },
+        async updateGroup(context, { boardId, group }) {
+            console.log("group: ", group);
+            console.log("boardId: ", boardId);
+            // try {
+            //     board = await boardService.save(board)
+            //     context.commit(getActionUpdateBoard(board))
+            //     return board
+            // } catch (err) {
+            //     console.log('boardStore: Error in updateBoard', err)
+            //     throw err
+            // }
+        },
+        async removeGroup(context, { boardId, groupId }) {
+            try {
+                var board = await boardService.removeGroup(boardId, groupId)
+                context.commit(getActionUpdateBoard(board))
             } catch (err) {
-                console.log('boardStore: Error in loadAndWatchBoard', err)
+                console.log('boardStore: Error in removeGroup', err)
                 throw err
             }
         },
