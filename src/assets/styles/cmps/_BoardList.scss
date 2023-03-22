@@ -1,0 +1,22 @@
+.board-index {
+    justify-items: start;
+    h1{
+        margin-block-start: em(24px);
+        margin-block-end: em(24px);
+    }
+}
+
+.board-list {
+    display: grid;
+    gap: 10px;
+    // grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    
+    @include mq(boardIndexBreak1) {
+        grid-template-columns: repeat(4, 1fr);
+            }
+    li {
+        border: 1px solid black;
+        height: 96px;
+    }
+}

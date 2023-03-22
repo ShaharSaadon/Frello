@@ -18,13 +18,17 @@
         <span>...</span>
       </header>
 
-      <TaskList :tasks="tasks" :groupId="group.id" />
-      <button @click="$emit('removed')">x</button>
-
+      <TaskList :tasks="tasks" :groupId="group.id"/>
+      <!-- <TaskList :tasks="tasks" :groupId="group.id"/> -->
+      
       <footer class="flex">
-        <p class="add-a-card" @click="$emit('addTask')">Add a card</p>
+        <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit=true" >Add a card</p>
+        <li class="task-preview" v-if="isOnEdit">
+            <textarea v-model="taskToAdd.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"> </textarea>
+        </li>
         <span className="icon" v-html="getSvg('filter')"></span>
       </footer>
+      <button @click="$emit('removed')">x</button>
     </div>
   </li>
 </template>
@@ -32,6 +36,7 @@
 <script>
 import TaskList from "../cmps/TaskList.vue";
 import { svgService } from "../services/svg.service.js";
+import { boardService } from "../services/board.service.local.js";
 
 export default {
   name: "GroupPreview",
@@ -42,20 +47,15 @@ export default {
     },
   },
   data() {
-    return {
-      cloneGroup: { ...this.group },
-    };
+    return {};
   },
   methods: {
     getSvg(iconName) {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      this.$store.dispatch({ type: "addTask", group: this.group });
-    },
-    updateGroup() {
-      this.$emit("updateGroup", this.cloneGroup);
-    },
+      this.$store.dispatch({ type: 'addTask', group: this.group })
+    }
   },
   computed: {
     tasks() {

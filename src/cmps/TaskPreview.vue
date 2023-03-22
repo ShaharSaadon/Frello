@@ -4,7 +4,11 @@
         <RouterLink :to="'/board/' + boardId + '/' + task.id">{{ task.title }}</RouterLink>
         <RouterView :task="task" :groupId="groupId" />
     </li>
+    
+  
 </template>
+
+
 
 <script>
 export default {

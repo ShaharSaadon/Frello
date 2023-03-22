@@ -88,9 +88,8 @@ export const boardStore = {
             console.log("board: ", board);
         },
 
-        // tasks
 
-
+        
     },
     actions: {
         async addBoard(context, { board }) {
@@ -167,13 +166,13 @@ export const boardStore = {
         },
 
         // Task
-        async addTask(context, { groupId }) {
-            
+        async addTask(context, { groupId ,task}) {
+            console.log('groupId=',groupId)
+            console.log('task=',task)
             const savedBoard = await boardService.getById(context.state.watchedBoardId)
             const currGroup = savedBoard.groups.find(g => (g.id === groupId))
-            const newTask = boardService.getEmptyTask()
             
-            currGroup.tasks.push(newTask)
+            currGroup.tasks.push(task)
             
             try {
                 const board = await boardService.save(savedBoard)
