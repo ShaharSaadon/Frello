@@ -63,6 +63,8 @@
             cursor: pointer;
             margin: em(2px) em(8px) 0 0;
             padding: em(4px);
+            @include trello-icon($icon-close, $type: sm);
+
         }
     }
 }

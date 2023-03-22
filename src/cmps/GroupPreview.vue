@@ -12,23 +12,30 @@
             name="w3review"
             rows="1"
             cols="50"
+            @keydown.enter.prevent="enter"
           ></textarea>
         </form>
 
         <span>...</span>
       </header>
 
-      <TaskList :tasks="tasks" :groupId="group.id"/>
+      <TaskList :tasks="tasks" :groupId="group.id" />
       <!-- <TaskList :tasks="tasks" :groupId="group.id"/> -->
-      
+
       <footer class="flex">
-        <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit=true" >Add a card</p>
+        <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit = true">Add a card</p>
         <li class="task-preview" v-if="isOnEdit">
-            <textarea v-model="taskToAdd.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"> </textarea>
+          <textarea
+            v-model="taskToAdd.title"
+            @blur="addTask"
+            placeHolder="Enter a title for this card..."
+            rows="1"
+          >
+          </textarea>
         </li>
-        <span className="icon" v-html="getSvg('filter')"></span>
+        <span @click="$emit('removed')"></span>
       </footer>
-      <button @click="$emit('removed')">x</button>
+      <!-- <button @click="$emit('removed')">x</button> -->
     </div>
   </li>
 </template>
@@ -48,7 +55,7 @@ export default {
   },
   data() {
     return {
-      cloneGroup: {...this.group},
+      cloneGroup: { ...this.group },
       isOnEdit: false,
     };
   },
@@ -57,8 +64,16 @@ export default {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      this.$store.dispatch({ type: 'addTask', group: this.group })
-    }
+      this.$store.dispatch({ type: "addTask", group: this.group });
+    },
+    enter(ev) {
+      ev.preventDefault();
+      ev.target.blur();
+      this.updateGroup();
+    },
+    updateGroup() {
+      this.$emit("updateGroup", this.cloneGroup);
+    },
   },
   computed: {
     tasks() {

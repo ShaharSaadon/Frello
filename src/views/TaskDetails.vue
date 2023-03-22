@@ -6,9 +6,14 @@
         <span></span>
         <div class="title">
           <!-- <h2>{{ rowCount }}</h2> -->
-          <textarea ref="textarea" v-model="taskToEdit.title" @keydown.enter.prevent="enter" hidden></textarea>
+          <textarea
+            ref="textarea"
+            v-model="taskToEdit.title"
+            @keydown.enter.prevent="enter"
+            hidden
+          ></textarea>
         </div>
-        <p>in list {{ task.title }} </p>
+        <p>in list {{ task.title }}</p>
         <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
@@ -20,7 +25,7 @@
           <h3>Suggested</h3>
           <button class="gear"></button>
         </div>
-        <button class="button-link member"> <span> Join</span></button>
+        <button class="button-link member"><span> Join</span></button>
         <h3>Add to card</h3>
 
         <button class="button-link member"><span> Members</span></button>
@@ -35,7 +40,7 @@
         <button class="button-link archive"><span> Archive</span></button>
       </div>
 
-    <h1>{{ backUrl }}</h1>  
+      <h1>{{ backUrl }}</h1>
 
       <button @click="removeTask">x</button>
     </main>
@@ -46,8 +51,8 @@
 // import {boardService} from '../services/board.service'
 // import GroupList from '../cmps/GroupList.vue'
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
-import { svgService } from "../services/svg.service.js"
-import TaskDescription from "../cmps/TaskDescription.vue"
+import { svgService } from "../services/svg.service.js";
+import TaskDescription from "../cmps/TaskDescription.vue";
 
 export default {
   props: {
@@ -58,46 +63,48 @@ export default {
     groupId: {
       type: String,
       required: true,
-    }
+    },
   },
   data() {
     return {
-      taskToEdit: {}
-    }
+      taskToEdit: {},
+    };
   },
   async created() {
-    this.taskToEdit = { ...this.task }
+    this.taskToEdit = { ...this.task };
   },
-  watch: {
-  },
+  watch: {},
   computed: {
     boardId() {
-      return this.$store.getters.watchedBoardId
+      return this.$store.getters.watchedBoardId;
     },
     boardId() {
-      return this.$route.params.id
-    }
+      return this.$route.params.id;
+    },
   },
   methods: {
     enter(ev) {
       console.log("ev: ", ev);
-      ev.preventDefault()
-      ev.target.blur()
+      ev.preventDefault();
+      ev.target.blur();
     },
     async removeTask() {
       try {
-        this.$store.dispatch({ type: 'removeTask', groupId: this.groupId, taskId: this.task.id })
+        this.$store.dispatch({
+          type: "removeTask",
+          groupId: this.groupId,
+          taskId: this.task.id,
+        });
         showSuccessMsg("Task Removed");
-        this.$router.push('/board/' + this.boardId)
-
+        this.$router.push("/board/" + this.boardId);
       } catch (err) {
         console.log(err);
         showErrorMsg("Cannot add Task");
       }
-    }
+    },
   },
   components: {
-    TaskDescription
-  }
-}
+    TaskDescription,
+  },
+};
 </script>
