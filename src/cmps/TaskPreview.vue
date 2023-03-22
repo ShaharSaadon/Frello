@@ -2,17 +2,20 @@
     <li class="task-preview">
         <h1>task-preview</h1>
         <RouterLink :to="'/board/' + boardId + '/' + task.id">{{ task.title }}</RouterLink>
-        <RouterView :task="task"/>
+        <RouterView :task="task" :groupId="groupId" />
     </li>
 </template>
 
 <script>
-
 export default {
     name: 'TaskPreview',
     props: {
         task: {
             type: Object,
+            required: true,
+        },
+        groupId: {
+            type: String,
             required: true,
         }
     },

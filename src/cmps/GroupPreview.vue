@@ -2,24 +2,33 @@
   <li class="group-preview-wrapper">
     <div class="group-preview-content">
       <header class="group-preview-header flex space-between align-center">
-        <h3>{{ group.title }}</h3>
+        <!-- <h3>{{ group.title }}</h3> -->
+
+        <form @submit.prevent>
+          <textarea v-model="group.title" id="w3review" name="w3review" rows="1" cols="50"></textarea>
+        </form>
+
         <span>...</span>
       </header>
 
-      <TaskList :tasks="tasks" />
+      <TaskList :tasks="tasks" :groupId="group.id" />
+  <li class="task-preview">
+    bkabka
+  </li>
+  <button @click="$emit('removed')">x</button>
 
-      <footer class="flex">
-        <p class="add-a-card"> Add a card</p>
-        <span className="icon" v-html="getSvg('filter')"></span>
-        
-      </footer>
-    </div>
+  <footer class="flex">
+    <p class="add-a-card" @click="$emit('addTask')">Add a card</p>
+    <span className="icon" v-html="getSvg('filter')"></span>
+  </footer>
+  </div>
   </li>
 </template>
 
 <script>
 import TaskList from "../cmps/TaskList.vue";
-import { svgService } from "../services/svg.service.js"
+import { svgService } from "../services/svg.service.js";
+
 
 export default {
   name: "GroupPreview",
@@ -36,13 +45,16 @@ export default {
     getSvg(iconName) {
       return svgService.getTrelloSvg(iconName);
     },
+    addTask() {
+      this.$store.dispatch({ type: 'addTask', group: this.group })
+    }
   },
   computed: {
     tasks() {
       return this.group.tasks;
     },
   },
-  created() {},
+  created() { },
   components: {
     TaskList,
   },

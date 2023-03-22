@@ -11,6 +11,8 @@ export const boardService = {
     save,
     remove,
     getEmptyBoard,
+    getEmptyTask,
+    removeGroup,
 }
 window.cs = boardService
 
@@ -43,6 +45,16 @@ async function save(board) {
         savedBoard = await storageService.post(STORAGE_KEY, board)
     }
     return savedBoard
+}
+
+function getEmptyGroup() {
+    return {
+        "id": utilService.makeId(),
+        "title": "Group " + utilService.getRandomIntInclusive(0, 1000),
+        "archivedAt": 0,
+        "tasks": [],
+        "style": {}
+    }
 }
 
 function getEmptyBoard() {
@@ -82,7 +94,7 @@ function getEmptyBoard() {
                         "id": "c104",
                         "title": "Help me",
                         "status": "in-progress", // monday
-                        "priority": "high", 
+                        "priority": "high",
                         "description": "description",
                         "comments": [
                             {
@@ -127,6 +139,14 @@ function getEmptyBoard() {
             }
         ],
     }
+}
+
+function getEmptyTask() {
+return{
+    id: utilService.makeId(),
+    title: 'new task',
+    description: 'description...'
+}
 }
 
 

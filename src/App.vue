@@ -1,7 +1,7 @@
 <template>
   <section class="main-app">
-    <!-- <AppHeader /> -->
-    <RouterView/>
+    <AppHeader/>
+    <RouterView @showHeader="showHeader"/>
     <UserMsg/>
   </section>
 </template>
@@ -22,6 +22,13 @@ export default {
     console.log('Vue App created')
     const user = userService.getLoggedinUser()
     if (user)  store.commit({type: 'setLoggedinUser', user})
+    this.$store.dispatch({ type: "loadBoards" });
+  },
+  methods: {
+    showHeader(){
+      console.log('hye')
+      this.isHomePage=false
+    }
   },
   components: {
     AppHeader,
@@ -29,6 +36,7 @@ export default {
   },
   data() {
     return {
+      isHomePage: true
     }
   },
 }

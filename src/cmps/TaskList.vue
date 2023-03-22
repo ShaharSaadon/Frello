@@ -5,7 +5,7 @@
         v-for="task in tasks"
         :key="task.id"
         :task="task"
-        @removed="$emit('removed', task.id)"
+        :groupId="groupId"
       />
     </ul>
   </section>
@@ -15,16 +15,22 @@
 import TaskPreview from "./TaskPreview.vue";
 export default {
   name: "TaskList",
+  emits: ['removeTask'],
   props: {
     tasks: {
       type: Array,
+      required: true,
+    },
+    groupId: {
+      type: String,
       required: true,
     },
   },
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+      },
   computed: {},
   created() {},
   components: {

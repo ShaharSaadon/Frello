@@ -34,6 +34,9 @@
         <button class="button-link archive"> Archive</button>
       </div>
 
+
+
+      <button @click="removeTask">x</button>
     </main>
   </section>
 </template>
@@ -41,6 +44,7 @@
 <script>
 // import {boardService} from '../services/board.service'
 // import GroupList from '../cmps/GroupList.vue'
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { svgService } from "../services/svg.service.js"
 import  TaskDescription  from "../cmps/TaskDescription.vue"
 
@@ -50,6 +54,10 @@ export default {
       type: Object,
       required: true,
     },
+    groupId: {
+      type: String,
+      required: true,
+    }
   },
   data() {
     return {
@@ -62,13 +70,27 @@ export default {
   watch: {
   },
   computed: {
-  },
+        boardId() {
+            return this.$store.getters.watchedBoardId
+        },
+      },
   methods: {
     enter(ev) {
       console.log("ev: ", ev);
       ev.preventDefault()
       ev.target.blur()
     },
+    async removeTask() {
+      try {
+        this.$store.dispatch({ type: 'removeTask', groupId: this.groupId, taskId: this.task.id })
+        showSuccessMsg("Task Removed");
+        this.$router.push('/board/' + this.boardId)
+
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot add Task");
+      }
+    }
   },
   components: {
     TaskDescription

@@ -20,31 +20,49 @@
 
         header {
             height: em(40px);
-            padding-inline: em(16px);
+            padding-inline: em(8px);
+
+            textarea {
+                background: transparent;
+                border-radius: $border-radius-3;
+                box-shadow: none;
+                font-weight: 600;
+                margin: 0;
+                padding: em(4px) em(8px);
+                resize: none;
+
+                &:focus {
+                    overflow: hidden;
+                    overflow-wrap: break-word;
+                    height: 28px;
+                    background-color: #fff;
+                    box-shadow: inset 0 0 0 2px #0079bf;
+                }
+            }
+        }
+    }
+
+    footer {
+        height: em(38px);
+
+        .add-a-card {
+            border-radius: 3px;
+            color: $clr-base-4;
+            display: block;
+            flex: 1 0 auto;
+            margin: em(2px) 0 em(8px) em(8px);
+            padding: em(4px) em(8px);
+            position: relative;
+            text-decoration: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
-        footer {
-            height: em(38px);
-
-            .add-a-card {
-                border-radius: 3px;
-                color: $clr-base-4;
-                display: block;
-                flex: 1 0 auto;
-                margin: em(2px) 0 em(8px) em(8px);
-                padding: em(4px) em(8px);
-                position: relative;
-                text-decoration: none;
-                -webkit-user-select: none;
-                user-select: none;
-            }
-
-            span {
-                color: $clr-base-4;
-                cursor: pointer;
-                margin: em(2px) em(8px) 0 0; 
-                padding: em(4px);
-            }
+        span {
+            color: $clr-base-4;
+            cursor: pointer;
+            margin: em(2px) em(8px) 0 0;
+            padding: em(4px);
         }
     }
 }
