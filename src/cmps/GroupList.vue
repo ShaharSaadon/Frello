@@ -10,8 +10,8 @@
       </ul>
   </section>
 </template>
-
 <script>
+import {eventBus} from '../services/event-bus.service.js'
 import GroupPreview from "../cmps/GroupPreview.vue";
 export default {
   name: "GroupList",
@@ -26,7 +26,13 @@ export default {
   },
   methods: {},
   computed: {},
-  created() {},
+  created() {
+      eventBus.on('removeTask', taskId =>{
+        console.log('heyThere',taskId)
+        this.$emit('removeTask',taskId,)
+      })
+  
+  },
   components: {
     GroupPreview,
   },

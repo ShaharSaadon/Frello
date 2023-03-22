@@ -1,7 +1,7 @@
 <template>
   <section class="main-app">
-    <AppHeader />
-    <RouterView/>
+    <!-- <AppHeader/> -->
+    <RouterView @showHeader="showHeader"/>
     <UserMsg/>
   </section>
 </template>
@@ -23,12 +23,19 @@ export default {
     const user = userService.getLoggedinUser()
     if (user)  store.commit({type: 'setLoggedinUser', user})
   },
+  methods: {
+    showHeader(){
+      console.log('hye')
+      this.isHomePage=false
+    }
+  },
   components: {
     AppHeader,
     UserMsg
   },
   data() {
     return {
+      isHomePage: true
     }
   },
 }

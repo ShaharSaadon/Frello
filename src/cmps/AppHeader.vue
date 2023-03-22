@@ -1,14 +1,10 @@
 <template>
   <header class="app-header">
     <nav>
-      <RouterLink to="/">
-        <span role="img" aria-label="logo">🙏</span>
-      </RouterLink>
-      <RouterLink to="/car">Cars</RouterLink>
-      <RouterLink to="/board">Board</RouterLink>
-      <RouterLink to="/review">Reviews</RouterLink>
-      <RouterLink to="/chat">Chat</RouterLink>
-      <RouterLink to="/login">Login / Signup</RouterLink>
+      <i className="icon" v-html="getSvg('boxes')"></i>
+      <RouterLink to="/board">Trello</RouterLink>
+    
+      <RouterLink to="/login">Create</RouterLink>
     </nav>
     <section class="loggedin-user" v-if="loggedInUser">
       <RouterLink :to="`/user/${loggedInUser._id}`">
@@ -20,10 +16,16 @@
   </header>
 </template>
 <script>
+import { svgService } from "../services/svg.service.js"
 export default {
   computed: {
     loggedInUser() {
       return this.$store.getters.loggedinUser
+    },
+  },
+  methods: {
+    getSvg(iconName) {
+      return svgService.getTrelloSvg(iconName)
     },
   }
 }

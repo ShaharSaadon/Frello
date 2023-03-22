@@ -48,6 +48,12 @@ export const boardStore = {
         setWatchedBoard(state, { board }) {
             state.watchedBoard = board
         },
+
+
+
+        // tasks
+
+        
     },
     actions: {
         async addBoard(context, { board }) {
@@ -95,6 +101,148 @@ export const boardStore = {
 
             } catch (err) {
                 console.log('boardStore: Error in loadAndWatchBoard', err)
+                throw err
+            }
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // Task
+        async addTask(context, { group }) {
+            try {
+                
+            } catch (err) {
+                console.log('boardStore: Error in addBoard', err)
+                throw err
+            }
+        },
+        async removeTask(context, { boardId }) {
+            try {
+                await boardService.remove(boardId)
+                context.commit(getActionRemoveBoard(boardId))
+            } catch (err) {
+                console.log('boardStore: Error in removeBoard', err)
                 throw err
             }
         },

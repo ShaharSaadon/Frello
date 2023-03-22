@@ -1,7 +1,7 @@
 <template>
-    <header class="home-page-header ">
+    <header class="home-page-header flex space-between">
         <div class="left-nav flex">
-            <div class="logo">Trello</div>
+            <img src="../assets/imgs/trello-logo-gradient-blue-attribution_rgb@2x (1).png">
             <nav class="clean-list flex">
                 <a class="nav-link flex">Features <i className="icon" v-html="getSvg('arrowDown')"></i></a>
                 <a class="nav-link">Solutions <i className="icon" v-html="getSvg('arrowDown')"></i></a>
@@ -11,10 +11,8 @@
             </nav>
         </div>
         <div class="right-nav flex clean-list">
-            <li class="nav-link">Login</li>
-            <li class="nav-link-signup nav-link"><RouterLink to="/board">Get Trello for free</RouterLink></li>
-            
-
+            <a class="nav-link">Login</a>
+            <a class="nav-link-signup nav-link"><RouterLink to="/board">Get Trello for free</RouterLink></a>
         </div>
     </header>
 
@@ -49,7 +47,10 @@ export default {
         getSvg(iconName) {
             return svgService.getTrelloSvg(iconName)
         }
-
+    },
+    unmounted() {
+        console.log('bybye')
+        this.$emit('showHeader')
     },
 
     computed: {

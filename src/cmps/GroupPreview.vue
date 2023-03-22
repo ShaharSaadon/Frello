@@ -11,10 +11,10 @@
         <span>...</span>
       </header>
 
-      <TaskList :tasks="tasks" />
+      <TaskList :tasks="tasks"/>
 
       <footer class="flex">
-        <p class="add-a-card">Add a card</p>
+        <p class="add-a-card" @click="addTask">Add a card</p>
         <span className="icon" v-html="getSvg('filter')"></span>
       </footer>
     </div>
@@ -24,6 +24,7 @@
 <script>
 import TaskList from "../cmps/TaskList.vue";
 import { svgService } from "../services/svg.service.js";
+
 
 export default {
   name: "GroupPreview",
@@ -40,6 +41,9 @@ export default {
     getSvg(iconName) {
       return svgService.getTrelloSvg(iconName);
     },
+    addTask() {
+      this.$store.dispatch({ type: 'addTask', group:this.group })
+    }
   },
   computed: {
     tasks() {

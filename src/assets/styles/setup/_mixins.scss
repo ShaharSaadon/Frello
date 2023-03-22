@@ -5,7 +5,8 @@
 $breakpoints: (
     small: 40em,
     medium: 65em,
-    large: 90em
+    large: 90em,
+    homePageHeader: em(1320px)
 );
 
 @mixin mq($key) {
