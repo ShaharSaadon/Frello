@@ -24,7 +24,6 @@ export default {
   watch: {
     boardId: {
       handler() {
-        console.log("this.boardId: ", this.boardId);
         if (this.boardId) {
           this.$store.commit({ type: "setWatchedBoardId", boardId: this.boardId });
         }
@@ -37,7 +36,6 @@ export default {
       return this.$store.getters.watchedBoard;
     },
     boardId() {
-      console.log("this.$route.params.id:", this.$route.params.id);
       return this.$route.params.id;
     },
     groups() {
