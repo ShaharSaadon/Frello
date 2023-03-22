@@ -1,8 +1,10 @@
 <template>
   <div class="board-index main-container">
     <h1>My Boards</h1>
-    <ul class="board-list clean-list">
+    <ul class="board-list clean-list" >
       <BoardPreview v-for="board in boards" :key="board._id" :board="board"
+      @removeBoard="removeBoard"
+      @updateBoard="updateBoard"
       />
     </ul>
     <hr />

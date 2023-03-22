@@ -1,7 +1,7 @@
 <template>
-  <section v-if="board" class="board-details">
+  <section v-if="board" class="board-details" :style="board.style">
     <header class="board-header">
-      <h1>Board Details - {{ board.title }}</h1>
+      <h1>{{ board.title }}</h1>
     </header>
 
     <GroupList :groups="groups" @updateGroup="updateGroup" @removed="removeGroup" @addGroup="addGroup" @addTask="addTask"/>

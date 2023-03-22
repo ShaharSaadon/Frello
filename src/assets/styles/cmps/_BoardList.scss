@@ -9,14 +9,16 @@
 .board-list {
     display: grid;
     gap: 10px;
-    // grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 160px);
     
-    @include mq(boardIndexBreak1) {
-        grid-template-columns: repeat(4, 1fr);
-            }
+    
+    // @include mq(boardIndexBreak1) {
+    //     grid-template-columns: repeat(4, 1fr);
+    //         }
     li {
         border: 1px solid black;
         height: 96px;
+        border-radius: 3px;
+        width: 100%;
     }
 }
