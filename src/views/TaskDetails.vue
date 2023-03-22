@@ -5,7 +5,6 @@
       <div class="header">
         <span></span>
         <div class="title">
-          <!-- <h2>{{ rowCount }}</h2> -->
           <textarea
             ref="textarea"
             v-model="taskToEdit.title"
@@ -29,7 +28,6 @@
         <h3>Add to card</h3>
 
         <button class="button-link member"><span> Members</span></button>
-
         <button class="button-link label"><span> Labels</span></button>
         <button class="button-link checklist"><span> Checklist</span></button>
         <button class="button-link clock"><span> Dates</span></button>
