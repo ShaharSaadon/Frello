@@ -9,11 +9,11 @@
     overflow-x: scroll;
     margin-inline-start: em(4px);
 
-    .group-preview-container{
+    // .group-preview-container{
 
-        display: inline-block;
-    }
-    // .group-preview-container,
+    //     display: inline-block;
+    // }
+    .group-preview-container,
     .list-group {
         display: inline-block;
         height: 100%;
@@ -100,12 +100,13 @@
     opacity: 0;
 }
 
-// draggable
 .ghost{
-    background-color: #0079bf;
     .group-preview-wrapper{
         .group-preview-content{
-            visibility: hidden;
+            background-color: $placeholder-bgc;
+            * {
+                visibility: hidden;
+            }
         }
     }
 }
