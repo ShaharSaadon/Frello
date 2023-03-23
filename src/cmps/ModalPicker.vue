@@ -1,18 +1,14 @@
 <template>
     <section class="modal-picker">
-        <div class="header">
-            <!-- <h2>{{ modal.title }}</h2> -->
             <component :is="type" :info="info" />
-            
-
-    </div>
     </section>
 </template>
 
 <script>
 import LabelPicker from './ModalsPicker/LabelPicker.vue';
+import MemberPicker from './ModalsPicker/MemberPicker.vue';
 export default {
-    props:{
+    props: {
         type: {
             type: String,
             required: true,
@@ -28,24 +24,34 @@ export default {
 
     },
     computed: {
-        info(){
+        info() {
             switch (this.type) {
                 case 'LabelPicker':
-                    return{
+                    return {
                         label: "labels",
                     }
                     break;
-            
+                case 'MemberPicker':
+                    return {
+                        members: this.board.members,
+                        title: "Members"
+                    }
+                    break;
+
                 default:
                     break;
             }
-        }
+        },
+        board() {
+            return this.$store.getters.watchedBoard;
+        },
     },
     created() {
 
     },
     components: {
-    LabelPicker,
+        LabelPicker,
+        MemberPicker,
     },
 }
 </script>
