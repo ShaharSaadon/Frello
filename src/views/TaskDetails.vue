@@ -46,30 +46,36 @@ import TaskDescription from "../cmps/TaskDescription.vue";
 
 export default {
   props: {
-    task: {
-      type: Object,
-      required: true,
-    },
-    groupId: {
-      type: String,
-      required: true,
+    // task: {
+    //   type: Object,
+    //   required: true,
+    // },
+    // groupId: {
+    //   type: String,
+    //   required: true,
+    // },
+  },
+  watch: {
+    taskId: {
+      handler() {
+        if (this.taskId) {
+          // getter to currTask
+
+          // add groupId when creating task
+          this.$store.commit({ type: "setWatchedBoardId", boardId: this.boardId });
+
+        }
+      },
+      immediate: true,
     },
   },
   data() {
     return {
       taskToEdit: { ...this.task }
+      task: null,
+      groupId: '',
     };
   },
-  // watch: {
-  //   boardId: {
-  //     handler() {
-  //       if (this.boardId) {
-  //         this.$store.commit({ type: "setWatchedBoardId", boardId: this.boardId });
-  //       }
-  //     },
-  //     immediate: true,
-  //   },
-  // },
   computed: {
     boardId() {
       return this.$store.getters.watchedBoardId;
