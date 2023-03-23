@@ -1,5 +1,5 @@
 <template>
-  <li class="group-preview-wrapper">
+  <div class="group-preview-wrapper">
     <div class="group-preview-content">
       <header class="group-preview-header flex space-between align-center">
         <!-- <h3>{{ group.title }}</h3> -->
@@ -30,7 +30,7 @@
       </footer>
       <!-- <button @click="$emit('removed')">x</button> -->
     </div>
-  </li>
+  </div>
 </template>
 
 <script>

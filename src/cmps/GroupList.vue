@@ -12,7 +12,7 @@
         @end="drag = false"
       >
         <template #item="{ element }">
-          <div>
+          <div class="group-preview-container">
             <GroupPreview
               :key="element.id"
               :group="element"
@@ -22,31 +22,33 @@
             />
           </div>
         </template>
-      </Draggable>
-      <li class="group-preview-wrapper container">
-        <transition>
-          <div
-            class="btn-add-another-list flex align-center"
-            v-if="!isOnAdd"
-            @click="isOnAdd = true"
-          >
-            <span class="plus-icon"></span>
-            <span>Add another list</span>
-          </div>
-        </transition>
-
-        <transition>
-          <div v-if="isOnAdd" class="group-preview-content add-new-group">
-            <form @submit.prevent="addGroup" class="flex">
-              <input v-model="groupToAdd.title" placeHolder="Enter list title..." />
-              <div class="flex align-center">
-                <button>Add list</button>
-                <span @click.prevent="isOnAdd = false"></span>
+        <template #footer>
+          <div class="group-preview-wrapper container">
+            <transition>
+              <div
+                class="btn-add-another-list flex align-center"
+                v-if="!isOnAdd"
+                @click="isOnAdd = true"
+              >
+                <span class="plus-icon"></span>
+                <span>Add another list</span>
               </div>
-            </form>
+            </transition>
+
+            <transition>
+              <div v-if="isOnAdd" class="group-preview-content add-new-group">
+                <form @submit.prevent="addGroup" class="flex">
+                  <input v-model="groupToAdd.title" placeHolder="Enter list title..." />
+                  <div class="flex align-center">
+                    <button>Add list</button>
+                    <span @click.prevent="isOnAdd = false"></span>
+                  </div>
+                </form>
+              </div>
+            </transition>
           </div>
-        </transition>
-      </li>
+        </template>
+      </Draggable>
     </div>
   </section>
 </template>

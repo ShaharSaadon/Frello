@@ -1,23 +1,23 @@
 .group-list {
     height: 100%;
+}
 
-    ul {
-        height: 100%;
-        // white-space: nowrap;
-        white-space: nowrap;
-        overflow-x: scroll;
+.draggable-group-list {
+    height: 100%;
+    padding: 0;
+    white-space: nowrap;
+    overflow-x: scroll;
+    margin-inline-start: em(4px);
+
+    .group-preview-container{
+
+        display: inline-block;
     }
-
-    // .col {
-    //     .list-group {
-    //         padding: 0;
-    //         div{
-    //             display: inline-block;
-    //             margin: 0;
-    //         }
-    //     }
-    // }
-
+    // .group-preview-container,
+    .list-group {
+        display: inline-block;
+        height: 100%;
+    }
 
     .container {
         padding: 0;
@@ -45,10 +45,7 @@
                 background-color: $clr-dynamic-button-hovered;
             }
         }
-
     }
-
-
 }
 
 .add-new-group {
@@ -78,7 +75,7 @@
             button {
                 height: 100%;
                 width: rem(72px);
-                margin: 0 rem(9px) 0 0;
+                margin: 0 rem(8px) 0 0;
                 border-radius: $border-radius-3;
                 background-color: $clr-base-8;
                 cursor: pointer;
@@ -89,7 +86,6 @@
                 cursor: pointer;
                 margin-inline-end: em(2px);
             }
-
         }
     }
 }
@@ -104,53 +100,12 @@
     opacity: 0;
 }
 
-.draggable-group-list {
-    height: 100%;
-
-    // height: 100%;
-    padding: 0;
-    white-space: nowrap;
-    overflow-x: scroll;
-
-    div {
-        display: inline-block;
-
-        &:first-child {
-            margin-left: 8px;
+// draggable
+.ghost{
+    background-color: #0079bf;
+    .group-preview-wrapper{
+        .group-preview-content{
+            visibility: hidden;
         }
     }
-
-    .container {
-        padding: 0;
-        position: relative;
-
-        .btn-add-another-list {
-            position: absolute;
-            width: em(272px);
-            background-color: #ffffff3d;
-            cursor: pointer;
-            border-radius: $border-radius-3;
-            min-height: em(32px);
-            padding: em(4px);
-            color: $clr-base-1;
-            padding: em(6px) em(8px);
-            transition: background-color .2s;
-
-            .plus-icon {
-                @include trello-icon($icon-plus, $type: sm);
-                color: $clr-base-1;
-                margin-inline-end: em(2px);
-            }
-
-            &:hover {
-                background-color: $clr-dynamic-button-hovered;
-            }
-        }
-
-    }
-
 }
-
-// .ghost {
-//     background-color: green;
-// }
