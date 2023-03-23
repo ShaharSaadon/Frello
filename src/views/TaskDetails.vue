@@ -4,12 +4,7 @@
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
-          <textarea
-            ref="textarea"
-            v-model="taskToEdit.title"
-            @keydown.enter.prevent="enter"
-            hidden
-          ></textarea>
+          <textarea ref="textarea" v-model="taskToEdit.title" @keydown.enter.prevent="enter" hidden></textarea>
         </div>
         <p>in list {{ task.title }}</p>
         <!-- <pre>{{ task }} </pre> -->
@@ -95,8 +90,17 @@ export default {
         showErrorMsg("Cannot add Task");
       }
     },
-    saveTask({key,newVal}){
+    async saveTask({ key, newVal }) {
       this.taskToEdit[key] = newVal
+      const groupId = this.groupId
+      const task = this.taskToEdit
+      try {
+        this.$store.dispatch({ type: 'saveTask', groupId, task })
+        showSuccessMsg("Task added");
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot add Task");
+      }
     }
   },
   components: {
