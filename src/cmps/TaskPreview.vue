@@ -1,11 +1,11 @@
 <template>
-    <li class="task-preview">
-        <h1>task-preview</h1>
-        <RouterLink :to="'/board/' + boardId + '/' + task.id">{{ task.title }}</RouterLink>
-        <RouterView :task="task" :groupId="groupId" />
-    </li>
-    
-  
+    <RouterLink style="text-decoration: none;" :to="'/board/' + boardId + '/' + task.id">
+        <li class="task-preview">
+            <h2 class="task-preview-title">{{ task.title }}</h2>
+        </li>
+    </RouterLink>
+
+    <RouterView :task="task" :groupId="groupId" />
 </template>
 
 

@@ -18,6 +18,14 @@
             height: em(40px);
             padding-inline: em(8px);
 
+            .three-dot-menu {
+                @include trello-icon($icon-three-dots, $type: md);
+                padding: 6px;
+                font-weight: 400;
+                color: #6b778c;
+
+            }
+
             textarea {
                 background: transparent;
                 border-radius: $border-radius-3;
@@ -26,6 +34,8 @@
                 margin: 0;
                 padding: em(4px) em(8px);
                 resize: none;
+                color: $clr-base-5;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
                 &:focus {
                     overflow: hidden;

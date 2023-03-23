@@ -7,9 +7,17 @@
     display: block;
     margin-bottom: em(8px);
     max-width: em(300px);
-    min-height: em(20px);
+    min-height: rem(20px);
     position: relative;
     z-index: 0;
-
+    
     padding: em(6px) em(8px) em(2px) em(8px);
+    
+    .task-preview-title {
+        line-height: em(20px);
+        font-size: em(14px);
+        font-weight: 400;
+
+    }
+
 }
