@@ -13,6 +13,7 @@
       @updateGroups="updateGroups"
     />
 
+    <RouterView />
   </section>
 </template>
 
@@ -21,12 +22,10 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 import { boardService } from "../services/board.service.local";
 import { getActionRemoveGroup, getActionUpdateBoard } from "../store/board.store";
 import GroupList from "../cmps/GroupList.vue";
- 
 
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   async created() {},
   watch: {
@@ -80,9 +79,9 @@ export default {
         showErrorMsg("Cannot add Group");
       }
     },
-    async saveTask({task, groupId}) {
+    async saveTask({ task, groupId }) {
       try {
-        this.$store.dispatch({ type: 'saveTask', groupId ,task })
+        this.$store.dispatch({ type: "saveTask", groupId, task });
         showSuccessMsg("Task added");
       } catch (err) {
         console.log(err);
@@ -100,7 +99,11 @@ export default {
     },
     async updateGroups(groups) {
       try {
-        await this.$store.dispatch({ type: "updateGroups", boardId: this.boardId, groups });
+        await this.$store.dispatch({
+          type: "updateGroups",
+          boardId: this.boardId,
+          groups,
+        });
         showSuccessMsg("board Drag updated");
       } catch (err) {
         console.log(err);
@@ -110,4 +113,3 @@ export default {
   },
 };
 </script>
-
