@@ -21,6 +21,7 @@
 
       <TaskList :tasks="tasks" :groupId="group.id" />
 
+      
       <footer class="flex">
         <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit = true">Add a card</p>
         <li class="task-preview" v-if="isOnEdit">

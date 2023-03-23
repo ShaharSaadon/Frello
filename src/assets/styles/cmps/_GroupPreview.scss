@@ -39,8 +39,8 @@
     }
 
     footer {
-        height: em(38px);
-
+        // height: em(38px);
+        height: max-content;
         .add-a-card {
             border-radius: 3px;
             color: $clr-base-4;
@@ -62,5 +62,6 @@
             @include trello-icon($icon-close, $type: sm);
 
         }
+
     }
 }
