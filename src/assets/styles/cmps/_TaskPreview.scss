@@ -21,4 +21,31 @@
 
     }
 
+    .action-badges {
+        display: flex;
+        align-items: center;
+        margin-block: em(4px);
+        width: em(26px);
+        height: em(26px);
+        &>*{
+            margin-inline-end: em(4px);
+        }
+
+        .badge-watch {
+            @include trello-icon($icon-eye)
+        }
+        .badge-date {
+            @include trello-icon($icon-clock)
+        }
+        .badge-description {
+            @include trello-icon($icon-description)
+        }
+        .badge-attachments {
+            @include trello-icon($icon-attachment)
+        }
+        .badge-checklist {
+            @include trello-icon($icon-checklist)
+        }
+    }
+
 }
