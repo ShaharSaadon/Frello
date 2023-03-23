@@ -55,7 +55,7 @@ export default {
       immediate: true,
     },
   },
-
+  
   computed: {
     boardId() {
       return this.$store.getters.watchedBoardId;
