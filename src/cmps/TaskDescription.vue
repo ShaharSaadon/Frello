@@ -41,7 +41,8 @@ export default {
     methods: {
         openEdit() {
             this.isEdit = true
-            setTimeout(() => this.$refs.textarea.focus(), 10)
+            // setTimeout(() => this.$refs.textarea.focus(), 10)
+            this.$nextTick(() => this.$refs.textarea.focus())
         },
         saveDescription() {
             this.isEdit = false

@@ -16,7 +16,7 @@
           ></textarea>
         </form>
 
-        <span>...</span>
+        <span class="three-dot-menu"></span>
       </header>
 
       <TaskList :tasks="tasks" :groupId="group.id" />
