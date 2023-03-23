@@ -1,7 +1,9 @@
 <template>
     <article class="task-description">
-
-        <h1 class="title"><span class="icon"></span> Description</h1>
+        <header>
+            <h1 class="title"><span class="icon"></span> Description</h1>
+            <button v-if="isDescription && !isEdit" @click="openEdit" class="btn-edit-description">Edit</button>
+        </header>
         <button class="btn-add-description" @click="openEdit" v-if="!isDescription && !isEdit">
             Add more detailed description...</button>
 
@@ -13,7 +15,7 @@
                 <button class="btn-cancel">Cancel</button>
             </div>
         </div>
-        
+
         <pre :style="preStyle" v-else @click="openEdit">{{ taskDescriptionEdit }}</pre>
     </article>
 </template>
@@ -43,7 +45,7 @@ export default {
         },
         saveDescription() {
             this.isEdit = false
-            this.$emit('saveDescription', { description: this.taskDescriptionEdit })
+            this.$emit('saveDescription', { key: 'description', newVal: this.taskDescriptionEdit })
         }
     },
     computed: {

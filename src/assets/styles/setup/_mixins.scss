@@ -134,3 +134,18 @@ $breakpoints: (
 
 
 }
+
+@mixin btn-main ($bgc: $clr-base-3, $color: $clr-base-5, $bgc-hover: $clr-base-3-hover) {
+    background-color: $bgc;
+    color: $color;
+    margin: 0;
+    padding: 6px 12px;
+    border-radius: 3px;
+    height: 32px;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    &:hover {
+        background-color: $bgc-hover;
+    }
+}

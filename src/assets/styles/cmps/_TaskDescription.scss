@@ -1,12 +1,21 @@
 .task-description {
     @include TaskDetailsCmps($icon-description);
 
+    header {
+        display: flex;
+
+        .btn-edit-description {
+            @include btn-main();
+            margin-inline-start: 8px;
+        }
+    }
+
+
     .btn-add-description {
-        box-sizing: content-box;
         background-color: $clr-base-3;
         color: $clr-dynamic-button-highlighted-text;
         min-height: 40px;
-        padding: 8px 12px;
+        padding: 8px 12px 31px;
         width: 100%;
         text-align: start;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -15,6 +24,8 @@
     }
 
     .description-editor {
+        width: 100%;
+
         textarea {
             height: 223px;
             font-size: 14px;
@@ -24,32 +35,16 @@
         }
 
         .btn-save {
-            background-color: $clr-base-8;
-            &:hover {
-                background-color: $clr-base-8-hover;
-            }
+            @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
         }
-        
+
         .btn-cancel {
-            background-color: $clr-base-2;
-            color: $clr-base-5;
-            &:hover {
-                background-color: $clr-base-3-hover;
-            }
+            @include btn-main($clr-base-2, $clr-base-5, $clr-base-3-hover)
         }
 
         .save-cancel {
             margin: 8px 0 0;
             gap: 4px;
-
-            &>* {
-                margin: 0;
-                padding: 6px 12px;
-                border-radius: 3px;
-                height: 32px;
-                cursor: pointer;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
         }
     }
 
