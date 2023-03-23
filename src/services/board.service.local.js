@@ -151,7 +151,6 @@ return{
 }
 }
 
-
 function _getRandomBackground(){
     const backgrounds = ["gray","green","light-blue","orenge","preple","pink"]
     const background =  backgrounds[utilService.getRandomIntInclusive(0,5)]
