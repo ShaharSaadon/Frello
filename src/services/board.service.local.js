@@ -176,6 +176,7 @@ function _getRandomBackground() {
     return strHtml
 }
 
+
 // TEST DATA
 // ; (async () => {
 //     await storageService.post(STORAGE_KEY, { title: 'Board 1' })

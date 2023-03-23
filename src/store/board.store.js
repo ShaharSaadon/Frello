@@ -19,7 +19,6 @@ export function getActionUpdateBoard(board) {
         board
     }
 }
-
 export function getActionRemoveGroup(boardId, groupId) {
     return {
         type: 'removeGroup',
@@ -38,10 +37,6 @@ export function getActionUpdateGroup(boardId, group) {
         boardId, group
     }
 }
-
-
-
-
 export const boardStore = {
     state: {
         boards: [],
