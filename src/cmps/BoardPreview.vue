@@ -28,9 +28,6 @@ export default {
 
     },
     computed: {
-        // boardId() {
-        //     return this.$store.getters.watchedBoardId
-        // }
     },
     created() {
 
