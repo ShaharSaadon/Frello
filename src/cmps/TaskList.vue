@@ -2,7 +2,7 @@
   <section class="task-list">
     <div class="draggable-task-list">
       <Draggable
-        v-if="tasks.length"
+        
         v-model="taskList"
         class="list-task"
         ghost-class="ghost"
@@ -14,7 +14,7 @@
       >
         <template #item="{ element }">
           <div class="">
-            <TaskPreview :task="element" :groupId="groupId" />
+            <TaskPreview v-if="tasks.length" :task="element" :groupId="groupId" />
           </div>
         </template>
       </Draggable>

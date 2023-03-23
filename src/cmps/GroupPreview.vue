@@ -1,12 +1,12 @@
 <template>
-  <div class="group-preview-wrapper">
+  <div @click="updateGroup" class="group-preview-wrapper">
     <div class="group-preview-content">
       <header class="group-preview-header flex space-between align-center">
         <!-- <h3>{{ group.title }}</h3> -->
 
         <form @submit.prevent="updateGroup">
-          <textarea @blur="updateGroup" v-model="clonedGroup.title" id="w3review" name="w3review" rows="1" cols="50"
-            @keydown.enter.prevent="onEnter"></textarea>
+          <textarea v-model="clonedGroup.title" id="w3review" name="w3review" rows="1" cols="50"
+            @keydown.enter.prevent="updateGroup"></textarea>
         </form>
 
         <span class="three-dot-menu"></span>
@@ -18,7 +18,7 @@
       <footer class="flex">
         <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit = true">Add a card</p>
         <li class="task-preview" v-if="isOnEdit">
-          <textarea v-model="newTask.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"
+          <textarea @click.stop v-model="newTask.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"
             @keydown.enter.prevent="onEnter"> </textarea>
         </li>
         <span @click="$emit('removed')"></span>
