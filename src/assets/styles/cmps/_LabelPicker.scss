@@ -1,0 +1,32 @@
+.label-picker {
+  display: flex;
+  flex-direction: column;
+
+  .label-picker-ops {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .check-box {
+      margin-inline-end: em(6px);
+      box-shadow: 0 0 1px 1px $backdrop;
+      height: em(16px);
+      width: em(16px);
+      &.checked {
+        background-color: $clr-base-8;
+      }
+      svg {
+        fill: $clr-base-1;
+        transform: translate(0, -3px);
+      }
+    }
+
+    .btn-label-tag {
+      width: 212px;
+    }
+
+    .label-tag {
+      @include label-tag($clr-label-green, $clr-label-dark-green);
+    }
+  }
+}

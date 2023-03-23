@@ -3,149 +3,169 @@
 @use 'sass:map';
 
 $breakpoints: (
-    small: 40em,
-    medium: 65em,
-    large: 90em,
-    homePageHeader: em(1320px),
-    boardIndexBreak1: em(900px),
-    boardIndexBreak2: em(750px),
+  small: 40em,
+  medium: 65em,
+  large: 90em,
+  homePageHeader: em(1320px),
+  boardIndexBreak1: em(900px),
+  boardIndexBreak2: em(750px),
 );
 
 @mixin mq($key) {
-    $size: map.get($breakpoints, $key);
+  $size: map.get($breakpoints, $key);
 
-    @media (min-width: $size) {
-        @content
-    }
+  @media (min-width: $size) {
+    @content;
+  }
 }
-
-;
 
 // instructions:
 // body {
 //     @include mq(small) {
 //         background-color: red;
 //     }
-// } 
+// }
 
 @mixin for-mobile-layout {
-    @media (max-width: calc($mobile-breakpoint + 40px)) {
-        @content;
-    }
+  @media (max-width: calc($mobile-breakpoint + 40px)) {
+    @content;
+  }
 }
 
 @mixin for-narrow-layout {
-    @media (min-width: calc($mobile-breakpoint + 40px)) {
-        @content;
-    }
+  @media (min-width: calc($mobile-breakpoint + 40px)) {
+    @content;
+  }
 }
 
 @mixin for-normal-layout {
-    @media (min-width: calc($narrow-breakpoint + 40px)) {
-        @content;
-    }
+  @media (min-width: calc($narrow-breakpoint + 40px)) {
+    @content;
+  }
 }
 
 @mixin for-wide-layout {
-    @media (min-width: calc($normal-breakpoint + 40px)) {
-        @content;
-    }
+  @media (min-width: calc($normal-breakpoint + 40px)) {
+    @content;
+  }
 }
 
 /* Media  Mixins */
 @mixin aspect-ratio($width, $height) {
-    position: relative;
-    // overflow: hidden;
+  position: relative;
+  // overflow: hidden;
 
-    &::before {
-        display: block;
-        content: "";
-        width: 100%;
-        padding-top: calc(($height / $width) * 100%);
-    }
+  &::before {
+    display: block;
+    content: '';
+    width: 100%;
+    padding-top: calc(($height / $width) * 100%);
+  }
 
-    >* {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 
-    >img {
-        height: 100%;
-        object-fit: cover;
-    }
+  > img {
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 // Mixin for removing hover efects on iphone screen
 @mixin hover-supported {
-    @media not all and (pointer: coarse) {
-        &:hover {
-            @content;
-        }
+  @media not all and (pointer: coarse) {
+    &:hover {
+      @content;
     }
+  }
 }
 
-@mixin trello-icon($content: "", $type: sm) {
-    font-family: "trellicons";
-    color: #42526e;
+@mixin trello-icon($content: '', $type: sm) {
+  font-family: 'trellicons';
+  color: #42526e;
 
-    @if $type ==sm {
-        font-size: 1rem;
-    }
+  @if $type ==sm {
+    font-size: 1rem;
+  } @else if $type ==md {
+    font-size: 1.25rem;
+  } @else if $type ==lg {
+    font-size: 1.5rem;
+  }
 
-    @else if $type ==md {
-        font-size: 1.25rem;
-    }
+  &::before {
+    content: $content;
+  }
+}
 
-    @else if $type ==lg {
-        font-size: 1.5rem;
-    }
+@mixin TaskDetailsCmps($content: '') {
+  margin-inline-start: $cmp-margin-left;
+  margin-bottom: $cmp-margin-bottom;
+  position: relative;
+
+  .icon {
+    @include trello-icon($content, $type: lg);
 
     &::before {
-        content: $content;
+      position: absolute;
+      left: -36px;
+      top: 3px;
+      font-weight: 400;
     }
+  }
+
+  .title {
+    font-size: rem(16px);
+    font-weight: 600;
+    margin-bottom: rem(18px);
+  }
 }
 
-@mixin TaskDetailsCmps($content: "") {
-    margin-inline-start: $cmp-margin-left;
-    margin-bottom: $cmp-margin-bottom;
-    position: relative;
+@mixin btn-main($bgc: $clr-base-3, $color: $clr-base-5, $bgc-hover: $clr-base-3-hover) {
+  background-color: $bgc;
+  color: $color;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 3px;
+  height: 32px;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-
-    .icon {
-        @include trello-icon($content, $type: lg);
-
-        &::before {
-            position: absolute;
-            left: -36px;
-            top: 3px;
-            font-weight: 400;
-        }
-
-    }
-
-    .title {
-        font-size: rem(16px);
-        font-weight: 600;
-        margin-bottom: rem(18px);
-    }
-
-
+  &:hover {
+    background-color: $bgc-hover;
+  }
 }
 
-@mixin btn-main ($bgc: $clr-base-3, $color: $clr-base-5, $bgc-hover: $clr-base-3-hover) {
-    background-color: $bgc;
-    color: $color;
-    margin: 0;
-    padding: 6px 12px;
-    border-radius: 3px;
-    height: 32px;
-    cursor: pointer;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+@mixin label-tag($color, $color-dark) {
+  display: inline-block;
+  background-color: $color;
+  position: relative;
+  margin-bottom: 0;
+  border-radius: 3px;
+  padding: 0 12px 0 32px;
+  max-width: 100%;
+  min-width: 48px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-    &:hover {
-        background-color: $bgc-hover;
-    }
+  &::before {
+    content: '';
+    background-color: $color-dark;
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 8px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+  }
 }
