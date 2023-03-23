@@ -22,7 +22,7 @@
         <button class="btn-link member"><span> Join</span></button>
         <h3>Add to card</h3>
 
-        <button class="btn-link member"><span> Members</span></button>
+        <button class="btn-link member" @click="openModal('MemberPicker')"><span> Members</span></button>
         <button class="btn-link label" @click="openModal('LabelPicker')"><span> Labels</span></button>
         <button class="btn-link checklist"><span> Checklist</span></button>
         <button class="btn-link clock"><span> Dates</span></button>

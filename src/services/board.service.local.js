@@ -4,6 +4,9 @@ import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'board_db'
+const USER_KEY = 'user_db'
+_createUsers()
+
 export const boardService = {
     query,
     getById,
@@ -15,7 +18,6 @@ export const boardService = {
     saveTask,
 }
 window.cs = boardService
-
 
 async function query(filterBy = { txt: '' }) {
     // TDOD: Add Filtering
@@ -47,14 +49,14 @@ async function save(board) {
     return savedBoard
 }
 
-async function saveTask(boardId, groupId, task) {   
+async function saveTask(boardId, groupId, task) {
     const board = await getById(boardId)
     const currGroup = board.groups.find(group => (group.id === groupId))
     if (!task.id) {
         task.id = utilService.makeId()
         currGroup.tasks.push(task)
     } else {
-        task.groupId=groupId
+        task.groupId = groupId
         const idx = currGroup.tasks.findIndex(t => t.id === task.id)
         currGroup.tasks.splice(idx, 1, task)
     }
@@ -158,7 +160,8 @@ function getEmptyBoard() {
                 ],
 
             }
-        ],
+        ],  
+        members:_createUsers()  
     }
 }
 
@@ -175,6 +178,36 @@ function _getRandomBackground() {
     const strHtml = `url(../src/assets/imgs/bgc-basic/${background}.svg)`
     return strHtml
 }
+
+function _createUsers() {
+    let users = JSON.parse(localStorage.getItem(USER_KEY))
+    if (!users || !users.length) {
+        users = [
+            {
+                "_id": "u100",
+                "fullname": "Shahar Saadon",
+                "username": "ShaharSaadon1",
+                "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png",
+            },
+            {
+                "_id": "u101",
+                "fullname": "עידו פרי",
+                "username": "idoperi104",
+                "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png",
+            },
+            {
+                "_id": "u101",
+                "fullname": "Tomer Huberman",
+                "username": "user15656051",
+                "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png",
+            },
+        ]
+        localStorage.setItem(USER_KEY, JSON.stringify(users))
+    }
+    return users
+}
+
+
 
 
 // TEST DATA
