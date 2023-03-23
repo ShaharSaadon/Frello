@@ -1,5 +1,5 @@
 <template>
-  <section class="task-details" @click.stop>
+  <section class="task-details">
     <main class="container">
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
