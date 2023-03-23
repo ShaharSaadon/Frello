@@ -19,7 +19,6 @@ export function getActionUpdateBoard(board) {
         board
     }
 }
-
 export function getActionRemoveGroup(boardId, groupId) {
     return {
         type: 'removeGroup',

@@ -4,21 +4,13 @@
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
-          <textarea
-            @blur="saveTask"
-            ref="textarea"
-            v-model="task.title"
-            @keydown.enter.prevent="onEnter"
-          ></textarea>
+          <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
         <p>in list {{ task.title }}</p>
         <pre>{{ task }} </pre>
       </div>
       <div class="main-content">
-        <TaskDescription
-          @saveDescription="saveTask"
-          :taskDescription="task.description"
-        />
+        <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
 
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
       </div>
@@ -31,7 +23,7 @@
         <h3>Add to card</h3>
 
         <button class="btn-link member"><span> Members</span></button>
-        <button class="btn-link label"><span> Labels</span></button>
+        <button class="btn-link label" @click="openModal('LabelPicker')"><span> Labels</span></button>
         <button class="btn-link checklist"><span> Checklist</span></button>
         <button class="btn-link clock"><span> Dates</span></button>
         <button class="btn-link attachment"><span> Attachment</span></button>
@@ -42,6 +34,7 @@
           <span> Archive</span>
         </button>
       </div>
+      <ModalPicker v-if="isModalOpen" :type="modal.type" />
     </main>
   </section>
 </template>
@@ -52,6 +45,7 @@
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 import { svgService } from "../services/svg.service.js"
 import TaskDescription from "../cmps/TaskDescription.vue"
+import ModalPicker from "../cmps/ModalPicker.vue"
 
 export default {
   watch: {
@@ -69,7 +63,14 @@ export default {
       immediate: true,
     },
   },
-  
+  data() {
+    return {
+      isModalOpen: false,
+      modal: {
+        type: '',
+    }
+    }
+  },
   computed: {
     boardId() {
       return this.$store.getters.watchedBoardId
@@ -116,9 +117,14 @@ export default {
         showErrorMsg("Cannot add Task")
       }
     },
+    openModal(cmpType) {
+      this.modal.type=cmpType
+      this.isModalOpen = true
+    }
   },
   components: {
     TaskDescription,
+    ModalPicker,
   },
 }
 </script>
