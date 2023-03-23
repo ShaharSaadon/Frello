@@ -54,6 +54,7 @@ async function saveTask(boardId, groupId, task) {
         task.id = utilService.makeId()
         currGroup.tasks.push(task)
     } else {
+        task.groupId=groupId
         const idx = currGroup.tasks.findIndex(t => t.id === task.id)
         currGroup.tasks.splice(idx, 1, task)
     }

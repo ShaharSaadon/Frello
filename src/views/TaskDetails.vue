@@ -1,5 +1,5 @@
 <template>
-  <section class="task-details">
+  <section class="task-details" @click.stop>
     <main class="container">
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
@@ -45,41 +45,31 @@ import { svgService } from "../services/svg.service.js";
 import TaskDescription from "../cmps/TaskDescription.vue";
 
 export default {
-  props: {
-    // task: {
-    //   type: Object,
-    //   required: true,
-    // },
-    // groupId: {
-    //   type: String,
-    //   required: true,
-    // },
-  },
   watch: {
     taskId: {
       handler() {
         if (this.taskId) {
-          // getter to currTask
-
-          // add groupId when creating task
-          this.$store.commit({ type: "setWatchedBoardId", boardId: this.boardId });
-
+          this.$store.commit({ type: "setCurrTask", boardId: this.boardId, groupId: this.groupId, taskId:this.taskId });
         }
       },
       immediate: true,
     },
   },
-  data() {
-    return {
-      taskToEdit: { ...this.task },
-      task: null,
-      groupId: '',
-    };
-  },
   computed: {
     boardId() {
       return this.$store.getters.watchedBoardId;
     },
+    groupId() {
+      const {groupId} = this.$route.params;
+      return groupId;
+    },
+    taskId() {
+      const {taskId} = this.$route.params;
+      return taskId;
+    },
+    task(){
+      return {...this.$store.getters.currTask}
+    }
   },
   methods: {
     onEnter(ev) {
@@ -100,9 +90,9 @@ export default {
       }
     },
     async saveTask({ key, newVal }) {
-      this.taskToEdit[key] = newVal
+      this.task[key] = newVal
       const groupId = this.groupId
-      const task = this.taskToEdit
+      const task = this.task
       try {
         this.$store.dispatch({ type: 'saveTask', groupId, task })
         showSuccessMsg("Task added");
