@@ -46,13 +46,15 @@ export const boardStore = {
     state: {
         boards: [],
         watchedBoardId: null,
+        currTask : null
     },
     getters: {
         boards({ boards }) { return boards },
         watchedBoard({ boards, watchedBoardId }) {
             return boards.find(board => board._id === watchedBoardId)
         },
-        watchedBoardId({ watchedBoardId }) { return watchedBoardId }
+        watchedBoardId({ watchedBoardId }) { return watchedBoardId },
+        currTask({ currTask }) { return currTask },
     },
     mutations: {
         setBoards(state, { boards }) {
@@ -70,6 +72,12 @@ export const boardStore = {
         },
         setWatchedBoardId(state, { boardId }) {
             state.watchedBoardId = boardId
+        },
+        setCurrTask(state, { boardId,groupId,taskId }) {
+            var board = state.boards.find(board => board._id === boardId)
+            var group = board.groups.find(group => group.id === groupId)
+            var task = group.tasks.find(task => task.id === taskId)
+            state.currTask = task
         },
         updateGroups(state, { boardId, groups }) {
             var board = state.boards.find(board => board._id === boardId)
