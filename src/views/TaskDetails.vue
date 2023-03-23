@@ -34,7 +34,9 @@
           <span> Archive</span>
         </button>
       </div>
-      <ModalPicker v-if="isModalOpen" :type="modal.type" />
+      <ModalPicker v-if="isModalOpen" :type="modal.type" 
+      
+      />
     </main>
   </section>
 </template>

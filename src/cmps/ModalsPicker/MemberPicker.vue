@@ -5,7 +5,8 @@
         <input type="text" placeholder="Search Labels..." class="search-members">
         <p>Board members</p>
         <ul class="clean-list members flex column">
-            <li v-for="member in info.members" :key="member._id" :member="member" class="member-select flex" @click="addMember(member)">
+            <li v-for="member in info.members" :key="member._id" :member="member" class="member-select flex"
+                @click="$emit('toggleMember',member)">
                 <img :src="member.imgUrl" class="member-profile">
                 <p>{{ member.fullname }}({{ member.username }})</p>
             </li>
@@ -30,9 +31,9 @@ export default {
         }
     },
     methods: {
-    addMember(member){
-        this.$emit('addMember',member)
-    }
+        addMember(member) {
+            this.$emit('addMember', member)
+        }
     },
     computed: {
 

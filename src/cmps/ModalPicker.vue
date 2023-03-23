@@ -1,6 +1,7 @@
 <template>
     <section class="modal-picker">
-            <component :is="type" :info="info" />
+            <component :is="type" :info="info" 
+            @updateTask="$emit('toggleMember',member)"/>
     </section>
 </template>
 
