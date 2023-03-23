@@ -4,8 +4,8 @@
             <h2 class="task-preview-title">{{ task.title }}</h2>
         </li>
     </RouterLink>
-
     <RouterView :task="task" :groupId="groupId" />
+
 </template>
 
 

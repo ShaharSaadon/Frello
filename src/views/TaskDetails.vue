@@ -4,7 +4,7 @@
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
-          <textarea ref="textarea" v-model="taskToEdit.title" @keydown.enter.prevent="enter" hidden></textarea>
+          <textarea ref="textarea" v-model="task.title" @keydown.enter.prevent="enter" hidden></textarea>
         </div>
         <p>in list {{ task.title }}</p>
         <!-- <pre>{{ task }} </pre> -->

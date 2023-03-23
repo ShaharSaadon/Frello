@@ -1,7 +1,7 @@
 <template>
     <header class="home-page-header flex space-between">
         <div class="left-nav flex">
-            <img src="" alt="">
+            <img src="../assets/imgs/trello-logo-gradient-blue-attribution_rgb@2x (1).png" alt="">
             <nav class="clean-list flex">
                 <a class="nav-link flex">Features <i className="icon" v-html="getSvg('arrowDown')"></i></a>
                 <a class="nav-link">Solutions <i className="icon" v-html="getSvg('arrowDown')"></i></a>

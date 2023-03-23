@@ -1,11 +1,15 @@
-.board-details{
+.board-details {
     display: flex;
     flex-direction: column;
     height: 100%;
 
-    .board-header{
+    .board-header {
         background-color: inherit;
         height: 3em; // need to remove
+    }
+
+    h1 {
+        color: $clr6
     }
 
 }
