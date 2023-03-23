@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      taskToEdit: { ...this.task }
+      taskToEdit: { ...this.task },
       task: null,
       groupId: '',
     };
