@@ -27,8 +27,8 @@
             <transition>
               <div
                 class="btn-add-another-list flex align-center"
-                v-if="!isOnAdd"
-                @click="isOnAdd = true"
+                v-if="!isAddOpen"
+                @click="isAddOpen = true"
               >
                 <span class="plus-icon"></span>
                 <span>Add another list</span>
@@ -36,12 +36,12 @@
             </transition>
 
             <transition>
-              <div v-if="isOnAdd" class="group-preview-content add-new-group">
+              <div v-if="isAddOpen" class="group-preview-content add-new-group">
                 <form @submit.prevent="addGroup" class="flex">
                   <input v-model="groupToAdd.title" placeHolder="Enter list title..." />
                   <div class="flex align-center">
                     <button>Add list</button>
-                    <span @click.prevent="isOnAdd = false"></span>
+                    <span @click.prevent="isAddOpen = false"></span>
                   </div>
                 </form>
               </div>
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       groupToAdd: boardService.getEmptyGroup(),
-      isOnAdd: false,
+      isAddOpen: false,
       drag: false,
     };
   },
@@ -78,10 +78,10 @@ export default {
       if (!this.groupToAdd.title) return;
       this.$emit("addGroup", this.groupToAdd);
       this.groupToAdd = boardService.getEmptyGroup();
-      this.isOnAdd = false;
+      this.isAddOpen = false;
     },
-    toggleIsOnAdd() {
-      this.isOnAdd = !this.isOnAdd;
+    toggleIsAddOpen() {
+      this.isAddOpen = !this.isAddOpen;
     },
   },
   computed: {

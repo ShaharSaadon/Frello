@@ -4,13 +4,14 @@
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
-          <textarea ref="textarea" v-model="task.title" @keydown.enter.prevent="enter" hidden></textarea>
+          <textarea ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
         <p>in list {{ task.title }}</p>
-        <!-- <pre>{{ task }} </pre> -->
+        <pre>{{ task }} </pre>
       </div>
       <div class="main-content">
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
+        
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
       </div>
       <div class="sidebar flex">
@@ -18,18 +19,18 @@
           <h3>Suggested</h3>
           <button class="gear"></button>
         </div>
-        <button class="button-link member"><span> Join</span></button>
+        <button class="btn-link member"><span> Join</span></button>
         <h3>Add to card</h3>
 
-        <button class="button-link member"><span> Members</span></button>
-        <button class="button-link label"><span> Labels</span></button>
-        <button class="button-link checklist"><span> Checklist</span></button>
-        <button class="button-link clock"><span> Dates</span></button>
-        <button class="button-link attachment"><span> Attachment</span></button>
-        <button class="button-link card-cover"><span> Cover</span></button>
+        <button class="btn-link member"><span> Members</span></button>
+        <button class="btn-link label"><span> Labels</span></button>
+        <button class="btn-link checklist"><span> Checklist</span></button>
+        <button class="btn-link clock"><span> Dates</span></button>
+        <button class="btn-link attachment"><span> Attachment</span></button>
+        <button class="btn-link card-cover"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
         <h3>Actions</h3>
-        <button @click="removeTask" class="button-link archive"><span> Archive</span></button>
+        <button @click="removeTask" class="btn-link archive"><span> Archive</span></button>
       </div>
 
     </main>
@@ -56,24 +57,26 @@ export default {
   },
   data() {
     return {
-      taskToEdit: {},
+      taskToEdit: { ...this.task }
     };
   },
-  async created() {
-    this.taskToEdit = { ...this.task };
-  },
-  watch: {},
+  // watch: {
+  //   boardId: {
+  //     handler() {
+  //       if (this.boardId) {
+  //         this.$store.commit({ type: "setWatchedBoardId", boardId: this.boardId });
+  //       }
+  //     },
+  //     immediate: true,
+  //   },
+  // },
   computed: {
     boardId() {
       return this.$store.getters.watchedBoardId;
     },
-    boardId() {
-      return this.$route.params.id;
-    },
   },
   methods: {
-    enter(ev) {
-      ev.preventDefault();
+    onEnter(ev) {
       ev.target.blur();
     },
     async removeTask() {

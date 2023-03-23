@@ -6,10 +6,11 @@
     .board-header {
         background-color: inherit;
         height: 3em; // need to remove
+        h1 {
+            color: $clr6
+        }
     }
 
-    h1 {
-        color: $clr6
-    }
+    
 
 }

@@ -187,15 +187,14 @@ export const boardStore = {
             }
 
         },
-        async removeTask(context, { groupId, taskId }) {
-            const currBoardId = context.state.watchedBoardId
-            const savedBoard = await boardService.getById(currBoardId)
+        async removeTask({commit,getters}, { groupId, taskId }) {
+            const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
             const currGroup = savedBoard.groups.find(g => (g.id === groupId))
             const taskIdx = currGroup.tasks.findIndex(task => (task.id = taskId))
             currGroup.tasks.splice(taskIdx, 1)
             try {
                 const board = await boardService.save(savedBoard)
-                context.commit(getActionUpdateBoard(board))
+                commit(getActionUpdateBoard(board))
                 return board
             } catch (err) {
                 console.log('boardStore: Error in delete Task', err)

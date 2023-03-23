@@ -5,15 +5,8 @@
         <!-- <h3>{{ group.title }}</h3> -->
 
         <form @submit.prevent="updateGroup">
-          <textarea
-            @blur="updateGroup"
-            v-model="cloneGroup.title"
-            id="w3review"
-            name="w3review"
-            rows="1"
-            cols="50"
-            @keydown.enter.prevent="enter"
-          ></textarea>
+          <textarea @blur="updateGroup" v-model="clonedGroup.title" id="w3review" name="w3review" rows="1" cols="50"
+            @keydown.enter.prevent="onEnter"></textarea>
         </form>
 
         <span class="three-dot-menu"></span>
@@ -21,11 +14,12 @@
 
       <TaskList :tasks="tasks" :groupId="group.id" />
 
-      
+
       <footer class="flex">
         <p v-if="!isOnEdit" class="add-a-card" @click="isOnEdit = true">Add a card</p>
         <li class="task-preview" v-if="isOnEdit">
-            <textarea v-model="newTask.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"  @keydown.enter.prevent="enter"> </textarea>
+          <textarea v-model="newTask.title" @blur="addTask" placeHolder="Enter a title for this card..." rows="1"
+            @keydown.enter.prevent="onEnter"> </textarea>
         </li>
         <span @click="$emit('removed')"></span>
       </footer>
@@ -49,7 +43,7 @@ export default {
   },
   data() {
     return {
-      cloneGroup: { ...this.group },
+      clonedGroup: { ...this.group },
       isOnEdit: false,
       newTask: boardService.getEmptyTask(),
 
@@ -60,17 +54,16 @@ export default {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      this.$emit("saveTask", {groupId:this.group.id,task:this.newTask});
+      this.$emit("saveTask", { groupId: this.group.id, task: this.newTask });
       this.newTask = boardService.getEmptyTask();
       this.isOnEdit = false;
     },
-    enter(ev){
-      ev.preventDefault();
+    onEnter(ev) {
       ev.target.blur();
       this.updateGroup()
     },
-    updateGroup(){
-      this.$emit('updateGroup', this.cloneGroup)
+    updateGroup() {
+      this.$emit('updateGroup', this.clonedGroup)
     }
   },
   computed: {
@@ -78,7 +71,7 @@ export default {
       return this.group.tasks;
     },
   },
-  created() {},
+  created() { },
   components: {
     TaskList,
   },

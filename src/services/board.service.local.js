@@ -47,7 +47,7 @@ async function save(board) {
     return savedBoard
 }
 
-async function saveTask(boardId, groupId, task) {
+async function saveTask(boardId, groupId, task) {   
     const board = await getById(boardId)
     const currGroup = board.groups.find(group => (group.id === groupId))
     if (!task.id) {
@@ -66,11 +66,11 @@ async function saveTask(boardId, groupId, task) {
 
 function getEmptyGroup() {
     return {
-        "id": utilService.makeId(),
-        "title": "",
-        "archivedAt": 0,
-        "tasks": [],
-        "style": {}
+        id: utilService.makeId(),
+        title: '',
+        archivedAt: 0,
+        tasks: [],
+        style: {}
     }
 }
 
@@ -88,7 +88,7 @@ function getEmptyBoard() {
                 "id": "g101",
                 "title": "Group 1",
                 "archivedAt": 1589983468418,
-                "tasks": [
+                tasks: [
                     {
                         "id": "c101",
                         "title": "Replace logo"

@@ -62,17 +62,6 @@ export default {
     GroupList,
   },
   methods: {
-    // async updateGroup() {
-    //   try {
-    //     const board = JSON.parse(JSON.stringify(this.board));
-    //     board.groups[0].title = prompt("New title?", board.groups[0].title);
-    //     await this.$store.dispatch(getActionUpdateBoard(board));
-    //     showSuccessMsg("Board updated");
-    //   } catch (err) {
-    //     console.log(err);
-    //     showErrorMsg("Cannot update board");
-    //   }
-    // },
     async removeGroup(groupId) {
       try {
         await this.$store.dispatch(getActionRemoveGroup(this.boardId, groupId));
@@ -101,7 +90,6 @@ export default {
       }
     },
     async updateGroup(group) {
-      group = { ...group };
       try {
         await this.$store.dispatch({ type: "updateGroup", boardId: this.boardId, group });
         showSuccessMsg("group updated");
@@ -111,7 +99,6 @@ export default {
       }
     },
     async updateGroups(groups) {
-      groups = JSON.parse(JSON.stringify(groups))
       try {
         await this.$store.dispatch({ type: "updateGroups", boardId: this.boardId, groups });
         showSuccessMsg("board Drag updated");
