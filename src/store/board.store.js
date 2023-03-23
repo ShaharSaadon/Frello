@@ -40,8 +40,6 @@ export function getActionUpdateGroup(boardId, group) {
 }
 
 
-
-
 export const boardStore = {
     state: {
         boards: [],
@@ -98,6 +96,13 @@ export const boardStore = {
             const idx = board.groups.findIndex(g => g.id === group.id)
             board.groups.splice(idx, 1, group)
         },
+        updateTasksPos(state, { groupId, tasks }){
+            console.log("tasks: ", tasks);
+            console.log("groupId: ", groupId);
+            const board = state.boards.find(board => board._id === state.watchedBoardId)
+            const group = board.groups.find(group => group.id === groupId)
+            group.tasks = tasks
+        }
 
 
 
@@ -209,6 +214,16 @@ export const boardStore = {
                 throw err
             }
         },
+
+        async updateTasksPos(context, { groupId, tasks }){
+            try {
+                context.commit({ type: 'updateTasksPos', groupId, tasks })
+                context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+            } catch (err) {
+                console.log('boardStore: Error in removeGroup', err)
+                throw err
+            }
+        }
 
     }
 }

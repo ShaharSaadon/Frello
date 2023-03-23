@@ -11,6 +11,7 @@
       @addGroup="addGroup"
       @saveTask="saveTask"
       @updateGroups="updateGroups"
+      @updateTasksPos="updateTasksPos"
     />
 
 
@@ -103,6 +104,15 @@ export default {
     async updateGroups(groups) {
       try {
         await this.$store.dispatch({ type: "updateGroups", boardId: this.boardId, groups });
+        showSuccessMsg("board Drag updated");
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot Drag group");
+      }
+    },
+    async updateTasksPos({tasks, groupId}) {
+      try {
+        await this.$store.dispatch({ type: "updateTasksPos", groupId, tasks });
         showSuccessMsg("board Drag updated");
       } catch (err) {
         console.log(err);

@@ -19,17 +19,14 @@
               @removed="$emit('removed', element.id)"
               @saveTask="$emit('saveTask', $event)"
               @updateGroup="$emit('updateGroup', $event)"
+              @updateTasksPos="updateTasksPos"
             />
           </div>
         </template>
         <template #footer>
           <div class="group-preview-wrapper container">
             <transition>
-              <div
-                class="btn-add-another-list flex align-center"
-                v-if="!isAddOpen"
-                @click="isAddOpen = true"
-              >
+              <div class="btn-add-another-list flex align-center" v-if="!isAddOpen" @click="isAddOpen = true">
                 <span class="plus-icon"></span>
                 <span>Add another list</span>
               </div>
@@ -53,13 +50,13 @@
   </section>
 </template>
 <script>
-import { eventBus } from "../services/event-bus.service.js";
-import { boardService } from "../services/board.service.local.js";
-import GroupPreview from "../cmps/GroupPreview.vue";
-import Draggable from "vuedraggable";
+import { eventBus } from '../services/event-bus.service.js'
+import { boardService } from '../services/board.service.local.js'
+import GroupPreview from '../cmps/GroupPreview.vue'
+import Draggable from 'vuedraggable'
 
 export default {
-  name: "GroupList",
+  name: 'GroupList',
   props: {
     groups: {
       type: Array,
@@ -71,26 +68,29 @@ export default {
       groupToAdd: boardService.getEmptyGroup(),
       isAddOpen: false,
       drag: false,
-    };
+    }
   },
   methods: {
     addGroup() {
-      if (!this.groupToAdd.title) return;
-      this.$emit("addGroup", this.groupToAdd);
-      this.groupToAdd = boardService.getEmptyGroup();
-      this.isAddOpen = false;
+      if (!this.groupToAdd.title) return
+      this.$emit('addGroup', this.groupToAdd)
+      this.groupToAdd = boardService.getEmptyGroup()
+      this.isAddOpen = false
     },
     toggleIsAddOpen() {
-      this.isAddOpen = !this.isAddOpen;
+      this.isAddOpen = !this.isAddOpen
+    },
+    updateTasksPos({ tasks, groupId }) {
+      this.$emit('updateTasksPos', { tasks, groupId })
     },
   },
   computed: {
     groupList: {
       get() {
-        return this.groups;
+        return this.groups
       },
       set(groups) {
-        this.$emit("updateGroups", groups);
+        this.$emit('updateGroups', groups)
       },
     },
   },
@@ -99,5 +99,5 @@ export default {
     GroupPreview,
     Draggable,
   },
-};
+}
 </script>

@@ -12,7 +12,7 @@
         <span class="three-dot-menu"></span>
       </header>
 
-      <TaskList :tasks="tasks" :groupId="group.id" />
+      <TaskList :tasks="tasks" :groupId="group.id" @updateTasks="updateTasksPos"/>
 
 
       <footer class="flex">
@@ -64,6 +64,9 @@ export default {
     },
     updateGroup() {
       this.$emit('updateGroup', this.clonedGroup)
+    },
+    updateTasksPos({tasks, groupId}){
+      this.$emit('updateTasksPos', {tasks, groupId})
     }
   },
   computed: {
