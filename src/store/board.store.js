@@ -92,7 +92,7 @@ export const boardStore = {
         },
 
 
-        
+
     },
     actions: {
         async addBoard(context, { board }) {
@@ -135,7 +135,7 @@ export const boardStore = {
         },
         async updateGroups(context, { boardId, groups }) {
             try {
-                context.commit({type:'updateGroups', boardId, groups})
+                context.commit({ type: 'updateGroups', boardId, groups })
                 context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
             } catch (err) {
                 console.log('boardStore: Error in removeGroup', err)
@@ -175,28 +175,24 @@ export const boardStore = {
         },
 
         // Task
-        async addTask(context, { groupId ,newTask}) {
-
-            const savedBoard = await boardService.getById(context.state.watchedBoardId)
-            const currGroup = savedBoard.groups.find(g => (g.id === groupId))
-            currGroup.tasks.push(newTask)
-            
+        async saveTask(context, { groupId, task }) {
+            const boardId = context.state.watchedBoardId
             try {
-                const board = await boardService.save(savedBoard)
-                context.commit(getActionUpdateBoard(board))
-                return board
+                const savedBoard = await boardService.saveTask(boardId, groupId, task)
+                context.commit(getActionUpdateBoard(savedBoard))
+                return savedBoard
             } catch (err) {
                 console.log('boardStore: Error in add Task', err)
                 throw err
             }
 
         },
-        async removeTask(context, { groupId ,taskId}) {
+        async removeTask(context, { groupId, taskId }) {
             const currBoardId = context.state.watchedBoardId
             const savedBoard = await boardService.getById(currBoardId)
             const currGroup = savedBoard.groups.find(g => (g.id === groupId))
-            const taskIdx = currGroup.tasks.findIndex(task => (task.id=taskId))
-            currGroup.tasks.splice(taskIdx,1)        
+            const taskIdx = currGroup.tasks.findIndex(task => (task.id = taskId))
+            currGroup.tasks.splice(taskIdx, 1)
             try {
                 const board = await boardService.save(savedBoard)
                 context.commit(getActionUpdateBoard(board))

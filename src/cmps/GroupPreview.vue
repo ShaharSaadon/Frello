@@ -59,7 +59,7 @@ export default {
       return svgService.getTrelloSvg(iconName);
     },
     addTask() {
-      this.$emit("addTask", {groupId:this.group.id,newTask:this.newTask});
+      this.$emit("saveTask", {groupId:this.group.id,task:this.newTask});
       this.newTask = boardService.getEmptyTask();
       this.isOnEdit = false;
     },
