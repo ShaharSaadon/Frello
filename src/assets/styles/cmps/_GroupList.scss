@@ -100,13 +100,22 @@
     opacity: 0;
 }
 
-.ghost{
-    .group-preview-wrapper{
-        .group-preview-content{
+.ghost {
+    .group-preview-wrapper {
+        .group-preview-content {
             background-color: $placeholder-bgc;
+
             * {
                 visibility: hidden;
             }
+        }
+    }
+}
+
+.drag {
+    .group-preview-wrapper {
+        .group-preview-content {
+            transform: rotate(5deg);
         }
     }
 }
