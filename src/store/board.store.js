@@ -65,6 +65,10 @@ export const boardStore = {
             const idx = state.boards.findIndex(c => c._id === board._id)
             state.boards.splice(idx, 1, board)
         },
+        updateBoardEntity(state, { key, val }) {
+            const board = state.boards.find(board => board._id === state.watchedBoardId)
+            board[key] = val 
+        },
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
@@ -97,8 +101,6 @@ export const boardStore = {
             board.groups.splice(idx, 1, group)
         },
         updateTasksPos(state, { groupId, tasks }){
-            console.log("tasks: ", tasks);
-            console.log("groupId: ", groupId);
             const board = state.boards.find(board => board._id === state.watchedBoardId)
             const group = board.groups.find(group => group.id === groupId)
             group.tasks = tasks
@@ -123,6 +125,15 @@ export const boardStore = {
                 board = await boardService.save(board)
                 context.commit(getActionUpdateBoard(board))
                 return board
+            } catch (err) {
+                console.log('boardStore: Error in updateBoard', err)
+                throw err
+            }
+        },
+        async updateBoardEntity(context, { key, val }) {
+            try {
+                context.commit({ type: 'updateBoardEntity', key, val })
+                context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
             } catch (err) {
                 console.log('boardStore: Error in updateBoard', err)
                 throw err

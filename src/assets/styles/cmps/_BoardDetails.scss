@@ -1,16 +1,45 @@
 .board-details {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-wrap: nowrap;
 
-    .board-header {
-        background-color: inherit;
-        height: 3em; // need to remove
-        h1 {
-            color: $clr6
-        }
+  .board-header {
+    background-color: inherit;
+    padding: rem(4px) rem(4px) rem(4px) rem(16px);
+
+    h1 {
+      color: $clr6;
+      padding-inline: rem(12px);
+      font-family: sans-serif;
     }
 
-    
+    .btn-header-star {
+      @include btn-main($clr-dynamic-button, $clr-base-1, $clr-dynamic-button);
+      @include trello-icon($icon-star, $type: sm, $color: $clr-base-1);
+      padding-inline: rem(8px);
 
+      &:hover::before {
+        color: $clr-dynamic-star;
+        scale: 1.5;
+      }
+
+      &.starred::before {
+        color: $clr-dynamic-star;
+        content: $icon-full-star;
+      }
+
+      &.starred:hover::before {
+        color: $clr-dynamic-star;
+        content: $icon-star;
+      }
+    }
+
+    .separate-line {
+      border-left: 1px solid $clr-dynamic-text-transparent;
+      float: left;
+      height: em(16px);
+      margin: em(12px) em(8px);
+    }
+  }
 }
