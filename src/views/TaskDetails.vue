@@ -95,8 +95,8 @@ export default {
         showErrorMsg("Cannot add Task");
       }
     },
-    saveTask({description}){
-      console.log("description: ", description);
+    saveTask({key,newVal}){
+      this.taskToEdit[key] = newVal
     }
   },
   components: {

@@ -12,6 +12,7 @@ export const boardService = {
     getEmptyBoard,
     getEmptyGroup,
     getEmptyTask,
+    saveTask,
 }
 window.cs = boardService
 
@@ -44,6 +45,22 @@ async function save(board) {
         savedBoard = await storageService.post(STORAGE_KEY, board)
     }
     return savedBoard
+}
+
+async function saveTask(boardId, groupId, task) {
+    const board = await getById(boardId)
+    const currGroup = board.groups.find(group => (group.id === groupId))
+    if (!task.id) {
+        task.id = utilService.makeId()
+        currGroup.tasks.push(task)
+    } else {
+        currGroup.tasks.find(t => (t.id === task.id)) = task
+    }
+
+    return save(board)
+
+    // board.activities.unshift(activity)
+    // PUT /api/board/b123/task/t678
 }
 
 function getEmptyGroup() {
@@ -137,26 +154,23 @@ function getEmptyBoard() {
                         }
                     }
                 ],
-                
+
             }
         ],
     }
 }
 
 function getEmptyTask() {
-return{
-    id: utilService.makeId(),
-    title: '',
-    description: 'description...'
-}
+    return {
+        title: '',
+        description: 'description...'
+    }
 }
 
-
-function _getRandomBackground(){
-    const backgrounds = ["gray","green","light-blue","orenge","preple","pink"]
-    const background =  backgrounds[utilService.getRandomIntInclusive(0,5)]
-    const strHtml= `url(../src/assets/imgs/bgc-basic/${background}.svg)`
-    console.log('strHtml=',strHtml)
+function _getRandomBackground() {
+    const backgrounds = ["gray", "green", "light-blue", "orenge", "perple", "pink"]
+    const background = backgrounds[utilService.getRandomIntInclusive(0, 5)]
+    const strHtml = `url(../src/assets/imgs/bgc-basic/${background}.svg)`
     return strHtml
 }
 

@@ -9,7 +9,7 @@
       @updateGroup="updateGroup"
       @removed="removeGroup"
       @addGroup="addGroup"
-      @addTask="addTask"
+      @saveTask="saveTask"
       @updateGroups="updateGroups"
     />
 
@@ -91,18 +91,14 @@ export default {
         showErrorMsg("Cannot add Group");
       }
     },
-    async addTask({newTask, groupId}) {
-      console.log('newTask',newTask)
-      console.log('groupId',groupId)
-      this.$store.dispatch({ type: 'addTask', groupId ,newTask })
-
-      // try {
-      //   await this.$store.dispatch({ type: "addTask", groupId});
-      //   showSuccessMsg("Task added");
-      // } catch (err) {
-      //   console.log(err);
-      //   showErrorMsg("Cannot add Task");
-      // }
+    async saveTask({task, groupId}) {
+      try {
+        this.$store.dispatch({ type: 'saveTask', groupId ,task })
+        showSuccessMsg("Task added");
+      } catch (err) {
+        console.log(err);
+        showErrorMsg("Cannot add Task");
+      }
     },
     async updateGroup(group) {
       group = { ...group };

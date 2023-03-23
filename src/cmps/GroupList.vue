@@ -17,7 +17,7 @@
               :key="element.id"
               :group="element"
               @removed="$emit('removed', element.id)"
-              @addTask="$emit('addTask', $event)"
+              @saveTask="$emit('saveTask', $event)"
               @updateGroup="$emit('updateGroup', $event)"
             />
           </div>

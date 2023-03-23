@@ -2,8 +2,8 @@
     <router-link :to="'board/' + board._id">
     <li class="board-preview flex" :style="board.style">
             <div class="board-title"> {{ board.title }} </div>
-        <button @click="$emit('removeBoard', board._id)">x</button>
-        <button @click="$emit('updateBoard', board)">Update</button>
+        <!-- <button @click="$emit('removeBoard', board._id)">x</button> -->
+        <!-- <button @click="$emit('updateBoard', board)">Update</button> -->
     </li>
 </router-link>
 
@@ -28,9 +28,6 @@ export default {
 
     },
     computed: {
-        // boardId() {
-        //     return this.$store.getters.watchedBoardId
-        // }
     },
     created() {
 
