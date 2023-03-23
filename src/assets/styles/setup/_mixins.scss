@@ -87,9 +87,9 @@ $breakpoints: (
     }
 }
 
-@mixin trello-icon($content: "", $type: sm) {
+@mixin trello-icon($content: "", $type: sm, $color: "#42526e") {
     font-family: "trellicons";
-    color: #42526e;
+    color: $color;
 
     @if $type ==sm {
         font-size: 1rem;
