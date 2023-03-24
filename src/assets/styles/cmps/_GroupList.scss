@@ -75,6 +75,7 @@ height: calc(100% - $board-header-height);
 
             button {
               @include btn();
+              color: $clr-base-1;
             }
 
             span {

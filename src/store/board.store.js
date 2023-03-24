@@ -50,6 +50,7 @@ export const boardStore = {
         watchedBoardId: null,
         currTask: null,
         appHeaderBgc: '',
+        LeftSideBarBgc: '',
     },
     getters: {
         boards({ boards }) { return boards },
@@ -59,6 +60,7 @@ export const boardStore = {
         watchedBoardId({ watchedBoardId }) { return watchedBoardId },
         currTask({ currTask }) { return currTask },
         appHeaderBgc({ appHeaderBgc }) { return appHeaderBgc },
+        LeftSideBarBgc({ LeftSideBarBgc }) { return LeftSideBarBgc },
 
     },
     mutations: {
@@ -67,6 +69,9 @@ export const boardStore = {
         },
         setAppHeaderBgc(state, {bgc}){
             state.appHeaderBgc = bgc
+        },
+        setLeftSideBarBgc(state, {bgc}){
+            state.LeftSideBarBgc = bgc
         },
         setWatchedBoardId(state, { boardId }) {
             state.watchedBoardId = boardId

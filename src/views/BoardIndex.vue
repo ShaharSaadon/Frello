@@ -83,6 +83,7 @@ export default {
     async createBoard({title, bg}) {
       this.boardToAdd.title = title
       this.boardToAdd.appHeaderBgc = bg.bgc
+      this.boardToAdd.LeftSideBarBgc = bg.LeftSideBarBgc
       this.boardToAdd.style.backgroundImage = bg.bgImg
       try {
         await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
