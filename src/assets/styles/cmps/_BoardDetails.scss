@@ -1,9 +1,16 @@
 .board-details {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: calc(100% - $app-header-height);
   flex-wrap: nowrap;
 
+    .main-a{
+      display: flex;
+      flex-direction: row;
+      flex: 1 1 0%;
+      position: relative;
+      overflow-y: auto;
+    }
   .board-header {
     background-color: inherit;
     padding: rem(4px) rem(4px) rem(4px) rem(16px);

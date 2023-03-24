@@ -1,7 +1,10 @@
 <template>
   <section v-if="board" class="board-details" :style="board.style">
+    <LeftSideBar/>
+    <div class="main">
     <header class="board-header flex space-between">
       <div class="left-side-header flex align-center">
+  
         <h1>{{ board.title }}</h1>
         <button :class="getStarClass" @click="onToggleStarred" class="btn-header-star"></button>
         <span class="separate-line"></span>
@@ -20,7 +23,7 @@
       @updateGroups="updateGroups"
       @updateTasksPos="updateTasksPos"
     />
-
+    </div>
     <RouterView />
   </section>
 </template>
@@ -30,6 +33,7 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { boardService } from '../services/board.service.local'
 import { getActionRemoveGroup, getActionUpdateBoard } from '../store/board.store'
 import GroupList from '../cmps/GroupList.vue'
+import LeftSideBar from '../cmps/LeftSideBar.vue'
 
 export default {
   data() {
@@ -74,6 +78,7 @@ export default {
   },
   components: {
     GroupList,
+    LeftSideBar,
   },
   methods: {
     async removeGroup(groupId) {
