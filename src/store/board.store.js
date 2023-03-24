@@ -165,8 +165,6 @@ export const boardStore = {
             }
         },
 
-
-
         // Group
         async updateGroup(context, { boardId, group }) {
             try {
@@ -200,11 +198,10 @@ export const boardStore = {
         async saveTask(context, { groupId, task }) {
             const boardId = context.state.watchedBoardId
             try {
-
                 // add task to the store here.
                 const savedBoard = await boardService.saveTask(boardId, groupId, task)
                 context.commit({type:'setCurrTask', boardId, groupId, taskId: task.id })
-                context.dispatch(getActionUpdateBoard(savedBoard))
+                context.commit(getActionUpdateBoard(savedBoard))
                 return savedBoard
             } catch (err) {
                 console.log('boardStore: Error in add Task', err)

@@ -98,6 +98,7 @@ export default {
       return {
         isWatch: this.task.isWatch,
         labels: this.task.labels,
+        members: this.task.members,
       }
     },
   },
