@@ -1,59 +1,52 @@
 <template>
-    <section class="modal-picker">
-            <component :is="type" :info="info" 
-            @updateTask="$emit('toggleMember',member)"/>
-    </section>
+  <section class="modal-picker">
+    <component :is="type" :info="info" @updateEntityVal="$emit('updateEntityVal', $event)" />
+  </section>
 </template>
 
 <script>
-import LabelPicker from './ModalsPicker/LabelPicker.vue';
-import MemberPicker from './ModalsPicker/MemberPicker.vue';
+import LabelPicker from './ModalsPicker/LabelPicker.vue'
+import MemberPicker from './ModalsPicker/MemberPicker.vue'
 export default {
-    props: {
-        type: {
-            type: String,
-            required: true,
-        }
+  props: {
+    type: {
+      type: String,
+      required: true,
     },
-    name: '',
-    data() {
-        return {
+  },
+  name: '',
+  data() {
+    return {}
+  },
+  methods: {},
+  computed: {
+    info() {
+      switch (this.type) {
+        case 'LabelPicker':
+          return {
+            label: 'labels',
+          }
+          break
+        case 'MemberPicker':
+          return {
+            members: this.board.members,
+            title: 'Members',
+          }
+          break
 
-        }
+        default:
+          break
+      }
     },
-    methods: {
-
+    board() {
+      return this.$store.getters.watchedBoard
     },
-    computed: {
-        info() {
-            switch (this.type) {
-                case 'LabelPicker':
-                    return {
-                        label: "labels",
-                    }
-                    break;
-                case 'MemberPicker':
-                    return {
-                        members: this.board.members,
-                        title: "Members"
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-        },
-        board() {
-            return this.$store.getters.watchedBoard;
-        },
-    },
-    created() {
-
-    },
-    components: {
-        LabelPicker,
-        MemberPicker,
-    },
+  },
+  created() {},
+  components: {
+    LabelPicker,
+    MemberPicker,
+  },
 }
 </script>
 
