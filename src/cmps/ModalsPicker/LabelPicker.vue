@@ -1,13 +1,13 @@
 <template>
   <div class="label-picker">
-    <h1>{{ info.label }}</h1>
+    <h1>{{ info.title }}</h1>
     <hr />
-    <input type="text" placeholder="Search Labels..." />
+    <input class="search-input" type="text" placeholder="Search Labels..." />
     <h3>Labels</h3>
-    <div class="label-picker-ops" v-for="label in labels" :key="label.color">
-      <span @click="toggleCheck(label)" class="check-box" :class="label.isChecked" v-html="getSvg('checkBox')"></span>
-      <div class="btn-label-tag label-tag"></div>
-      <button><span>e</span></button>
+    <div class="label-picker-ops" v-for="(label, idx) in labels" :key="idx">
+      <span @click="toggleCheck(idx)" class="check-box" :class="label.isChecked ? 'checked' : ''"></span>
+      <div :class="label.color" @click="toggleCheck(idx)" class="btn-label-tag label-tag"></div>
+      <button class="btn-marker-edit" v-html="getSvg('marker')"></button>
     </div>
     <button>Create a new label</button>
   </div>
@@ -25,35 +25,42 @@ export default {
   name: '',
   data() {
     return {
-      labels: {
-        green: {
-          color: '',
+      labels: [
+        {
+          color: 'light-green',
           title: '',
           isChecked: false,
         },
-        yellow: {
-          color: '',
+        {
+          color: 'light-blue',
           title: '',
           isChecked: false,
         },
-        orange: {
-          color: '',
+        {
+          color: 'light-orange',
           title: '',
           isChecked: false,
         },
-      },
+      ],
     }
   },
   methods: {
     getSvg(iconName) {
       return svgService.getTrelloSvg(iconName)
     },
-    toggleCheck(isChecked) {
-  
+    toggleCheck(idx) {
+      this.labels[idx].isChecked = !this.labels[idx].isChecked
+
+      const { color, title } = this.labels[idx]
+      this.$emit('updateEntityVal', { key: 'labels', val: { color, title } })
     },
   },
   computed: {},
-  created() {},
+  created() {
+    this.labels.forEach((label) => {
+      if (this.info.labels.find((l) => l.color === label.color)) label.isChecked = true
+    })
+  },
   components: {},
 }
 </script>

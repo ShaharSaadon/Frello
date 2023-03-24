@@ -1,8 +1,18 @@
 <template>
-  <article class="task-head-tags">
-    <h3 class="title">{{ info.title }}</h3>
-    <button @click="$emit('toggleWatch')" class="notifications"><span></span> {{ info.isWatch ? 'Watching' : 'Watch' }}</button>
-  </article>
+  <div class="task-head-tags">
+    <div>
+      <h3 class="title">Labels</h3>
+      <div class="head-labels">
+        <div v-for="label in labels" class="label-tag" :class="label.color">{{ label.title }}</div>
+      </div>
+    </div>
+    <div>
+      <h3 class="title">Notifications</h3>
+      <button @click="$emit('toggleWatch')" class="notifications">
+        <span></span> {{ info.isWatch ? 'Watching' : 'Watch' }}
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -18,7 +28,11 @@ export default {
     return {}
   },
   methods: {},
-  computed: {},
+  computed: {
+    labels(){
+      return this.info.labels
+    }
+  },
   created() {},
   components: {},
 }

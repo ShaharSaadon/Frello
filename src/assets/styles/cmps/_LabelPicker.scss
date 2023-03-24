@@ -1,23 +1,49 @@
 .label-picker {
   display: flex;
   flex-direction: column;
-
+  .search-input {
+    @include input()
+  }
   .label-picker-ops {
     display: flex;
     align-items: center;
     gap: 4px;
+    margin-block: em(2px);
+
+    .btn-marker-edit {
+      padding: em(8px);
+      background-color: $clr-base-1;
+      color: $clr-base-4;
+      cursor: pointer;
+      border-radius: 3px;
+
+      &:hover {
+        background-color: $clr-base-3;
+      }
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
 
     .check-box {
       margin-inline-end: em(6px);
       box-shadow: 0 0 1px 1px $backdrop;
       height: em(16px);
       width: em(16px);
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.5s;
       &.checked {
         background-color: $clr-base-8;
       }
-      svg {
-        fill: $clr-base-1;
-        transform: translate(0, -3px);
+      @include trello-icon($icon-checked, $color: $clr-base-1);
+      &::before {
+        position: absolute;
+        top: -5px;
+      }
+      &:active {
+        border: black 1px solid;
       }
     }
 
@@ -25,8 +51,5 @@
       width: 212px;
     }
 
-    .label-tag {
-      @include label-tag($clr-label-green, $clr-label-dark-green);
-    }
   }
 }

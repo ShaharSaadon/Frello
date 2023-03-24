@@ -7,12 +7,11 @@
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
         <p>in list {{ task.title }}</p>
-        <pre>{{ task }} </pre>
+        <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
-        <div class="task-head-tags">
-          <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
-        </div>
+        <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
+
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
 
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
@@ -96,7 +95,10 @@ export default {
       return { ...this.$store.getters.currTask }
     },
     info() {
-      return { title: 'Notifications', isWatch: this.task.isWatch }
+      return {
+        isWatch: this.task.isWatch,
+        labels: this.task.labels,
+      }
     },
   },
   methods: {
@@ -127,6 +129,14 @@ export default {
           task[key].splice(idx, 1)
         }
       }
+      if (key === 'labels') {
+        const idx = task.labels.findIndex((label) => label.color === val.color)
+        if (idx === -1) {
+          task[key].push(val)
+        } else {
+          task[key].splice(idx, 1)
+        }
+      }
       this.saveTask({ key, newVal: task[key] })
     },
     async saveTask({ key, newVal }) {
@@ -142,8 +152,13 @@ export default {
       }
     },
     toggleModal(cmpType) {
-      this.modal.type = cmpType
-      this.modal.isModalOpen = !this.modal.isModalOpen
+      if (this.modal.type === cmpType || !cmpType) {
+        this.modal.isModalOpen = false
+        this.modal.type = null
+      } else {
+        this.modal.isModalOpen = true
+        this.modal.type = cmpType
+      }
     },
     toggleWatch() {
       const newVal = !this.task.isWatch

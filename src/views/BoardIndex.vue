@@ -1,5 +1,6 @@
 <template>
-  <div class="board-index main-container">
+  <!-- <div class="board-index main-container"> -->
+  <div class="board-index grid">
     <h1>My Boards</h1>
     <ul class="board-list clean-list">
       <li class="add-board">
