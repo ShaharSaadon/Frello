@@ -48,7 +48,8 @@ export const boardStore = {
     state: {
         boards: [],
         watchedBoardId: null,
-        currTask: null
+        currTask: null,
+        appHeaderBgc: '',
     },
     getters: {
         boards({ boards }) { return boards },
@@ -57,11 +58,16 @@ export const boardStore = {
         },
         watchedBoardId({ watchedBoardId }) { return watchedBoardId },
         currTask({ currTask }) { return currTask },
+        appHeaderBgc({ appHeaderBgc }) { return appHeaderBgc },
+
     },
     mutations: {
         setBoards(state, { boards }) {
             state.boards = boards
         },
+        // setAppHeaderBgc(state, {bgc}){
+        //     state.appHeaderBgc = bgc
+        // },
         setWatchedBoardId(state, { boardId }) {
             state.watchedBoardId = boardId
         },
@@ -210,9 +216,6 @@ export const boardStore = {
         async saveTask(context, {groupId, task }) {
             const boardId = context.getters.watchedBoardId
             try {
-                console.log('boardId',boardId)
-                console.log('boardId',groupId)
-                console.log('boardId',task)
                 context.commit({ type: 'saveTask', boardId, groupId, task })
                 const board = await boardService.saveTask(boardId,groupId,task)
                 context.commit(getActionUpdateBoard(board))

@@ -12,7 +12,7 @@
       <div class="main-content">
         <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <!-- <TaskChecklist :taskDescription="task.description" /> -->
+        <TaskChecklist :taskDescription="task.description" />
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -24,7 +24,7 @@
 
         <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
         <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
-        <button class="btn-link checklist"><span> Checklist</span></button>
+        <button class="btn-link checklist" @click="toggleModal('CheckListPicker')"><span> Checklist</span></button>
         <button class="btn-link clock"><span> Dates</span></button>
         <button class="btn-link attachment"><span> Attachment</span></button>
         <button class="btn-link card-cover"><span> Cover</span></button>
@@ -39,6 +39,7 @@
         :type="modal.type"
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
+        @addCheckList="addCheckList"
       />
     </main>
   </section>
@@ -50,6 +51,7 @@
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { svgService } from '../services/svg.service.js'
 import TaskDescription from '../cmps/TaskDescription.vue'
+import TaskChecklist from '../cmps/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import TaskHeadTags from '../cmps/TaskHeadTags.vue'
 
@@ -103,6 +105,11 @@ export default {
   methods: {
     onEnter() {
       this.$refs.textarea.blur()
+    },
+    addCheckList(title) {
+      this.toggleModal()
+      console.log("title: ", title);
+
     },
     async removeTask() {
       try {
@@ -168,6 +175,7 @@ export default {
     TaskDescription,
     ModalPicker,
     TaskHeadTags,
+    TaskChecklist,
   },
 }
 </script>

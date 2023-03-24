@@ -40,7 +40,8 @@
       @include trello-icon($icon-checked, $color: $clr-base-1);
       &::before {
         position: absolute;
-        top: -5px;
+        top: -6px;
+        left: -1px;
       }
       &:active {
         border: black 1px solid;

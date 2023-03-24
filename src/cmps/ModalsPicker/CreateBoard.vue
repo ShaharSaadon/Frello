@@ -4,15 +4,10 @@
       <img src="https://a.trellocdn.com/prgb/assets/14cda5dc635d1f13bc48.svg" alt="" />
     </div>
 
-    <p>Backround</p>
+    <p>Background</p>
     <ul class="color-choices clean-list grid">
-      <li v-for="bgImg in bgImgs" :key="bgImg">
-        <button 
-        @click="chosenBg = bgImg" 
-        :style="{ backgroundImage: bgImg }"
-        :class="getCheckedClass(bgImg)"
-        >
-        </button>
+      <li v-for="bgOpt in bgOpts" :key="bgOpt.bgc">
+        <button @click="chosenBg = bgOpt" :style="{ backgroundImage: bgOpt.bgImg }" :class="getCheckedClass(bgOpt)"></button>
       </li>
     </ul>
 
@@ -26,40 +21,70 @@
 
 <script>
 export default {
-  name: "",
+  name: '',
   data() {
     return {
-      bgImgs: [
-        "url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)",
-        "url(https://a.trellocdn.com/prgb/assets/d106776cb297f000b1f4.svg)",
-        "url(https://a.trellocdn.com/prgb/assets/8ab3b35f3a786bb6cdac.svg)",
-        "url(https://a.trellocdn.com/prgb/assets/a7c521b94eb153008f2d.svg)",
-        "url(https://a.trellocdn.com/prgb/assets/aec98becb6d15a5fc95e.svg)",
-        "url(https://a.trellocdn.com/prgb/assets/b75536d1afb40980ca57.svg)",
-        "url(https://a.trellocdn.com/prgb/assets/92e67a71aaaa98dea5ad.svg)",
-        "url(https://a.trellocdn.com/prgb/assets/941e9fef7b1b1129b904.svg)",
-        "url(https://a.trellocdn.com/prgb/assets/1cbae06b1a428ad6234a.svg)",
+      bgOpts: [
+        {
+          bgc: '#07479E',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
+        },
+        {
+          bgc: '#2F1C0A',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/1cbae06b1a428ad6234a.svg)',
+        },
+        {
+          bgc: '#07479E',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/d106776cb297f000b1f4.svg)',
+        },
+        {
+          bgc: '#082854',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/8ab3b35f3a786bb6cdac.svg)',
+        },
+        {
+          bgc: '#463699',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/a7c521b94eb153008f2d.svg)',
+        },
+        {
+          bgc: '#872013',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/aec98becb6d15a5fc95e.svg)',
+        },
+        {
+          bgc: '#821659',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/b75536d1afb40980ca57.svg)',
+        },
+        {
+          bgc: '#14553A',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/92e67a71aaaa98dea5ad.svg)',
+        },
+        {
+          bgc: '#45536A',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/941e9fef7b1b1129b904.svg)',
+        },
       ],
-      chosenBg: "url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)",
-      title: "",
-    };
+      chosenBg: {
+        bgc: '#e534b2',
+        bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
+      },
+      title: '',
+    }
   },
   methods: {
-    getCheckedClass(bgImg){
-      return this.chosenBg === bgImg ? 'checked' : ''
-    }
+    getCheckedClass(bgOpt) {
+      return this.chosenBg === bgOpt ? 'checked' : ''
+    },
   },
   computed: {
     getDemoBoardStyle() {
-      return { backgroundImage: this.chosenBg };
+      return { backgroundImage: this.chosenBg.bgImg }
     },
     createNewBoard() {
-      this.$emit('createBoard', {title: this.title, bg:this.chosenBg})
+      this.$emit('createBoard', { title: this.title, bg: this.chosenBg })
     },
   },
   created() {},
   components: {},
-};
+}
 </script>
 
 <style></style>

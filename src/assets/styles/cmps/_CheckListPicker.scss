@@ -1,0 +1,20 @@
+.check-list-picker {
+  display: flex;
+  flex-direction: column;
+  gap: em(8px);
+
+  h3 {
+    font-size: em(12px);
+  }
+
+  .search-input {
+    @include input();
+  }
+
+  .btn-add-check-list {
+    @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
+    align-self: flex-start;
+    padding: em(6px) em(24px);
+    margin-top: 18px;
+  }
+}
