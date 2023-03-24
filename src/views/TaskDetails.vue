@@ -108,8 +108,7 @@ export default {
     },
     addCheckList(title) {
       this.toggleModal()
-      console.log("title: ", title);
-
+      console.log('title: ', title)
     },
     async removeTask() {
       try {

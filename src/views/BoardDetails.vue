@@ -49,6 +49,7 @@ export default {
       handler() {
         if (this.board) {
           this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
+          document.title = this.board.title + ' | Merllo'
         }
       },
       immediate: true,
