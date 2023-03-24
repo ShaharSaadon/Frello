@@ -22,7 +22,6 @@
     />
 
     <RouterView />
-
   </section>
 </template>
 
@@ -36,16 +35,20 @@ export default {
   data() {
     return {}
   },
-  async created() {
-    },
-  mounted() {
-    this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
-  },
+  async created() {},
   watch: {
     boardId: {
       handler() {
         if (this.boardId) {
           this.$store.commit({ type: 'setWatchedBoardId', boardId: this.boardId })
+        }
+      },
+      immediate: true,
+    },
+    board: {
+      handler() {
+        if (this.board) {
+          this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
         }
       },
       immediate: true,
@@ -123,16 +126,16 @@ export default {
         showErrorMsg('Cannot Drag group')
       }
     },
-    async onToggleStarred(){
+    async onToggleStarred() {
       const isStarred = this.board.isStarred
       try {
-        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'isStarred' , val: !isStarred})
+        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'isStarred', val: !isStarred })
         showSuccessMsg('board Drag updated')
       } catch (err) {
         console.log(err)
         showErrorMsg('Cannot Drag group')
       }
-    }
+    },
   },
 }
 </script>
