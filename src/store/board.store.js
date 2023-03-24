@@ -37,13 +37,18 @@ export function getActionUpdateGroup(boardId, group) {
         boardId, group
     }
 }
-
+export function getActionSaveTask({ boardId, groupId, task }) {
+    return {
+        type: 'saveTask',
+        boardId, groupId, task
+    }
+}
 
 export const boardStore = {
     state: {
         boards: [],
         watchedBoardId: null,
-        currTask : null
+        currTask: null
     },
     getters: {
         boards({ boards }) { return boards },
@@ -60,7 +65,7 @@ export const boardStore = {
         setWatchedBoardId(state, { boardId }) {
             state.watchedBoardId = boardId
         },
-        setCurrTask(state, { boardId,groupId,taskId }) {
+        setCurrTask(state, { boardId, groupId, taskId }) {
             var board = state.boards.find(board => board._id === boardId)
             var group = board.groups.find(group => group.id === groupId)
             var task = group.tasks.find(task => task.id === taskId)
@@ -72,7 +77,7 @@ export const boardStore = {
         },
         updateBoardEntity(state, { key, val }) {
             const board = state.boards.find(board => board._id === state.watchedBoardId)
-            board[key] = val 
+            board[key] = val
         },
         addBoard(state, { board }) {
             state.boards.push(board)
@@ -98,11 +103,19 @@ export const boardStore = {
             const idx = board.groups.findIndex(g => g.id === group.id)
             board.groups.splice(idx, 1, group)
         },
-        updateTasksPos(state, { groupId, tasks }){
+        updateTasksPos(state, { groupId, tasks }) {
             const board = state.boards.find(board => board._id === state.watchedBoardId)
             const group = board.groups.find(group => group.id === groupId)
             group.tasks = tasks
-        }
+        },
+        saveTask(state, { boardId, groupId, task }) {
+            var board = state.boards.find(board => board._id === boardId)
+            var group = board.groups.find(group => group.id === groupId)
+            const idx = group.tasks.findIndex((t) => t.id === task.id)
+            if (idx !== -1) group.tasks.splice(idx, 1, task)
+            else group.tasks.push(task)
+        },
+
 
 
 
@@ -145,7 +158,7 @@ export const boardStore = {
                 console.log('boardStore: Error in updateBoard', err)
                 throw err
             }
-        },  
+        },
         async removeBoard(context, { boardId }) {
             try {
                 await boardService.remove(boardId)
@@ -164,6 +177,7 @@ export const boardStore = {
                 throw err
             }
         },
+  
 
 
 
@@ -197,22 +211,21 @@ export const boardStore = {
         },
 
         // Task
-        async saveTask(context, { groupId, task }) {
-            const boardId = context.state.watchedBoardId
+        async saveTask(context, {groupId, task }) {
+            const boardId = context.getters.watchedBoardId
             try {
-
-                // add task to the store here.
-                const savedBoard = await boardService.saveTask(boardId, groupId, task)
-                context.commit({type:'setCurrTask', boardId, groupId, taskId: task.id })
-                context.dispatch(getActionUpdateBoard(savedBoard))
-                return savedBoard
+                console.log('boardId',boardId)
+                console.log('boardId',groupId)
+                console.log('boardId',task)
+                context.commit({ type: 'saveTask', boardId, groupId, task })
+                const board = await boardService.saveTask(boardId,groupId,task)
+                context.commit(getActionUpdateBoard(board))
             } catch (err) {
-                console.log('boardStore: Error in add Task', err)
+                console.log('boardStore: Error in save task', err)
                 throw err
             }
-
         },
-        async removeTask({commit,getters}, { groupId, taskId }) {
+        async removeTask({ commit, getters }, { groupId, taskId }) {
             const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
             const currGroup = savedBoard.groups.find(g => (g.id === groupId))
             const taskIdx = currGroup.tasks.findIndex(task => (task.id = taskId))
@@ -226,7 +239,7 @@ export const boardStore = {
                 throw err
             }
         },
-        async updateTasksPos(context, { groupId, tasks }){
+        async updateTasksPos(context, { groupId, tasks }) {
             try {
                 context.commit({ type: 'updateTasksPos', groupId, tasks })
                 context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
