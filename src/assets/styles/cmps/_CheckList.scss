@@ -1,0 +1,31 @@
+.task-CheckList {
+  @include TaskDetailsCmps($icon-checklist);
+
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn-add-item {
+    @include btn-main();
+  }
+
+  .checklist-editor {
+    input {
+      @include input();
+    }
+
+    .btn-save {
+      @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
+    }
+
+    .btn-cancel {
+      @include btn-main($clr-base-2, $clr-base-5, $clr-base-3-hover);
+    }
+
+    .save-cancel {
+      margin: 8px 0 0;
+      gap: 4px;
+    }
+  }
+}

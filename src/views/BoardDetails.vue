@@ -39,7 +39,7 @@ export default {
   async created() {
     },
   mounted() {
-    this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
+    // this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
   },
   watch: {
     boardId: {

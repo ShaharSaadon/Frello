@@ -6,13 +6,17 @@
       <!-- <button class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button> -->
     </header>
 
-    <component :is="type" :info="info" @updateEntityVal="$emit('updateEntityVal', $event)" @createBoard="createBoard" />
+    <component :is="type" :info="info"
+     @updateEntityVal="$emit('updateEntityVal', $event)"
+     @createBoard="createBoard"
+     @addCheckList="$emit('addCheckList', $event)" />
   </section>
 </template>
 
 <script>
 import LabelPicker from './ModalsPicker/LabelPicker.vue'
 import MemberPicker from './ModalsPicker/MemberPicker.vue'
+import CheckListPicker from './ModalsPicker/CheckListPicker.vue'
 import CreateBoard from './ModalsPicker/CreateBoard.vue'
 import { svgService } from '../services/svg.service.js'
 
@@ -28,10 +32,10 @@ export default {
     getSvg(iconName) {
       return svgService.getTrelloSvg(iconName)
     },
-    createBoard(data){
+    createBoard(data) {
       this.$emit('createBoard', data)
       this.$emit('closeModal')
-    }
+    },
   },
   computed: {
     info() {
@@ -59,7 +63,7 @@ export default {
     board() {
       return this.$store.getters.watchedBoard
     },
-    task(){
+    task() {
       return this.$store.getters.currTask
     },
     title() {
@@ -70,6 +74,8 @@ export default {
           return 'Members'
         case 'CreateBoard':
           return 'Create board'
+        case 'CheckListPicker':
+          return 'Check list'
         default:
           return 'No Title'
       }
@@ -79,6 +85,7 @@ export default {
     LabelPicker,
     MemberPicker,
     CreateBoard,
+    CheckListPicker,
   },
 }
 </script>
