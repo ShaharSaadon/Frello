@@ -7,7 +7,6 @@
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
         <p>in list {{ task.title }}</p>
-        <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
         <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
@@ -22,9 +21,15 @@
         <button class="btn-link member"><span> Join</span></button>
         <h3>Add to card</h3>
 
-        <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
-        <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
-        <button class="btn-link checklist" @click="toggleModal('CheckListPicker')"><span> Checklist</span></button>
+        <button class="btn-link member" @click="toggleModal('MemberPicker')">
+          <span> Members</span>
+        </button>
+        <button class="btn-link label" @click="toggleModal('LabelPicker')">
+          <span> Labels</span>
+        </button>
+        <button class="btn-link checklist" @click="toggleModal('CheckListPicker')">
+          <span> Chepcklist</span>
+        </button>
         <button class="btn-link clock"><span> Dates</span></button>
         <button class="btn-link attachment"><span> Attachment</span></button>
         <button class="btn-link card-cover"><span> Cover</span></button>
@@ -70,6 +75,26 @@ export default {
       },
       immediate: true,
     },
+    getTaskFromStore: {
+      handler() {
+        if (this.getTaskFromStore) {
+          this.task = this.getTaskFromStore
+        }
+      },
+      immediate: true,
+    },
+    watchedBoard: {
+      handler(changed) {
+        console.log(changed);
+        if (this.watchedBoard) {
+          // this.task = this.getTaskFromStore
+          console.log('board has changed');
+          this.task = this.getTaskFromStore
+        }
+      },
+      deep:true,
+      immediate: true,
+    },
   },
   data() {
     return {
@@ -77,6 +102,7 @@ export default {
         type: '',
         isModalOpen: false,
       },
+      task: null,
     }
   },
   computed: {
@@ -91,16 +117,19 @@ export default {
       const { taskId } = this.$route.params
       return taskId
     },
-    task() {
-      return { ...this.$store.getters.currTask }
+    getTaskFromStore() {
+      return JSON.parse(JSON.stringify(this.$store.getters.currTask))
     },
-    info() {
+    info(){
       return {
         isWatch: this.task.isWatch,
         labels: this.task.labels,
         members: this.task.members,
       }
     },
+    watchedBoard(){
+      return this.$store.getters.watchedBoard
+    }
   },
   methods: {
     onEnter() {
@@ -145,9 +174,9 @@ export default {
       this.saveTask({ key, newVal: task[key] })
     },
     async saveTask({ key, newVal }) {
-      this.task[key] = newVal
+      const task = JSON.parse(JSON.stringify(this.task))
+      task[key] = newVal
       const groupId = this.groupId
-      const task = this.task
       try {
         this.$store.dispatch({ type: 'saveTask', groupId, task })
         showSuccessMsg('Task added')

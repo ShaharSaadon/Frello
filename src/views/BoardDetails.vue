@@ -69,6 +69,9 @@ export default {
       return this.board.isStarred ? 'starred' : ''
     },
   },
+  unmounted() {
+    document.title = 'Merllo'
+  },
   components: {
     GroupList,
   },

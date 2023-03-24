@@ -118,8 +118,12 @@ export const boardStore = {
             var board = state.boards.find(board => board._id === boardId)
             var group = board.groups.find(group => group.id === groupId)
             const idx = group.tasks.findIndex((t) => t.id === task.id)
-            if (idx !== -1) group.tasks.splice(idx, 1, task)
+            if (idx !== -1){ 
+                group.tasks.splice(idx, 1, task)
+                state.currTask = task
+            }
             else group.tasks.push(task)
+            console.log("board: ", board);
         },
 
 
@@ -218,6 +222,7 @@ export const boardStore = {
             try {
                 context.commit({ type: 'saveTask', boardId, groupId, task })
                 const board = await boardService.saveTask(boardId,groupId,task)
+                // console.log("board: ", board);
                 // context.commit(getActionUpdateBoard(board))
             } catch (err) {
                 console.log('boardStore: Error in save task', err)
