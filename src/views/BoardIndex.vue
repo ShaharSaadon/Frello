@@ -3,7 +3,7 @@
     <h1>My Boards</h1>
     <ul class="board-list clean-list">
       <li class="add-board">
-        <button class="btn-add-board" @click="this.modal.showModal = true"></button>
+        <button class="btn-add-board" @click="openModal"></button>
       </li>
       <BoardPreview
         v-for="board in boards"
@@ -20,7 +20,7 @@
       <button>Save</button>
     </form>
 
-    <ModalPicker v-if="modal.showModal" :type="modal.type" @closeModal="closeModal" />
+    <ModalPicker v-if="modal.isShowModal" :type="modal.type" @closeModal="closeModal" />
   </div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
       boardToAdd: boardService.getEmptyBoard(),
       modal: {
         type: 'CreateBoard',
-        showModal: false,
+        isShowModal: false,
       },
     }
   },
@@ -86,8 +86,11 @@ export default {
     },
 
     closeModal(){
-      this.modal.showModal = false
-    }
+      this.modal.isShowModal = false
+    },
+    openModal(){
+      this.modal.isShowModal = true
+    },
   },
   components: {
     BoardPreview,

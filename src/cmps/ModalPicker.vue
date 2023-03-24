@@ -3,7 +3,7 @@
     <header class="modal-picker-header">
       <h3>{{ title }}</h3>
       <button class="btn-modal-close" @click="$emit('closeModal')"></button>
-      <button class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button>
+      <!-- <button class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button> -->
     </header>
 
     <component :is="type" :info="info" @updateEntityVal="$emit('updateEntityVal', $event)" />
