@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header">
+  <header class="app-header" :style="getStyle">
     <div class="flex align-center">
       <span class="icon" v-html="getSvg('boxes')"></span>
       <RouterLink class="router-logo" to="/board">
@@ -25,6 +25,9 @@ export default {
     loggedInUser() {
       return this.$store.getters.loggedinUser
     },
+    getStyle(){
+      return {'backgroundColor': this.$store.getters.appHeaderBgc}
+    }
   },
   methods: {
     getSvg(iconName) {

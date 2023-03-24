@@ -82,7 +82,8 @@ export default {
 
     async createBoard({title, bg}) {
       this.boardToAdd.title = title
-      this.boardToAdd.style.backgroundImage = bg
+      this.boardToAdd.appHeaderBgc = bg.bgc
+      this.boardToAdd.style.backgroundImage = bg.bgImg
       try {
         await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
         showSuccessMsg('Board added')
@@ -99,6 +100,9 @@ export default {
     openModal(){
       this.modal.isShowModal = true
     },
+  },
+  mounted() {
+    this.$store.commit({ type: 'setAppHeaderBgc', bgc: '#026AA7' })
   },
   components: {
     BoardPreview,
