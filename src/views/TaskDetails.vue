@@ -11,9 +11,7 @@
       </div>
       <div class="main-content">
         <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
-
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
       </div>
       <div class="sidebar flex">
@@ -98,6 +96,7 @@ export default {
       return {
         isWatch: this.task.isWatch,
         labels: this.task.labels,
+        members: this.task.members,
       }
     },
   },

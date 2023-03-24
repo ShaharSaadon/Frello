@@ -49,17 +49,17 @@ async function save(board) {
 }
 
 async function saveTask(boardId, groupId, task) {
+  task = JSON.parse(JSON.stringify(task))
   const board = await getById(boardId)
-  const currGroup = board.groups.find((group) => group.id === groupId)
+  const group = board.groups.find((group) => group.id === groupId)
   if (!task.id) {
     task.id = utilService.makeId()
-    currGroup.tasks.push(task)
+    group.tasks.push(task)
   } else {
     task.groupId = groupId
-    const idx = currGroup.tasks.findIndex((t) => t.id === task.id)
-    currGroup.tasks.splice(idx, 1, task)
+    const idx = group.tasks.findIndex((t) => t.id === task.id)
+    group.tasks.splice(idx, 1, task)
   }
-
   return save(board)
 
   // board.activities.unshift(activity)

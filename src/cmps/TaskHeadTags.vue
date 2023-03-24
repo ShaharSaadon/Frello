@@ -1,6 +1,13 @@
 <template>
   <div class="task-head-tags">
-    <div>
+    <pre>{{ info }}</pre>
+    <div v-if="members?.length">
+      <h3 class="title">Members</h3>
+      <div class="head-members">
+        <img v-for="member in members" :src="member.imgUrl" class="member-profile" />
+      </div>
+    </div>
+    <div v-if="labels?.length">
       <h3 class="title">Labels</h3>
       <div class="head-labels">
         <div v-for="label in labels" class="label-tag" :class="label.color">{{ label.title }}</div>
@@ -31,7 +38,12 @@ export default {
   computed: {
     labels(){
       return this.info.labels
-    }
+    },
+    members() {
+      return this.$store.getters.watchedBoard.members.filter(m =>{
+        if (this.info.members.includes(m._id)) return m
+      } )
+    },
   },
   created() {},
   components: {},

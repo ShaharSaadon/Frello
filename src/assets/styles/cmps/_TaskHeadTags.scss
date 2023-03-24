@@ -1,9 +1,16 @@
 .task-head-tags {
   margin-bottom: em(24px);
   display: flex;
-  gap: 5px;
+  gap: em(7px);
 
-  .head-labels {
+  .member-profile {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin: 0 0 2px;
+  }
+
+  .head-labels, .head-members {
     display: flex;
     gap: em(2px);
   }
