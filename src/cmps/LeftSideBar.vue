@@ -9,14 +9,13 @@
                 alt="Workspace navigation collapse icon">
         </div>
         <h5 class="left-side-bar-title">Your boards</h5>
-        <ul>
-            <li v-for="board in boards" :key="board._id" :board="board">
-                {{ board.title }}
-                <div class="boxer" :style="board.style">
-                    a
+        <ul class="clean-list" >
+            <li v-for="board in boards" :key="board._id" :board="board" class="board-select">
+                <div class="board-image" :style="board.style">
                 </div>
+                {{ board.title }}
+                    
                 <!-- <img :src="getBackgroundImage(board.style.backgroundImage)"> -->
-                <pre>{{ board.style.backgroundImage }}</pre>
             </li>
         </ul>
     </div>
