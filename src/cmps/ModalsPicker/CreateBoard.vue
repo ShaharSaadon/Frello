@@ -1,8 +1,6 @@
 <template>
-  <div class="member-picker">
-    <p class="picker-title">{{ info.title }}</p>
-    <hr />
-    <input type="text" placeholder="Search Labels..." class="search-members" />
+  <div class="create-board">
+    <!-- <input type="text" placeholder="Search Labels..." class="search-members" />
     <p>Board members</p>
     <ul class="clean-list members flex column">
       <li
@@ -10,14 +8,14 @@
         :key="member._id"
         :member="member"
         class="member-select flex"
-        @click="$emit('updateEntityVal', { key: 'members', val: member._id })"
+        @click="$emit('toggleMember', member)"
       >
         <img :src="member.imgUrl" class="member-profile" />
         <p>{{ member.fullname }}({{ member.username }})</p>
       </li>
     </ul>
 
-    <button>Create a new label</button>
+    <button>Create a new label</button> -->
   </div>
 </template>
 
@@ -33,11 +31,7 @@ export default {
   data() {
     return {}
   },
-  methods: {
-    addMember(member) {
-      this.$emit('addMember', member)
-    },
-  },
+  methods: {},
   computed: {},
   created() {},
   components: {},

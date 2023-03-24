@@ -168,7 +168,8 @@ function getEmptyBoard() {
 function getEmptyTask() {
     return {
         title: '',
-        description: 'description...'
+        description: 'description...',
+        members: [],
     }
 }
 

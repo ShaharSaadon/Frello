@@ -7,7 +7,7 @@
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
         <p>in list {{ task.title }}</p>
-        <pre>{{ task }} </pre>
+        <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
@@ -34,9 +34,7 @@
           <span> Archive</span>
         </button>
       </div>
-      <ModalPicker v-if="isModalOpen" :type="modal.type" 
-      
-      />
+      <ModalPicker v-if="isModalOpen" :type="modal.type" @updateEntityVal="updateEntityVal" />
     </main>
   </section>
 </template>
@@ -44,10 +42,10 @@
 <script>
 // import {boardService} from '../services/board.service'
 // import GroupList from '../cmps/GroupList.vue'
-import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
-import { svgService } from "../services/svg.service.js"
-import TaskDescription from "../cmps/TaskDescription.vue"
-import ModalPicker from "../cmps/ModalPicker.vue"
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { svgService } from '../services/svg.service.js'
+import TaskDescription from '../cmps/TaskDescription.vue'
+import ModalPicker from '../cmps/ModalPicker.vue'
 
 export default {
   watch: {
@@ -55,7 +53,7 @@ export default {
       handler() {
         if (this.taskId) {
           this.$store.commit({
-            type: "setCurrTask",
+            type: 'setCurrTask',
             boardId: this.boardId,
             groupId: this.groupId,
             taskId: this.taskId,
@@ -70,7 +68,7 @@ export default {
       isModalOpen: false,
       modal: {
         type: '',
-    }
+      },
     }
   },
   computed: {
@@ -86,7 +84,7 @@ export default {
       return taskId
     },
     task() {
-      return { ...this.$store.getters.currTask }
+      return {...this.$store.getters.currTask}
     },
   },
   methods: {
@@ -96,37 +94,50 @@ export default {
     async removeTask() {
       try {
         this.$store.dispatch({
-          type: "removeTask",
+          type: 'removeTask',
           groupId: this.groupId,
           taskId: this.task.id,
         })
-        showSuccessMsg("Task Removed")
-        this.$router.push("/board/" + this.boardId)
+        showSuccessMsg('Task Removed')
+        this.$router.push('/board/' + this.boardId)
       } catch (err) {
         console.log(err)
-        showErrorMsg("Cannot add Task")
+        showErrorMsg('Cannot add Task')
       }
+    },
+    updateEntityVal({ key, val }) {
+      const task = JSON.parse(JSON.stringify(this.task))
+      console.log("task: ", task);
+      if (key === 'members') {
+        const idx = task[key].findIndex((id) => id === val)
+        if (idx === -1) {
+          task[key].push(val)
+        } else {
+          task[key].splice(idx, 1)
+        }
+      }
+      this.saveTask({key, newVal: task[key]})
     },
     async saveTask({ key, newVal }) {
       this.task[key] = newVal
       const groupId = this.groupId
       const task = this.task
       try {
-        this.$store.dispatch({ type: "saveTask", groupId, task })
-        showSuccessMsg("Task added")
+        this.$store.dispatch({ type: 'saveTask', groupId, task })
+        showSuccessMsg('Task added')
       } catch (err) {
         console.log(err)
-        showErrorMsg("Cannot add Task")
+        showErrorMsg('Cannot add Task')
       }
     },
     openModal(cmpType) {
-      this.modal.type=cmpType
+      this.modal.type = cmpType
       this.isModalOpen = true
-    }
+    },
   },
   components: {
     TaskDescription,
     ModalPicker,
-  },
+  }
 }
 </script>

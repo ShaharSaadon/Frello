@@ -1,9 +1,21 @@
+// .modal-picker {
+//     align-items: flex-start;
+//     display: flex;
+//     justify-content: center;
+//     width: em(304px);
+//     height: 500px;
+//     background-color: $clr6;
+//     z-index: 20;
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     cursor: default;
+// }
+
 .modal-picker {
-    align-items: flex-start;
-    display: flex;
-    justify-content: center;
-    width: 300px;
-    height: 500px;
+    width: em(304px);
+    height: em(500px);
     background-color: $clr6;
     z-index: 20;
     position: absolute;
@@ -11,4 +23,5 @@
     left: 50%;
     transform: translate(-50%, -50%);
     cursor: default;
+    text-align: center;
 }
