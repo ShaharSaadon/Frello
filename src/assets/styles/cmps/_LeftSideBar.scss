@@ -1,0 +1,40 @@
+.left-side-bar{
+    color: $clr-base-1;
+    background-color:rgba(255, 255, 255, 0.16);
+    height: 100%;
+    border-right: 1px solid hsla(0,0%,100%,0.16);
+    width: 240px  ;
+    &:hover{
+      background-color:rgba(255, 255, 255, 0.3);
+    }
+
+    // p{
+    //   font-size: em(14px);
+    //   font-weight: 600;
+    //   display: inline;
+    //   margin: 0;
+    // }
+
+
+    .left-side-header{
+      border-bottom: 1px solid hsla(0,0%,100%,0.16);
+      height: 70px;
+      padding: em(14px) em(12px);
+      justify-content: space-between;
+      align-items: center;
+  
+      .workspace-logo{
+        font-weight: bold;
+        font-size: 20px;
+        width: 36px;
+        height: 36px;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient( #006644, #00875a);        
+      }      
+    }
+
+    .left-side-bar-title{
+      padding: 12px;
+    }
+}
