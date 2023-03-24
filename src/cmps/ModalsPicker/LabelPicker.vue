@@ -1,7 +1,5 @@
 <template>
   <div class="label-picker">
-    <h1>{{ info.title }}</h1>
-    <hr />
     <input class="search-input" type="text" placeholder="Search Labels..." />
     <h3>Labels</h3>
     <div class="label-picker-ops" v-for="(label, idx) in labels" :key="idx">
@@ -38,6 +36,21 @@ export default {
         },
         {
           color: 'light-orange',
+          title: '',
+          isChecked: false,
+        },
+        {
+          color: 'light-red',
+          title: '',
+          isChecked: false,
+        },
+        {
+          color: 'light-purple',
+          title: '',
+          isChecked: false,
+        },
+        {
+          color: 'light-sky',
           title: '',
           isChecked: false,
         },
