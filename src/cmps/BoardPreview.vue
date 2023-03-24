@@ -1,6 +1,6 @@
 <template>
     <router-link :to="'board/' + board._id">
-    <li class="board-preview flex" :style="board.style">
+    <li class="board-preview" :style="board.style">
             <div class="board-title"> {{ board.title }} </div>
         <!-- <button @click="$emit('removeBoard', board._id)">x</button> -->
         <!-- <button @click="$emit('updateBoard', board)">Update</button> -->

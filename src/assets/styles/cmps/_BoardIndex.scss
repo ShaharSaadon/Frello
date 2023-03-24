@@ -1,5 +1,5 @@
 .board-index {
-  padding: .5em;
+  padding: 0.5em;
   h1 {
     margin-block-start: em(24px);
     margin-block-end: em(24px);
@@ -22,8 +22,8 @@
     grid-template-columns: repeat(auto-fit, minmax(em(144px), 1fr));
 
     li {
-      height: 96px;
-      border-radius: 3px;
+      height: em(96px);
+      border-radius: $border-radius-3;
       width: 100%;
     }
   }
