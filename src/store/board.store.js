@@ -218,7 +218,7 @@ export const boardStore = {
             try {
                 context.commit({ type: 'saveTask', boardId, groupId, task })
                 const board = await boardService.saveTask(boardId,groupId,task)
-                context.commit(getActionUpdateBoard(board))
+                // context.commit(getActionUpdateBoard(board))
             } catch (err) {
                 console.log('boardStore: Error in save task', err)
                 throw err
