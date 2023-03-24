@@ -1,6 +1,11 @@
 <template>
   <section class="modal-picker">
-    <h3>{{ title }}</h3>
+    <header class="modal-picker-header">
+      <h3>{{ title }}</h3>
+      <button class="btn-modal-close" @click="$emit('closeModal')"></button>
+      <button class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button>
+    </header>
+
     <component :is="type" :info="info" @updateEntityVal="$emit('updateEntityVal', $event)" />
   </section>
 </template>
@@ -9,6 +14,8 @@
 import LabelPicker from './ModalsPicker/LabelPicker.vue'
 import MemberPicker from './ModalsPicker/MemberPicker.vue'
 import CreateBoard from './ModalsPicker/CreateBoard.vue'
+import { svgService } from '../services/svg.service.js'
+
 export default {
   props: {
     type: {
@@ -17,10 +24,11 @@ export default {
     },
   },
   name: '',
-  data() {
-    return {}
+  methods: {
+    getSvg(iconName) {
+      return svgService.getTrelloSvg(iconName)
+    },
   },
-  methods: {},
   computed: {
     info() {
       switch (this.type) {

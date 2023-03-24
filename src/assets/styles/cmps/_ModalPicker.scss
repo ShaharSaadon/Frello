@@ -1,27 +1,58 @@
-// .modal-picker {
-//     align-items: flex-start;
-//     display: flex;
-//     justify-content: center;
-//     width: em(304px);
-//     height: 500px;
-//     background-color: $clr6;
-//     z-index: 20;
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     transform: translate(-50%, -50%);
-//     cursor: default;
-// }
 
 .modal-picker {
-    width: em(304px);
-    height: em(500px);
+    width: em(280px);
+    min-height: em(500px);
     background-color: $clr6;
-    z-index: 20;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    cursor: default;
     text-align: center;
+    box-shadow: $modal-picker-box-shadow;
+    padding: 0 em(12px) em(12px) em(12px);
+    color: $clr-base-4;
+
+    .modal-picker-header{
+        position: relative;
+        h3{
+            font-size: rem(14px);
+            font-weight: 400;
+            border-bottom: 1px solid $clr-modal-picker-line;
+            line-height: rem(41px);
+            margin-block-end: rem(8px);
+        }
+    
+        .btn-modal-close{
+            @include trello-icon($icon-close, $type: sm, $color: $clr-base-4);
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            position: absolute;
+            transform: translate(0, -50%);
+            right: 0;
+            top: rem(21px);
+            cursor: pointer;
+        }
+    
+        .btn-modal-arrow{
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            height: rem(12px);
+            width: rem(12px);
+            position: absolute;
+            transform: translate(0, -50%);
+            left: 0;
+            top: rem(21px);
+            cursor: pointer;
+            color: $clr-base-4;
+    
+            svg{
+                height: rem(12px);
+                width: rem(12px);
+            }
+        }
+
+    }
+
 }
