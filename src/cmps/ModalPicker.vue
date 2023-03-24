@@ -1,59 +1,74 @@
 <template>
-    <section class="modal-picker">
-            <component :is="type" :info="info" 
-            @updateTask="$emit('toggleMember',member)"/>
-    </section>
+  <section class="modal-picker">
+    <h3>{{title}}</h3>
+    <component :is="type" :info="info" @updateTask="$emit('toggleMember', member)" />
+  </section>
 </template>
 
 <script>
-import LabelPicker from './ModalsPicker/LabelPicker.vue';
-import MemberPicker from './ModalsPicker/MemberPicker.vue';
+import LabelPicker from './ModalsPicker/LabelPicker.vue'
+import MemberPicker from './ModalsPicker/MemberPicker.vue'
+import CreateBoard from './ModalsPicker/CreateBoard.vue'
 export default {
-    props: {
-        type: {
-            type: String,
-            required: true,
-        }
+  props: {
+    type: {
+      type: String,
+      required: true,
     },
-    name: '',
-    data() {
-        return {
+  },
+  name: '',
+  data() {
+    return {
+        // title: '',
+    }
+  },
+  methods: {},
+  computed: {
+    info() {
+      switch (this.type) {
+        case 'LabelPicker':
+          return {
+            label: 'labels',
+          }
+          break
+        case 'MemberPicker':
+          return {
+            members: this.board.members,
+            title: 'Members',
+          }
+          break
+        case 'CreateBoard':
+          return {
+            title: 'Create board',
+          }
+          break
 
-        }
+        default:
+          break
+      }
     },
-    methods: {
-
+    board() {
+      return this.$store.getters.watchedBoard
     },
-    computed: {
-        info() {
-            switch (this.type) {
-                case 'LabelPicker':
-                    return {
-                        label: "labels",
-                    }
-                    break;
-                case 'MemberPicker':
-                    return {
-                        members: this.board.members,
-                        title: "Members"
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-        },
-        board() {
-            return this.$store.getters.watchedBoard;
-        },
-    },
-    created() {
-
-    },
-    components: {
-        LabelPicker,
-        MemberPicker,
-    },
+    title(){
+        switch (this.type) {
+        case 'LabelPicker':
+          return 'Labels'
+        case 'MemberPicker':
+          return 'Members'
+        case 'CreateBoard':
+          return 'Create board'
+        default:
+          return 'No Title'
+      }
+    }
+  },
+  created() {},
+  components: {
+    LabelPicker,
+    MemberPicker,
+    CreateBoard,
+  },
 }
 </script>
 

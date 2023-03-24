@@ -7,7 +7,7 @@
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
         <p>in list {{ task.title }}</p>
-        <pre>{{ task }} </pre>
+        <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
@@ -34,9 +34,7 @@
           <span> Archive</span>
         </button>
       </div>
-      <ModalPicker v-if="isModalOpen" :type="modal.type" 
-      
-      />
+      <ModalPicker v-if="isModalOpen" :type="modal.type" />
     </main>
   </section>
 </template>
