@@ -1,7 +1,7 @@
 <template>
   <article class="task-head-tags">
     <h3 class="title">{{ info.title }}</h3>
-    <button class="notifications">Watch</button>
+    <button @click="$emit('toggleWatch')" class="notifications"><span></span> {{ info.isWatch ? 'Watching' : 'Watch' }}</button>
   </article>
 </template>
 

@@ -94,11 +94,13 @@ function getEmptyBoard() {
           {
             id: 'c101',
             title: 'Replace logo',
+            isWatch: false,
             members: [],
           },
           {
             id: 'c102',
             title: 'Add Samples',
+            isWatch: false,
             members: [],
           },
         ],
@@ -111,12 +113,14 @@ function getEmptyBoard() {
           {
             id: 'c103',
             title: 'Do that',
+            isWatch: false,
             archivedAt: 1589983468418,
             members: [],
           },
           {
             id: 'c104',
             title: 'Help me',
+            isWatch: false,
             status: 'in-progress', // monday
             priority: 'high',
             description: 'description',
@@ -171,6 +175,7 @@ function getEmptyTask() {
     title: '',
     description: 'description...',
     members: [],
+    isWatch: false,
   }
 }
 
@@ -198,7 +203,7 @@ function _createUsers() {
         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
       },
       {
-        _id: 'u101',
+        _id: 'u102',
         fullname: 'Tomer Huberman',
         username: 'user15656051',
         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',

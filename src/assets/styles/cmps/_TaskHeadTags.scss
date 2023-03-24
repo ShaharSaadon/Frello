@@ -1,17 +1,22 @@
 .task-head-tags {
-  margin-bottom: em(8px);
+  margin-bottom: em(24px);
 
   h3.title {
     color: #5e6c84;
-    font-size: 12px;
+    font-size: em(12px);
     font-weight: 600;
-    line-height: 16px;
-    line-height: 20px;
+    line-height: em(16px);
+    line-height: em(20px);
     margin-bottom: 4px;
     font-family: 'Segoe UI';
   }
-  .notifications{
-    @include btn-main()
-
+  .notifications {
+    display: flex;
+    align-items: center;
+    @include btn-main();
+    span {
+      @include trello-icon($icon-eye);
+      margin-inline-end: 5px;
+    }
   }
 }

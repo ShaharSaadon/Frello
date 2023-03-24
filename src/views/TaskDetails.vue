@@ -7,11 +7,11 @@
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
         <p>in list {{ task.title }}</p>
-        <!-- <pre>{{ task }} </pre> -->
+        <pre>{{ task }} </pre>
       </div>
       <div class="main-content">
         <div class="task-head-tags">
-          <TaskHeadTags :info="{title: 'Notifications', isWatch: false}" />
+          <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
         </div>
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
 
@@ -25,8 +25,8 @@
         <button class="btn-link member"><span> Join</span></button>
         <h3>Add to card</h3>
 
-        <button class="btn-link member" @click="openModal('MemberPicker')"><span> Members</span></button>
-        <button class="btn-link label" @click="openModal('LabelPicker')"><span> Labels</span></button>
+        <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
+        <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
         <button class="btn-link checklist"><span> Checklist</span></button>
         <button class="btn-link clock"><span> Dates</span></button>
         <button class="btn-link attachment"><span> Attachment</span></button>
@@ -37,7 +37,12 @@
           <span> Archive</span>
         </button>
       </div>
-      <ModalPicker v-if="isModalOpen" :type="modal.type" @updateEntityVal="updateEntityVal" />
+      <ModalPicker
+        v-if="modal.isModalOpen"
+        :type="modal.type"
+        @closeModal="toggleModal"
+        @updateEntityVal="updateEntityVal"
+      />
     </main>
   </section>
 </template>
@@ -69,9 +74,9 @@ export default {
   },
   data() {
     return {
-      isModalOpen: false,
       modal: {
         type: '',
+        isModalOpen: false,
       },
     }
   },
@@ -89,6 +94,9 @@ export default {
     },
     task() {
       return { ...this.$store.getters.currTask }
+    },
+    info() {
+      return { title: 'Notifications', isWatch: this.task.isWatch }
     },
   },
   methods: {
@@ -111,7 +119,6 @@ export default {
     },
     updateEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
-      console.log('task: ', task)
       if (key === 'members') {
         const idx = task[key].findIndex((id) => id === val)
         if (idx === -1) {
@@ -134,9 +141,13 @@ export default {
         showErrorMsg('Cannot add Task')
       }
     },
-    openModal(cmpType) {
+    toggleModal(cmpType) {
       this.modal.type = cmpType
-      this.isModalOpen = true
+      this.modal.isModalOpen = !this.modal.isModalOpen
+    },
+    toggleWatch() {
+      const newVal = !this.task.isWatch
+      this.saveTask({ key: 'isWatch', newVal })
     },
   },
   components: {
