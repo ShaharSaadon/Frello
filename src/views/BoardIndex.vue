@@ -13,14 +13,8 @@
         @updateBoard="updateBoard"
       />
     </ul>
-    <hr />
-    <form @submit.prevent="addBoard()">
-      <h2>Add Board</h2>
-      <input type="text" v-model="boardToAdd.title" />
-      <button>Save</button>
-    </form>
 
-    <ModalPicker v-if="modal.isShowModal" :type="modal.type" @closeModal="closeModal" />
+    <ModalPicker v-if="modal.isShowModal" :type="modal.type" @closeModal="closeModal" @createBoard="createBoard" />
   </div>
 </template>
 
@@ -82,6 +76,19 @@ export default {
       } catch (err) {
         console.log(err)
         showErrorMsg('Cannot update board')
+      }
+    },
+
+    async createBoard({title, bg}) {
+      this.boardToAdd.title = title
+      this.boardToAdd.style.backgroundImage = bg
+      try {
+        await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
+        showSuccessMsg('Board added')
+        this.boardToAdd = boardService.getEmptyBoard()
+      } catch (err) {
+        console.log(err)
+        showErrorMsg('Cannot add board')
       }
     },
 

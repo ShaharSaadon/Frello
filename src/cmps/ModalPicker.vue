@@ -6,7 +6,7 @@
       <!-- <button class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button> -->
     </header>
 
-    <component :is="type" :info="info" @updateEntityVal="$emit('updateEntityVal', $event)" />
+    <component :is="type" :info="info" @updateEntityVal="$emit('updateEntityVal', $event)" @createBoard="createBoard" />
   </section>
 </template>
 
@@ -28,6 +28,10 @@ export default {
     getSvg(iconName) {
       return svgService.getTrelloSvg(iconName)
     },
+    createBoard(data){
+      this.$emit('createBoard', data)
+      this.$emit('closeModal')
+    }
   },
   computed: {
     info() {
