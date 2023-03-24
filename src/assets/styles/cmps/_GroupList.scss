@@ -73,12 +73,7 @@
             margin: em(4px) 0 0 0;
 
             button {
-                height: 100%;
-                width: rem(72px);
-                margin: 0 rem(8px) 0 0;
-                border-radius: $border-radius-3;
-                background-color: $clr-base-8;
-                cursor: pointer;
+              @include btn();
             }
 
             span {

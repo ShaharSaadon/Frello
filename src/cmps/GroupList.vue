@@ -37,7 +37,7 @@
                 <form @submit.prevent="addGroup" class="flex">
                   <input v-model="groupToAdd.title" placeHolder="Enter list title..." />
                   <div class="flex align-center">
-                    <button>Add list</button>
+
                     <span @click.prevent="isAddOpen = false"></span>
                   </div>
                 </form>

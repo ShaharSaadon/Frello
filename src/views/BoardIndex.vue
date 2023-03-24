@@ -2,6 +2,9 @@
   <div class="board-index main-container">
     <h1>My Boards</h1>
     <ul class="board-list clean-list">
+      <li class="add-board">
+        <button class="btn-add-board" @click="this.modal.showModal = true"></button>
+      </li>
       <BoardPreview
         v-for="board in boards"
         :key="board._id"
@@ -17,7 +20,7 @@
       <button>Save</button>
     </form>
 
-    <ModalPicker :type="modal.type" />
+    <ModalPicker v-if="modal.showModal" :type="modal.type" @closeModal="closeModal" />
   </div>
 </template>
 
@@ -33,6 +36,7 @@ export default {
       boardToAdd: boardService.getEmptyBoard(),
       modal: {
         type: 'CreateBoard',
+        showModal: false,
       },
     }
   },
@@ -80,6 +84,10 @@ export default {
         showErrorMsg('Cannot update board')
       }
     },
+
+    closeModal(){
+      this.modal.showModal = false
+    }
   },
   components: {
     BoardPreview,
