@@ -178,3 +178,17 @@ $breakpoints: (
     background-color: $clr-base-8;
     cursor: pointer;
 }
+
+@mixin input() {
+    width: 100%;
+    height: rem(36px);
+    padding: rem(12px);
+    background-color: $input-bgc;
+    border: $input-border;
+    border-radius: $border-radius-3;
+    
+    &:hover:not(:focus-visible){
+      background-color: $clr-base-3-hover;
+    }
+}
+

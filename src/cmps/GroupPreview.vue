@@ -17,8 +17,7 @@
         <span class="three-dot-menu"></span>
       </header>
 
-      <TaskList :tasks="tasks" :groupId="group.id" @updateTasks="updateTasksPos"/>
-
+      <TaskList :tasks="tasks" :groupId="group.id" @updateTasks="updateTasksPos" />
 
       <footer class="flex space-between ">
         <p v-if="!isOnEdit" @click="onEdit">
@@ -26,15 +25,8 @@
           Add a card
         </p>
         <div class="add-a-card flex" v-if="isOnEdit">
-          <textarea
-            @click.stop
-            v-model="newTask.title"
-            @blur="addTask"
-            ref="newTaskInput"
-            placeHolder="Enter a title for this card..."
-            rows="1" @keydown.enter.prevent="onEnter"
-          >
-          </textarea>
+          <textarea @click.stop v-model="newTask.title" @blur="addTask" ref="newTaskInput"
+            placeHolder="Enter a title for this card..." rows="1" @keydown.enter.prevent="onEnter"> </textarea>
          <div class="footer-actions flex"> <button>Add card</button> <i v-html="getSvg('x')" @click="closeEdit"></i>
 </div>
         </div>
@@ -72,9 +64,10 @@ export default {
       return svgService.getTrelloSvg(iconName)
     },
     addTask() {
+      if (!this.newTask.title) return
       this.$emit("saveTask", { groupId: this.group.id, task: this.newTask });
       this.newTask = boardService.getEmptyTask();
-      this.isOnEdit = false;
+      this.$nextTick(() => this.$refs.newTaskInput.focus())
     },
     onEnter(ev) {
       this.$refs.textArea.blur()
@@ -83,8 +76,17 @@ export default {
     updateGroup() {
       this.$emit('updateGroup', this.clonedGroup)
     },
-    updateTasksPos({tasks, groupId}){
-      this.$emit('updateTasksPos', {tasks, groupId})
+    updateTasksPos({ tasks, groupId }) {
+      this.$emit('updateTasksPos', { tasks, groupId })
+    },
+    onEdit() {
+      this.isOnEdit = true;
+      this.$nextTick(() => this.$refs.newTaskInput.focus())
+    },
+    closeEdit() {
+      this.isOnEdit = false;
+      this.newTask = boardService.getEmptyTask();
+      this.$nextTick(() => this.$refs.newTaskInput.focus())
     }
   },
   computed: {

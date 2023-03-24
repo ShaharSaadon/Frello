@@ -3,7 +3,7 @@
     <h1>My Boards</h1>
     <ul class="board-list clean-list">
       <li class="add-board">
-        <button class="btn-add-board" @click="this.modal.showModal = true"></button>
+        <button class="btn-add-board" @click="openModal"></button>
       </li>
       <BoardPreview
         v-for="board in boards"
@@ -13,14 +13,8 @@
         @updateBoard="updateBoard"
       />
     </ul>
-    <hr />
-    <form @submit.prevent="addBoard()">
-      <h2>Add Board</h2>
-      <input type="text" v-model="boardToAdd.title" />
-      <button>Save</button>
-    </form>
 
-    <ModalPicker v-if="modal.showModal" :type="modal.type" @closeModal="closeModal" />
+    <ModalPicker v-if="modal.isShowModal" :type="modal.type" @closeModal="closeModal" @createBoard="createBoard" />
   </div>
 </template>
 
@@ -36,7 +30,7 @@ export default {
       boardToAdd: boardService.getEmptyBoard(),
       modal: {
         type: 'CreateBoard',
-        showModal: false,
+        isShowModal: false,
       },
     }
   },
@@ -85,9 +79,25 @@ export default {
       }
     },
 
+    async createBoard({title, bg}) {
+      this.boardToAdd.title = title
+      this.boardToAdd.style.backgroundImage = bg
+      try {
+        await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
+        showSuccessMsg('Board added')
+        this.boardToAdd = boardService.getEmptyBoard()
+      } catch (err) {
+        console.log(err)
+        showErrorMsg('Cannot add board')
+      }
+    },
+
     closeModal(){
-      this.modal.showModal = false
-    }
+      this.modal.isShowModal = false
+    },
+    openModal(){
+      this.modal.isShowModal = true
+    },
   },
   components: {
     BoardPreview,

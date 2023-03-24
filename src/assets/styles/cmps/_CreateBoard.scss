@@ -1,0 +1,48 @@
+.create-board {
+  .demo-board {
+    // background-color: rgb(239, 118, 58);
+    // background-image: url(https://a.trellocdn.com/prgb/assets/aec98becb6d15a5fc95e.svg);
+    width: em(200px);
+    height: em(120px);
+    border-radius: 3px;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15);
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  p {
+    color: #5e6c84;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    margin-bottom: 4px;
+    margin-top: 12px;
+  }
+
+  .color-choices {
+    grid-template-columns: repeat(3, 1fr);
+    gap: em(8px);
+
+    button {
+      width: 100%;
+      @include btn-main();
+
+      &.checked{
+          @include trello-icon($content:$icon-checked, $color: $clr-base-1)
+      }
+    }
+}
+
+form{
+    .btn-create {
+        @include btn-main($bgc: $clr-base-8, $color: $clr-base-1, $bgc-hover: $clr-base-8-hover);
+        width: 100%;
+    }
+    input{
+          @include input();
+      }
+  }
+}

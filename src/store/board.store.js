@@ -80,7 +80,6 @@ export const boardStore = {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
-
         updateGroups(state, { boardId, groups }) {
             var board = state.boards.find(board => board._id === boardId)
             board.groups = groups
@@ -201,6 +200,8 @@ export const boardStore = {
         async saveTask({state, commit}, { groupId, task }) {
             const boardId = state.watchedBoardId
             try {
+
+                // add task to the store here.
                 const savedBoard = await boardService.saveTask(boardId, groupId, task)
                 commit(getActionUpdateBoard(savedBoard))
                 commit({type:'setCurrTask', boardId, groupId, taskId: task.id })
