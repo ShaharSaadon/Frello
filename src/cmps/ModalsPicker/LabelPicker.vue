@@ -27,17 +27,17 @@ export default {
     return {
       labels: [
         {
-          color: 'green',
+          color: 'light-green',
           title: '',
           isChecked: false,
         },
         {
-          color: 'blue',
+          color: 'light-blue',
           title: '',
           isChecked: false,
         },
         {
-          color: 'orange',
+          color: 'light-orange',
           title: '',
           isChecked: false,
         },

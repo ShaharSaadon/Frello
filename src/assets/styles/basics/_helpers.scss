@@ -117,91 +117,91 @@
   &.green {
     @include label-tag-color($clr-label-green);
   }
-  &.green-light {
+  &.light-green {
     @include label-tag-color($clr-label-light-green);
   }
-  &.green-dark {
+  &.dark-green {
     @include label-tag-color($clr-label-dark-green);
   }
   &.yellow {
     @include label-tag-color($clr-label-yellow);
   }
-  &.yellow-light {
+  &.light-yellow {
     @include label-tag-color($clr-label-light-yellow);
   }
-  &.yellow-dark {
+  &.dark-yellow {
     @include label-tag-color($clr-label-dark-yellow);
   }
   &.orange {
     @include label-tag-color($clr-label-orange);
   }
-  &.orange-light {
+  &.light-orange {
     @include label-tag-color($clr-label-light-orange);
   }
-  &.orange-dark {
+  &.dark-orange {
     @include label-tag-color($clr-label-dark-orange);
   }
   &.red {
     @include label-tag-color($clr-label-red);
   }
-  &.red-light {
+  &.light-red {
     @include label-tag-color($clr-label-light-red);
   }
-  &.red-dark {
+  &.dark-red {
     @include label-tag-color($clr-label-dark-red);
   }
   &.purple {
     @include label-tag-color($clr-label-purple);
   }
-  &.purple-light {
+  &.light-purple {
     @include label-tag-color($clr-label-light-purple);
   }
-  &.purple-dark {
+  &.dark-purple {
     @include label-tag-color($clr-label-dark-purple);
   }
   &.blue {
     @include label-tag-color($clr-label-blue);
   }
-  &.blue-light {
+  &.light-blue {
     @include label-tag-color($clr-label-light-blue);
   }
-  &.blue-dark {
+  &.dark-blue {
     @include label-tag-color($clr-label-dark-blue);
   }
   &.sky {
     @include label-tag-color($clr-label-sky);
   }
-  &.sky-light {
+  &.light-sky {
     @include label-tag-color($clr-label-light-sky);
   }
-  &.sky-dark {
+  &.dark-sky {
     @include label-tag-color($clr-label-dark-sky);
   }
   &.lime {
     @include label-tag-color($clr-label-lime);
   }
-  &.lime-light {
+  &.light-lime {
     @include label-tag-color($clr-label-light-lime);
   }
-  &.lime-dark {
+  &.dark-lime {
     @include label-tag-color($clr-label-dark-lime);
   }
   &.pink {
     @include label-tag-color($clr-label-pink);
   }
-  &.pink-light {
+  &.light-pink {
     @include label-tag-color($clr-label-light-pink);
   }
-  &.pink-dark {
+  &.dark-pink {
     @include label-tag-color($clr-label-dark-pink);
   }
   &.black {
     @include label-tag-color($clr-label-black);
   }
-  &.black-light {
+  &.light-black {
     @include label-tag-color($clr-label-light-black);
   }
-  &.black-dark {
+  &.dark-black {
     @include label-tag-color($clr-label-dark-black);
   }
 }
