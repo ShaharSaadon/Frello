@@ -88,7 +88,7 @@ export default {
     },
   },
   methods: {
-    onEnter(ev) {
+    onEnter() {
       this.$refs.textarea.blur()
     },
     async removeTask() {
