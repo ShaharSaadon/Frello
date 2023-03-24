@@ -50,6 +50,7 @@ export const boardStore = {
         watchedBoardId: null,
         currTask: null,
         appHeaderBgc: '',
+        LeftSideBarBgc: '',
     },
     getters: {
         boards({ boards }) { return boards },
@@ -59,6 +60,7 @@ export const boardStore = {
         watchedBoardId({ watchedBoardId }) { return watchedBoardId },
         currTask({ currTask }) { return currTask },
         appHeaderBgc({ appHeaderBgc }) { return appHeaderBgc },
+        LeftSideBarBgc({ LeftSideBarBgc }) { return LeftSideBarBgc },
 
     },
     mutations: {
@@ -67,6 +69,9 @@ export const boardStore = {
         },
         setAppHeaderBgc(state, {bgc}){
             state.appHeaderBgc = bgc
+        },
+        setLeftSideBarBgc(state, {bgc}){
+            state.LeftSideBarBgc = bgc
         },
         setWatchedBoardId(state, { boardId }) {
             state.watchedBoardId = boardId
@@ -118,8 +123,12 @@ export const boardStore = {
             var board = state.boards.find(board => board._id === boardId)
             var group = board.groups.find(group => group.id === groupId)
             const idx = group.tasks.findIndex((t) => t.id === task.id)
-            if (idx !== -1) group.tasks.splice(idx, 1, task)
+            if (idx !== -1){ 
+                group.tasks.splice(idx, 1, task)
+                state.currTask = task
+            }
             else group.tasks.push(task)
+            console.log("board: ", board);
         },
 
 
@@ -218,7 +227,8 @@ export const boardStore = {
             try {
                 context.commit({ type: 'saveTask', boardId, groupId, task })
                 const board = await boardService.saveTask(boardId,groupId,task)
-                context.commit(getActionUpdateBoard(board))
+                // console.log("board: ", board);
+                // context.commit(getActionUpdateBoard(board))
             } catch (err) {
                 console.log('boardStore: Error in save task', err)
                 throw err

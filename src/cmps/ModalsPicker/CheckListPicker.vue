@@ -3,7 +3,7 @@
     <h3>Title</h3>
     <input class="search-input" v-model="title" type="text" placeholder="Add check list title here" />
 
-    <button @click="addCheckList" class="btn-add-check-list">Add</button>
+    <button @click="addChecklist" class="btn-add-check-list">Add</button>
   </div>
 </template>
 
@@ -17,8 +17,8 @@ export default {
     }
   },
   methods: {
-    addCheckList() {
-      this.$emit('addCheckList', this.title)
+    addChecklist() {
+      this.$emit('addChecklist', this.title)
       this.title = ''
     },
   },

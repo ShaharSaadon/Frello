@@ -7,7 +7,7 @@
     <p>Background</p>
     <ul class="color-choices clean-list grid">
       <li v-for="bgOpt in bgOpts" :key="bgOpt.bgc">
-        <button @click="chosenBg = bgOpt" :style="{ backgroundImage: bgOpt.bgImg }" :class="getCheckedClass(bgOpt)"></button>
+        <button @click="chosenBg=bgOpt" :style="{ backgroundImage: bgOpt.bgImg }" :class="getCheckedClass(bgOpt)"></button>
       </li>
     </ul>
 
@@ -28,6 +28,7 @@ export default {
         {
           bgc: '#07479E',
           bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
+          LeftSideBarBgc: ''
         },
         {
           bgc: '#2F1C0A',
@@ -63,15 +64,16 @@ export default {
         },
       ],
       chosenBg: {
-        bgc: '#e534b2',
-        bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
+          bgc: '#07479E',
+          bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
       },
       title: '',
     }
   },
   methods: {
     getCheckedClass(bgOpt) {
-      return this.chosenBg === bgOpt ? 'checked' : ''
+      if(this.chosenBg.bgc === bgOpt.bgc && this.chosenBg.bgImg === bgOpt.bgImg) return 'checked'
+      return ''
     },
   },
   computed: {

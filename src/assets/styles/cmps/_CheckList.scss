@@ -1,4 +1,4 @@
-.task-CheckList {
+.task-Checklist {
   @include TaskDetailsCmps($icon-checklist);
 
   header {
@@ -15,7 +15,7 @@
       @include input();
     }
 
-    .btn-save {
+    .btn-add {
       @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
     }
 
@@ -23,7 +23,7 @@
       @include btn-main($clr-base-2, $clr-base-5, $clr-base-3-hover);
     }
 
-    .save-cancel {
+    .add-cancel {
       margin: 8px 0 0;
       gap: 4px;
     }

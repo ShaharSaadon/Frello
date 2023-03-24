@@ -7,12 +7,11 @@
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
         <p>in list {{ task.title }}</p>
-        <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
         <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskChecklist :taskDescription="task.description" />
+        <TaskChecklist v-for="list in task.checklist" :taskChecklist="list" @updateEntityVal="updateEntityVal" />
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -24,7 +23,7 @@
 
         <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
         <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
-        <button class="btn-link checklist" @click="toggleModal('CheckListPicker')"><span> Checklist</span></button>
+        <button class="btn-link checklist" @click="toggleModal('ChecklistPicker')"><span> Checklist</span></button>
         <button class="btn-link clock"><span> Dates</span></button>
         <button class="btn-link attachment"><span> Attachment</span></button>
         <button class="btn-link card-cover"><span> Cover</span></button>
@@ -39,7 +38,7 @@
         :type="modal.type"
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
-        @addCheckList="addCheckList"
+        @addChecklist="addChecklist"
       />
     </main>
   </section>
@@ -70,6 +69,26 @@ export default {
       },
       immediate: true,
     },
+    getTaskFromStore: {
+      handler() {
+        if (this.getTaskFromStore) {
+          this.task = this.getTaskFromStore
+        }
+      },
+      immediate: true,
+    },
+    watchedBoard: {
+      handler(changed) {
+        console.log(changed);
+        if (this.watchedBoard) {
+          // this.task = this.getTaskFromStore
+          console.log('board has changed');
+          this.task = this.getTaskFromStore
+        }
+      },
+      deep:true,
+      immediate: true,
+    },
   },
   data() {
     return {
@@ -77,6 +96,7 @@ export default {
         type: '',
         isModalOpen: false,
       },
+      task: null,
     }
   },
   computed: {
@@ -91,25 +111,30 @@ export default {
       const { taskId } = this.$route.params
       return taskId
     },
-    task() {
-      return { ...this.$store.getters.currTask }
+    getTaskFromStore() {
+      return JSON.parse(JSON.stringify(this.$store.getters.currTask))
     },
-    info() {
+    info(){
       return {
         isWatch: this.task.isWatch,
         labels: this.task.labels,
         members: this.task.members,
       }
     },
+    watchedBoard(){
+      return this.$store.getters.watchedBoard
+    }
   },
   methods: {
     onEnter() {
       this.$refs.textarea.blur()
     },
-    addCheckList(title) {
+    addChecklist(title) {
+      const task = JSON.parse(JSON.stringify(this.task))
+      if (!task.checklist) task.checklist = []
+      task.checklist.unshift({ title, checklist: [] })
+      this.saveTask({ key: 'checklist', newVal: task.checklist})
       this.toggleModal()
-      console.log("title: ", title);
-
     },
     async removeTask() {
       try {
@@ -127,28 +152,25 @@ export default {
     },
     updateEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
-      if (key === 'members') {
-        const idx = task[key].findIndex((id) => id === val)
-        if (idx === -1) {
-          task[key].push(val)
-        } else {
-          task[key].splice(idx, 1)
-        }
+      var idx
+      if (key === 'checklist') {
+        idx = task[key].findIndex((list) => list.title === val.title)
+      } else if (key === 'members') {
+        idx = task[key].findIndex((id) => id === val)
+      } else if (key === 'labels') {
+        idx = task.labels.findIndex((label) => label.color === val.color)
       }
-      if (key === 'labels') {
-        const idx = task.labels.findIndex((label) => label.color === val.color)
-        if (idx === -1) {
-          task[key].push(val)
-        } else {
-          task[key].splice(idx, 1)
-        }
+      if (idx === -1) {
+        task[key].push(val)
+      } else {
+        task[key].splice(idx, 1)
       }
       this.saveTask({ key, newVal: task[key] })
     },
     async saveTask({ key, newVal }) {
-      this.task[key] = newVal
+      const task = JSON.parse(JSON.stringify(this.task))
+      task[key] = newVal
       const groupId = this.groupId
-      const task = this.task
       try {
         this.$store.dispatch({ type: 'saveTask', groupId, task })
         showSuccessMsg('Task added')

@@ -1,6 +1,6 @@
 <template>
   <div class="task-head-tags">
-    <pre>{{ info }}</pre>
+    <!-- <pre>{{ info }}</pre> -->
     <div v-if="members?.length">
       <h3 class="title">Members</h3>
       <div class="head-members">

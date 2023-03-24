@@ -1,5 +1,5 @@
 <template>
-  <section class="group-list">
+  <section class="group-list" ref="group-list">
     <div class="draggable-group-list">
       <Draggable
         v-if="groups.length"
@@ -37,7 +37,7 @@
                 <form @submit.prevent="addGroup" class="flex">
                   <input v-model="groupToAdd.title" placeHolder="Enter list title..." />
                   <div class="flex align-center">
-
+                    <button>Add list</button>
                     <span @click.prevent="isAddOpen = false"></span>
                   </div>
                 </form>
@@ -75,7 +75,6 @@ export default {
       if (!this.groupToAdd.title) return
       this.$emit('addGroup', this.groupToAdd)
       this.groupToAdd = boardService.getEmptyGroup()
-      this.isAddOpen = false
     },
     toggleIsAddOpen() {
       this.isAddOpen = !this.isAddOpen
