@@ -12,7 +12,7 @@
       <div class="main-content">
         <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskChecklist :taskDescription="task.description" />
+        <TaskChecklist v-for="list in task.checklist" :taskChecklist="list" @updateEntityVal="updateEntityVal" />
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -24,7 +24,7 @@
 
         <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
         <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
-        <button class="btn-link checklist" @click="toggleModal('CheckListPicker')"><span> Checklist</span></button>
+        <button class="btn-link checklist" @click="toggleModal('ChecklistPicker')"><span> Checklist</span></button>
         <button class="btn-link clock"><span> Dates</span></button>
         <button class="btn-link attachment"><span> Attachment</span></button>
         <button class="btn-link card-cover"><span> Cover</span></button>
@@ -39,7 +39,7 @@
         :type="modal.type"
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
-        @addCheckList="addCheckList"
+        @addChecklist="addChecklist"
       />
     </main>
   </section>
@@ -106,10 +106,12 @@ export default {
     onEnter() {
       this.$refs.textarea.blur()
     },
-    addCheckList(title) {
+    addChecklist(title) {
+      const task = JSON.parse(JSON.stringify(this.task))
+      if (!task.checklist) task.checklist = []
+      task.checklist.unshift({ title, checklist: [] })
+      this.saveTask({ key: 'checklist', newVal: task.checklist})
       this.toggleModal()
-      console.log("title: ", title);
-
     },
     async removeTask() {
       try {
@@ -127,21 +129,18 @@ export default {
     },
     updateEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
-      if (key === 'members') {
-        const idx = task[key].findIndex((id) => id === val)
-        if (idx === -1) {
-          task[key].push(val)
-        } else {
-          task[key].splice(idx, 1)
-        }
+      var idx
+      if (key === 'checklist') {
+        idx = task[key].findIndex((list) => list.title === val.title)
+      } else if (key === 'members') {
+        idx = task[key].findIndex((id) => id === val)
+      } else if (key === 'labels') {
+        idx = task.labels.findIndex((label) => label.color === val.color)
       }
-      if (key === 'labels') {
-        const idx = task.labels.findIndex((label) => label.color === val.color)
-        if (idx === -1) {
-          task[key].push(val)
-        } else {
-          task[key].splice(idx, 1)
-        }
+      if (idx === -1) {
+        task[key].push(val)
+      } else {
+        task[key].splice(idx, 1)
       }
       this.saveTask({ key, newVal: task[key] })
     },

@@ -65,9 +65,9 @@ export const boardStore = {
         setBoards(state, { boards }) {
             state.boards = boards
         },
-        // setAppHeaderBgc(state, {bgc}){
-        //     state.appHeaderBgc = bgc
-        // },
+        setAppHeaderBgc(state, {bgc}){
+            state.appHeaderBgc = bgc
+        },
         setWatchedBoardId(state, { boardId }) {
             state.watchedBoardId = boardId
         },

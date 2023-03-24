@@ -1,16 +1,18 @@
 <template>
-  <article class="task-CheckList">
+  <article class="task-Checklist">
     <header>
-      <h1 class="title"><span class="icon"></span> Checklist</h1>
+      <h1 class="title"><span class="icon"></span> {{ list.title }}</h1>
       <button @click="remove" class="btn-remove-checklist">Delete</button>
     </header>
+    <div v-for="item in list.checklist">{{ item }}</div>
+
     <button v-if="!isEdit" class="btn-add-item" @click="openEdit">Add an item</button>
 
     <div v-if="isEdit" class="checklist-editor">
-      <input ref="input" type="text" />
+      <input ref="input" v-model="itemToAdd" type="text" />
 
-      <div class="save-cancel flex">
-        <button @click="saveDescription" class="btn-save">Save</button>
+      <div class="add-cancel flex">
+        <button @click="addItem" class="btn-add">Add</button>
         <button @click="isEdit = false" class="btn-cancel">Cancel</button>
       </div>
     </div>
@@ -21,22 +23,27 @@
 export default {
   name: 'TaskPreview',
   props: {
-    taskDescription: {
-      type: String,
+    taskChecklist: {
+      type: Object,
       required: true,
-      default: '',
     },
   },
   data() {
     return {
       isEdit: false,
-      checklist: [],
+      itemToAdd: '',
+      list: JSON.parse(JSON.stringify(this.taskChecklist)),
     }
   },
   methods: {
     openEdit() {
       this.isEdit = true
       this.$nextTick(() => this.$refs.input.focus())
+    },
+    addItem() {
+      this.list.checklist.unshift(this.itemToAdd)
+      this.itemToAdd = ''
+      this.$emit('updateEntityVal', { key: 'checklist', val: this.list })
     },
   },
   computed: {},

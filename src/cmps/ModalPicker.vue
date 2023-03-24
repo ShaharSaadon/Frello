@@ -9,14 +9,14 @@
     <component :is="type" :info="info"
      @updateEntityVal="$emit('updateEntityVal', $event)"
      @createBoard="createBoard"
-     @addCheckList="$emit('addCheckList', $event)" />
+     @addChecklist="$emit('addChecklist', $event)" />
   </section>
 </template>
 
 <script>
 import LabelPicker from './ModalsPicker/LabelPicker.vue'
 import MemberPicker from './ModalsPicker/MemberPicker.vue'
-import CheckListPicker from './ModalsPicker/CheckListPicker.vue'
+import ChecklistPicker from './ModalsPicker/ChecklistPicker.vue'
 import CreateBoard from './ModalsPicker/CreateBoard.vue'
 import { svgService } from '../services/svg.service.js'
 
@@ -56,6 +56,7 @@ export default {
           return {
             title: 'Create board',
           }
+          
         default:
           break
       }
@@ -74,7 +75,7 @@ export default {
           return 'Members'
         case 'CreateBoard':
           return 'Create board'
-        case 'CheckListPicker':
+        case 'ChecklistPicker':
           return 'Check list'
         default:
           return 'No Title'
@@ -85,7 +86,7 @@ export default {
     LabelPicker,
     MemberPicker,
     CreateBoard,
-    CheckListPicker,
+    ChecklistPicker,
   },
 }
 </script>
