@@ -10,15 +10,16 @@
         <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
+
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
 
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
       </div>
       <div class="sidebar flex">
-        <div class="flex space-between">
+        <!-- <div class="flex space-between">
           <h3>Suggested</h3>
           <button class="gear"></button>
-        </div>
+        </div> -->
         <button class="btn-link member"><span> Join</span></button>
         <h3>Add to card</h3>
 

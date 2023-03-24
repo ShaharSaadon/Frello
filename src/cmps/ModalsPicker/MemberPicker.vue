@@ -1,6 +1,5 @@
 <template>
   <div class="member-picker">
-    <p class="picker-title">{{ info.title }}</p>
     <hr />
     <input type="text" placeholder="Search Labels..." class="search-members" />
     <p>Board members</p>
@@ -17,7 +16,7 @@
       </li>
     </ul>
 
-    <button>Create a new label</button>
+    <!-- <button>Create a new label</button> -->
   </div>
 </template>
 

@@ -103,7 +103,6 @@ $breakpoints: (
 }
 
 @mixin TaskDetailsCmps($content: '') {
-  margin-inline-start: $cmp-margin-left;
   margin-bottom: $cmp-margin-bottom;
   position: relative;
 
