@@ -10,7 +10,9 @@
         <!-- <pre>{{ task }} </pre> -->
       </div>
       <div class="main-content">
-
+        <div class="task-head-tags">
+          <TaskHeadTags :info="{title: 'Notifications', isWatch: false}" />
+        </div>
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
 
         <!-- <TaskChecklist :taskDescription="task.description" /> -->
@@ -47,6 +49,7 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { svgService } from '../services/svg.service.js'
 import TaskDescription from '../cmps/TaskDescription.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
+import TaskHeadTags from '../cmps/TaskHeadTags.vue'
 
 export default {
   watch: {
@@ -85,7 +88,7 @@ export default {
       return taskId
     },
     task() {
-      return {...this.$store.getters.currTask}
+      return { ...this.$store.getters.currTask }
     },
   },
   methods: {
@@ -108,7 +111,7 @@ export default {
     },
     updateEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
-      console.log("task: ", task);
+      console.log('task: ', task)
       if (key === 'members') {
         const idx = task[key].findIndex((id) => id === val)
         if (idx === -1) {
@@ -117,7 +120,7 @@ export default {
           task[key].splice(idx, 1)
         }
       }
-      this.saveTask({key, newVal: task[key]})
+      this.saveTask({ key, newVal: task[key] })
     },
     async saveTask({ key, newVal }) {
       this.task[key] = newVal
@@ -139,6 +142,7 @@ export default {
   components: {
     TaskDescription,
     ModalPicker,
-  }
+    TaskHeadTags,
+  },
 }
 </script>
