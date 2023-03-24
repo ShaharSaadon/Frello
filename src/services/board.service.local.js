@@ -79,6 +79,7 @@ function getEmptyGroup() {
 function getEmptyBoard() {
   return {
     title: '',
+    appHeaderBgc: '',
     isStarred: false,
     archivedAt: '',
     createdBy: {},

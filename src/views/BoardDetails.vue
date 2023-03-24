@@ -36,7 +36,11 @@ export default {
   data() {
     return {}
   },
-  async created() {},
+  async created() {
+    },
+  mounted() {
+    this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
+  },
   watch: {
     boardId: {
       handler() {

@@ -41,7 +41,7 @@ export default {
     },
     members() {
       return this.$store.getters.watchedBoard.members.filter(m =>{
-        if (this.info.members.includes(m._id)) return m
+        if (this.info.members?.includes(m._id)) return m
       } )
     },
   },

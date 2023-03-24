@@ -65,7 +65,7 @@
             margin:0;
         }
         .add-a-card {
-            border-radius: 3px;
+            border-radius: $border-radius-3;
             color: $clr-base-4;
             display: block;
             flex: 1 0 auto;
@@ -83,11 +83,9 @@
                 font-family: arial;
                 margin-block-end: 6px;
                 padding: 6px 8px 2px;
-                border-radius: 6px;
                 box-shadow: $box-shadow-task-preview;
                 margin-block-start: none;
-                // box-shadow: none;
-                // border: 1px solid $clr9;
+                resize: vertical;
                 
             }
 
