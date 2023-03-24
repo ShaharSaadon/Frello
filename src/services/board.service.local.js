@@ -96,12 +96,14 @@ function getEmptyBoard() {
             title: 'Replace logo',
             isWatch: false,
             members: [],
+            labels: [],
           },
           {
             id: 'c102',
             title: 'Add Samples',
             isWatch: false,
             members: [],
+            labels: [],
           },
         ],
         style: {},
@@ -116,6 +118,7 @@ function getEmptyBoard() {
             isWatch: false,
             archivedAt: 1589983468418,
             members: [],
+            labels: [],
           },
           {
             id: 'c104',
@@ -125,6 +128,7 @@ function getEmptyBoard() {
             priority: 'high',
             description: 'description',
             members: [],
+            labels: [],
             comments: [
               {
                 id: 'ZdPnm',
@@ -175,6 +179,7 @@ function getEmptyTask() {
     title: '',
     description: 'description...',
     members: [],
+    labels: [],
     isWatch: false,
   }
 }

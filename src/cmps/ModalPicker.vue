@@ -38,7 +38,8 @@ export default {
       switch (this.type) {
         case 'LabelPicker':
           return {
-            label: 'labels',
+            labels: this.task.labels,
+            title: 'Labels',
           }
           break
         case 'MemberPicker':
@@ -57,6 +58,9 @@ export default {
     },
     board() {
       return this.$store.getters.watchedBoard
+    },
+    task(){
+      return this.$store.getters.currTask
     },
     title() {
       switch (this.type) {

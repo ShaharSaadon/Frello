@@ -1,88 +1,207 @@
 // Font Sizes
 .fs12 {
-    font-size: rem(12px);
+  font-size: rem(12px);
 }
 
 .fs14 {
-    font-size: rem(14px);
+  font-size: rem(14px);
 }
 
 .fs18 {
-    font-size: rem(18px);
+  font-size: rem(18px);
 }
 
 .fs20 {
-    font-size: rem(20px);
+  font-size: rem(20px);
 }
 
 .fs24 {
-    font-size: rem(24px);
+  font-size: rem(24px);
 }
 
 .fs28 {
-    font-size: rem(28px);
+  font-size: rem(28px);
 }
 
 .fs30 {
-    font-size: rem(30px);
+  font-size: rem(30px);
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
-
-//list 
+//list
 .clean-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 // flex helpers
 
 .flex {
+  display: flex;
 
-    display: flex;
+  > *.full {
+    flex: 1;
+  }
 
-    >*.full {
-        flex: 1;
-    }
+  &.column {
+    flex-direction: column;
+  }
 
-    &.column {
-        flex-direction: column;
-    }
+  &.justify-center {
+    justify-content: center;
+  }
 
-    &.justify-center {
-        justify-content: center;
-    }
+  &.align-center {
+    align-items: center;
+  }
 
-    &.align-center {
-        align-items: center;
-    }
-
-    &.space-between {
-        justify-content: space-between;
-    }
+  &.space-between {
+    justify-content: space-between;
+  }
 }
-
 
 /* GRID  */
 
 .grid {
-    display: grid;
+  display: grid;
 }
 
 // Media helpers
 
 .square-ratio {
-    @include aspect-ratio(1, 1);
+  @include aspect-ratio(1, 1);
 }
 
 .video-ratio {
-    @include aspect-ratio(16, 9);
+  @include aspect-ratio(16, 9);
 }
 
 .portrait-ratio {
-    @include aspect-ratio(9, 16);
+  @include aspect-ratio(9, 16);
+}
+
+// labels
+
+.label-tag {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 0;
+  border-radius: 3px;
+  padding: 0 12px 0 32px;
+  max-width: 100%;
+  min-width: 48px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 8px;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+  }
+  // label colors
+  &.green {
+    @include label-tag-color($clr-label-green);
+  }
+  &.green-light {
+    @include label-tag-color($clr-label-light-green);
+  }
+  &.green-dark {
+    @include label-tag-color($clr-label-dark-green);
+  }
+  &.yellow {
+    @include label-tag-color($clr-label-yellow);
+  }
+  &.yellow-light {
+    @include label-tag-color($clr-label-light-yellow);
+  }
+  &.yellow-dark {
+    @include label-tag-color($clr-label-dark-yellow);
+  }
+  &.orange {
+    @include label-tag-color($clr-label-orange);
+  }
+  &.orange-light {
+    @include label-tag-color($clr-label-light-orange);
+  }
+  &.orange-dark {
+    @include label-tag-color($clr-label-dark-orange);
+  }
+  &.red {
+    @include label-tag-color($clr-label-red);
+  }
+  &.red-light {
+    @include label-tag-color($clr-label-light-red);
+  }
+  &.red-dark {
+    @include label-tag-color($clr-label-dark-red);
+  }
+  &.purple {
+    @include label-tag-color($clr-label-purple);
+  }
+  &.purple-light {
+    @include label-tag-color($clr-label-light-purple);
+  }
+  &.purple-dark {
+    @include label-tag-color($clr-label-dark-purple);
+  }
+  &.blue {
+    @include label-tag-color($clr-label-blue);
+  }
+  &.blue-light {
+    @include label-tag-color($clr-label-light-blue);
+  }
+  &.blue-dark {
+    @include label-tag-color($clr-label-dark-blue);
+  }
+  &.sky {
+    @include label-tag-color($clr-label-sky);
+  }
+  &.sky-light {
+    @include label-tag-color($clr-label-light-sky);
+  }
+  &.sky-dark {
+    @include label-tag-color($clr-label-dark-sky);
+  }
+  &.lime {
+    @include label-tag-color($clr-label-lime);
+  }
+  &.lime-light {
+    @include label-tag-color($clr-label-light-lime);
+  }
+  &.lime-dark {
+    @include label-tag-color($clr-label-dark-lime);
+  }
+  &.pink {
+    @include label-tag-color($clr-label-pink);
+  }
+  &.pink-light {
+    @include label-tag-color($clr-label-light-pink);
+  }
+  &.pink-dark {
+    @include label-tag-color($clr-label-dark-pink);
+  }
+  &.black {
+    @include label-tag-color($clr-label-black);
+  }
+  &.black-light {
+    @include label-tag-color($clr-label-light-black);
+  }
+  &.black-dark {
+    @include label-tag-color($clr-label-dark-black);
+  }
 }

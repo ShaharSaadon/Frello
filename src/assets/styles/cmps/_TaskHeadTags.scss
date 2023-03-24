@@ -1,5 +1,12 @@
 .task-head-tags {
   margin-bottom: em(24px);
+  display: flex;
+  gap: 5px;
+
+  .head-labels {
+    display: flex;
+    gap: em(2px);
+  }
 
   h3.title {
     color: #5e6c84;
