@@ -5,9 +5,9 @@
         
         v-model="taskList"
         class="list-task"
-        ghost-class="ghost"
+        ghost-class="ghost-task"
         item-key="name"
-        drag-class="drag"
+        drag-class="drag-task"
         @start="drag = true"
         @end="drag = false"
         group="tasks"
@@ -20,9 +20,6 @@
       </Draggable>
     </div>
 
-    <!-- <ul v-if="tasks.length" class="clean-list">
-      <TaskPreview v-for="task in tasks" :key="task.id" :task="task" :groupId="groupId" />
-    </ul> -->
   </section>
 </template>
 

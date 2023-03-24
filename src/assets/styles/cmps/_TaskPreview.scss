@@ -1,51 +1,66 @@
 .task-preview {
-    background-color: $clr-base-2;
-    border-radius: em(3px);
-    box-shadow: $box-shadow-task-preview;
-    color: $clr-base-5;
-    cursor: pointer;
-    display: block;
-    margin-bottom: em(8px);
-    max-width: em(300px);
-    min-height: rem(20px);
-    position: relative;
-    z-index: 0;
-    
-    padding: em(6px) em(8px) em(2px) em(8px);
-    
-    .task-preview-title {
-        line-height: em(20px);
-        font-size: em(14px);
-        font-weight: 400;
-        white-space: normal;
+  background-color: $clr-base-2;
+  border-radius: em(3px);
+  box-shadow: $box-shadow-task-preview;
+  color: $clr-base-5;
+  cursor: pointer;
+  display: block;
+  margin-bottom: em(8px);
+  max-width: em(300px);
+  min-height: rem(20px);
+  position: relative;
+  z-index: 0;
 
+  padding: em(6px) em(8px) em(2px) em(8px);
+
+  .task-preview-title {
+    line-height: em(20px);
+    font-size: em(14px);
+    font-weight: 400;
+    white-space: normal;
+  }
+
+  .action-badges {
+    display: flex;
+    align-items: center;
+    margin-block: em(4px);
+    width: em(26px);
+    height: em(26px);
+    & > * {
+      margin-inline-end: em(4px);
     }
 
-    .action-badges {
-        display: flex;
-        align-items: center;
-        margin-block: em(4px);
-        width: em(26px);
-        height: em(26px);
-        &>*{
-            margin-inline-end: em(4px);
-        }
-
-        .badge-watch {
-            @include trello-icon($icon-eye)
-        }
-        .badge-date {
-            @include trello-icon($icon-clock)
-        }
-        .badge-description {
-            @include trello-icon($icon-description)
-        }
-        .badge-attachments {
-            @include trello-icon($icon-attachment)
-        }
-        .badge-checklist {
-            @include trello-icon($icon-checklist)
-        }
+    .badge-watch {
+      @include trello-icon($icon-eye);
     }
+    .badge-date {
+      @include trello-icon($icon-clock);
+    }
+    .badge-description {
+      @include trello-icon($icon-description);
+    }
+    .badge-attachments {
+      @include trello-icon($icon-attachment);
+    }
+    .badge-checklist {
+      @include trello-icon($icon-checklist);
+    }
+  }
+}
 
+.ghost-task {
+  .task-preview {
+    background-color: $clr-dynamic-button-highlighted;
+    box-shadow: none;
+
+    * {
+      visibility: hidden;
+    }
+  }
+}
+
+.drag-task {
+  .task-preview {
+    transform: rotate(3deg);
+  }
 }

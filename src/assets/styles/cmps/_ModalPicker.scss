@@ -1,7 +1,7 @@
 
 .modal-picker {
-    width: em(280px);
-    min-height: em(500px);
+    width: em(304px);
+    // min-height: em(500px);
     background-color: $clr6;
     position: absolute;
     top: 50%;
@@ -10,6 +10,7 @@
     box-shadow: $modal-picker-box-shadow;
     padding: 0 em(12px) em(12px) em(12px);
     color: $clr-base-4;
+    border-radius: $border-radius-3;
 
     .modal-picker-header{
         position: relative;
