@@ -1,7 +1,7 @@
 <template>
   <section class="modal-picker">
-    <h3>{{title}}</h3>
-    <component :is="type" :info="info" @updateTask="$emit('toggleMember', member)" />
+    <h3>{{ title }}</h3>
+    <component :is="type" :info="info" @updateEntityVal="$emit('updateEntityVal', $event)" />
   </section>
 </template>
 
@@ -18,9 +18,7 @@ export default {
   },
   name: '',
   data() {
-    return {
-        // title: '',
-    }
+    return {}
   },
   methods: {},
   computed: {
@@ -43,6 +41,12 @@ export default {
           }
           break
 
+        default:
+          break
+      }
+    },
+    board() {
+      return this.$store.getters.watchedBoard
         default:
           break
       }
