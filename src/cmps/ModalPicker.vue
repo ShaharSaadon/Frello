@@ -39,14 +39,6 @@ export default {
           return {
             title: 'Create board',
           }
-          break
-
-        default:
-          break
-      }
-    },
-    board() {
-      return this.$store.getters.watchedBoard
         default:
           break
       }
@@ -54,8 +46,8 @@ export default {
     board() {
       return this.$store.getters.watchedBoard
     },
-    title(){
-        switch (this.type) {
+    title() {
+      switch (this.type) {
         case 'LabelPicker':
           return 'Labels'
         case 'MemberPicker':
@@ -65,9 +57,8 @@ export default {
         default:
           return 'No Title'
       }
-    }
+    },
   },
-  created() {},
   components: {
     LabelPicker,
     MemberPicker,
@@ -75,5 +66,3 @@ export default {
   },
 }
 </script>
-
-<style></style>

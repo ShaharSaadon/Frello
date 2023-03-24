@@ -138,6 +138,6 @@ export default {
   components: {
     TaskDescription,
     ModalPicker,
-  },
+  }
 }
 </script>
