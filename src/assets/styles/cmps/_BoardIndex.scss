@@ -1,0 +1,43 @@
+.board-index {
+  padding: .5em;
+  h1 {
+    margin-block-start: em(24px);
+    margin-block-end: em(24px);
+  }
+
+  .add-board {
+    .btn-add-board {
+      height: 100%;
+      width: 100%;
+      @include trello-icon($icon-plus, $type: sm, $color: $clr-base-4);
+      margin: 0;
+      cursor: pointer;
+      box-shadow: 0 0px 3px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .board-list {
+    display: grid;
+    gap: 0.5em;
+    grid-template-columns: repeat(auto-fit, minmax(em(144px), 1fr));
+
+    li {
+      height: 96px;
+      border-radius: 3px;
+      width: 100%;
+    }
+  }
+
+  @include mq(mq-Board-index) {
+    grid-template-columns: 1fr rem(825px) 1fr;
+    & > * {
+      grid-column: 2;
+    }
+    &.full {
+      grid-column: 1 / -1;
+    }
+    .board-list {
+      gap: 1em;
+    }
+  }
+}
