@@ -8,10 +8,18 @@
       <span>{{ donePercent }}%</span>
       <div class="progress-bar-container"><div class="progress-bar-percent" :style="this.stylePercent"></div></div>
     </div>
-    <div @click="toggleCheck(idx)" class="checklist-item" v-for="(item, idx) in list.checklist" :key="idx">
-      <span class="check-box" :class="item.isChecked ? 'checked' : ''"></span>
-      <h3 :class="item.isChecked ? 'checked' : ''">{{ item.title }}</h3>
-      <span @click.stop="removeItem(idx)" class="checklist-archive"></span>
+    <div  class="checklist-item" v-for="(item, idx) in list.checklist" :key="idx">
+      <span @click="toggleCheck(idx)" class="check-box" :class="item.isChecked ? 'checked' : ''"></span>
+      <h3 v-if="this.isItemEdit !== idx" @click="this.isItemEdit = idx" :class="item.isChecked ? 'checked' : ''">{{ item.title }}</h3>
+      <div v-if="this.isItemEdit  === idx" class="item-editor">
+      <input @keypress.enter="save" ref="input" v-model="item.title" type="text" />
+
+      <div class="add-cancel flex">
+        <button @click="save" class="btn-add">save</button>
+        <button @click="isItemEdit = null" class="close-item-edit"></button>
+      </div>
+    </div>
+      <span  v-if="this.isItemEdit !== idx" @click.stop="removeItem(idx)" class="checklist-archive"></span>
     </div>
 
     <button v-if="!isEdit" class="btn-add-item" @click="openEdit">Add an item</button>
@@ -41,6 +49,7 @@ export default {
       isEdit: false,
       itemToAdd: { isChecked: false, title: '' },
       list: JSON.parse(JSON.stringify(this.taskChecklist)),
+      isItemEdit: null,
     }
   },
   methods: {
@@ -49,6 +58,7 @@ export default {
       this.$nextTick(() => this.$refs.input.focus())
     },
     addItem() {
+      if (!this.itemToAdd.title) return
       this.list.checklist.unshift({ ...this.itemToAdd })
       this.itemToAdd.title = ''
       this.$nextTick(() => this.$refs.input.focus())
@@ -60,6 +70,10 @@ export default {
     },
     toggleCheck(idx) {
       this.list.checklist[idx].isChecked = !this.list.checklist[idx].isChecked
+      this.update()
+    },
+    save(){
+      this.isItemEdit = null
       this.update()
     },
     update() {
