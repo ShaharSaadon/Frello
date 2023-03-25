@@ -90,6 +90,7 @@ export default {
       return { backgroundImage: this.chosenBg.bgImg }
     },
     createNewBoard() {
+      if (!this.title) return
       this.$emit('createBoard', { title: this.title, bg: this.chosenBg })
     },
   },

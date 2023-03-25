@@ -19,6 +19,10 @@
         <span></span> {{ info.isWatch ? 'Watching' : 'Watch' }}
       </button>
     </div>
+    <div v-if="info?.dueDate">
+      <h3 class="title">Due date</h3>
+      <button class="notifications">{{getDate}}</button>
+    </div>
   </div>
 </template>
 
@@ -38,6 +42,9 @@ export default {
   computed: {
     labels(){
       return this.info.labels
+    },
+    getDate(){
+      return (new Date(this.info.dueDate)).toLocaleString('en-GB', { timeZone: 'UTC' })
     },
     members() {
       return this.$store.getters.watchedBoard.members.filter(m =>{
