@@ -10,6 +10,7 @@
       :is="type"
       :info="info"
       @updateEntityVal="$emit('updateEntityVal', $event)"
+      @removeEntityVal="$emit('removeEntityVal', $event)"
       @createBoard="createBoard"
       @addChecklist="$emit('addChecklist', $event)"
       @toLabelEditor="toLabelEditor"
@@ -68,6 +69,7 @@ export default {
         case 'MemberPicker':
           return {
             members: this.board.members,
+            taskMembers: this.task.members,
             title: 'Members',
           }
           break

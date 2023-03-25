@@ -17,6 +17,7 @@
 
 <script>
 import { svgService } from '../../services/svg.service.js'
+import { utilService } from '../../services/util.service.js'
 export default {
   props: {
     info: {
@@ -29,31 +30,37 @@ export default {
     return {
       labels: [
         {
+          id: utilService.makeId(),
           color: 'light-green',
           title: '',
           isChecked: false,
         },
         {
+          id: utilService.makeId(),
           color: 'light-blue',
           title: '',
           isChecked: false,
         },
         {
+          id: utilService.makeId(),
           color: 'light-orange',
           title: '',
           isChecked: false,
         },
         {
+          id: utilService.makeId(),
           color: 'light-red',
           title: '',
           isChecked: false,
         },
         {
+          id: utilService.makeId(),
           color: 'light-purple',
           title: '',
           isChecked: false,
         },
         {
+          id: utilService.makeId(),
           color: 'light-sky',
           title: '',
           isChecked: false,
@@ -66,16 +73,17 @@ export default {
       return svgService.getTrelloSvg(iconName)
     },
     toggleCheck(idx) {
+      const type = this.labels[idx].isChecked ? 'removeEntityVal' : 'updateEntityVal'
       this.labels[idx].isChecked = !this.labels[idx].isChecked
 
-      const { color, title } = this.labels[idx]
-      this.$emit('updateEntityVal', { key: 'labels', val: { color, title } })
+      const { color, title, id } = this.labels[idx]
+      this.$emit(type, { key: 'labels', val: { color, title, id } })
     },
   },
   computed: {},
   created() {
     this.labels.forEach((label) => {
-      if (this.info.labels.find((l) => l.color === label.color)) label.isChecked = true
+      if (this.info.labels.find((l) => l.id === label.id)) label.isChecked = true
     })
   },
   components: {},

@@ -44,6 +44,7 @@
         :type="modal.type"
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
+        @removeEntityVal="removeEntityVal"
         @addChecklist="addChecklist"
         @toLabelEditor="toggleModal('LabelEditor')"
         @updateLabel="updateLabel"
@@ -166,26 +167,21 @@ export default {
     updateEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
       var idx
-      if (key === 'checklists') {
-        idx = task[key].findIndex((list) => list.id === val.id)
-        if (idx === -1) {
-          task[key].push(val)
-        } else {
-          task[key].splice(idx, 1, val)
-        }
-        this.saveTask({ key, newVal: task[key] })
-        return
-      }
-      if (key === 'members') {
-        idx = task[key].findIndex((id) => id === val)
-      } else if (key === 'labels') {
-        idx = task.labels.findIndex((label) => label.color === val.color)
-      }
+      var isObj = val.id
+      const itemId = isObj ?  val.id : val
+      idx = task[key].findIndex((item) => item.id === itemId)
       if (idx === -1) {
         task[key].push(val)
       } else {
-        task[key].splice(idx, 1)
+        task[key].splice(idx, 1, val)
       }
+      this.saveTask({ key, newVal: task[key] })
+    },
+    removeEntityVal({ key, val }) {
+      const task = JSON.parse(JSON.stringify(this.task))
+      const itemId = val.id ?  val.id : val
+      const idx = task[key].findIndex((item) => item.id === itemId)
+      task[key].splice(idx, 1)
       this.saveTask({ key, newVal: task[key] })
     },
     async saveTask({ key, newVal }) {
