@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import TaskMember from './TaskMember.vue';
+import TaskMember from '../TaskMember.vue';
 
 export default {
   name: "TaskPreview",

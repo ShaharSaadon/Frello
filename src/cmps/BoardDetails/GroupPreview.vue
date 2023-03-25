@@ -47,9 +47,9 @@
 </template>
 
 <script>
-import TaskList from '../cmps/TaskList.vue'
-import { svgService } from '../services/svg.service.js'
-import { boardService } from '../services/board.service.local.js'
+import TaskList from './TaskList.vue'
+import { svgService } from '../../services/svg.service.js'
+import { boardService } from '../../services/board.service.local.js'
 
 export default {
   name: 'GroupPreview',

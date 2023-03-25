@@ -38,38 +38,38 @@
     height: 90vh;
     color: $clr6;
     display: grid;
+    //UNTIL NEXT BREAK
     grid-template-columns:
-        // UNTIL 1000 PX
         1fr 720px 1fr;
-        > * {
-            grid-column: 2;
-        }    
 
-    // BIGGER THAN 1000px
+    >* {
+        grid-column: 2;
+    }
+
+    // 1000PX AND MORE
     @include mq(homePageMain1) {
         grid-template-columns:
-        1fr 480px 530px 1fr;
-        
-    }
+            1fr 480px 530px 1fr;
 
-    // BIGGER THAN 1200px
+        .left-box {
+            grid-column: 2;
+        }
+
+        .right-box {
+            grid-column: 3;
+        }
+
+    }
+    //1200px AND MORE
     @include mq(homePageMain2) {
         grid-template-columns:
-            1fr 570px 630px 1fr;
-            .left-box {
-                grid-column: 2;
-            }
-        
-            .right-box {
-                grid-column: 3;
-            }
+            1fr 540px 630px 1fr;
     }
 
- 
-        img {
-            width: 100%;
-        }
-    
+    img {
+        width: 100%;
+    }
+
 
 
 

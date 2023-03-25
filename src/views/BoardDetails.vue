@@ -37,10 +37,10 @@ import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { boardService } from '../services/board.service.local'
 import { svgService } from '../services/svg.service'
 import { getActionRemoveGroup, getActionUpdateBoard } from '../store/board.store'
-import GroupList from '../cmps/GroupList.vue'
-import LeftSideBar from '../cmps/LeftSideBar.vue'
-import TaskHeadTags from '../cmps/TaskHeadTags.vue'
-import BoardMembers from '../cmps/BoardMembers.vue'
+import GroupList from '../cmps/BoardDetails/GroupList.vue'
+import LeftSideBar from '../cmps/BoardDetails/LeftSideBar.vue'
+import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
+import BoardMembers from '../cmps/BoardDetails/BoardMembers.vue'
 
 export default {
   data() {
