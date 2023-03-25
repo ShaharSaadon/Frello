@@ -11,7 +11,13 @@
       <div class="main-content">
         <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskChecklist :key="list.title" v-for="list in task.checklists" :taskChecklist="list" @removeChecklist="removeChecklist" @updateEntityVal="updateEntityVal" />
+        <TaskChecklist
+          :key="list.title"
+          v-for="list in task.checklists"
+          :taskChecklist="list"
+          @removeChecklist="removeChecklist"
+          @updateEntityVal="updateEntityVal"
+        />
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -134,12 +140,11 @@ export default {
       this.saveTask({ key: 'checklists', newVal: task.checklists })
       this.toggleModal()
     },
-    removeChecklist(title){
+    removeChecklist(title) {
       const task = JSON.parse(JSON.stringify(this.task))
       const idx = task.checklists.findIndex((list) => list.title === title)
       task.checklists.splice(idx, 1)
       this.saveTask({ key: 'checklists', newVal: task.checklists })
-
     },
     async removeTask() {
       try {

@@ -6,10 +6,13 @@
       <!-- <button class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button> -->
     </header>
 
-    <component :is="type" :info="info"
-     @updateEntityVal="$emit('updateEntityVal', $event)"
-     @createBoard="createBoard"
-     @addChecklist="$emit('addChecklist', $event)" />
+    <component
+      :is="type"
+      :info="info"
+      @updateEntityVal="$emit('updateEntityVal', $event)"
+      @createBoard="createBoard"
+      @addChecklist="$emit('addChecklist', $event)"
+    />
   </section>
 </template>
 
@@ -56,7 +59,11 @@ export default {
           return {
             title: 'Create board',
           }
-          
+        // case 'itemActions':
+        //   return {
+        //     title: 'Item actions',
+        //   }
+
         default:
           break
       }
@@ -77,6 +84,8 @@ export default {
           return 'Create board'
         case 'ChecklistPicker':
           return 'Check list'
+        // case 'itemActions':
+        //   return 'Item actions'
         default:
           return 'No Title'
       }

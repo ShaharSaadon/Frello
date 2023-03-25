@@ -52,6 +52,7 @@
   }
 
   .checklist-item {
+    position: relative;
     display: grid;
     grid-template-columns: $task-details-content-grid;
     align-content: center;
@@ -63,6 +64,9 @@
     cursor: pointer;
     &:hover {
       background-color: $clr-base-3;
+      & .checklist-archive {
+        opacity: 1;
+      }
     }
     h3 {
       color: $clr-base-5;
@@ -98,6 +102,20 @@
       }
       &:active {
         box-shadow: $box-shadow-checkbox-active;
+      }
+    }
+
+    .checklist-archive {
+      @include trello-icon($icon-archive);
+      border-radius: $border-radius-3;
+      text-align: center;
+      position: absolute;
+      right: 7px;
+      top: 5px;
+      width: em(24px);
+      opacity: 0;
+      &:hover {
+        background-color: $clr-base-3-hover;
       }
     }
   }

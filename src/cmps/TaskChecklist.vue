@@ -11,6 +11,7 @@
     <div @click="toggleCheck(idx)" class="checklist-item" v-for="(item, idx) in list.checklist" :key="idx">
       <span class="check-box" :class="item.isChecked ? 'checked' : ''"></span>
       <h3 :class="item.isChecked ? 'checked' : ''">{{ item.title }}</h3>
+      <span @click.stop="removeItem(idx)" class="checklist-archive"></span>
     </div>
 
     <button v-if="!isEdit" class="btn-add-item" @click="openEdit">Add an item</button>
@@ -51,11 +52,17 @@ export default {
       this.list.checklist.unshift({ ...this.itemToAdd })
       this.itemToAdd.title = ''
       this.$nextTick(() => this.$refs.input.focus())
-      const val = JSON.parse(JSON.stringify(this.list))
-      this.$emit('updateEntityVal', { key: 'checklists', val })
+      this.update()
+    },
+    removeItem(idx) {
+      this.list.checklist.splice(idx, 1)
+      this.update()
     },
     toggleCheck(idx) {
       this.list.checklist[idx].isChecked = !this.list.checklist[idx].isChecked
+      this.update()
+    },
+    update() {
       const val = JSON.parse(JSON.stringify(this.list))
       this.$emit('updateEntityVal', { key: 'checklists', val })
     },
