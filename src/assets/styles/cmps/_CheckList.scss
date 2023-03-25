@@ -1,13 +1,75 @@
 .task-Checklist {
   @include TaskDetailsCmps($icon-checklist);
+  .icon {
+    &::before {
+      left: em(8px);
+    }
+  }
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 46px 492px;
+  & > *:not(.checklist-item) {
+    grid-column: 2;
+  }
 
   header {
     display: flex;
     justify-content: space-between;
   }
 
+  .checklist-item {
+    display: grid;
+    grid-template-columns: 46px 492px;
+    align-content: center;
+    grid-column: span 2;
+    width: 100%;
+    border-radius: 4px;
+    padding: em(6px) 0;
+    height: em(36px);
+    cursor: pointer;
+    &:hover {
+      background-color: $clr-base-3;
+    }
+    h3 {
+      color: $clr-base-5;
+      font-size: em(14px);
+      font-weight: 400;
+      &.checked {
+        text-decoration: line-through;
+        color: $clr-base-4;
+      }
+    }
+
+    .check-box {
+      justify-self: center;
+      margin-inline-end: em(6px);
+      box-shadow: $box-shadow-checkbox;
+      height: em(16px);
+      width: em(16px);
+      position: relative;
+      border-radius: 2px;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+      transition: 0.5s;
+      &.checked {
+        background-color: $clr-base-8;
+        box-shadow: none;
+        @include trello-icon($icon-checked, $color: $clr-base-1);
+        &::before {
+          position: absolute;
+          height: em(16px);
+          width: em(16px);
+          top: -6px;
+        }
+      }
+      &:active {
+        box-shadow: $box-shadow-checkbox-active;
+      }
+    }
+  }
   .btn-add-item {
     @include btn-main();
+    justify-self: start;
   }
 
   .checklist-editor {

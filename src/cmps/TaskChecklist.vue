@@ -4,12 +4,15 @@
       <h1 class="title"><span class="icon"></span> {{ list.title }}</h1>
       <button @click="remove" class="btn-remove-checklist">Delete</button>
     </header>
-    <div v-for="item in list.checklist">{{ item }}</div>
+    <div class="checklist-item" v-for="(item, idx) in list.checklist" :key="idx">
+      <span @click="toggleCheck(idx)" class="check-box" :class="item.isChecked ? 'checked' : ''"></span>
+      <h3 :class="item.isChecked ? 'checked' : ''">{{ item.title }}</h3>
+    </div>
 
     <button v-if="!isEdit" class="btn-add-item" @click="openEdit">Add an item</button>
 
     <div v-if="isEdit" class="checklist-editor">
-      <input ref="input" v-model="itemToAdd" type="text" />
+      <input ref="input" v-model="itemToAdd.title" type="text" />
 
       <div class="add-cancel flex">
         <button @click="addItem" class="btn-add">Add</button>
@@ -31,7 +34,7 @@ export default {
   data() {
     return {
       isEdit: false,
-      itemToAdd: '',
+      itemToAdd: {isChecked:false, title: ''},
       list: JSON.parse(JSON.stringify(this.taskChecklist)),
     }
   },
@@ -43,7 +46,11 @@ export default {
     addItem() {
       this.list.checklist.unshift(this.itemToAdd)
       this.itemToAdd = ''
-      this.$emit('updateEntityVal', { key: 'checklist', val: this.list })
+      const val = JSON.parse(JSON.stringify(this.list))
+      this.$emit('updateEntityVal', { key: 'checklists', val })
+    },
+    toggleCheck(idx) {
+      this.list.checklist[idx].isChecked = !this.list.checklist[idx].isChecked
     },
   },
   computed: {},

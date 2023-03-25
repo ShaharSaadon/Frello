@@ -99,7 +99,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
-            checklist: [],
+            checklists: [],
           },
           {
             id: 'c102',
@@ -107,7 +107,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
-            checklist: [],
+            checklists: [],
           },
         ],
         style: {},
@@ -123,7 +123,7 @@ function getEmptyBoard() {
             archivedAt: 1589983468418,
             members: [],
             labels: [],
-            checklist: [],
+            checklists: [],
 
           },
           {
@@ -135,7 +135,7 @@ function getEmptyBoard() {
             description: 'description',
             members: [],
             labels: [],
-            checklist: [],
+            checklists: [],
             comments: [
               {
                 id: 'ZdPnm',

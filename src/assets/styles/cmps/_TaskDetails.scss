@@ -31,9 +31,9 @@
       }
     }
     p {
-        line-height: 1em;
-        font-size: em(14px);
-        color: $clr-base-4;
+      line-height: 1em;
+      font-size: em(14px);
+      color: $clr-base-4;
     }
   }
 
@@ -98,10 +98,16 @@
     }
   }
   .main-content {
-    grid-column: 2;
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 46px 492px;
+    grid-auto-rows: max-content;
     margin: 0;
     min-height: 24px;
     padding: 0 8px 8px 0;
+    & > *:not(.task-Checklist) {
+      grid-column: 2;
+    }
   }
 
   .sidebar {

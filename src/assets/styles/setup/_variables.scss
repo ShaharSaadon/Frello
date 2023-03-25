@@ -5,94 +5,90 @@ $clr3: #574f7d;
 $clr4: #95adbe;
 $clr5: #dff0ea;
 $clr6: #fff;
-$clr7: #0065FF; //HomePage Hover Color
+$clr7: #0065ff; //HomePage Hover Color
 $clr8: #091e420a;
 $clr9: #5e6c84;
-$clr10:#f5f6f8;
+$clr10: #f5f6f8;
 
 // Labels Colors
-$clr-label-light-green: #B7DDB0;
-$clr-label-green: #7BC86C;
-$clr-label-dark-green: #5AAC45;
+$clr-label-light-green: #b7ddb0;
+$clr-label-green: #7bc86c;
+$clr-label-dark-green: #5aac45;
 
-$clr-label-light-yellow: #F5EA92;
-$clr-label-yellow: #F5DD28;
-$clr-label-dark-yellow: #E6C60E;
+$clr-label-light-yellow: #f5ea92;
+$clr-label-yellow: #f5dd28;
+$clr-label-dark-yellow: #e6c60e;
 
-$clr-label-light-orange: #FAD29C;
-$clr-label-orange: #F8AF3F;
-$clr-label-dark-orange: #E79218;
+$clr-label-light-orange: #fad29c;
+$clr-label-orange: #f8af3f;
+$clr-label-dark-orange: #e79218;
 
-$clr-label-light-red: #EFB3AB;
-$clr-label-red: #EF7564;
-$clr-label-dark-red: #CF503D;
+$clr-label-light-red: #efb3ab;
+$clr-label-red: #ef7564;
+$clr-label-dark-red: #cf503d;
 
-$clr-label-light-purple: #DFC0EB;
-$clr-label-purple: #CD8DE5;
-$clr-label-dark-purple: #A86CC1;
+$clr-label-light-purple: #dfc0eb;
+$clr-label-purple: #cd8de5;
+$clr-label-dark-purple: #a86cc1;
 
-$clr-label-light-blue: #8BBDD9;
-$clr-label-blue: #5BA4CF;
-$clr-label-dark-blue: #236AA7;
+$clr-label-light-blue: #8bbdd9;
+$clr-label-blue: #5ba4cf;
+$clr-label-dark-blue: #236aa7;
 
-$clr-label-light-sky: #8FDFEB;
-$clr-label-sky: #44CCE5;
-$clr-label-dark-sky: #39AECC;
+$clr-label-light-sky: #8fdfeb;
+$clr-label-sky: #44cce5;
+$clr-label-dark-sky: #39aecc;
 
-$clr-label-light-lime: #B3F1D0;
-$clr-label-lime: #6DECA9;
-$clr-label-dark-lime: #4ED583;
+$clr-label-light-lime: #b3f1d0;
+$clr-label-lime: #6deca9;
+$clr-label-dark-lime: #4ed583;
 
-$clr-label-light-pink: #F9C2E4;
-$clr-label-pink: #F88ED4;
-$clr-label-dark-pink: #E568AF;
+$clr-label-light-pink: #f9c2e4;
+$clr-label-pink: #f88ed4;
+$clr-label-dark-pink: #e568af;
 
-$clr-label-light-black: #505E79;
+$clr-label-light-black: #505e79;
 $clr-label-black: #344563;
-$clr-label-dark-black: #091E42;
-
+$clr-label-dark-black: #091e42;
 
 // Base Colors
-$clr-base-1: #FFFFFF;
-$clr-base-2: #F4F5F7; // <TaskDetails> bgc
-$clr-base-3: #EBECF0; // card bgc + <TaskDetails buttons>
+$clr-base-1: #ffffff;
+$clr-base-2: #f4f5f7; // <TaskDetails> bgc
+$clr-base-3: #ebecf0; // card bgc + <TaskDetails buttons>
 $clr-base-3-hover: #091e4214; // <TaskDetails buttons>
-$clr-base-4: #5E6C84; // sub font color
-$clr-base-5: #172B4D; // font color
-$clr-base-6: #2979BF; // add a card bgc
-$clr-base-7: #DE350B; // notification color
+$clr-base-4: #5e6c84; // sub font color
+$clr-base-5: #172b4d; // font color
+$clr-base-6: #2979bf; // add a card bgc
+$clr-base-7: #de350b; // notification color
 $clr-base-8: #0079bf; // notification color
 $clr-base-8-hover: #026aa7; // notification color
-
-
 
 // Dynamic Color
 $clr-dynamic-button: rgba(255, 255, 255, 0.2);
 $clr-dynamic-button-hovered: rgba(255, 255, 255, 0.3);
 $clr-dynamic-button-pressed: rgba(255, 255, 255, 0.4);
-$clr-dynamic-button-highlighted: #DFE1E6;
-$clr-dynamic-button-highlighted-text: #172B4D;
-$clr-dynamic-button-highlighted-hovered: #FFFFFF;
-$clr-dynamic-star: #F2D600;
-$clr-dynamic-icon: #FFFFFF;
-$clr-dynamic-text: #FFFFFF;
+$clr-dynamic-button-highlighted: #dfe1e6;
+$clr-dynamic-button-highlighted-text: #172b4d;
+$clr-dynamic-button-highlighted-hovered: #ffffff;
+$clr-dynamic-star: #f2d600;
+$clr-dynamic-icon: #ffffff;
+$clr-dynamic-text: #ffffff;
 $clr-dynamic-text-transparent: hsla(0, 0%, 100%, 0.16);
 
 // Trello Workspace logo
-$clr-trello-workspace-logo : linear-gradient(#1C6543, #268558);
+$clr-trello-workspace-logo: linear-gradient(#1c6543, #268558);
 
 // box shadow
 $box-shadow-task-preview: 0 1px 0 #091e4240;
+$box-shadow-checkbox: inset 0 0 0 2px #dfe1e6;
+$box-shadow-checkbox-active: inset 0 0 0 2px #5ba4cf;
 
 // draggable
-$placeholder-bgc:#0000001f;
-
-
+$placeholder-bgc: #0000001f;
 
 :root {
-    --bgc-board-details: #9ea8ba;
+  --bgc-board-details: #9ea8ba;
 }
-
 
 // Breakpoints
 $mobile-breakpoint: 460px;
@@ -105,51 +101,48 @@ $backdrop: rgb(0 0 0 / 14%);
 // border radius
 $border-radius-3: 3px;
 
-
 // icons
-$icon-member: "\e946";
-$icon-label: "\e93f";
-$icon-checklist: "\e91a";
-$icon-attachment: "\e908";
-$icon-plus: "\e901";
-$icon-arrow-right: "\e94a";
-$icon-copy: "\e91f";
-$icon-share: "\e963";
-$icon-description: "\e922";
-$icon-activity: "\e900";
-$icon-archive: "\e907";
-$icon-card: "\e912";
-$icon-card-cover: "\e914";
-$icon-gear: "\e932";
-$icon-eye: "\e969";
-$icon-comment: "\e91e";
-$icon-clock: "\e91b";
-$icon-star: "\e966";
-$icon-full-star: "\e967";
-$icon-two-members: "\e951";
-$icon-three-dots: "\e952";
-$icon-lighting-bolt: "\e909";
-$icon-power-up: "\e956";
-$icon-close: "\e91c";
-$icon-checked: "\e916";
-
+$icon-member: '\e946';
+$icon-label: '\e93f';
+$icon-checklist: '\e91a';
+$icon-attachment: '\e908';
+$icon-plus: '\e901';
+$icon-arrow-right: '\e94a';
+$icon-copy: '\e91f';
+$icon-share: '\e963';
+$icon-description: '\e922';
+$icon-activity: '\e900';
+$icon-archive: '\e907';
+$icon-card: '\e912';
+$icon-card-cover: '\e914';
+$icon-gear: '\e932';
+$icon-eye: '\e969';
+$icon-comment: '\e91e';
+$icon-clock: '\e91b';
+$icon-star: '\e966';
+$icon-full-star: '\e967';
+$icon-two-members: '\e951';
+$icon-three-dots: '\e952';
+$icon-lighting-bolt: '\e909';
+$icon-power-up: '\e956';
+$icon-close: '\e91c';
+$icon-checked: '\e916';
 
 // scrollbar
 $scrollbar-track: #091e4214;
 $scrollbar-piece: #00000026;
-
 
 // <TaskDetails> :
 $cmp-margin-left: 40px;
 $cmp-margin-bottom: 24px;
 
 // ModalPicker
-$modal-picker-box-shadow:  0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+$modal-picker-box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
 $clr-modal-picker-line: rgba(9, 30, 66, 0.13);
 
 // CreateBoard
-$input-bgc:  #FAFBFC;
-$input-border: 2px solid #DFE1E6;
+$input-bgc: #fafbfc;
+$input-border: 2px solid #dfe1e6;
 
 // AppHeader
 $app-header-height: 2.5rem;

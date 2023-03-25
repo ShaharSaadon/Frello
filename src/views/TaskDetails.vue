@@ -11,7 +11,7 @@
       <div class="main-content">
         <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskChecklist v-for="list in task.checklist" :taskChecklist="list" @updateEntityVal="updateEntityVal" />
+        <TaskChecklist v-for="list in task.checklists" :taskChecklist="list" @updateEntityVal="updateEntityVal" />
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -79,13 +79,13 @@ export default {
     },
     watchedBoard: {
       handler(changed) {
-        console.log(changed);
+        console.log(changed)
         if (this.watchedBoard) {
-          console.log('board has changed');
+          console.log('board has changed')
           this.task = this.getTaskFromStore
         }
       },
-      deep:true,
+      deep: true,
       immediate: true,
     },
   },
@@ -113,16 +113,16 @@ export default {
     getTaskFromStore() {
       return JSON.parse(JSON.stringify(this.$store.getters.currTask))
     },
-    info(){
+    info() {
       return {
         isWatch: this.task.isWatch,
         labels: this.task.labels,
         members: this.task.members,
       }
     },
-    watchedBoard(){
+    watchedBoard() {
       return this.$store.getters.watchedBoard
-    }
+    },
   },
   methods: {
     onEnter() {
@@ -130,9 +130,8 @@ export default {
     },
     addChecklist(title) {
       const task = JSON.parse(JSON.stringify(this.task))
-      if (!task.checklist) task.checklist = []
-      task.checklist.unshift({ title, checklist: [] })
-      this.saveTask({ key: 'checklist', newVal: task.checklist})
+      task.checklists.unshift({ title, checklist: [] })
+      this.saveTask({ key: 'checklists', newVal: task.checklists })
       this.toggleModal()
     },
     async removeTask() {
@@ -152,9 +151,17 @@ export default {
     updateEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
       var idx
-      if (key === 'checklist') {
+      if (key === 'checklists') {
         idx = task[key].findIndex((list) => list.title === val.title)
-      } else if (key === 'members') {
+        if (idx === -1) {
+          task[key].push(val)
+        } else {
+          task[key].splice(idx, 1, val)
+        }
+        this.saveTask({ key, newVal: task[key] })
+        return
+      }
+      if (key === 'members') {
         idx = task[key].findIndex((id) => id === val)
       } else if (key === 'labels') {
         idx = task.labels.findIndex((label) => label.color === val.color)
