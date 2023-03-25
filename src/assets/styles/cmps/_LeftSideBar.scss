@@ -1,76 +1,108 @@
-aside{
-    display: flex;
-    flex-direction: column;
-    min-width: 16px;
-    overflow: hidden;
-    min-height: 100vh;
-    
+aside {
+  display: flex;
+  flex-direction: column;
+  min-width: 16px;
+  overflow: hidden;
+  min-height: 100vh;
+  position: relative;
+
+  transition: 0.2s ease-out;
+
+  color: $clr-base-1;
+  background-color: rgba(255, 255, 255, 0.16);
+  border-right: 1px solid hsla(0, 0%, 100%, 0.16);
+
+  &.isExpended {
+    min-width: 240px;
     transition: 0.2s ease-out;
-    
-    color: $clr-base-1;
-    background-color:rgba(255, 255, 255, 0.16);
-    border-right: 1px solid hsla(0,0%,100%,0.16);
+  }
 
-    &.isExpended{
-      min-width:240px;
-      transition: 0.2s ease-out;
+  .close-menu {
+    &:hover {
+      cursor: pointer;
+      scale: 1.4;
+      transition: .3s;
     }
+  }
 
-    .close-menu{
-      &:hover{
-        cursor: pointer;
-        scale: 1.4;
-        transition: .3s;
-      }
-    }
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
 
-    &:hover{
-      background-color:rgba(255, 255, 255, 0.3);
-    }
-    .router-link-active{
-      background-color: black;
-    }
-    .left-side-header{
-      border-bottom: 1px solid hsla(0,0%,100%,0.16);
-      height: 70px;
-      padding: em(14px) em(12px);
-      justify-content: space-between;
-      align-items: center;
-  
-      .workspace-logo{
-        font-weight: bold;
-        font-size: 20px;
-        width: 36px;
-        height: 36px;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient( #006644, #00875a);        
-      }      
-    }
-    .left-side-bar-title{
-      padding: 12px;
-    }
-    .board-select{
-      display: flex;
-      align-items: center;
+  .router-link-active {
+    background-color: black;
+  }
+
+  .left-side-header {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.16);
+    height: 70px;
+    padding: em(14px) em(12px);
+    justify-content: space-between;
+    align-items: center;
+
+    .workspace-logo {
+      font-weight: bold;
+      font-size: 20px;
+      width: 36px;
       height: 36px;
-      padding: 4px 0px 0px 8px ;
-      font-size: 14px;
-      &:hover{
-        background-color:rgba(255, 255, 255, 0.3);
-      } 
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(#006644, #00875a);
+    }
+  }
 
+  .left-side-bar-title {
+    padding: 12px;
+  }
+
+  .board-select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 36px;
+    padding: 4px 0px 0px 8px;
+    font-size: 14px;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .star-icon{
+      @include btn-main(inherit, inherit, inherit);
+      @include trello-icon($icon-star, $type: sm, $color: inherit);
+      &:hover::before {
+        color: $clr-base-1;
+        scale: 1.5;
+      }
+
+      &.starred::before {
+        color: $clr-base-1;
+        content: $icon-full-star;
+      }
+
+      &.starred:hover::before {
+        color: $clr-base-1;
+        content: $icon-star;
+      }
 
     }
-    .board-image{
-      width:em(24px);
-      height: em(24px);
-      margin-inline-end: 8px ;
-      border-radius: 3px;
-      border: 1px solid hsla(0,0%,100%,0.1);
-    }
-    a{
+
+  }
+
+  .board-image {
+    width: em(24px);
+    height: em(24px);
+    margin-inline-end: 8px;
+    border-radius: 3px;
+    border: 1px solid hsla(0, 0%, 100%, 0.1);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    &:hover{
       text-decoration: none;
-      color:inherit;
     }
+  }
 }
+

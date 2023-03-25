@@ -1,12 +1,12 @@
 <template>
   <section v-if="board" class="board-details" :style="board.style">
-    <LeftSideBar/>
+    <LeftSideBar @onToggleStarred="onToggleStarred"/>
     <div class="main">
     <header class="board-header flex space-between">
       <div class="left-side-header flex align-center">
   
         <h1>{{ board.title }}</h1>
-        <button :class="getStarClass" @click="onToggleStarred" class="btn-header-star"></button>
+        <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
         <span class="separate-line"></span>
       </div>
       <div class="right-side-header flex align-center">
@@ -135,8 +135,8 @@ export default {
         showErrorMsg('Cannot Drag group')
       }
     },
-    async onToggleStarred() {
-      const isStarred = this.board.isStarred
+    async onToggleStarred(board) {
+      const isStarred = board.isStarred
       try {
         await this.$store.dispatch({ type: 'updateBoardEntity', key: 'isStarred', val: !isStarred })
         showSuccessMsg('board Drag updated')

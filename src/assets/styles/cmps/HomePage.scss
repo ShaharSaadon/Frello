@@ -2,6 +2,7 @@
 
     height: em(60px);
     align-items: stretch;
+
     @include mq(homePageHeader) {
         width: em(1320px);
         margin: 0 auto;
@@ -20,10 +21,10 @@
             text-decoration: none;
         }
     }
-
+    
     .nav-link-signup {
         background-color: $clr7;
-        color: $clr6
+        color: #ffffff;
     }
 
     img {
@@ -38,7 +39,12 @@
     color: $clr6;
     display: grid;
     grid-template-columns:
+    1fr 480px 530px 1fr;
+
+    @include mq(homePageMain1) {
+        grid-template-columns:
         1fr 570px 630px 1fr;
+    }
 
     .left-box {
         grid-column: 2;
@@ -51,6 +57,8 @@
             width: 100%;
         }
     }
+
+
 
     h1 {
         font-size: 3rem;
@@ -84,7 +92,8 @@
         border-radius: 0.3rem;
         font-size: 1rem;
         padding: 0.7rem 1rem 0.8rem;
-        &:hover{
+
+        &:hover {
             cursor: pointer;
         }
     }
