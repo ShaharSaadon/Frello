@@ -1,0 +1,44 @@
+<template>
+    <div class="task-members">
+        <div class="flex align-center" v-for="(member, idx) in taskMembers" :key="member._id">
+            <img :src="member.imgUrl" class="member-profile" />
+        </div>
+    </div>
+</template>
+  
+<script>
+import { svgService } from '../services/svg.service'
+export default {
+    name: 'BoardMembers',
+    props: {
+        members: {
+            type: Array,
+            required: false,
+        },
+    },
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+        getSvg(iconName) {
+            return svgService.getTrelloSvg(iconName)
+        }
+    },
+    computed: {
+        taskMembers() {
+            return this.$store.getters.watchedBoard.members.filter(m => {
+                if (this.members?.includes(m._id)) return m
+            })
+        },
+    },
+    created() {
+
+    },
+    components: {
+
+    },
+}
+</script>
+  
