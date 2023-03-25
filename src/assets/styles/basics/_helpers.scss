@@ -129,6 +129,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
+  color: $clr-base-5;
 
   &::before {
     content: '';

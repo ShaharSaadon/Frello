@@ -45,6 +45,8 @@
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
         @addChecklist="addChecklist"
+        @toLabelEditor="toggleModal('LabelEditor')"
+        @updateLabel="updateLabel"
       />
     </main>
   </section>

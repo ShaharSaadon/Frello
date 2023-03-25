@@ -5,7 +5,11 @@
     <div class="label-picker-ops" v-for="(label, idx) in labels" :key="idx">
       <span @click="toggleCheck(idx)" class="check-box" :class="label.isChecked ? 'checked' : ''"></span>
       <div :class="label.color" @click="toggleCheck(idx)" class="btn-label-tag label-tag"></div>
-      <button class="btn-marker-edit" v-html="getSvg('marker')"></button>
+      <button
+        @click="$emit('toLabelEditor', { color: label.color, title: label.title })"
+        class="btn-marker-edit"
+        v-html="getSvg('marker')"
+      ></button>
     </div>
     <!-- <button>Create a new label</button> -->
   </div>

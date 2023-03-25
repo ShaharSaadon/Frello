@@ -1,0 +1,40 @@
+.label-editor {
+  display: flex;
+  flex-direction: column;
+  .title-input {
+    @include input();
+  }
+  h3 {
+    margin: rem(12px) 0 rem(8px);
+    font-size: em(12px);
+    color: $clr9;
+    font-weight: 600;
+  }
+  hr {
+    background-color: $clr-modal-picker-line;
+    border: 0;
+    height: 1px;
+    margin: em(16px) 0;
+    padding: 0;
+    width: 100%;
+  }
+  .btn-save {
+    @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
+  }
+  .btn-cancel {
+    @include btn-main($clr-base-11, $clr-base-1, $clr-base-11-hover);
+  }
+  .label-container {
+    display: grid;
+    place-content: center;
+    height: em(100px);
+    background-color: $clr-base-2;
+
+    .label-tag-preview {
+      width: em(240px);
+      &:hover {
+        cursor: default;
+      }
+    }
+  }
+}
