@@ -18,6 +18,7 @@
   }
   .progress-bar {
     display: grid;
+    grid-column: 1 / -1;
     grid-template-columns: $task-details-content-grid;
     justify-items: center;
     height: em(8px);

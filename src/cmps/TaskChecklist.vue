@@ -10,12 +10,13 @@
     </div>
     <div  class="checklist-item" v-for="(item, idx) in list.checklist" :key="idx">
       <span @click="toggleCheck(idx)" class="check-box" :class="item.isChecked ? 'checked' : ''"></span>
-      <h3 v-if="this.isItemEdit !== idx" @click="this.isItemEdit = idx" :class="item.isChecked ? 'checked' : ''">{{ item.title }}</h3>
+      <h3 v-if="this.isItemEdit !== idx" @click="openItemEdit(item.title, idx)" :class="item.isChecked ? 'checked' : ''">{{ item.title }}</h3>
       <div v-if="this.isItemEdit  === idx" class="item-editor">
-      <input @keypress.enter="save" ref="input" v-model="item.title" type="text" />
+        
+      <input @keypress.enter="save" ref="inputEdit" v-model="this.itemToEdit" type="text" />
 
       <div class="add-cancel flex">
-        <button @click="save" class="btn-add">save</button>
+        <button @click="save(item)" class="btn-add">save</button>
         <button @click="isItemEdit = null" class="close-item-edit"></button>
       </div>
     </div>
@@ -25,7 +26,7 @@
     <button v-if="!isEdit" class="btn-add-item" @click="openEdit">Add an item</button>
 
     <div v-if="isEdit" class="checklist-editor">
-      <input @keypress.enter="addItem" ref="input" v-model="itemToAdd.title" type="text" />
+      <input @keypress.enter="addItem" ref="inputAdd" v-model="itemToAdd.title" type="text" />
 
       <div class="add-cancel flex">
         <button @click="addItem" class="btn-add">Add</button>
@@ -50,18 +51,24 @@ export default {
       itemToAdd: { isChecked: false, title: '' },
       list: JSON.parse(JSON.stringify(this.taskChecklist)),
       isItemEdit: null,
+      itemToEdit: '',
     }
   },
   methods: {
     openEdit() {
       this.isEdit = true
-      this.$nextTick(() => this.$refs.input.focus())
+      this.$nextTick(() => this.$refs.inputAdd.focus())
+    },
+    openItemEdit(txt, idx) {
+      this.isItemEdit = idx
+      this.itemToEdit = txt
+      this.$nextTick(() => this.$refs.inputEdit.focus())
     },
     addItem() {
       if (!this.itemToAdd.title) return
-      this.list.checklist.unshift({ ...this.itemToAdd })
+      this.list.checklist.push({ ...this.itemToAdd })
       this.itemToAdd.title = ''
-      this.$nextTick(() => this.$refs.input.focus())
+      this.$nextTick(() => this.$refs.inputAdd.focus())
       this.update()
     },
     removeItem(idx) {
@@ -72,8 +79,10 @@ export default {
       this.list.checklist[idx].isChecked = !this.list.checklist[idx].isChecked
       this.update()
     },
-    save(){
+    save(item){
       this.isItemEdit = null
+      item.title = this.itemToEdit
+      this.itemToEdit = ''
       this.update()
     },
     update() {
