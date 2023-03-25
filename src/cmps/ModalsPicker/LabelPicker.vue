@@ -4,9 +4,9 @@
     <h3>Labels</h3>
     <div class="label-picker-ops" v-for="(label, idx) in labels" :key="idx">
       <span @click="toggleCheck(idx)" class="check-box" :class="label.isChecked ? 'checked' : ''"></span>
-      <div :class="label.color" @click="toggleCheck(idx)" class="btn-label-tag label-tag"></div>
+      <div :class="label.color" @click="toggleCheck(idx)" class="btn-label-tag label-tag">{{ label.title }}</div>
       <button
-        @click="$emit('toLabelEditor', { color: label.color, title: label.title })"
+        @click="$emit('toLabelEditor', { id: label.id, color: label.color, title: label.title })"
         class="btn-marker-edit"
         v-html="getSvg('marker')"
       ></button>
@@ -30,37 +30,37 @@ export default {
     return {
       labels: [
         {
-          id: utilService.makeId(),
+          id: 'l200',
           color: 'light-green',
           title: '',
           isChecked: false,
         },
         {
-          id: utilService.makeId(),
+          id: 'l201',
           color: 'light-blue',
           title: '',
           isChecked: false,
         },
         {
-          id: utilService.makeId(),
+          id: 'l202',
           color: 'light-orange',
           title: '',
           isChecked: false,
         },
         {
-          id: utilService.makeId(),
+          id: 'l203',
           color: 'light-red',
           title: '',
           isChecked: false,
         },
         {
-          id: utilService.makeId(),
+          id: 'l204',
           color: 'light-purple',
           title: '',
           isChecked: false,
         },
         {
-          id: utilService.makeId(),
+          id: 'l205',
           color: 'light-sky',
           title: '',
           isChecked: false,

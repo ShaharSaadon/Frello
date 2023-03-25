@@ -8,7 +8,9 @@
     <input v-model="this.labelToEdit.title" class="title-input" type="text" />
     <hr />
     <div class="flex space-between">
-      <button @click="$emit('updateLabel', { ...this.labelToEdit })" class="btn-save">Save</button>
+      <button @click="save" class="btn-save">
+        Save
+      </button>
       <button class="btn-cancel">Delete</button>
     </div>
   </div>
@@ -28,7 +30,12 @@ export default {
       labelToEdit: this.info.label,
     }
   },
-  methods: {},
+  methods: {
+    save(){
+      this.$emit('updateEntityVal', { key: 'labels', val: { ...this.labelToEdit } })
+      this.$emit('closeModal')
+    }
+  },
   computed: {},
   created() {},
   components: {},

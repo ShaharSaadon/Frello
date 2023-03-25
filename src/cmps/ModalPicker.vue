@@ -16,7 +16,6 @@
       @saveTask="$emit('saveTask', $event)"
       @closeModal="$emit('closeModal')"
       @toLabelEditor="toLabelEditor"
-      @updateLabel="$emit('updateLabel', $event)"
     />
   </section>
 </template>
