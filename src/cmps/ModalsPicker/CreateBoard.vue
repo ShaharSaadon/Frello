@@ -28,7 +28,7 @@ export default {
         {
           bgc: '#07479E',
           bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
-          LeftSideBarBgc: ''
+          // LeftSideBarBgc: 'hsla(7,75.7%,35.1%,0.9)',
         },
         {
           bgc: '#2F1C0A',

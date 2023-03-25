@@ -27,12 +27,10 @@
         <div class="add-a-card flex" v-if="isOnEdit">
           <textarea
             @click.stop
-            v-model="newTask.title"
             @blur="addTask"
+            v-model="newTask.title"
             ref="newTaskInput"
             placeHolder="Enter a title for this card..."
-            rows="1"
-            @keydown.enter.prevent="onEnter"
           >
           </textarea>
           <div class="footer-actions flex">

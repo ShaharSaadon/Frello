@@ -123,12 +123,10 @@ export const boardStore = {
             var board = state.boards.find(board => board._id === boardId)
             var group = board.groups.find(group => group.id === groupId)
             const idx = group.tasks.findIndex((t) => t.id === task.id)
+            console.log('idx=',idx )
             if (idx !== -1){ 
-                group.tasks.splice(idx, 1, task)
-                state.currTask = task
-            }
-            else group.tasks.push(task)
-            console.log("board: ", board);
+                group.tasks.push(task)
+            } else group.tasks.splice(idx, 1, task)
         },
 
 
@@ -225,6 +223,9 @@ export const boardStore = {
         async saveTask(context, {groupId, task }) {
             const boardId = context.getters.watchedBoardId
             try {
+                console.log('boardId=',boardId)
+                console.log('groupId=',groupId)
+                console.log('task=',task)
                 context.commit({ type: 'saveTask', boardId, groupId, task })
                 const board = await boardService.saveTask(boardId,groupId,task)
                 // console.log("board: ", board);

@@ -1,24 +1,27 @@
 <template>
-    <div class="left-side-bar">
+    <aside :class="counterClass" @click="isExpended=true">    
+        <div class="toggle-menu" :hidden="!isExpended"> 
         <div class="left-side-header flex">
             <div class="workspace-logo flex">
                 T
             </div>
             <h5>Trello Workspace</h5>
-            <img class="QEaOSGiXwmOCFk" src="https://a.trellocdn.com/prgb/assets/58243262833f693f6101.svg"
-                alt="Workspace navigation collapse icon">
+            <img class="close-menu" src="https://a.trellocdn.com/prgb/assets/58243262833f693f6101.svg"
+                alt="Workspace navigation collapse icon"
+                @click.stop="isExpended=false">
         </div>
         <h5 class="left-side-bar-title">Your boards</h5>
-        <ul class="clean-list" >
-            <li v-for="board in boards" :key="board._id" :board="board" class="board-select">
-                <div class="board-image" :style="board.style">
-                </div>
-                {{ board.title }}
-                    
-                <!-- <img :src="getBackgroundImage(board.style.backgroundImage)"> -->
+        <ul class="board-list-side-bar clean-list">
+            <li v-for="board in boards" :key="board._id" :board="board">
+                <router-link :to="board._id" class="board-select">
+                    <div class="board-image" :style="board.style">
+                    </div>
+                    {{ board.title }}
+                </router-link>
             </li>
         </ul>
     </div>
+    </aside>
 </template>
 
 <script>
@@ -26,18 +29,29 @@ export default {
     name: '',
     data() {
         return {
-
+            isExpended: false
         }
     },
     methods: {
         toggleSideBar() {
             console.log('hola')
         },
+        setBoard() {
+
+        }
     },
     computed: {
         boards() {
             return this.$store.getters.boards
         },
+        board() {
+            return this.$store.getters.watchedBoard
+        },
+        counterClass() {
+            return  {
+                isExpended: this.isExpended,
+            } 
+        }
     },
     created() {
 

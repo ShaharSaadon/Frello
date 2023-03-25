@@ -81,7 +81,6 @@ export default {
       handler(changed) {
         console.log(changed);
         if (this.watchedBoard) {
-          // this.task = this.getTaskFromStore
           console.log('board has changed');
           this.task = this.getTaskFromStore
         }
