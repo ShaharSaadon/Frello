@@ -13,6 +13,8 @@
       @removeEntityVal="$emit('removeEntityVal', $event)"
       @createBoard="createBoard"
       @addChecklist="$emit('addChecklist', $event)"
+      @saveTask="$emit('saveTask', $event)"
+      @closeModal="$emit('closeModal')"
       @toLabelEditor="toLabelEditor"
       @updateLabel="$emit('updateLabel', $event)"
     />
@@ -25,6 +27,7 @@ import LabelPicker from './ModalsPicker/LabelPicker.vue'
 import MemberPicker from './ModalsPicker/MemberPicker.vue'
 import ChecklistPicker from './ModalsPicker/ChecklistPicker.vue'
 import CreateBoard from './ModalsPicker/CreateBoard.vue'
+import DatePicker from './ModalsPicker/DatePicker.vue'
 import { svgService } from '../services/svg.service.js'
 
 export default {
@@ -73,9 +76,19 @@ export default {
             title: 'Members',
           }
           break
+        case 'DatePicker':
+          return {
+            dueDate: this.task.dueDate,
+            title: 'Dates',
+          }
+          break
         case 'CreateBoard':
           return {
             title: 'Create board',
+          }
+        case 'ChecklistPicker':
+          return {
+            title: 'Check list',
           }
         // case 'itemActions':
         //   return {
@@ -96,8 +109,6 @@ export default {
       switch (this.type) {
         case 'LabelPicker':
           return 'Labels'
-        case 'LabelEditor':
-          return 'Edit label'
         case 'MemberPicker':
           return 'Members'
         case 'CreateBoard':
@@ -116,7 +127,6 @@ export default {
     MemberPicker,
     CreateBoard,
     ChecklistPicker,
-    LabelEditor,
   },
 }
 </script>

@@ -55,7 +55,6 @@ export const boardStore = {
     watchedBoardId: null,
     currTask: null,
     appHeaderBgc: '',
-    LeftSideBarBgc: '',
   },
   getters: {
     boards({ boards }) {
@@ -82,9 +81,6 @@ export const boardStore = {
       state.boards = boards
     },
     setAppHeaderBgc(state, { bgc }) {
-      state.appHeaderBgc = bgc
-    },
-    setLeftSideBarBgc(state, { bgc }) {
       state.appHeaderBgc = bgc
     },
     setWatchedBoardId(state, { boardId }) {

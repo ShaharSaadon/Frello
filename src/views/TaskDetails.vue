@@ -30,7 +30,7 @@
         <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
         <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
         <button class="btn-link checklist" @click="toggleModal('ChecklistPicker')"><span> Checklist</span></button>
-        <button class="btn-link clock"><span> Dates</span></button>
+        <button class="btn-link clock" @click="toggleModal('DatePicker')"><span> Dates</span></button>
         <button class="btn-link attachment"><span> Attachment</span></button>
         <button class="btn-link card-cover"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
@@ -48,6 +48,7 @@
         @addChecklist="addChecklist"
         @toLabelEditor="toggleModal('LabelEditor')"
         @updateLabel="updateLabel"
+        @saveTask="saveTask"
       />
     </main>
   </section>
@@ -58,10 +59,10 @@
 // import GroupList from '../cmps/GroupList.vue'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { svgService } from '../services/svg.service.js'
-import TaskDescription from '../cmps/TaskDescription.vue'
-import TaskChecklist from '../cmps/TaskChecklist.vue'
+import TaskDescription from '../cmps/TaskDetails/TaskDescription.vue'
+import TaskChecklist from '../cmps/TaskDetails/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
-import TaskHeadTags from '../cmps/TaskHeadTags.vue'
+import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
 import { utilService } from '../services/util.service'
 
 export default {

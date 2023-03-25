@@ -2,7 +2,6 @@
   <section class="group-list" ref="group-list">
     <div class="draggable-group-list">
       <Draggable
-        v-if="groups.length"
         v-model="groupList"
         class="list-group"
         ghost-class="ghost"
@@ -51,9 +50,9 @@
   </section>
 </template>
 <script>
-import { eventBus } from '../services/event-bus.service.js'
-import { boardService } from '../services/board.service.local.js'
-import GroupPreview from '../cmps/GroupPreview.vue'
+import { eventBus } from '../../services/event-bus.service.js'
+import { boardService } from '../../services/board.service.local.js'
+import GroupPreview from './GroupPreview.vue'
 import Draggable from 'vuedraggable'
 
 export default {
