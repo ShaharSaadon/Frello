@@ -148,19 +148,6 @@ function getEmptyBoard() {
                 },
               },
             ],
-            checklists: [
-              {
-                id: 'YEhmF',
-                title: 'Checklist',
-                todos: [
-                  {
-                    id: '212jX',
-                    title: 'To Do 1',
-                    isDone: false,
-                  },
-                ],
-              },
-            ],
             memberIds: ['u101'],
             labelIds: ['l101', 'l102'],
             dueDate: 16156215211,
