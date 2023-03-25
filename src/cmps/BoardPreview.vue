@@ -1,39 +1,50 @@
 <template>
+  <li class="board-preview" :style="board.style">
     <router-link :to="'board/' + board._id">
-    <li class="board-preview" :style="board.style">
-            <div class="board-title"> {{ board.title }} </div>
-        <!-- <button @click="$emit('removeBoard', board._id)">x</button> -->
-        <!-- <button @click="$emit('updateBoard', board)">Update</button> -->
-    </li>
-</router-link>
-
+      <div class="board-title">{{ board.title }}</div>
+      <!-- <button @click="$emit('removeBoard', board._id)">x</button> -->
+      <!-- <button @click="$emit('updateBoard', board)">Update</button> -->
+    </router-link>
+    <button :class="getStarClass" @click.stop="onToggleStarred" class="btn-star-toggle"></button>
+  </li>
 </template>
-
 
 <script>
 export default {
-    name: 'BoardPreview',
-    props: {
-        board: {
-            type: Object,
-            required: true,
-        },
+  name: 'BoardPreview',
+  props: {
+    board: {
+      type: Object,
+      required: true,
     },
-    data() {
-        return {
-
-        }
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    // async onToggleStarred() {
+    //   const isStarred = this.board.isStarred
+    //   try {
+    //     await this.$store.dispatch({ type: 'updateBoardEntity', key: 'isStarred', val: !isStarred })
+    //     showSuccessMsg('board Drag updated')
+    //   } catch (err) {
+    //     console.log(err)
+    //     showErrorMsg('Cannot Drag group')
+    //   }
+    // },
+    async onToggleStarred() {
+      const newBoard = JSON.parse(JSON.stringify(this.board))
+      newBoard.isStarred = !newBoard.isStarred
+      this.$emit('updateBoardEntity', newBoard)
     },
-    methods: {
-
+  },
+  computed: {
+    getStarClass() {
+      return this.board.isStarred ? 'starred' : ''
     },
-    computed: {
-    },
-    created() {
-
-    },
-    components: {
-    },
+  },
+  created() {},
+  components: {},
 }
 </script>
 
