@@ -21,7 +21,7 @@
             text-decoration: none;
         }
     }
-    
+
     .nav-link-signup {
         background-color: $clr7;
         color: #ffffff;
@@ -39,24 +39,37 @@
     color: $clr6;
     display: grid;
     grid-template-columns:
-    1fr 480px 530px 1fr;
+        // UNTIL 1000 PX
+        1fr 720px 1fr;
+        > * {
+            grid-column: 2;
+        }    
 
+    // BIGGER THAN 1000px
     @include mq(homePageMain1) {
         grid-template-columns:
-        1fr 570px 630px 1fr;
+        1fr 480px 530px 1fr;
+        
     }
 
-    .left-box {
-        grid-column: 2;
+    // BIGGER THAN 1200px
+    @include mq(homePageMain2) {
+        grid-template-columns:
+            1fr 570px 630px 1fr;
+            .left-box {
+                grid-column: 2;
+            }
+        
+            .right-box {
+                grid-column: 3;
+            }
     }
 
-    .right-box {
-        grid-column: 3;
-
+ 
         img {
             width: 100%;
         }
-    }
+    
 
 
 

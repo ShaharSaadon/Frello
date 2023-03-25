@@ -1,5 +1,5 @@
 <template>
-    <aside :class="counterClass" @click="isExpended = true">
+    <aside :class="counterClass" @click="isExpended = true" :style="{ backgroundColor: board.LeftSideBarBgc }">
         <div class="toggle-menu" :hidden="!isExpended">
             <div class="left-side-header flex">
                 <div class="workspace-logo flex">

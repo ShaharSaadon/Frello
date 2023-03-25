@@ -17,6 +17,10 @@ aside {
     transition: 0.2s ease-out;
   }
 
+  &:not(.isExpended):hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+
   .close-menu {
     &:hover {
       cursor: pointer;
@@ -25,13 +29,6 @@ aside {
     }
   }
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .router-link-active {
-    background-color: black;
-  }
 
   .left-side-header {
     border-bottom: 1px solid hsla(0, 0%, 100%, 0.16);
@@ -55,6 +52,11 @@ aside {
     padding: 12px;
   }
 
+  .router-link-active {
+      background-color: rgba(255, 255, 255, 0.16);
+  }
+
+
   .board-select {
     display: flex;
     justify-content: space-between;
@@ -67,9 +69,10 @@ aside {
       background-color: rgba(255, 255, 255, 0.3);
     }
 
-    .star-icon{
+    .star-icon {
       @include btn-main(inherit, inherit, inherit);
       @include trello-icon($icon-star, $type: sm, $color: inherit);
+
       &:hover::before {
         color: $clr-base-1;
         scale: 1.5;
@@ -100,9 +103,9 @@ aside {
   a {
     text-decoration: none;
     color: inherit;
-    &:hover{
+
+    &:hover {
       text-decoration: none;
     }
   }
 }
-

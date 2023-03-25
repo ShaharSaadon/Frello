@@ -4,9 +4,7 @@
   height: calc(100% - $app-header-height);
   flex-wrap: nowrap;
 
-    .main-a{
-      display: flex;
-      flex-direction: row;
+    .main{
       flex: 1 1 0%;
       position: relative;
       overflow-y: auto;
@@ -48,5 +46,6 @@
       height: em(16px);
       margin: em(12px) em(8px);
     }
+
   }
 }
