@@ -66,7 +66,7 @@ export default {
     },
     addItem() {
       if (!this.itemToAdd.title) return
-      this.list.checklist.unshift({ ...this.itemToAdd })
+      this.list.checklist.push({ ...this.itemToAdd })
       this.itemToAdd.title = ''
       this.$nextTick(() => this.$refs.inputAdd.focus())
       this.update()

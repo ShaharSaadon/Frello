@@ -174,6 +174,7 @@ function getEmptyTask() {
     description: 'description...',
     members: [],
     labels: [],
+    checklists:[],
     isWatch: false,
   }
 }

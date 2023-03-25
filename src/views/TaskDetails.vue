@@ -136,7 +136,7 @@ export default {
     },
     addChecklist(title) {
       const task = JSON.parse(JSON.stringify(this.task))
-      task.checklists.unshift({ title, checklist: [] })
+      task.checklists.push({ title, checklist: [] })
       this.saveTask({ key: 'checklists', newVal: task.checklists })
       this.toggleModal()
     },
