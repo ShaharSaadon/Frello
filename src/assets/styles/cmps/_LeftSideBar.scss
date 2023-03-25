@@ -1,7 +1,7 @@
 aside{
     display: flex;
     flex-direction: column;
-    width: 16px;
+    min-width: 16px;
     overflow: hidden;
     min-height: 100vh;
     
@@ -12,7 +12,8 @@ aside{
     border-right: 1px solid hsla(0,0%,100%,0.16);
 
     &.isExpended{
-      width:240px;
+      min-width:240px;
+      transition: 0.2s ease-out;
     }
 
     .close-menu{

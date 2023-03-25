@@ -60,7 +60,8 @@ async function saveTask(boardId, groupId, task) {
     const idx = group.tasks.findIndex((t) => t.id === task.id)
     group.tasks.splice(idx, 1, task)
   }
-  return save(board)
+  save(board)
+  return task
 
   // board.activities.unshift(activity)
   // PUT /api/board/b123/task/t678
