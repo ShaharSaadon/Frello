@@ -6,9 +6,6 @@
       <h3>Starred boards</h3>
     </div>
     <ul class="board-list clean-list">
-      <li class="add-board">
-        <button class="btn-add-board" @click="openModal"></button>
-      </li>
       <BoardPreview
         v-for="board in starredBoards"
         :key="board._id"
