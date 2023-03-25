@@ -5,11 +5,12 @@
   flex-wrap: nowrap;
   // width: 100%;
 
-    .main{
-      flex: 1 1 0%;
-      position: relative;
-      overflow-y: auto;
-    }
+  .main {
+    flex: 1 1 0%;
+    position: relative;
+    overflow-y: auto;
+  }
+
   .board-header {
     background-color: inherit;
     padding: rem(4px) rem(4px) rem(4px) rem(16px);
@@ -49,5 +50,61 @@
       margin: em(12px) em(8px);
     }
 
+    .three-dot-btn {
+      @include btn-main(rgba(255, 255, 255, 0.3), $clr-base-1, $clr-base-1);
+      @include trello-icon($icon-three-dots, $type: sm, $color: $clr-base-1);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: inherit;
+      }
+    }
+
+    .board-members {
+      display: flex;
+      align-items: center;
+
+      .btn-share {
+        @include btn-main($clr-base-1, $clr-base-5, $clr10);
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        margin-inline-start: 5px;
+        padding: 0px 4px;
+        height: 30px;
+        width: 72px;
+
+      }
+
+      .member-profile-box {
+        position: relative;
+
+        .arrow {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          z-index: 10;
+          bottom: 1px;
+          right: 2px;
+        }
+
+        .member-profile {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          margin: 0 -1px 2px;
+          cursor: pointer;
+          position: relative;
+
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+      }
+    }
   }
 }

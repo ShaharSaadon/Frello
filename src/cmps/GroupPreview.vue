@@ -15,7 +15,6 @@
           ></textarea>
         </form>
 
-        <span class="three-dot-menu"></span>
       </header>
 
       <TaskList :tasks="tasks" :groupId="group.id" @updateTasks="updateTasksPos" />

@@ -10,7 +10,9 @@
       </div>
       <div class="right-side-header flex align-center">
         <!-- right side of header goes here -->
-        <div class="members">a</div>
+        <BoardMembers/>
+        <span class="separate-line"></span>
+        <div class="three-dot-btn"></div>
       </div>
     </header>
 
@@ -35,6 +37,7 @@ import { getActionRemoveGroup, getActionUpdateBoard } from '../store/board.store
 import GroupList from '../cmps/GroupList.vue'
 import LeftSideBar from '../cmps/LeftSideBar.vue'
 import TaskHeadTags from '../cmps/TaskHeadTags.vue'
+import BoardMembers from '../cmps/BoardMembers.vue'
 
 export default {
   data() {
@@ -80,7 +83,8 @@ export default {
   components: {
     GroupList,
     LeftSideBar,
-    TaskHeadTags
+    TaskHeadTags,
+    BoardMembers,
 },
   methods: {
     async removeGroup(groupId) {
