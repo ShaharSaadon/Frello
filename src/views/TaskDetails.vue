@@ -30,7 +30,7 @@
         <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
         <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
         <button class="btn-link checklist" @click="toggleModal('ChecklistPicker')"><span> Checklist</span></button>
-        <button class="btn-link clock"><span> Dates</span></button>
+        <button class="btn-link clock" @click="toggleModal('DatePicker')"><span> Dates</span></button>
         <button class="btn-link attachment"><span> Attachment</span></button>
         <button class="btn-link card-cover"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
@@ -45,6 +45,7 @@
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
         @addChecklist="addChecklist"
+        @saveTask="saveTask"
       />
     </main>
   </section>
@@ -178,6 +179,7 @@ export default {
       } else if (key === 'labels') {
         idx = task.labels.findIndex((label) => label.color === val.color)
       }
+
       if (idx === -1) {
         task[key].push(val)
       } else {

@@ -1,0 +1,16 @@
+.date-picker{
+    .block{
+        width: fit-content;
+        margin: 1em auto;
+    }
+    .btn-save-date{
+        width: 100%;
+        @include btn-main($bgc: $clr-base-11, $color: $clr-base-1, $bgc-hover: $clr-base-8-hover);
+        margin-block: .5em;
+    }
+    .btn-remove-date{
+        width: 100%;
+        @include btn-main($bgc: $clr-base-12, $color: $clr-base-5, $bgc-hover: $clr-base-12-hover);
+        margin-block-end: .5em;
+    }
+}
