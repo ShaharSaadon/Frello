@@ -12,7 +12,7 @@
 
 
     .btn-add-description {
-        background-color: $clr-base-3;
+        background-color: $clr8;
         color: $clr-dynamic-button-highlighted-text;
         min-height: 40px;
         padding: 8px 12px 31px;
@@ -21,6 +21,10 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         border-radius: 3px;
         cursor: pointer;
+
+        &:hover{
+            background-color: $clr-base-3-hover;
+        }
     }
 
     .description-editor {

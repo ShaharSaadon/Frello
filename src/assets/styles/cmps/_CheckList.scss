@@ -7,8 +7,8 @@
   }
   grid-column: span 2;
   display: grid;
-  grid-template-columns: 46px 492px;
-  & > *:not(.checklist-item) {
+  grid-template-columns: $task-details-content-grid;
+  & > *:not(.checklist-item, .progress-bar) {
     grid-column: 2;
   }
 
@@ -16,10 +16,44 @@
     display: flex;
     justify-content: space-between;
   }
+  .progress-bar {
+    display: grid;
+    grid-template-columns: $task-details-content-grid;
+    justify-items: center;
+    height: em(8px);
+    margin: 6px 0;
+    position: relative;
+    span {
+      font-size: em(11px);
+      line-height: em(10px);
+      text-align: center;
+      width: em(32px);
+      position: absolute;
+      top: -1px;
+      left: em(12px);
+    }
+    .progress-bar-container {
+      grid-column: 2;
+      height: em(8px);
+      width: 100%;
+      background-color: $clr8;
+      border-radius: 555px;
+    }
+    .progress-bar-percent {
+      height: inherit;
+      background-color: $clr-label-blue;
+      border-radius: 555px;
+      transition-delay: 0.2s;
+      transition-duration: 0.14s;
+      transition-property: width, background-color;
+      transition-timing-function: ease-in;
+      width: 0;
+    }
+  }
 
   .checklist-item {
     display: grid;
-    grid-template-columns: 46px 492px;
+    grid-template-columns: $task-details-content-grid;
     align-content: center;
     grid-column: span 2;
     width: 100%;
@@ -70,6 +104,12 @@
   .btn-add-item {
     @include btn-main();
     justify-self: start;
+    margin: em(8px) 0;
+  }
+  .btn-remove-checklist {
+    @include btn-main();
+    justify-self: start;
+    margin: em(8px) 0;
   }
 
   .checklist-editor {
