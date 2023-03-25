@@ -64,9 +64,10 @@ export default {
             labels: this.task.labels,
             title: 'Labels',
           }
-        case 'LabelEditor':
+          case 'LabelEditor':
           return {
             label: this.labelToEdit,
+            title: 'Edit label',
           }
           break
         case 'MemberPicker':
@@ -106,27 +107,16 @@ export default {
       return this.$store.getters.currTask
     },
     title() {
-      switch (this.type) {
-        case 'LabelPicker':
-          return 'Labels'
-        case 'MemberPicker':
-          return 'Members'
-        case 'CreateBoard':
-          return 'Create board'
-        case 'ChecklistPicker':
-          return 'Check list'
-        // case 'itemActions':
-        //   return 'Item actions'
-        default:
-          return 'No Title'
-      }
+      return this.info?.title
     },
   },
   components: {
     LabelPicker,
+    LabelEditor,
     MemberPicker,
     CreateBoard,
     ChecklistPicker,
+    DatePicker,
   },
 }
 </script>
