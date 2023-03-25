@@ -1,26 +1,41 @@
 <template>
   <article class="task-Checklist">
     <header>
-      <h1 class="title"><span class="icon"></span> {{ list.title }}</h1>
-      <button @click="$emit('removeChecklist', list.title)" class="btn-remove-checklist">Delete</button>
+      <h1 v-if="!(this.isItemEdit === 'title')" @click="openItemEdit(list.title, 'title')" class="title">
+        <span class="icon"></span> {{ list.title }}
+      </h1>
+      <div v-if="this.isItemEdit === 'title'" class="item-editor">
+        <input @keypress.enter="save(this.list)" ref="inputEdit" v-model="this.itemToEdit" type="text" />
+
+        <div class="add-cancel flex">
+          <button @click="save(this.list)" class="btn-add">save</button>
+          <button @click="isItemEdit = null" class="close-item-edit"></button>
+        </div>
+      </div>
+      <button v-if="!(this.isItemEdit === 'title')"  @click="$emit('removeChecklist', list.title)" class="btn-remove-checklist">Delete</button>
     </header>
     <div class="progress-bar">
       <span>{{ donePercent }}%</span>
       <div class="progress-bar-container"><div class="progress-bar-percent" :style="this.stylePercent"></div></div>
     </div>
-    <div  class="checklist-item" v-for="(item, idx) in list.checklist" :key="idx">
+    <div class="checklist-item" v-for="(item, idx) in list.checklist" :key="idx">
       <span @click="toggleCheck(idx)" class="check-box" :class="item.isChecked ? 'checked' : ''"></span>
-      <h3 v-if="this.isItemEdit !== idx" @click="openItemEdit(item.title, idx)" :class="item.isChecked ? 'checked' : ''">{{ item.title }}</h3>
-      <div v-if="this.isItemEdit  === idx" class="item-editor">
-        
-      <input @keypress.enter="save" ref="inputEdit" v-model="this.itemToEdit" type="text" />
+      <h3
+        v-if="this.isItemEdit !== idx"
+        @click="openItemEdit(item.title, idx)"
+        :class="item.isChecked ? 'checked' : ''"
+      >
+        {{ item.title }}
+      </h3>
+      <div v-if="this.isItemEdit === idx" class="item-editor">
+        <input @keypress.enter="save(item)" ref="inputEdit" v-model="this.itemToEdit" type="text" />
 
-      <div class="add-cancel flex">
-        <button @click="save(item)" class="btn-add">save</button>
-        <button @click="isItemEdit = null" class="close-item-edit"></button>
+        <div class="add-cancel flex">
+          <button @click="save(item)" class="btn-add">save</button>
+          <button @click="isItemEdit = null" class="close-item-edit"></button>
+        </div>
       </div>
-    </div>
-      <span  v-if="this.isItemEdit !== idx" @click.stop="removeItem(idx)" class="checklist-archive"></span>
+      <span v-if="this.isItemEdit !== idx" @click.stop="removeItem(idx)" class="checklist-archive"></span>
     </div>
 
     <button v-if="!isEdit" class="btn-add-item" @click="openEdit">Add an item</button>
@@ -79,11 +94,14 @@ export default {
       this.list.checklist[idx].isChecked = !this.list.checklist[idx].isChecked
       this.update()
     },
-    save(item){
+    save(item) {
       this.isItemEdit = null
       item.title = this.itemToEdit
       this.itemToEdit = ''
       this.update()
+    },
+    saveTitle(){
+
     },
     update() {
       const val = JSON.parse(JSON.stringify(this.list))
@@ -95,7 +113,7 @@ export default {
       const total = this.list.checklist.length
       if (!total) return 0
       const percent = this.list.checklist.filter((item) => item.isChecked).length
-      return Math.ceil((percent / total) * 100)
+      return Math.round((percent / total) * 100)
     },
     stylePercent() {
       if (this.donePercent === 100) return { backgroundColor: '#61bd4f', width: this.donePercent + '%' }

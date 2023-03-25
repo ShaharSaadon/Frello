@@ -59,6 +59,7 @@ import TaskDescription from '../cmps/TaskDescription.vue'
 import TaskChecklist from '../cmps/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import TaskHeadTags from '../cmps/TaskHeadTags.vue'
+import { utilService } from '../services/util.service'
 
 export default {
   watch: {
@@ -136,7 +137,7 @@ export default {
     },
     addChecklist(title) {
       const task = JSON.parse(JSON.stringify(this.task))
-      task.checklists.push({ title, checklist: [] })
+      task.checklists.push({ title, checklist: [], id: utilService.makeId() })
       this.saveTask({ key: 'checklists', newVal: task.checklists })
       this.toggleModal()
     },
@@ -164,7 +165,7 @@ export default {
       const task = JSON.parse(JSON.stringify(this.task))
       var idx
       if (key === 'checklists') {
-        idx = task[key].findIndex((list) => list.title === val.title)
+        idx = task[key].findIndex((list) => list.id === val.id)
         if (idx === -1) {
           task[key].push(val)
         } else {

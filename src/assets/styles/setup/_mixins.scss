@@ -144,7 +144,12 @@ $breakpoints: (
 
 @mixin label-tag-color($color) {
   background-color: $color;
-
+  &:hover {
+    background-color: darken($color, 15%);
+    &::before {
+      background-color: darken($color, 35%);
+    }
+  }
   &::before {
     background-color: darken($color, 20%);
   }

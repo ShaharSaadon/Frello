@@ -84,6 +84,33 @@
   @include aspect-ratio(9, 16);
 }
 
+.check-box {
+  justify-self: center;
+  margin-inline-end: em(6px);
+  box-shadow: $box-shadow-checkbox;
+  height: em(16px);
+  width: em(16px);
+  position: relative;
+  border-radius: 2px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  transition: 0.5s;
+  &.checked {
+    background-color: $clr-base-8;
+    box-shadow: none;
+    @include trello-icon($icon-checked, $color: $clr-base-1);
+    &::before {
+      position: absolute;
+      height: em(16px);
+      width: em(16px);
+      top: -6px;
+    }
+  }
+  &:active {
+    box-shadow: $box-shadow-checkbox-active;
+  }
+}
+
 // labels
 
 .label-tag {

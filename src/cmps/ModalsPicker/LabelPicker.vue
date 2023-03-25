@@ -7,7 +7,7 @@
       <div :class="label.color" @click="toggleCheck(idx)" class="btn-label-tag label-tag"></div>
       <button class="btn-marker-edit" v-html="getSvg('marker')"></button>
     </div>
-    <button>Create a new label</button>
+    <!-- <button>Create a new label</button> -->
   </div>
 </template>
 
