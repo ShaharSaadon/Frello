@@ -16,7 +16,7 @@
     }
     .starred-boards-icon {
       @include trello-icon($icon-star, $type: md, $color: $clr-base-4);
-      color: $clr-base-9;
+      color: $clr-base-10;
     }
   }
 
