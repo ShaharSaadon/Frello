@@ -56,10 +56,10 @@
 // import GroupList from '../cmps/GroupList.vue'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { svgService } from '../services/svg.service.js'
-import TaskDescription from '../cmps/TaskDescription.vue'
-import TaskChecklist from '../cmps/TaskChecklist.vue'
+import TaskDescription from '../cmps/TaskDetails/TaskDescription.vue'
+import TaskChecklist from '../cmps/TaskDetails/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
-import TaskHeadTags from '../cmps/TaskHeadTags.vue'
+import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
 
 export default {
   watch: {

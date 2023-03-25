@@ -25,7 +25,7 @@
 
 <script>
 import TaskPreview from './TaskPreview.vue'
-import { svgService } from '../services/svg.service.js'
+import { svgService } from '../../services/svg.service.js'
 import Draggable from 'vuedraggable'
 
 export default {
