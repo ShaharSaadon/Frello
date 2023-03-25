@@ -1,7 +1,15 @@
 .board-preview {
   // flex-direction: column;
-  padding: 8px;
+  // padding: 8px;
   position: relative;
+
+  a{
+    text-decoration: none;
+  }
+
+  .container{
+    height: 100%;
+  }
 
   .board-title {
     font-size: em(16px);

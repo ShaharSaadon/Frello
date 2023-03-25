@@ -1,9 +1,11 @@
 <template>
   <li class="board-preview" :style="board.style">
     <router-link :to="'board/' + board._id">
-      <div class="board-title">{{ board.title }}</div>
-      <!-- <button @click="$emit('removeBoard', board._id)">x</button> -->
-      <!-- <button @click="$emit('updateBoard', board)">Update</button> -->
+      <div class="container">
+        <div class="board-title">{{ board.title }}</div>
+        <!-- <button @click="$emit('removeBoard', board._id)">x</button> -->
+        <!-- <button @click="$emit('updateBoard', board)">Update</button> -->
+      </div>
     </router-link>
     <button :class="getStarClass" @click.stop="onToggleStarred" class="btn-star-toggle"></button>
   </li>
@@ -22,16 +24,6 @@ export default {
     return {}
   },
   methods: {
-    // async onToggleStarred() {
-    //   const isStarred = this.board.isStarred
-    //   try {
-    //     await this.$store.dispatch({ type: 'updateBoardEntity', key: 'isStarred', val: !isStarred })
-    //     showSuccessMsg('board Drag updated')
-    //   } catch (err) {
-    //     console.log(err)
-    //     showErrorMsg('Cannot Drag group')
-    //   }
-    // },
     async onToggleStarred() {
       const newBoard = JSON.parse(JSON.stringify(this.board))
       newBoard.isStarred = !newBoard.isStarred
