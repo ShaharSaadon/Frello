@@ -17,7 +17,7 @@ const trelloSvgs = {
     marker: `<svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.82034 14.4893L9.94134 16.6103L18.4303 8.12131L16.3093 6.00031H16.3073L7.82034 14.4893ZM17.7233 4.58531L19.8443 6.70731C20.6253 7.48831 20.6253 8.7543 19.8443 9.53531L10.0873 19.2933L5.13734 14.3433L14.8943 4.58531C15.2853 4.19531 15.7973 4.00031 16.3093 4.00031C16.8203 4.00031 17.3323 4.19531 17.7233 4.58531ZM5.20094 20.4097C4.49794 20.5537 3.87694 19.9327 4.02094 19.2297L4.80094 15.4207L9.00994 19.6297L5.20094 20.4097Z" fill="currentColor"></path></svg>`,
     x: `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M256 828.308 227.692 800l224-224-224-224L256 323.692l224 224 224-224L732.308 352l-224 224 224 224L704 828.308l-224-224-224 224Z"/></svg>`,
     arrowLeft: `<svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.292893 8.29292L7.36396 1.22185C7.75449 0.831324 8.38765 0.831324 8.77817 1.22185C9.1687 1.61237 9.1687 2.24554 8.77817 2.63606L2.41421 9.00002L8.77818 15.364C9.1687 15.7545 9.1687 16.3877 8.77818 16.7782C8.38765 17.1687 7.75449 17.1687 7.36396 16.7782L0.292893 9.70713C-0.0976312 9.3166 -0.0976312 8.68344 0.292893 8.29292Z" fill="currentColor"></path></svg>`,
-
+    arrowRight: `<svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="M384 802.153 346.847 765l189-189-189-189L384 349.847 610.153 576 384 802.153Z"/></svg>`
 }
 
 function getTrelloSvg(iconName) {
@@ -32,7 +32,7 @@ export const svgService = { getTrelloSvg }
 
 // in methodes
 // function getSvg(iconName) {
-//     return svgService.getSvg(iconName)
+//     return svgService.getTrelloSvg(iconName)
 //   }
 
 // <img style="width:24px; height:24px" :src="getSvg('add')" alt="" />

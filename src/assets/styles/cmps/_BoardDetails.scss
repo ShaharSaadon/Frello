@@ -3,10 +3,9 @@
   flex-direction: row;
   height: calc(100% - $app-header-height);
   flex-wrap: nowrap;
+  // width: 100%;
 
-    .main-a{
-      display: flex;
-      flex-direction: row;
+    .main{
       flex: 1 1 0%;
       position: relative;
       overflow-y: auto;
@@ -14,6 +13,7 @@
   .board-header {
     background-color: inherit;
     padding: rem(4px) rem(4px) rem(4px) rem(16px);
+    width: 100%;
 
     h1 {
       color: $clr6;
@@ -48,5 +48,6 @@
       height: em(16px);
       margin: em(12px) em(8px);
     }
+
   }
 }

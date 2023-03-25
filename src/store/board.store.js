@@ -71,7 +71,7 @@ export const boardStore = {
             state.appHeaderBgc = bgc
         },
         setLeftSideBarBgc(state, {bgc}){
-            state.LeftSideBarBgc = bgc
+            state.appHeaderBgc = bgc
         },
         setWatchedBoardId(state, { boardId }) {
             state.watchedBoardId = boardId
@@ -123,11 +123,12 @@ export const boardStore = {
             var board = state.boards.find(board => board._id === boardId)
             var group = board.groups.find(group => group.id === groupId)
             const idx = group.tasks.findIndex((t) => t.id === task.id)
-            if (idx === -1){ 
-                group.tasks.push(task)
-            } else group.tasks.splice(idx, 1, task)
-            state.currTask=task
-
+            if (idx !== -1){ 
+                group.tasks.splice(idx, 1, task)
+                state.currTask = task
+            }
+            else group.tasks.push(task)
+            console.log("board: ", board);
         },
 
 
@@ -155,8 +156,8 @@ export const boardStore = {
         },
         async updateBoard(context, { board }) {
             try {
-                board = await boardService.save(board)
                 context.commit(getActionUpdateBoard(board))
+                board = await boardService.save(board)
                 return board
             } catch (err) {
                 console.log('boardStore: Error in updateBoard', err)
@@ -224,8 +225,10 @@ export const boardStore = {
         async saveTask(context, {groupId, task }) {
             const boardId = context.getters.watchedBoardId
             try {
-                task = await boardService.saveTask(boardId,groupId,task)
                 context.commit({ type: 'saveTask', boardId, groupId, task })
+                const board = await boardService.saveTask(boardId,groupId,task)
+                // console.log("board: ", board);
+                // context.commit(getActionUpdateBoard(board))
             } catch (err) {
                 console.log('boardStore: Error in save task', err)
                 throw err

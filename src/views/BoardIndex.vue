@@ -1,17 +1,38 @@
 <template>
   <!-- <div class="board-index main-container"> -->
   <div class="board-index grid">
-    <h1>My Boards</h1>
+    <div class="title-type-boards flex align-center">
+      <span class="starred-boards-icon"></span>
+      <h3>Starred boards</h3>
+    </div>
     <ul class="board-list clean-list">
       <li class="add-board">
         <button class="btn-add-board" @click="openModal"></button>
       </li>
       <BoardPreview
-        v-for="board in boards"
+        v-for="board in starredBoards"
         :key="board._id"
         :board="board"
         @removeBoard="removeBoard"
         @updateBoard="updateBoard"
+        @updateBoardEntity="updateBoard"
+      />
+    </ul>
+
+    <div class="title-type-boards flex align-center">
+      <h3>Other boards</h3>
+    </div>
+    <ul class="board-list clean-list">
+      <li class="add-board">
+        <button class="btn-add-board" @click="openModal"></button>
+      </li>
+      <BoardPreview
+        v-for="board in unStarredBoards"
+        :key="board._id"
+        :board="board"
+        @removeBoard="removeBoard"
+        @updateBoard="updateBoard"
+        @updateBoardEntity="updateBoard"
       />
     </ul>
 
@@ -42,6 +63,12 @@ export default {
     boards() {
       return this.$store.getters.boards
     },
+    starredBoards() {
+      return this.boards.filter((b) => b.isStarred)
+    },
+    unStarredBoards() {
+      return this.boards.filter((b) => !b.isStarred)
+    },
   },
   created() {
     // this.$store.dispatch({ type: "loadBoards" });
@@ -57,7 +84,6 @@ export default {
         showErrorMsg('Cannot add board')
       }
     },
-
     async removeBoard(boardId) {
       try {
         await this.$store.dispatch(getActionRemoveBoard(boardId))
@@ -67,11 +93,19 @@ export default {
         showErrorMsg('Cannot remove board')
       }
     },
-
+    // async updateBoard(board) {
+    //   try {
+    //     board = { ...board }
+    //     board.title = prompt('New title?', board.title)
+    //     await this.$store.dispatch(getActionUpdateBoard(board))
+    //     showSuccessMsg('Board updated')
+    //   } catch (err) {
+    //     console.log(err)
+    //     showErrorMsg('Cannot update board')
+    //   }
+    // },
     async updateBoard(board) {
       try {
-        board = { ...board }
-        board.title = prompt('New title?', board.title)
         await this.$store.dispatch(getActionUpdateBoard(board))
         showSuccessMsg('Board updated')
       } catch (err) {
@@ -80,7 +114,7 @@ export default {
       }
     },
 
-    async createBoard({title, bg}) {
+    async createBoard({ title, bg }) {
       this.boardToAdd.title = title
       this.boardToAdd.appHeaderBgc = bg.bgc
       this.boardToAdd.LeftSideBarBgc = bg.LeftSideBarBgc
@@ -95,10 +129,10 @@ export default {
       }
     },
 
-    closeModal(){
+    closeModal() {
       this.modal.isShowModal = false
     },
-    openModal(){
+    openModal() {
       this.modal.isShowModal = true
     },
   },

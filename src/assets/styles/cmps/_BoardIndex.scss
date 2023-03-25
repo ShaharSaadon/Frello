@@ -1,8 +1,23 @@
 .board-index {
   padding: 0.5em;
-  h1 {
+
+  .title-type-boards{
+    // flex-direction: column;
     margin-block-start: em(24px);
-    margin-block-end: em(24px);
+    margin-block-end: em(12px);
+    margin: em(24px) 0 em(12px) em(4px);
+
+    gap: em(12px);
+    h3 {
+      font-size: 1rem;
+      color: $clr-dynamic-button-highlighted-text;
+      padding: auto;
+      height: 14px;
+    }
+    .starred-boards-icon {
+      @include trello-icon($icon-star, $type: md, $color: $clr-base-4);
+      color: $clr-base-9;
+    }
   }
 
   .add-board {
@@ -20,11 +35,13 @@
     display: grid;
     gap: 0.5em;
     grid-template-columns: repeat(auto-fit, minmax(em(144px), 1fr));
+    margin-block-end: 0.5em;
 
     li {
       height: em(96px);
       border-radius: $border-radius-3;
       width: 100%;
+      // max-width: 220px;
     }
   }
 
@@ -36,8 +53,18 @@
     &.full {
       grid-column: 1 / -1;
     }
+
     .board-list {
-      gap: 1em;
+      display: grid;
+      gap: 0.5em;
+      grid-template-columns: repeat(4, 1fr);
+      margin-block-end: 1em;
+
+      li {
+        height: em(96px);
+        border-radius: $border-radius-3;
+        width: 100%;
+      }
     }
   }
 }

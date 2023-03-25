@@ -52,9 +52,10 @@ $clr-label-black: #344563;
 $clr-label-dark-black: #091e42;
 
 // Base Colors
-$clr-base-1: #ffffff;
-$clr-base-2: #f4f5f7; // <TaskDetails> bgc
-$clr-base-3: #ebecf0; // card bgc + <TaskDetails buttons>
+$clr-transparent: rgba(0, 0, 0, 0);
+$clr-base-1: #FFFFFF;
+$clr-base-2: #F4F5F7; // <TaskDetails> bgc
+$clr-base-3: #EBECF0; // card bgc + <TaskDetails buttons>
 $clr-base-3-hover: #091e4214; // <TaskDetails buttons>
 $clr-base-4: #5e6c84; // sub font color
 $clr-base-5: #172b4d; // font color
@@ -63,6 +64,9 @@ $clr-base-7: #de350b; // notification color
 $clr-base-8: #0079bf; // notification color
 $clr-base-8-hover: #026aa7; // notification color
 $clr-base-9: #091e4221;
+$clr-base-10: #42526e;
+
+
 
 // Dynamic Color
 $clr-dynamic-button: rgba(255, 255, 255, 0.2);
