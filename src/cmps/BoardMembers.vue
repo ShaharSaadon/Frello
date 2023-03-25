@@ -4,7 +4,6 @@
             <img :src="member.imgUrl" class="member-profile" :style="{'z-index':members.length-idx}"/>
             <img src="../assets/imgs/memberProfile.png" class="arrow">
         </div>
-        <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i>Share</button>
     </div>
 </template>
   

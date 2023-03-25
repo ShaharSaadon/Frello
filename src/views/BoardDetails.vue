@@ -11,6 +11,8 @@
       <div class="right-side-header flex align-center">
         <!-- right side of header goes here -->
         <BoardMembers/>
+        <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i>Share</button>
+
         <span class="separate-line"></span>
         <div class="three-dot-btn"></div>
       </div>
@@ -33,6 +35,7 @@
 <script>
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { boardService } from '../services/board.service.local'
+import { svgService } from '../services/svg.service'
 import { getActionRemoveGroup, getActionUpdateBoard } from '../store/board.store'
 import GroupList from '../cmps/GroupList.vue'
 import LeftSideBar from '../cmps/LeftSideBar.vue'
@@ -151,6 +154,9 @@ export default {
         showErrorMsg('Cannot Drag group')
       }
     },
+    getSvg(iconName) {
+            return svgService.getTrelloSvg(iconName)
+        }
   },
 }
 </script>

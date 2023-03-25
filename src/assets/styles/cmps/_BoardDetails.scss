@@ -64,21 +64,21 @@
       }
     }
 
+    .btn-share {
+      @include btn-main($clr-base-1, $clr-base-5, $clr10);
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-inline-start: 5px;
+      padding: 0px 4px;
+      height: 30px;
+      width: 72px;
+
+    }
+
     .board-members {
       display: flex;
       align-items: center;
-
-      .btn-share {
-        @include btn-main($clr-base-1, $clr-base-5, $clr10);
-        display: flex;
-        gap: 6px;
-        align-items: center;
-        margin-inline-start: 5px;
-        padding: 0px 4px;
-        height: 30px;
-        width: 72px;
-
-      }
 
       .member-profile-box {
         position: relative;
