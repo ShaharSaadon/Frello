@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="board-index main-container"> -->
   <div class="board-index grid">
-    <div class="title-type-boards flex align-center">
+    <div v-if="starredBoards.length" class="title-type-boards flex align-center">
       <span class="starred-boards-icon"></span>
       <h3>Starred boards</h3>
     </div>
@@ -17,7 +17,7 @@
     </ul>
 
     <div class="title-type-boards flex align-center">
-      <h3>Other boards</h3>
+      <h3>Boards</h3>
     </div>
     <ul class="board-list clean-list">
       <li class="add-board">

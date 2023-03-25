@@ -99,6 +99,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
+            dueDate: null,
             checklists: [],
           },
           {
@@ -107,6 +108,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
+            dueDate: null,
             checklists: [],
           },
         ],
@@ -123,8 +125,8 @@ function getEmptyBoard() {
             archivedAt: 1589983468418,
             members: [],
             labels: [],
+            dueDate: null,
             checklists: [],
-
           },
           {
             id: 'c104',
@@ -174,8 +176,9 @@ function getEmptyTask() {
     description: 'description...',
     members: [],
     labels: [],
-    checklists:[],
+    checklists: [],
     isWatch: false,
+    dueDate: 0,
   }
 }
 

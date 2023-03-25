@@ -2,7 +2,6 @@
   <section class="group-list" ref="group-list">
     <div class="draggable-group-list">
       <Draggable
-        v-if="groups.length"
         v-model="groupList"
         class="list-group"
         ghost-class="ghost"
