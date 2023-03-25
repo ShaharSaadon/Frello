@@ -15,7 +15,7 @@
         width: 100%;
 
         header {
-            height: em(40px);
+            max-height: max-content;
             padding-inline: em(8px);
 
             .three-dot-menu {
@@ -86,6 +86,7 @@
                 box-shadow: $box-shadow-task-preview;
                 margin-block-start: none;
                 resize: vertical;
+                
                 
             }
 

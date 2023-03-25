@@ -1,30 +1,33 @@
 <template>
-    <aside :class="counterClass" @click="isExpended=true">    
-        <div class="toggle-menu" :hidden="!isExpended"> 
-        <div class="left-side-header flex">
-            <div class="workspace-logo flex">
-                T
+    <aside :class="counterClass" @click="isExpended = true" :style="{ backgroundColor: board.LeftSideBarBgc }">
+        <div class="toggle-menu" :hidden="!isExpended">
+            <div class="left-side-header flex">
+                <div class="workspace-logo flex">
+                    T
+                </div>
+                <h5>Trello Workspace</h5>
+                <img class="close-menu" src="https://a.trellocdn.com/prgb/assets/58243262833f693f6101.svg"
+                    alt="Workspace navigation collapse icon" @click.stop="isExpended = false">
             </div>
-            <h5>Trello Workspace</h5>
-            <img class="close-menu" src="https://a.trellocdn.com/prgb/assets/58243262833f693f6101.svg"
-                alt="Workspace navigation collapse icon"
-                @click.stop="isExpended=false">
-        </div>
-        <h5 class="left-side-bar-title">Your boards</h5>
-        <ul class="board-list-side-bar clean-list">
-            <li v-for="board in boards" :key="board._id" :board="board">
-                <router-link :to="board._id" class="board-select">
-                    <div class="board-image" :style="board.style">
+            <h5 class="left-side-bar-title">Your boards</h5>
+            <ul class="board-list-side-bar clean-list">
+                <li v-for="board in boards" :key="board._id" :board="board">
+                    <router-link :to="board._id" class="board-select">
+                        <div class="board-title flex">
+                        <div class="board-image" :style="board.style">
+                        </div>
+                        {{ board.title }}
                     </div>
-                    {{ board.title }}
-                </router-link>
-            </li>
-        </ul>
-    </div>
+                        <button class="star-icon" :class="{starred:board.isStarred}" @click="$emit('onToggleStarred',board)"> </button>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
     </aside>
 </template>
 
 <script>
+import { svgService } from '../services/svg.service'
 export default {
     name: '',
     data() {
@@ -36,8 +39,8 @@ export default {
         toggleSideBar() {
             console.log('hola')
         },
-        setBoard() {
-
+        getSvg(iconName) {
+            return svgService.getTrelloSvg(iconName)
         }
     },
     computed: {
@@ -48,9 +51,9 @@ export default {
             return this.$store.getters.watchedBoard
         },
         counterClass() {
-            return  {
+            return {
                 isExpended: this.isExpended,
-            } 
+            }
         }
     },
     created() {

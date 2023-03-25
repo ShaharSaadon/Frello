@@ -5,13 +5,11 @@
   flex-wrap: nowrap;
   // width: 100%;
 
-  .main {
-    // display: flex;
-    // flex-direction: row;
-    flex: 1 1 0%;
-    position: relative;
-    overflow-y: auto;
-  }
+    .main{
+      flex: 1 1 0%;
+      position: relative;
+      overflow-y: auto;
+    }
   .board-header {
     background-color: inherit;
     padding: rem(4px) rem(4px) rem(4px) rem(16px);
@@ -50,5 +48,6 @@
       height: em(16px);
       margin: em(12px) em(8px);
     }
+
   }
 }

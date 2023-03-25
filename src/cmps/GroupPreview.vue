@@ -8,6 +8,7 @@
           <textarea
             ref="textArea"
             v-model="clonedGroup.title"
+            @input="resize($event)"
             rows="1"
             cols="50"
             @keydown.enter.prevent="onEnter"
@@ -28,6 +29,7 @@
           <textarea
             @click.stop
             @blur="addTask"
+            @input="resize($event)"
             v-model="newTask.title"
             ref="newTaskInput"
             placeHolder="Enter a title for this card..."
@@ -95,6 +97,10 @@ export default {
       this.newTask = boardService.getEmptyTask()
       this.$nextTick(() => this.$refs.newTaskInput.focus())
     },
+    resize(e){
+      e.target.style.height='maxcontent'
+      e.target.style.height= `${e.target.scrollHeight}px`
+    }
   },
   computed: {
     tasks() {

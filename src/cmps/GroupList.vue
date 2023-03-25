@@ -35,7 +35,8 @@
             <transition>
               <div v-if="isAddOpen" class="group-preview-content add-new-group">
                 <form @submit.prevent="addGroup" class="flex">
-                  <input v-model="groupToAdd.title" placeHolder="Enter list title..." />
+                  <textarea v-model="groupToAdd.title" placeHolder="Enter list title..."
+                  @input="resize($event)"></textarea>
                   <div class="flex align-center">
                     <button>Add list</button>
                     <span @click.prevent="isAddOpen = false"></span>
@@ -81,6 +82,10 @@ export default {
     },
     updateTasksPos({ tasks, groupId }) {
       this.$emit('updateTasksPos', { tasks, groupId })
+    },
+    resize(e){
+      e.target.style.height='maxcontent'
+      e.target.style.height= `${e.target.scrollHeight}px`
     },
   },
   computed: {
