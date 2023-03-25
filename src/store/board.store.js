@@ -235,42 +235,42 @@ export const boardStore = {
       }
     },
 
-        // Task
-        async saveTask(context, {groupId, task }) {
-            const boardId = context.getters.watchedBoardId
-            try {
-                task = context.commit({ type: 'saveTask', boardId, groupId, task })
-                const task = await boardService.saveTask(boardId,groupId,task)
-                // console.log("board: ", board);
-                // context.commit(getActionUpdateBoard(board))
-            } catch (err) {
-                console.log('boardStore: Error in save task', err)
-                throw err
-            }
-        },
-      
-        async removeTask({ commit, getters }, { groupId, taskId }) {
-            const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
-            const currGroup = savedBoard.groups.find(g => (g.id === groupId))
-            const taskIdx = currGroup.tasks.findIndex(task => (task.id = taskId))
-            currGroup.tasks.splice(taskIdx, 1)
-            try {
-                const board = await boardService.save(savedBoard)
-                commit(getActionUpdateBoard(board))
-                return board
-            } catch (err) {
-                console.log('boardStore: Error in delete Task', err)
-                throw err
-            }
-        },
-        async updateTasksPos(context, { groupId, tasks }) {
-            try {
-                context.commit({ type: 'updateTasksPos', groupId, tasks })
-                context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
-            } catch (err) {
-                console.log('boardStore: Error in', err)
-                throw err
-            }
-        }
+    // Task
+    async saveTask(context, { groupId, task }) {
+      const boardId = context.getters.watchedBoardId
+      try {
+        task = await boardService.saveTask(boardId, groupId, task)
+        context.commit({ type: 'saveTask', boardId, groupId, task })
+        // console.log("board: ", board);
+        // context.commit(getActionUpdateBoard(board))
+      } catch (err) {
+        console.log('boardStore: Error in save task', err)
+        throw err
+      }
+    },
+
+    async removeTask({ commit, getters }, { groupId, taskId }) {
+      const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
+      const currGroup = savedBoard.groups.find(g => (g.id === groupId))
+      const taskIdx = currGroup.tasks.findIndex(task => (task.id = taskId))
+      currGroup.tasks.splice(taskIdx, 1)
+      try {
+        const board = await boardService.save(savedBoard)
+        commit(getActionUpdateBoard(board))
+        return board
+      } catch (err) {
+        console.log('boardStore: Error in delete Task', err)
+        throw err
+      }
+    },
+    async updateTasksPos(context, { groupId, tasks }) {
+      try {
+        context.commit({ type: 'updateTasksPos', groupId, tasks })
+        context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+      } catch (err) {
+        console.log('boardStore: Error in', err)
+        throw err
       }
     }
+  }
+}
