@@ -1,33 +1,28 @@
 <template>
   <section v-if="board" class="board-details" :style="board.style">
-    <LeftSideBar @onToggleStarred="onToggleStarred"/>
+    <LeftSideBar @onToggleStarred="onToggleStarred" />
     <div class="main">
-    <header class="board-header flex space-between">
-      <div class="left-side-header flex align-center">
-        <h1>{{ board.title }}</h1>
-        <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
-        <span class="separate-line"></span>
-      </div>
-      <div class="right-side-header flex align-center">
-        <!-- right side of header goes here -->
-        <BoardMembers/>
-        <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i>Share</button>
+      <header class="board-header flex space-between">
+        <div class="left-side-header flex align-center">
+          <h1>{{ board.title }}</h1>
+          <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
+          <span class="separate-line"></span>
+        </div>
+        <div class="right-side-header flex align-center">
+          <!-- right side of header goes here -->
+          <BoardMembers />
+          <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i>Share</button>
 
-        <span class="separate-line"></span>
-      </div>
-    </header>
+          <span class="separate-line"></span>
+          <div class="three-dot-btn" @click="onOpenMenu" v-if="!isExpended"></div>
 
-    <GroupList
-      :groups="groups"
-      @updateGroup="updateGroup"
-      @removed="removeGroup"
-      @addGroup="addGroup"
-      @saveTask="saveTask"
-      @updateGroups="updateGroups"
-      @updateTasksPos="updateTasksPos"
-    />
+        </div>
+      </header>
+
+      <GroupList :groups="groups" @updateGroup="updateGroup" @removed="removeGroup" @addGroup="addGroup"
+        @saveTask="saveTask" @updateGroups="updateGroups" @updateTasksPos="updateTasksPos" />
     </div>
-    <RightSideBar/>
+    <RightSideBar />
 
     <RouterView />
   </section>
@@ -48,7 +43,7 @@ export default {
   data() {
     return {}
   },
-  async created() {},
+  async created() { },
   watch: {
     boardId: {
       handler() {
@@ -67,6 +62,7 @@ export default {
       },
       immediate: true,
     },
+    isRightMenuOpen: false,
   },
   computed: {
     board() {
@@ -81,6 +77,9 @@ export default {
     getStarClass() {
       return this.board.isStarred ? 'starred' : ''
     },
+    isExpended(){
+            return this.$store.getters.isRightSideBarOpen
+        }
   },
   unmounted() {
     document.title = 'Merllo'
@@ -91,7 +90,7 @@ export default {
     TaskHeadTags,
     BoardMembers,
     RightSideBar
-},
+  },
   methods: {
     async removeGroup(groupId) {
       try {
@@ -158,8 +157,12 @@ export default {
       }
     },
     getSvg(iconName) {
-            return svgService.getMerlloSvg(iconName)
-        }
+      return svgService.getMerlloSvg(iconName)
+    },
+    onOpenMenu() {
+      this.$store.commit('onToggleMenu')
+    },
+ 
   },
 }
 </script>

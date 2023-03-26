@@ -55,6 +55,7 @@ export const boardStore = {
     watchedBoardId: null,
     currTask: null,
     appHeaderBgc: '',
+    isRightSideBarOpen: false,
   },
   getters: {
     boards({ boards }) {
@@ -81,6 +82,10 @@ export const boardStore = {
     LeftSideBarBgc({ LeftSideBarBgc }) {
       return LeftSideBarBgc
     },
+    isRightSideBarOpen({ isRightSideBarOpen }) {
+      return isRightSideBarOpen
+    },
+    
   },
   mutations: {
     setBoards(state, { boards }) {
@@ -148,6 +153,9 @@ export const boardStore = {
       } else group.tasks.push(task)
       console.log('board: ', board)
     },
+    onToggleMenu(state){
+      state.isRightSideBarOpen=!state.isRightSideBarOpen
+    }
   },
   actions: {
     async loadBoards(context) {
