@@ -23,24 +23,32 @@
     .btn-star-toggle {
       transition: all 0.2s ease;
       opacity: 1;
-      bottom: 0;
-      right: 0;
+      bottom: 6px;
+    right: 6px;
     }
   }
 
   .btn-star-toggle {
     opacity: 0;
+    // display: none;
     background-color: $clr-transparent;
     cursor: pointer;
     @include trello-icon($icon-star, $type: sm, $color: $clr-base-1);
+    font-size: 14px;
     padding-inline: rem(8px);
     transition: all 0.2s;
     position: absolute;
-    bottom: 0;
-    right: em(-25px);
+    bottom: 6px;
+    right: -6px;
 
     &:hover {
       scale: 1.2;
+    }
+
+    &.starred {
+      opacity: 1;
+      bottom: 6px;
+    right: 5px;
     }
 
     &.starred::before {

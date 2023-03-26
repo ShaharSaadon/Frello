@@ -17,6 +17,7 @@ body {
     font-size: rem(16px);
     margin: 0;
     padding: 0;
+    background-color: $input-bgc;
 }
 
 h1,
@@ -53,9 +54,9 @@ h6 {
 //     padding: 5px;
 // }
 
-// img {
-//     width: 100%;
-// }
+img {
+    width: 100%;
+}
 
 p {
     margin: 0 0 1em;

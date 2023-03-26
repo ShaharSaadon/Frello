@@ -30,19 +30,20 @@
       width: 100%;
       @include btn-main();
 
-      &.checked{
-          @include trello-icon($content:$icon-checked, $color: $clr-base-1)
+      &.checked {
+        @include trello-icon($content: $icon-checked, $color: $clr-base-1);
       }
     }
-}
+  }
 
-form{
+  form {
     .btn-create {
-        @include btn-main($bgc: $clr-base-8, $color: $clr-base-1, $bgc-hover: $clr-base-8-hover);
-        width: 100%;
+      @include btn-main($bgc: $clr-base-8, $color: $clr-base-1, $bgc-hover: $clr-base-8-hover);
+      width: 100%;
     }
-    input{
-          @include input();
-      }
+    input {
+      @include input();
+      margin-block-start: 0;
+    }
   }
 }

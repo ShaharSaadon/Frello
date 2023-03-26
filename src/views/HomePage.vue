@@ -1,33 +1,22 @@
 <template>
   <header class="home-page-header flex space-between">
     <div class="left-nav flex">
-      <img src="../assets/imgs/trello-logo-gradient-blue-attribution_rgb@2x (1).png" alt="" />
+      <img src="../assets/imgs/trello-logo-gradient-blue-attribution_rgb@2x (1).png" class="logo" alt="" />
       <nav class="clean-list flex">
-        <a class="nav-link flex">Features <i className="icon" v-html="getSvg('arrowDown')"></i></a>
-        <a class="nav-link">Solutions <i className="icon" v-html="getSvg('arrowDown')"></i></a>
-        <a class="nav-link">Plans <i className="icon" v-html="getSvg('arrowDown')"></i></a>
-        <a class="nav-link">Pricing <i className="icon" v-html="getSvg('arrowDown')"></i></a>
-        <a class="nav-link">Resources <i className="icon" v-html="getSvg('arrowDown')"></i></a>
+        <!-- <a class="nav-link flex">Features <i className="icon" v-html="getSvg('arrowDown')"></i></a> -->
       </nav>
     </div>
     <div class="right-nav flex clean-list">
-      <a class="nav-link">Login</a>
-      <!-- <a class="nav-link-signup nav-link"> -->
-      <RouterLink class="nav-link-signup" to="/board">Get Trello for free</RouterLink>
-      <!-- </a> -->
+      <a class="nav-link">Log in</a>
+      <RouterLink class="nav-link-signup nav-link" to="/board">Get Merllo for free</RouterLink>
     </div>
   </header>
 
   <main class="home-page-main-container">
     <div class="left-box">
-      <h1>Trello brings all your tasks, teammates, and tools together</h1>
+      <h1>Merllo brings all your tasks, teammates, and tools together</h1>
       <p>Keep everything in the same place-even if your team isn’t.</p>
-      <form @submit.prevent="sendMsg" class="signup-form">
-        <!-- <input type="text" placeholder="Email" class="email-signup"> -->
-        <RouterLink to="/board"> <button>Sign up - it's free!</button> </RouterLink>
-      </form>
-
-      <p>Watch video <i className="icon" v-html="getSvg('playVideo')"></i></p>
+        <RouterLink to="/board"> <button>Try Our Demo!</button> </RouterLink>
     </div>
     <div class="right-box">
       <img src="../assets/imgs/TrelloUICollage_4x.webp" />
@@ -50,7 +39,7 @@ export default {
   },
   methods: {
     getSvg(iconName) {
-      return svgService.getTrelloSvg(iconName)
+      return svgService.getMerlloSvg(iconName)
     },
   },
   computed: {},

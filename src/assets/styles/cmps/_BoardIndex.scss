@@ -1,21 +1,21 @@
 .board-index {
-  padding: 0.5em;
-
-  .title-type-boards{
-    // flex-direction: column;
-    margin-block-start: em(24px);
-    margin-block-end: em(12px);
-    margin: em(24px) 0 em(12px) em(4px);
+  padding: .5em 0 0.5em 0.5em;
+  
+  .title-type-boards {
+    margin: em(0px) 0 em(3px) em(4px);
 
     gap: em(12px);
     h3 {
       font-size: 1rem;
       color: $clr-dynamic-button-highlighted-text;
       padding: auto;
-      height: 14px;
     }
     .starred-boards-icon {
-      @include trello-icon($icon-star, $type: md, $color: $clr-base-4);
+      @include trello-icon($icon-star, $type: lg, $color: $clr-base-4);
+      color: $clr-base-10;
+    }
+    .trello-boards-icon {
+      @include trello-icon($icon-trello, $type: lg, $color: $clr-base-4);
       color: $clr-base-10;
     }
   }
@@ -24,47 +24,61 @@
     .btn-add-board {
       height: 100%;
       width: 100%;
-      @include trello-icon($icon-plus, $type: sm, $color: $clr-base-4);
       margin: 0;
       cursor: pointer;
-      box-shadow: 0 0px 3px rgba(0, 0, 0, 0.4);
+      border-radius: $border-radius-3;
+      background-color: $clr-base-15;
     }
   }
 
   .board-list {
-    display: grid;
-    gap: 0.5em;
-    grid-template-columns: repeat(auto-fit, minmax(em(144px), 1fr));
-    margin-block-end: 0.5em;
-
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    
     li {
       height: em(96px);
       border-radius: $border-radius-3;
-      width: 100%;
-      // max-width: 220px;
+      margin: 0 2% 4% 0;
+      padding: 0;
+      width: 48%;
+    }
+  }
+  
+  @include mq(mq-Board-index-sm) {
+    padding-block-start: 1em;
+    .board-list {
+      // margin-top: 1em;
+      li {
+        width: 31%;
+      }
+    }
+    .title-type-boards {
+      margin-block-start: 1em;
     }
   }
 
-  @include mq(mq-Board-index) {
+  @include mq(mq-Board-index-md) {
+      // padding-block-start: 1.5em;
+
+    .board-list {
+      li {
+        width: 23%;
+      }
+      li:nth-of-type(4n) {
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  @include mq(mq-Board-index-lg) {
+    // padding-block-start: 2.5em;
     grid-template-columns: 1fr rem(825px) 1fr;
     & > * {
       grid-column: 2;
     }
     &.full {
       grid-column: 1 / -1;
-    }
-
-    .board-list {
-      display: grid;
-      gap: 0.5em;
-      grid-template-columns: repeat(4, 1fr);
-      margin-block-end: 1em;
-
-      li {
-        height: em(96px);
-        border-radius: $border-radius-3;
-        width: 100%;
-      }
     }
   }
 }
