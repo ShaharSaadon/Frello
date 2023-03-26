@@ -106,15 +106,17 @@ aside {
 
     }
 
-  }
-
-  .board-image {
+    .board-image {
     width: em(24px);
     height: em(24px);
     margin-inline-end: 8px;
     border-radius: $border-radius-3;
     border: 1px solid $side-bar-image-border;
   }
+
+  }
+
+  
 
   a {
     text-decoration: none;

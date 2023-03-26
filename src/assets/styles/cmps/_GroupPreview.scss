@@ -51,25 +51,41 @@
     footer {
         height: max-content;
         align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
 
-        P{
-            margin:0;
+        P {
+            margin: 0;
             margin-inline-start: em(8px);
             font-size: em(14px);
-            color:$clr9;
+            color: $clr9;
         }
-        
-        i{
-            color:$clr9;
-            padding:0;
-            margin:0;
+
+        i {
+            color: $clr9;
+            padding: 0;
+            margin: 0;
         }
+
+        .add-card-container {
+            cursor: pointer;
+            margin: 2px 8px 8px 8px;
+            padding: 4px;
+            border-radius: $border-radius-3;
+            
+            &:hover {
+                background-color: $clr-base-16;
+            }
+        }
+
+    
+
         .add-a-card {
             border-radius: $border-radius-3;
             color: $clr-base-4;
             display: block;
             flex: 1 0 auto;
-            width:100%;
+            width: 100%;
             padding: 0px em(8px) em(8px) em(8px);
             position: relative;
             overflow: hidden;
@@ -77,22 +93,26 @@
             text-decoration: none;
             -webkit-user-select: none;
             user-select: none;
-            
-            textarea{
+
+            textarea {
                 height: 64px;
                 font-family: arial;
                 margin-block-end: 6px;
                 padding: 6px 8px 2px;
                 box-shadow: $box-shadow-task-preview;
                 margin-block-start: none;
-                resize: vertical;
-                
-                
+                resize: none;
+
+
             }
 
-            button{
+            .footer-actions{
+               gap:5px;
+               color:$clr9; 
+            }
+            button {
                 width: rem(72px);
-                padding: em(8px);
+                padding: em(6px);
                 margin: 0;
                 border-radius: $border-radius-3;
                 background-color: $clr-base-8;
@@ -110,8 +130,8 @@
 
         }
 
-        .icon{
-            width:10px;
+        .icon {
+            width: 10px;
             height: 10px;
             // background-color: black;
         }
