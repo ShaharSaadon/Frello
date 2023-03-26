@@ -1,6 +1,5 @@
 <template>
   <div class="task-head-tags">
-    <!-- <pre>{{ info }}</pre> -->
     <div v-if="members?.length">
       <h3 class="title">Members</h3>
       <div class="head-members">
@@ -16,10 +15,10 @@
     <div>
       <h3 class="title">Notifications</h3>
       <button @click="$emit('toggleWatch')" class="notifications">
-        <span></span> {{ info.isWatch ? 'Watching' : 'Watch' }}
+        <span></span> {{ task.isWatch ? 'Watching' : 'Watch' }}
       </button>
     </div>
-    <div v-if="info?.dueDate">
+    <div v-if="task?.dueDate">
       <h3 class="title">Due date</h3>
       <button class="notifications">{{getDate}}</button>
     </div>
@@ -30,7 +29,7 @@
 export default {
   name: 'TaskHeadTags',
   props: {
-    info: {
+    task: {
       type: Object,
       required: true,
     },
@@ -41,14 +40,14 @@ export default {
   methods: {},
   computed: {
     labels(){
-      return this.info.labels
+      return this.task.labels
     },
     getDate(){
-      return (new Date(this.info.dueDate)).toLocaleString('en-GB', { timeZone: 'UTC' })
+      return (new Date(this.task.dueDate)).toLocaleString('en-GB', { timeZone: 'UTC' })
     },
     members() {
       return this.$store.getters.watchedBoard.members.filter(m =>{
-        if (this.info.members?.includes(m._id)) return m
+        if (this.task.members?.includes(m._id)) return m
       } )
     },
   },
