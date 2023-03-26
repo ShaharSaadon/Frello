@@ -22,7 +22,7 @@
       <h3 class="title">Due date</h3>
       <div class="date-tag flex">
         <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete')" class="btn-is-complete"><span></span></button>
-        <button class="notifications">{{ getDate }}<span :class="getDateClass" class="date-label">{{getDateLabel}}</span></button>
+        <button class="notifications">{{ getDate }}<span v-if="getDateLabel" :class="getDateClass" class="date-label">{{getDateLabel}}</span></button>
       </div>
     </div>
   </div>
