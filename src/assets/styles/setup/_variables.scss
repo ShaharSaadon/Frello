@@ -73,7 +73,10 @@ $clr-base-14: #0065ff; //HomePage Button
 $clr-base-14-hover: #0747a6; //Home Page Button Hover
 $clr-base-15: #f1f3f5; //Home Page Button Hover
 $clr-base-16: #dadbe2; // ADD Card Hover
-$clr-base-17: #61BD4F; //Home Page Button Hover
+$clr-base-17: #61bd4f;
+$clr-base-18: #519839; 
+$clr-base-20: #EB5A46; 
+$clr-base-21: #D9B51C; 
 
 // Dynamic Color
 $clr-dynamic-button: rgba(255, 255, 255, 0.2);
@@ -102,7 +105,6 @@ $medium-space: 0.8rem;
 $large-space: 1rem;
 $xLarge-space: 1.5rem;
 $nav-padding: 16px;
-
 
 // draggable
 $placeholder-bgc: #0000001f;
@@ -150,6 +152,8 @@ $icon-power-up: '\e956';
 $icon-close: '\e91c';
 $icon-checked: '\e916';
 $icon-trello: '\e90b';
+$icon-empty-checked: '\e919';
+$icon-full-checked: '\e918';
 
 // scrollbar
 $scrollbar-track: #091e4214;
@@ -175,7 +179,7 @@ $home-page-header-height: 60px;
 $board-header-height: 3rem;
 
 //SideBar
-$side-bar-width :240px;
+$side-bar-width: 240px;
 $side-bar-border: hsla(0, 0%, 100%, 0.16);
 $side-bar-hover: rgba(255, 255, 255, 0.3);
-$side-bar-image-border:  hsla(0, 0%, 100%, 0.1);
+$side-bar-image-border: hsla(0, 0%, 100%, 0.1);

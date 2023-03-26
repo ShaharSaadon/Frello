@@ -55,17 +55,71 @@
 
     .badge-watch {
       @include trello-icon($icon-eye);
-
-      &.complete{
-        background-color: $clr-dynamic-star;
-      }
-      &.closeToDate{
-        background-color: $clr-dynamic-star;
-      }
     }
 
     .badge-date {
-      @include trello-icon($icon-clock);
+      border-radius: $border-radius-3;
+      color: $clr-base-1;
+      height: rem(24px);
+      font-size: rem(12px);
+      // padding: rem(2px);
+      padding: 0 rem(6px) 0 rem(2px);
+      color: $clr-base-4;
+
+      &:hover{
+        background-color: $clr-base-3;
+        span::before{
+          content: $icon-empty-checked;
+        }
+
+        &.overdue{
+          background-color: $clr-base-13;
+        }
+        &.closeToDate{
+          background-color: $clr-base-21;
+        }
+        &.complete{
+          span::before{
+            content: $icon-full-checked;
+          }
+          background-color: $clr-base-18;
+        }
+      }
+
+      span{
+        @include trello-icon($icon-clock, $color: $clr-base-4);
+        height: max-content;
+        // font-size: 15px;
+        padding: rem(4px) rem(2px) rem(2px) rem(2px);
+        margin-inline-end: rem(2px);
+      }
+
+      &.closeToDate{
+        background-color: $clr-dynamic-star;
+        color: $clr-base-1;
+        span::before{
+          color: $clr-base-1;
+        }
+      }
+
+      &.overdue{
+        background-color: $clr-base-20;
+        color: $clr-base-1;
+        span::before{
+          color: $clr-base-1;
+        }
+      }
+      
+      &.complete{
+        background-color: $clr-base-17;
+        color: $clr-base-1;
+        span::before{
+          color: $clr-base-1;
+        }
+      }
+      
+      
+      
     }
 
     .badge-description {

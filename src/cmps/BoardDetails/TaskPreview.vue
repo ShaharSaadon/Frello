@@ -10,7 +10,14 @@
           <div v-if="task.checklists?.length" class="badge-checklist">
             {{ checklist.checkedItems }}/{{ checklist.totalItems }}
           </div>
-          <div v-if="task.dueDate" class="badge-date">{{ getDate }}</div>
+          <div
+            :class="getDateClass"
+            @click.prevent="toggleKey('isComplete')"
+            v-if="task.dueDate"
+            class="badge-date flex align-center"
+          >
+            <span></span>{{ getDate }}
+          </div>
         </div>
 
         <TaskMember :members="task.members" />
@@ -23,6 +30,7 @@
 
 <script>
 import TaskMember from '../TaskMember.vue'
+import {utilService} from '../../services/util.service.js'
 
 export default {
   name: 'TaskPreview',
@@ -39,10 +47,34 @@ export default {
   data() {
     return {}
   },
-  methods: {},
+  methods: {
+    toggleKey(key) {
+      const newVal = !this.task[key]
+      this.saveTask({ key, newVal })
+    },
+    async saveTask({ key, newVal }) {
+      const task = JSON.parse(JSON.stringify(this.task))
+      task[key] = newVal
+      const groupId = this.groupId
+      try {
+        this.$store.dispatch({ type: 'saveTask', groupId, task })
+      } catch (err) {
+        console.log(err)
+      }
+    },
+  },
   computed: {
     boardId() {
       return this.$store.getters.watchedBoardId
+    },
+    getDateClass() {
+      const msDay = 1000 * 60 * 60 * 24
+      const diff = this.task.dueDate - Date.now()
+      return {
+        complete: this.task.isComplete,
+        closeToDate: diff < msDay && diff > 0,
+        overdue: diff < 0,
+      }
     },
     board() {
       return this.$store.getters.watchedBoard
@@ -53,7 +85,6 @@ export default {
         totalItems: 0,
         checkedItems: 0,
       }
-
       const result = checklists.reduce((accumulator, current) => {
         current.checklist.forEach((item) => {
           accumulator.totalItems++
@@ -67,9 +98,10 @@ export default {
 
       return result
     },
-    getDate(){
-      return 'Mar 26'
-    }
+    getDate() {
+      console.log("this.task.dueDate: ", this.task.dueDate);
+      return utilService.getDate(this.task.dueDate)
+    },
   },
   created() {},
   components: {
@@ -77,5 +109,3 @@ export default {
   },
 }
 </script>
-
-<style></style>
