@@ -20,6 +20,8 @@
   .head-labels,
   .head-members {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     gap: em(4px);
   }
 

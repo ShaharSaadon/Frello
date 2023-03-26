@@ -85,6 +85,7 @@ function getEmptyBoard() {
     archivedAt: '',
     createdBy: {},
     labels: [
+      { fullDisplay: false },
       {
         id: utilService.makeId(),
         color: 'light-green',
