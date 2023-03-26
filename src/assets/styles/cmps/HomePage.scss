@@ -16,7 +16,7 @@
     cursor: pointer;
 
     &:hover {
-      color: $clr7;
+      color: $clr-base-14;
       text-decoration: none;
     }
   }
@@ -24,8 +24,12 @@
   .nav-link-signup {
     padding: 16px;
     cursor: pointer;
-    background-color: $clr7;
+    background-color: $clr-base-14;
     color: #ffffff;
+
+    &:hover{
+      background-color: $clr-base-14-hover;
+    }
   }
 
   img {
@@ -99,13 +103,12 @@
   }
 
   button {
-    background-color: $clr7;
-    border-radius: 0.3rem;
-    font-size: 1rem;
-    padding: 0.7rem 1rem 0.8rem;
-
+    @include btn-main($clr-base-14,$clr-base-1,$clr-base-14-hover);
     &:hover {
       cursor: pointer;
     }
+    padding: 0.7rem .6rem 0.8rem;
+    height: em(54px);
+    font-weight: 600;
   }
 }
