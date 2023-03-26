@@ -121,11 +121,14 @@ $breakpoints: (
 }
 
 @mixin btn-main($bgc: $clr-base-3, $color: $clr-base-5, $bgc-hover: $clr-base-3-hover) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
   background-color: $bgc;
   color: $color;
   margin: 0;
   padding: 6px 12px;
-  border-radius: 3px;
   height: 32px;
   cursor: pointer;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -149,11 +152,11 @@ $breakpoints: (
 }
 
 @mixin btn() {
+  border-radius: $border-radius-3;
+  background-color: $clr-base-8;
   height: 100%;
   width: rem(72px);
   margin: 0 rem(8px) 0 0;
-  border-radius: $border-radius-3;
-  background-color: $clr-base-8;
   cursor: pointer;
 }
 
@@ -175,6 +178,4 @@ $breakpoints: (
     box-shadow: inset 0 0 0 1px $clr-base-8;
   }
 }
-
-@mixin left-side-bar() {
-}
+  

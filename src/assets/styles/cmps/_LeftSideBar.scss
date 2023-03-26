@@ -1,27 +1,29 @@
 aside {
   display: flex;
   flex-direction: column;
-  min-width: 16px;
-  overflow: hidden;
-  min-height: 100%;
   position: relative;
+  overflow: hidden;
 
-  transition: 0.2s ease-out;
+  min-width: 16px;
+  min-height: 100%;
+
+  transition: 0.3s ease-in-out;
 
   color: $clr-base-1;
-  background-color: rgba(255, 255, 255, 0.16);
-  border-right: 1px solid hsla(0, 0%, 100%, 0.16);
+  border-right: 1px solid $side-bar-border;
 
   &.isExpended {
-    min-width: 240px;
-    transition: 0.2s ease-out;
+    min-width: em($side-bar-width);
+    transition: 0.3s ease-in-out;
   }
 
   &:not(.isExpended):hover {
-    background-color: rgba(255, 255, 255, 0.3) !important;
+    background-color: $side-bar-hover !important;
   }
 
   .close-menu {
+    width: em(32px);
+
     &:hover {
       cursor: pointer;
       scale: 1.4;
@@ -30,29 +32,32 @@ aside {
   }
 
   .left-side-header {
-    border-bottom: 1px solid hsla(0, 0%, 100%, 0.16);
-    height: 70px;
-    padding: em(14px) em(12px);
     justify-content: space-between;
     align-items: center;
+    height: em(72px);
+    padding: em(14px) em(12px);
+    border-bottom: 1px solid $side-bar-border;
+
 
     .workspace-logo {
-      font-weight: bold;
-      font-size: 20px;
-      width: 36px;
-      height: 36px;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(#006644, #00875a);
+
+      width: em(36px);
+      height: em(36px);
+      font-weight: bold;
+      font-size: em(20px);
+
+      background:$clr-merllo-workspace-logo;
     }
   }
 
   .left-side-bar-title {
-    padding: 12px;
+    padding: em(12px);
   }
 
   .router-link-active {
-      background-color: rgba(255, 255, 255, 0.16);
+    background-color: $side-bar-border;
   }
 
 
@@ -60,23 +65,27 @@ aside {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     height: 36px;
     padding: 2px 0px 2px 8px;
     font-size: 14px;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-      .star-icon{
+      background-color: $side-bar-hover;
+
+      .star-icon {
         opacity: 1;
       }
     }
-    
+
     .star-icon {
-      opacity: 0;
-      // @include btn-main($clr-base-4, inherit, $clr-base-4);
-      background-color: transparent;
       @include trello-icon($icon-star, $type: sm, $color: inherit);
+    
+      cursor: pointer;
+      background-color: transparent;
       transition: all .1s;
+      
+      opacity: 0;
 
       &:hover {
         scale: 1.2;
@@ -88,11 +97,10 @@ aside {
       }
 
       &.starred:hover::before {
-        // color: $clr-base-1;
         content: $icon-star;
       }
 
-      &.starred{
+      &.starred {
         opacity: 1;
       }
 
@@ -104,8 +112,8 @@ aside {
     width: em(24px);
     height: em(24px);
     margin-inline-end: 8px;
-    border-radius: 3px;
-    border: 1px solid hsla(0, 0%, 100%, 0.1);
+    border-radius: $border-radius-3;
+    border: 1px solid $side-bar-image-border;
   }
 
   a {

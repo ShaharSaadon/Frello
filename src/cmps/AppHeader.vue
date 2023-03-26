@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     getSvg(iconName) {
-      return svgService.getTrelloSvg(iconName)
+      return svgService.getMerlloSvg(iconName)
     },
   }
 }
