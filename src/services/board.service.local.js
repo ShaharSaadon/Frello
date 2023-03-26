@@ -85,6 +85,7 @@ function getEmptyBoard() {
     archivedAt: '',
     createdBy: {},
     labels: [
+      { fullDisplay: false },
       {
         id: utilService.makeId(),
         color: 'light-green',
@@ -142,7 +143,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
-            dueDate: null,
+            dueDate: undefined,
             checklists: [],
             dueDate: 0,
             isComplete: false,
@@ -219,7 +220,7 @@ function getEmptyTask() {
     labels: [],
     checklists: [],
     isWatch: false,
-    dueDate: 0,
+    dueDate: null,
     isComplete: false,
   }
 }

@@ -10,6 +10,20 @@
     color: $clr9;
     font-weight: 600;
   }
+
+  .color-table {
+    display: grid;
+    grid-template-columns: repeat(5, em(50px));
+    gap: em(7px);
+
+    .color {
+      border-radius: $border-radius-3;
+      height: em(29px);
+      cursor: pointer;
+      
+    }
+  }
+
   hr {
     background-color: $clr-modal-picker-line;
     border: 0;

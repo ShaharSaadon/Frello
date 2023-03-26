@@ -3,13 +3,20 @@
     <div v-if="members?.length">
       <h3 class="title">Members</h3>
       <div class="head-members">
-        <img @click="$emit('openModal', 'MemberPicker')" v-for="member in members" :src="member.imgUrl" class="member-profile" />
+        <img
+          @click="$emit('openModal', 'MemberPicker')"
+          v-for="member in members"
+          :src="member.imgUrl"
+          class="member-profile"
+        />
       </div>
     </div>
     <div v-if="labels?.length">
       <h3 class="title">Labels</h3>
       <div class="head-labels">
-        <div @click="$emit('openModal', 'LabelPicker')" v-for="label in labels" class="label-tag" :class="label.color">{{ label.title }}</div>
+        <div @click="$emit('openModal', 'LabelPicker')" v-for="label in labels" class="label-tag" :class="label.color">
+          {{ label.title }}
+        </div>
       </div>
     </div>
     <div>
@@ -21,15 +28,19 @@
     <div v-if="task?.dueDate">
       <h3 class="title">Due date</h3>
       <div class="date-tag flex">
-        <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete')" class="btn-is-complete"><span></span></button>
-        <button class="notifications">{{ getDate }}<span :class="getDateClass" class="date-label">{{getDateLabel}}</span></button>
+        <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete')" class="btn-is-complete">
+          <span></span>
+        </button>
+        <button @click="$emit('openModal', 'DatePicker')" class="notifications">
+          {{ getDate }}<span :class="getDateClass" class="date-label">{{ getDateLabel }}</span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {utilService} from '../../services/util.service.js'
+import { utilService } from '../../services/util.service.js'
 
 export default {
   name: 'TaskHeadTags',
@@ -52,10 +63,11 @@ export default {
       if (this.isToday) month = 'today'
       else if (this.isTomorrow) month = 'tomorrow'
       else month = utilService.getDate(this.task.dueDate)
-      const time = dueDate.toLocaleTimeString('en-US')
-      const date = `${month}`
-      return  `${date} at ${time.slice(0, 4)} ${time.slice(-2)}`
-      
+      const time = dueDate.toLocaleTimeString('en-US').split(' ')
+      var timeToShow = time[0].split(':').splice(0,2).join(':')
+      console.log("timeToShow: ", timeToShow);
+      // const date = month}
+      return  `${month} at ${timeToShow} ${time[1]}`
     },
     isToday() {
       const date = new Date(this.task.dueDate)
@@ -80,12 +92,13 @@ export default {
         if (this.task.members?.includes(m._id)) return m
       })
     },
-    getCheckedClass(){
-      return this.task.isComplete? 'checked' : ''
+    getCheckedClass() {
+      return this.task.isComplete ? 'checked' : ''
     },
     getDateClass() {
       const msDay = 1000 * 60 * 60 * 24
-      const diff = this.task.dueDate - Date.now()
+      const dueDate = new Date(this.task.dueDate)
+      const diff = dueDate - Date.now()
       return {
         complete: this.task.isComplete,
         closeToDate: diff < msDay && diff > 0,
@@ -94,10 +107,12 @@ export default {
     },
     getDateLabel() {
       const msDay = 1000 * 60 * 60 * 24
-      const diff = this.task.dueDate - Date.now()
+      const dueDate = new Date(this.task.dueDate)
+      const diff = dueDate - Date.now()
       if(this.task.isComplete) return 'complete'
       if(diff < msDay && diff > 0) return 'due soon'
-      return 'overdue'
+      if(diff < 0) return 'overdue'
+      return ''
     },
   },
   created() {},

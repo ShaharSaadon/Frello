@@ -149,22 +149,15 @@
     .btn-link {
       font-family: 'Segoe UI';
       background-color: $clr-base-3;
-      border: none;
       text-align: left;
       border-radius: 3px;
-      box-shadow: none;
-      box-sizing: border-box;
       color: $clr-dynamic-button-highlighted-text;
       cursor: pointer;
-      display: block;
       height: 32px;
       margin-top: 8px;
       max-width: 300px;
-      overflow: hidden;
       padding: 6px 12px;
       position: relative;
-      text-decoration: none;
-      text-overflow: ellipsis;
       transition-duration: 85ms;
       transition-property: background-color, border-color, box-shadow;
       transition-timing-function: ease;

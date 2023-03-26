@@ -8,7 +8,7 @@
       <div :class="label.color" @click="toggleCheck(idx)" class="btn-label-tag label-tag">{{ label.title }}</div>
       <button @click="$emit('toLabelEditor', label.id)" class="btn-marker-edit" v-html="getSvg('marker')"></button>
     </div>
-    <!-- <button>Create a new label</button> -->
+    <button @click="$emit('toLabelEditor', null)" class="btn-create">Create a new label</button>
   </div>
 </template>
 
@@ -48,11 +48,9 @@ export default {
   created() {
     this.labelsToEdit = this.labels
     this.labelsToEdit.forEach((label) => {
-      if (this.info.labels.find((l) => l.id === label.id)) label.isChecked = true
+      if (this.info.labels.find((id) => id === label.id)) label.isChecked = true
     })
   },
   components: {},
 }
 </script>
-
-<style></style>
