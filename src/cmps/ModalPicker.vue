@@ -3,7 +3,7 @@
     <header class="modal-picker-header">
       <h3>{{ title }}</h3>
       <button class="btn-modal-close" @click="$emit('closeModal')"></button>
-      <!-- <button class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button> -->
+      <button v-if="isArrowBack" @click="switchDynamicCmp" class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button>
     </header>
 
     <component
@@ -17,6 +17,7 @@
       @closeModal="$emit('closeModal')"
       @toLabelEditor="toLabelEditor"
       @updateLabel="$emit('updateLabel', $event)"
+      @switchDynamicCmp="switchDynamicCmp"
     />
   </section>
 </template>
@@ -53,8 +54,15 @@ export default {
     },
     toLabelEditor(labelId) {
       this.labelToEdit = labelId
-      this.$emit('toLabelEditor')
+      this.$emit('switchDynamicCmp', 'LabelEditor')
     },
+    switchDynamicCmp(){
+      switch(this.type) {
+        case 'LabelEditor':
+          this.$emit('switchDynamicCmp', 'LabelPicker')
+          break
+      }
+    }
   },
   computed: {
     info() {
@@ -109,6 +117,9 @@ export default {
     title() {
       return this.info?.title
     },
+    isArrowBack(){
+      return this.type === 'LabelEditor'
+    }
   },
   components: {
     LabelPicker,

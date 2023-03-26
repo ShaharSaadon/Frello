@@ -9,7 +9,7 @@
         <p>in list {{ groupTitle }}</p>
       </div>
       <div class="main-content">
-        <TaskHeadTags :task="task" @toggleWatch="toggleWatch" />
+        <TaskHeadTags @openModal="toggleModal" :task="task" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
         <!-- <pre> {{ task }}</pre> -->
         <TaskChecklist
@@ -47,7 +47,7 @@
         @updateEntityVal="updateEntityVal"
         @removeEntityVal="removeEntityVal"
         @addChecklist="addChecklist"
-        @toLabelEditor="toggleModal('LabelEditor')"
+        @switchDynamicCmp="toggleModal"
         @saveTask="saveTask"
         @updateLabel="updateLabel"
       />

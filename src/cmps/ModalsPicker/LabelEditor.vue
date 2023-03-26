@@ -31,7 +31,7 @@ export default {
   methods: {
     save() {
       this.$emit('updateLabel', { ...this.labelToEdit })
-      this.$emit('closeModal')
+      this.$emit('switchDynamicCmp')
     },
   },
   computed: {
