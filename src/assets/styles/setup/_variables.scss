@@ -8,6 +8,7 @@ $clr6: #fff;
 $clr8: #091e420a;
 $clr9: #5e6c84;
 $clr10: #f5f6f8;
+$clr11: #000000;
 
 // Labels Colors
 $clr-label-light-green: #b7ddb0;
@@ -173,8 +174,11 @@ $home-page-header-height: 60px;
 // BoardHeader
 $board-header-height: 3rem;
 
-//SideBar
+//Left SideBar
 $side-bar-width :240px;
 $side-bar-border: hsla(0, 0%, 100%, 0.16);
 $side-bar-hover: rgba(255, 255, 255, 0.3);
 $side-bar-image-border:  hsla(0, 0%, 100%, 0.1);
+
+//Right SideBar
+$right-side-bar-width: 340px;

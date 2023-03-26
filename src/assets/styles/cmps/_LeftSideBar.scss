@@ -1,4 +1,4 @@
-aside {
+.left-side-bar {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -9,7 +9,7 @@ aside {
 
   transition: 0.3s ease-in-out;
 
-  color: $clr-base-1;
+
   border-right: 1px solid $side-bar-border;
 
   &.isExpended {
@@ -48,7 +48,7 @@ aside {
       font-weight: bold;
       font-size: em(20px);
 
-      background:$clr-merllo-workspace-logo;
+      background: $clr-merllo-workspace-logo;
     }
   }
 
@@ -80,11 +80,11 @@ aside {
 
     .star-icon {
       @include trello-icon($icon-star, $type: sm, $color: inherit);
-    
+
       cursor: pointer;
       background-color: transparent;
       transition: all .1s;
-      
+
       opacity: 0;
 
       &:hover {
@@ -107,16 +107,16 @@ aside {
     }
 
     .board-image {
-    width: em(24px);
-    height: em(24px);
-    margin-inline-end: 8px;
-    border-radius: $border-radius-3;
-    border: 1px solid $side-bar-image-border;
-  }
+      width: em(24px);
+      height: em(24px);
+      margin-inline-end: 8px;
+      border-radius: $border-radius-3;
+      border: 1px solid $side-bar-image-border;
+    }
 
   }
 
-  
+
 
   a {
     text-decoration: none;
