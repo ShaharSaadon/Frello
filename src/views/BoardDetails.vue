@@ -14,7 +14,6 @@
         <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i>Share</button>
 
         <span class="separate-line"></span>
-        <div class="three-dot-btn"></div>
       </div>
     </header>
 

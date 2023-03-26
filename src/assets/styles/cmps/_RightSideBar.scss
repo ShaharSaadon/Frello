@@ -1,0 +1,42 @@
+.right-side-bar {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+
+  // width: 0px;
+  min-height: 100%;
+
+  transition: 0.3s ease-in-out;
+
+  color: $clr11;
+  border-right: 1px solid $side-bar-border;
+
+  .right-side-toggle {
+    padding: rem(8px) rem(4px);
+
+
+    .three-dot-btn {
+
+      @include btn-main(rgba(255, 255, 255, 0.3), $clr-base-1, $clr-base-1);
+      @include trello-icon($icon-three-dots, $type: sm, $color: $clr-base-1);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
+      &:hover {
+        background-color: inherit;
+      }
+    }
+  }
+
+
+  &.isExpended {
+    min-width: em($right-side-bar-width);
+    background-color: $clr-base-2;
+    transition: 0.3s ease-in-out;
+  }
+}
