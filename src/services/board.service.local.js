@@ -90,15 +90,43 @@ function getEmptyBoard() {
     groups: [
       {
         id: 'g101',
-        title: 'Group 1',
+        title: 'ToDo',
         archivedAt: 1589983468418,
         tasks: [
           {
-            id: 'c101',
-            title: 'Replace logo',
-            isWatch: false,
+            id: 'c105',
+            title: 'create logo',
+            description: 'some nice green color logo',
             members: [],
-            labels: [],
+            labels: [
+              {
+                id: 'l203',
+                color: 'light-red',
+                title: 'important',
+              },
+              {
+                color: 'light-orange',
+                title: '',
+                id: 'l202',
+              },
+            ],
+            checklists: [],
+            isWatch: false,
+            dueDate: 1679839200000,
+          },
+          {
+            id: 'c101',
+            title: 'task Details on phone',
+            description: 'Make it look nice!',
+            isWatch: false,
+            members: ['u100', 'u101'],
+            labels: [
+              {
+                color: 'light-red',
+                title: '',
+                id: 'l203',
+              },
+            ],
             dueDate: null,
             checklists: [],
           },
@@ -106,26 +134,61 @@ function getEmptyBoard() {
             id: 'c102',
             title: 'Add Samples',
             isWatch: false,
-            members: [],
-            labels: [],
+            members: ['u102'],
+            labels: [
+              {
+                id: 'l200',
+                color: 'light-green',
+                title: 'will do today',
+              },
+            ],
             dueDate: null,
-            checklists: [],
+            checklists:[
+              {
+                "title": "sampels",
+                "checklist": [
+                  {
+                    "isChecked": true,
+                    "title": "board"
+                  },
+                  {
+                    "isChecked": false,
+                    "title": "card"
+                  },
+                  {
+                    "isChecked": false,
+                    "title": "list"
+                  },
+                  {
+                    "isChecked": false,
+                    "title": "extras"
+                  }
+                ],
+                "id": "bG5sKe"
+              }
+            ],
           },
         ],
         style: {},
       },
       {
         id: 'g102',
-        title: 'Group 2',
+        title: 'In progress',
         tasks: [
           {
             id: 'c103',
-            title: 'Do that',
+            title: 'Sketch site banner',
             isWatch: false,
             archivedAt: 1589983468418,
-            members: [],
-            labels: [],
-            dueDate: null,
+            members: ['u102', 'u101'],
+            labels: [
+              {
+                id: 'l204',
+                color: 'light-purple',
+                title: 'Design Team',
+              },
+            ],
+            dueDate: 1679864400000,
             checklists: [],
           },
           {
