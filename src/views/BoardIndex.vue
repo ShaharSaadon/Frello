@@ -2,7 +2,7 @@
   <!-- <div class="board-index main-container"> -->
   <div class="board-index grid">
     <div v-if="starredBoards.length" class="title-type-boards flex align-center">
-      <span class="starred-boards-icon"></span>
+      <span class="starred-boards-icon icon"></span>
       <h3>Starred boards</h3>
     </div>
     <ul class="board-list clean-list">
@@ -17,12 +17,10 @@
     </ul>
 
     <div class="title-type-boards flex align-center">
+      <span class="trello-boards-icon icon"></span>
       <h3>Boards</h3>
     </div>
     <ul class="board-list clean-list">
-      <li class="add-board">
-        <button class="btn-add-board" @click="openModal"></button>
-      </li>
       <BoardPreview
         v-for="board in unStarredBoards"
         :key="board._id"
@@ -31,6 +29,9 @@
         @updateBoard="updateBoard"
         @updateBoardEntity="updateBoard"
       />
+      <li class="add-board">
+        <button class="btn-add-board" @click="openModal">Create new board</button>
+      </li>
     </ul>
 
     <ModalPicker v-if="modal.isShowModal" :type="modal.type" @closeModal="closeModal" @createBoard="createBoard" />

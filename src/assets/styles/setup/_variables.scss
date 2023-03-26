@@ -52,9 +52,9 @@ $clr-label-dark-black: #091e42;
 
 // Base Colors
 $clr-transparent: rgba(0, 0, 0, 0);
-$clr-base-1: #FFFFFF;
-$clr-base-2: #F4F5F7; // <TaskDetails> bgc
-$clr-base-3: #EBECF0; // card bgc + <TaskDetails buttons>
+$clr-base-1: #ffffff;
+$clr-base-2: #f4f5f7; // <TaskDetails> bgc
+$clr-base-3: #ebecf0; // card bgc + <TaskDetails buttons>
 $clr-base-3-hover: #091e4214; // <TaskDetails buttons>
 $clr-base-4: #5e6c84; // sub font color
 $clr-base-5: #172b4d; // font color
@@ -64,16 +64,14 @@ $clr-base-8: #0079bf; // notification color
 $clr-base-8-hover: #026aa7; // notification color
 $clr-base-9: #091e4221;
 $clr-base-10: #42526e;
-$clr-base-11: #2879BF;
-$clr-base-12: #F6F7F8;
-$clr-base-12-hover: #EFEFF1;
+$clr-base-11: #2879bf;
+$clr-base-12: #f6f7f8;
+$clr-base-12-hover: #efeff1;
 $clr-base-13: #b04632; // btn cancel
 $clr-base-13-hover: #933b27; // btn cancel hover
 $clr-base-14: #0065ff; //HomePage Button
 $clr-base-14-hover: #0747a6; //Home Page Button Hover
-
-
-
+$clr-base-15: #f1f3f5; //Home Page Button Hover
 
 // Dynamic Color
 $clr-dynamic-button: rgba(255, 255, 255, 0.2);
@@ -140,6 +138,7 @@ $icon-lighting-bolt: '\e909';
 $icon-power-up: '\e956';
 $icon-close: '\e91c';
 $icon-checked: '\e916';
+$icon-trello: '\e90b';
 
 // scrollbar
 $scrollbar-track: #091e4214;
