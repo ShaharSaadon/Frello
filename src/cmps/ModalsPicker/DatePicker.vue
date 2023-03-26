@@ -1,6 +1,6 @@
 <template>
   <div class="date-picker">
-    <div class="block">
+    <!-- <div class="block">
       <el-date-picker
         v-model="date"
         type="datetime"
@@ -8,7 +8,7 @@
         format="YYYY/MM/DD hh:mm:ss"
         value-format="x"
       />
-    </div>
+    </div> -->
     <VDatePicker locale="en" v-model="date" mode="dateTime" transparent borderless expanded />
     <button @click="saveDate" class="btn-save-date">save</button>
     <button @click="removeDate" class="btn-remove-date">remove</button>
