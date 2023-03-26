@@ -2,10 +2,13 @@
   display: flex;
   flex-direction: column;
   .search-input {
-    @include input()
+    @include input();
   }
-
-  h3{
+  .btn-create {
+    @include btn-main($clr-base-3, $clr-base-4, $clr-base-9);
+    margin-top: em(12px)
+  }
+  h3 {
     margin: rem(12px) 0 rem(8px);
     font-size: em(12px);
     color: $clr9;
@@ -16,7 +19,8 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    margin-block: em(2px);
+    padding: 0 0 0 4px;
+    margin-top: em(3px);
 
     .btn-marker-edit {
       padding: em(8px);
@@ -33,10 +37,8 @@
         height: 16px;
       }
     }
-
     .btn-label-tag {
       width: 212px;
     }
-
   }
 }

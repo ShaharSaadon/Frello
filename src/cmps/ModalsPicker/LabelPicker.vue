@@ -8,7 +8,7 @@
       <div :class="label.color" @click="toggleCheck(idx)" class="btn-label-tag label-tag">{{ label.title }}</div>
       <button @click="$emit('toLabelEditor', label.id)" class="btn-marker-edit" v-html="getSvg('marker')"></button>
     </div>
-    <!-- <button>Create a new label</button> -->
+    <button @click="$emit('toLabelEditor', null)" class="btn-create">Create a new label</button>
   </div>
 </template>
 

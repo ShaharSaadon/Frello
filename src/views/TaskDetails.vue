@@ -50,6 +50,7 @@
         @switchDynamicCmp="toggleModal"
         @saveTask="saveTask"
         @updateLabel="updateLabel"
+        @removeLabel="removeLabel"
       />
     </main>
   </section>
@@ -149,10 +150,17 @@ export default {
       const labels = JSON.parse(JSON.stringify(this.labels))
       const idx = labels.findIndex((l) => l.id === label.id)
       if (idx === -1) {
+        label.id = utilService.makeId()
         labels.push(label)
       } else {
         labels.splice(idx, 1, label)
       }
+      this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels })
+    },
+    removeLabel(labelId) {
+      const labels = JSON.parse(JSON.stringify(this.labels))
+      const idx = labels.findIndex((l) => l.id === labelId)
+      labels.splice(idx, 1)
       this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels })
     },
     onEnter() {
