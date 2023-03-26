@@ -240,10 +240,13 @@ export const boardStore = {
     async saveTask(context, { groupId, task }) {
       const boardId = context.getters.watchedBoardId
       try {
-        task = await boardService.saveTask(boardId, groupId, task)
-        context.commit({ type: 'saveTask', boardId, groupId, task })
-        // console.log("board: ", board);
-        // context.commit(getActionUpdateBoard(board))
+        if (task.id) {
+          context.commit({ type: 'saveTask', boardId, groupId, task })
+          task = await boardService.saveTask(boardId, groupId, task)
+        } else {
+          task = await boardService.saveTask(boardId, groupId, task)
+          context.commit({ type: 'saveTask', boardId, groupId, task })
+        }
       } catch (err) {
         console.log('boardStore: Error in save task', err)
         throw err

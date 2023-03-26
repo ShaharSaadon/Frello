@@ -9,7 +9,7 @@
         <p>in list {{ groupTitle }}</p>
       </div>
       <div class="main-content">
-        <TaskHeadTags @openModal="toggleModal" :task="task" @toggleWatch="toggleWatch" />
+        <TaskHeadTags @openModal="toggleModal" :task="task"  @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
         <!-- <pre> {{ task }}</pre> -->
         <TaskChecklist
@@ -227,9 +227,9 @@ export default {
       this.modal.isModalOpen = isModalOpen
       this.modal.type = type
     },
-    toggleWatch() {
-      const newVal = !this.task.isWatch
-      this.saveTask({ key: 'isWatch', newVal })
+    toggleKey(key) {
+      const newVal = !this.task[key]
+      this.saveTask({ key, newVal })
     },
   },
   components: {

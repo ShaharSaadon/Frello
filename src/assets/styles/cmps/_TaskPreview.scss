@@ -23,11 +23,25 @@
     font-weight: 400;
     white-space: normal;
   }
-.task-preview-footer{
+  .task-members {
+    display: flex;
+
+    .member-profile {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      margin: 0 2px 2px;
+      cursor: pointer;
+      position: relative;
+    }
+  }
+}
+
+.task-preview-footer {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-}
+
   .action-badges {
     display: flex;
     align-items: center;
@@ -35,12 +49,19 @@
     width: em(26px);
     height: em(26px);
 
-    &>* {
+    & > * {
       margin-inline-end: em(4px);
     }
 
     .badge-watch {
       @include trello-icon($icon-eye);
+
+      &.complete{
+        background-color: $clr-dynamic-star;
+      }
+      &.closeToDate{
+        background-color: $clr-dynamic-star;
+      }
     }
 
     .badge-date {
@@ -57,19 +78,6 @@
 
     .badge-checklist {
       @include trello-icon($icon-checklist);
-    }
-  }
-
-  .task-members {
-    display: flex;
-
-    .member-profile {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      margin: 0 2px 2px;
-      cursor: pointer;
-      position: relative;
     }
   }
 }

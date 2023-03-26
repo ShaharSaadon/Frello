@@ -210,6 +210,7 @@ function getEmptyTask() {
     checklists: [],
     isWatch: false,
     dueDate: 0,
+    isComplete: false,
   }
 }
 
