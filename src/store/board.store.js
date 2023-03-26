@@ -72,10 +72,10 @@ export const boardStore = {
     appHeaderBgc({ appHeaderBgc }) {
       return appHeaderBgc
     },
-    labels(s, getters) {
+    labels(state, getters) {
       return getters.watchedBoard.labels
     },
-    getLabelsById(s, getters) {
+    getLabelsById(state, getters) {
       return (id) => getters.labels.find((label) => label.id === id)
     },
     LeftSideBarBgc({ LeftSideBarBgc }) {

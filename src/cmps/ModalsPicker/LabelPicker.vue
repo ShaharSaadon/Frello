@@ -48,11 +48,9 @@ export default {
   created() {
     this.labelsToEdit = this.labels
     this.labelsToEdit.forEach((label) => {
-      if (this.info.labels.find((l) => l.id === label.id)) label.isChecked = true
+      if (this.info.labels.find((id) => id === label.id)) label.isChecked = true
     })
   },
   components: {},
 }
 </script>
-
-<style></style>
