@@ -142,7 +142,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
-            dueDate: null,
+            dueDate: undefined,
             checklists: [],
             dueDate: 0,
             isComplete: false,

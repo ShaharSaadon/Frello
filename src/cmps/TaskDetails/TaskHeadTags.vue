@@ -55,9 +55,8 @@ export default {
       const time = dueDate.toLocaleTimeString('en-US').split(' ')
       var timeToShow = time[0].split(':').splice(0,2).join(':')
       console.log("timeToShow: ", timeToShow);
-      const date = `${month}`
-      return  `${date} at ${timeToShow} ${time[1]}`
-      
+      // const date = month}
+      return  `${month} at ${timeToShow} ${time[1]}`
     },
     isToday() {
       const date = new Date(this.task.dueDate)
@@ -87,7 +86,8 @@ export default {
     },
     getDateClass() {
       const msDay = 1000 * 60 * 60 * 24
-      const diff = this.task.dueDate - Date.now()
+      const dueDate = new Date(this.task.dueDate)
+      const diff = dueDate - Date.now()
       return {
         complete: this.task.isComplete,
         closeToDate: diff < msDay && diff > 0,
@@ -96,10 +96,12 @@ export default {
     },
     getDateLabel() {
       const msDay = 1000 * 60 * 60 * 24
-      const diff = this.task.dueDate - Date.now()
+      const dueDate = new Date(this.task.dueDate)
+      const diff = dueDate - Date.now()
       if(this.task.isComplete) return 'complete'
       if(diff < msDay && diff > 0) return 'due soon'
-      return 'overdue'
+      if(diff < 0) return 'overdue'
+      return ''
     },
   },
   created() {},
