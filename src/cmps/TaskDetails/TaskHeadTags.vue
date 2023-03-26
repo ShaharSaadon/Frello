@@ -32,7 +32,7 @@
           <span></span>
         </button>
         <button @click="$emit('openModal', 'DatePicker')" class="notifications">
-          {{ getDate }}<span :class="getDateClass" class="date-label">{{ getDateLabel }}</span>
+          {{ getDate }}<span v-if="getDateLabel" :class="getDateClass" class="date-label">{{ getDateLabel }}</span>
         </button>
       </div>
     </div>

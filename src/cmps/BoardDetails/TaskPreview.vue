@@ -2,7 +2,7 @@
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
     <div class="task-preview">
       <h2 class="task-preview-title">{{ task.title }}</h2>
-      <div class="task-preview-footer">
+      <div v-if="showBadges" class="task-preview-footer">
         <div class="action-badges">
           <!-- <div v-if="task.members.length" class="badge-watch"></div> -->
           <div v-if="task.description" class="badge-description"></div>
@@ -30,7 +30,7 @@
 
 <script>
 import TaskMember from '../TaskMember.vue'
-import {utilService} from '../../services/util.service.js'
+import { utilService } from '../../services/util.service.js'
 
 export default {
   name: 'TaskPreview',
@@ -64,6 +64,9 @@ export default {
     },
   },
   computed: {
+    showBadges() {
+      if (this.task.description || this.task.checklists?.length || this.task.dueDate || this.task.members?.length) return true
+    },
     boardId() {
       return this.$store.getters.watchedBoardId
     },
@@ -99,7 +102,7 @@ export default {
       return result
     },
     getDate() {
-      console.log("this.task.dueDate: ", this.task.dueDate);
+      console.log('this.task.dueDate: ', this.task.dueDate)
       return utilService.getDate(this.task.dueDate)
     },
   },
