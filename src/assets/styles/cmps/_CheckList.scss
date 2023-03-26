@@ -1,5 +1,8 @@
 .task-Checklist {
   @include TaskDetailsCmps($icon-checklist);
+  .title{
+    cursor: pointer;
+  }
   .icon {
     &::before {
       left: em(8px);
@@ -80,33 +83,6 @@
       }
     }
 
-    .check-box {
-      justify-self: center;
-      margin-inline-end: em(6px);
-      box-shadow: $box-shadow-checkbox;
-      height: em(16px);
-      width: em(16px);
-      position: relative;
-      border-radius: 2px;
-      transition: all 0.2s ease-in-out;
-      cursor: pointer;
-      transition: 0.5s;
-      &.checked {
-        background-color: $clr-base-8;
-        box-shadow: none;
-        @include trello-icon($icon-checked, $color: $clr-base-1);
-        &::before {
-          position: absolute;
-          height: em(16px);
-          width: em(16px);
-          top: -6px;
-        }
-      }
-      &:active {
-        box-shadow: $box-shadow-checkbox-active;
-      }
-    }
-
     .checklist-archive {
       @include trello-icon($icon-archive);
       border-radius: $border-radius-3;
@@ -138,6 +114,7 @@
     }
   }
   .item-editor {
+    width: 100%;
     input {
       @include input();
       background-color: $clr8;

@@ -9,7 +9,7 @@
         <p>in list {{ task.title }}</p>
       </div>
       <div class="main-content">
-        <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
+        <TaskHeadTags :task="task" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
         <TaskChecklist
           :key="list.title"
@@ -44,7 +44,10 @@
         :type="modal.type"
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
+        @removeEntityVal="removeEntityVal"
         @addChecklist="addChecklist"
+        @toLabelEditor="toggleModal('LabelEditor')"
+        @updateLabel="updateLabel"
         @saveTask="saveTask"
       />
     </main>
@@ -60,6 +63,7 @@ import TaskDescription from '../cmps/TaskDetails/TaskDescription.vue'
 import TaskChecklist from '../cmps/TaskDetails/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
+import { utilService } from '../services/util.service'
 
 export default {
   watch: {
@@ -120,13 +124,14 @@ export default {
     getTaskFromStore() {
       return JSON.parse(JSON.stringify(this.$store.getters.currTask))
     },
-    info() {
-      return {
-        isWatch: this.task.isWatch,
-        labels: this.task.labels,
-        members: this.task.members,
-      }
-    },
+    // info() {
+    //   return {
+    //     isWatch: this.task.isWatch,
+    //     labels: this.task.labels,
+    //     members: this.task.members,
+    //     dueDate: this.task.dueDate,
+    //   }
+    // },
     watchedBoard() {
       return this.$store.getters.watchedBoard
     },
@@ -137,7 +142,7 @@ export default {
     },
     addChecklist(title) {
       const task = JSON.parse(JSON.stringify(this.task))
-      task.checklists.push({ title, checklist: [] })
+      task.checklists.push({ title, checklist: [], id: utilService.makeId() })
       this.saveTask({ key: 'checklists', newVal: task.checklists })
       this.toggleModal()
     },
@@ -164,27 +169,21 @@ export default {
     updateEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
       var idx
-      if (key === 'checklists') {
-        idx = task[key].findIndex((list) => list.title === val.title)
-        if (idx === -1) {
-          task[key].push(val)
-        } else {
-          task[key].splice(idx, 1, val)
-        }
-        this.saveTask({ key, newVal: task[key] })
-        return
-      }
-      if (key === 'members') {
-        idx = task[key].findIndex((id) => id === val)
-      } else if (key === 'labels') {
-        idx = task.labels.findIndex((label) => label.color === val.color)
-      }
-
+      var isObj = val.id
+      const itemId = isObj ?  val.id : val
+      idx = task[key].findIndex((item) => item.id === itemId)
       if (idx === -1) {
         task[key].push(val)
       } else {
-        task[key].splice(idx, 1)
+        task[key].splice(idx, 1, val)
       }
+      this.saveTask({ key, newVal: task[key] })
+    },
+    removeEntityVal({ key, val }) {
+      const task = JSON.parse(JSON.stringify(this.task))
+      const itemId = val.id ?  val.id : val
+      const idx = task[key].findIndex((item) => item.id === itemId)
+      task[key].splice(idx, 1)
       this.saveTask({ key, newVal: task[key] })
     },
     async saveTask({ key, newVal }) {

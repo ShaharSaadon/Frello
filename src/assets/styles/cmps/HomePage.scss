@@ -1,35 +1,36 @@
 .home-page-header {
+  height: em(60px);
+  align-items: stretch;
 
-    height: em(60px);
-    align-items: stretch;
+  @include mq(homePageHeader) {
+    width: em(1320px);
+    margin: 0 auto;
+  }
 
-    @include mq(homePageHeader) {
-        width: em(1320px);
-        margin: 0 auto;
+  .logo {
+    padding: 16px;
+  }
+
+  .nav-link {
+    padding: 16px;
+    cursor: pointer;
+
+    &:hover {
+      color: $clr7;
+      text-decoration: none;
     }
+  }
 
-    .logo {
-        padding: 16px;
-    }
+  .nav-link-signup {
+    padding: 16px;
+    cursor: pointer;
+    background-color: $clr7;
+    color: #ffffff;
+  }
 
-    .nav-link {
-        padding: 16px;
-        cursor: pointer;
-
-        &:hover {
-            color: $clr7;
-            text-decoration: none;
-        }
-    }
-
-    .nav-link-signup {
-        background-color: $clr7;
-        color: #ffffff;
-    }
-
-    img {
-        width: 110px;
-    }
+  img {
+    width: 110px;
+  }
 }
 
 .home-page-main-container {
@@ -77,36 +78,34 @@
         font-weight: 800;
     }
 
-    p {
-        font-size: 20px;
+  p {
+    font-size: 20px;
+  }
+
+  .email-signup {
+    font-size: 1rem;
+    padding: 0.7rem 0.75rem 0.8rem;
+    border: 1px solid rgb(223, 225, 230);
+    border-radius: 0.3rem;
+    max-width: 300px;
+    width: 376px;
+    transition: all 250ms ease-out 0s;
+  }
+
+  .signup-form {
+    display: flex;
+    gap: 12px;
+    margin-block-end: 12px;
+  }
+
+  button {
+    background-color: $clr7;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    padding: 0.7rem 1rem 0.8rem;
+
+    &:hover {
+      cursor: pointer;
     }
-
-    .email-signup {
-        font-size: 1rem;
-        padding: 0.7rem 0.75rem 0.8rem;
-        border: 1px solid rgb(223, 225, 230);
-        border-radius: 0.3rem;
-        max-width: 300px;
-        width: 376px;
-        transition: all 250ms ease-out 0s;
-    }
-
-    .signup-form {
-        display: flex;
-        gap: 12px;
-        margin-block-end: 12px;
-    }
-
-    button {
-        background-color: $clr7;
-        border-radius: 0.3rem;
-        font-size: 1rem;
-        padding: 0.7rem 1rem 0.8rem;
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
-
+  }
 }

@@ -10,15 +10,18 @@
       :is="type"
       :info="info"
       @updateEntityVal="$emit('updateEntityVal', $event)"
+      @removeEntityVal="$emit('removeEntityVal', $event)"
       @createBoard="createBoard"
       @addChecklist="$emit('addChecklist', $event)"
       @saveTask="$emit('saveTask', $event)"
       @closeModal="$emit('closeModal')"
+      @toLabelEditor="toLabelEditor"
     />
   </section>
 </template>
 
 <script>
+import LabelEditor from './ModalsPicker/LabelEditor.vue'
 import LabelPicker from './ModalsPicker/LabelPicker.vue'
 import MemberPicker from './ModalsPicker/MemberPicker.vue'
 import ChecklistPicker from './ModalsPicker/ChecklistPicker.vue'
@@ -33,6 +36,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      labelToEdit: null,
+    }
+  },
   name: '',
   methods: {
     getSvg(iconName) {
@@ -41,6 +49,10 @@ export default {
     createBoard(data) {
       this.$emit('createBoard', data)
       this.$emit('closeModal')
+    },
+    toLabelEditor(label) {
+      this.labelToEdit = label
+      this.$emit('toLabelEditor')
     },
   },
   computed: {
@@ -51,10 +63,16 @@ export default {
             labels: this.task.labels,
             title: 'Labels',
           }
+          case 'LabelEditor':
+          return {
+            label: this.labelToEdit,
+            title: 'Edit label',
+          }
           break
         case 'MemberPicker':
           return {
             members: this.board.members,
+            taskMembers: this.task.members,
             title: 'Members',
           }
           break
@@ -93,6 +111,7 @@ export default {
   },
   components: {
     LabelPicker,
+    LabelEditor,
     MemberPicker,
     CreateBoard,
     ChecklistPicker,
