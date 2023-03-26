@@ -28,6 +28,8 @@
       @updateTasksPos="updateTasksPos"
     />
     </div>
+    <RightSideBar/>
+
     <RouterView />
   </section>
 </template>
@@ -41,6 +43,7 @@ import GroupList from '../cmps/BoardDetails/GroupList.vue'
 import LeftSideBar from '../cmps/BoardDetails/LeftSideBar.vue'
 import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
 import BoardMembers from '../cmps/BoardDetails/BoardMembers.vue'
+import RightSideBar from '../cmps/BoardDetails/RightSideBar.vue'
 
 export default {
   data() {
@@ -88,6 +91,7 @@ export default {
     LeftSideBar,
     TaskHeadTags,
     BoardMembers,
+    RightSideBar
 },
   methods: {
     async removeGroup(groupId) {
