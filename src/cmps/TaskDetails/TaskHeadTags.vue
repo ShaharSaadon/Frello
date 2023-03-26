@@ -52,9 +52,11 @@ export default {
       if (this.isToday) month = 'today'
       else if (this.isTomorrow) month = 'tomorrow'
       else month = utilService.getDate(this.task.dueDate)
-      const time = dueDate.toLocaleTimeString('en-US')
+      const time = dueDate.toLocaleTimeString('en-US').split(' ')
+      var timeToShow = time[0].split(':').splice(0,2).join(':')
+      console.log("timeToShow: ", timeToShow);
       const date = `${month}`
-      return  `${date} at ${time.slice(0, 4)} ${time.slice(-2)}`
+      return  `${date} at ${timeToShow} ${time[1]}`
       
     },
     isToday() {
