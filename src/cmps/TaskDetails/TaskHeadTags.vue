@@ -24,13 +24,15 @@
       <h3 class="title">Due date</h3>
       <div class="date-tag flex">
         <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete')" class="btn-is-complete"><span></span></button>
-        <button class="notifications">{{ getDate }}<span v-if="task.isComplete" class="complete-label">complete</span></button>
+        <button class="notifications">{{ getDate }}<span :class="getDateClass" class="date-label">{{getDateLabel}}</span></button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {utilService} from '../../services/util.service.js'
+
 export default {
   name: 'TaskHeadTags',
   props: {
@@ -39,11 +41,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    }
-  },
   methods: {},
   computed: {
     labels() {
@@ -51,19 +48,14 @@ export default {
     },
     getDate() {
       const dueDate = new Date(this.task.dueDate)
-      let dateStr = ''
       let month = ''
-      let day = ''
       if (this.isToday) month = 'today'
       else if (this.isTomorrow) month = 'tomorrow'
-      else {
-        month = this.months[dueDate.getMonth()]
-        day = dueDate.getDate()
-      }
+      else month = utilService.getDate(this.task.dueDate)
       const time = dueDate.toLocaleTimeString('en-US')
-      const date = `${month} ${day}`
-      dateStr = `${date} at ${time.slice(0, 4)} ${time.slice(-2)}`
-      return dateStr
+      const date = `${month}`
+      return  `${date} at ${time.slice(0, 4)} ${time.slice(-2)}`
+      
     },
     isToday() {
       const date = new Date(this.task.dueDate)
@@ -90,7 +82,23 @@ export default {
     },
     getCheckedClass(){
       return this.task.isComplete? 'checked' : ''
-    }
+    },
+    getDateClass() {
+      const msDay = 1000 * 60 * 60 * 24
+      const diff = this.task.dueDate - Date.now()
+      return {
+        complete: this.task.isComplete,
+        closeToDate: diff < msDay && diff > 0,
+        overdue: diff < 0,
+      }
+    },
+    getDateLabel() {
+      const msDay = 1000 * 60 * 60 * 24
+      const diff = this.task.dueDate - Date.now()
+      if(this.task.isComplete) return 'complete'
+      if(diff < msDay && diff > 0) return 'due soon'
+      return 'overdue'
+    },
   },
   created() {},
   components: {},
