@@ -1,12 +1,12 @@
 <template>
   <section class="task-details">
-    <main class="container">
+    <main class="task-details-container">
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
         </div>
-        <p>in list {{ task.title }}</p>
+        <p>in list {{ groupTitle }}</p>
       </div>
       <div class="main-content">
         <TaskHeadTags :task="task" @toggleWatch="toggleWatch" />
@@ -25,7 +25,7 @@
           <h3>Suggested</h3>
           <button class="gear"></button>
         </div> -->
-        <button class="btn-link member"><span> Join</span></button>
+        <!-- <button class="btn-link member"><span> Join</span></button> -->
         <h3>Add to card</h3>
 
         <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
@@ -118,6 +118,10 @@ export default {
       const { groupId } = this.$route.params
       return groupId
     },
+    groupTitle() {
+      const group = this.watchedBoard.groups.find((group) => group.id === this.groupId)
+      return group.title
+    },
     taskId() {
       const { taskId } = this.$route.params
       return taskId
@@ -169,10 +173,10 @@ export default {
     },
     updateEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
-      var idx
-      var isObj = val.id
-      const itemId = isObj ?  val.id : val
-      idx = task[key].findIndex((item) => item.id === itemId)
+      // var isObj = val.id
+      const itemId = val.id ?? val
+      // finds the item index and pushes or removes
+      const idx = task[key].findIndex((item) => item.id === itemId)
       if (idx === -1) {
         task[key].push(val)
       } else {
@@ -182,7 +186,7 @@ export default {
     },
     removeEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
-      const itemId = val.id ?  val.id : val
+      const itemId = val.id ?? val
       const idx = task[key].findIndex((item) => item.id === itemId)
       task[key].splice(idx, 1)
       this.saveTask({ key, newVal: task[key] })
@@ -200,13 +204,15 @@ export default {
       }
     },
     toggleModal(cmpType) {
+      let isModalOpen = true
+      let type = cmpType
+
       if (this.modal.type === cmpType || !cmpType) {
-        this.modal.isModalOpen = false
-        this.modal.type = null
-      } else {
-        this.modal.isModalOpen = true
-        this.modal.type = cmpType
+        isModalOpen = false
+        type = null
       }
+      this.modal.isModalOpen = isModalOpen
+      this.modal.type = type
     },
     toggleWatch() {
       const newVal = !this.task.isWatch

@@ -178,3 +178,13 @@ $breakpoints: (
 
 @mixin left-side-bar() {
 }
+
+@mixin sub-title() {
+  color: $clr-base-4;
+  font-size: em(12px);
+  font-weight: 600;
+  line-height: em(16px);
+  line-height: em(20px);
+  margin-top: em(16px);
+  font-family: 'Segoe UI';
+}
