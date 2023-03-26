@@ -72,6 +72,12 @@ export const boardStore = {
     appHeaderBgc({ appHeaderBgc }) {
       return appHeaderBgc
     },
+    labels(s, getters) {
+      return getters.watchedBoard.labels
+    },
+    getLabelsById(s, getters) {
+      return (id) => getters.labels.find((label) => label.id === id)
+    },
     LeftSideBarBgc({ LeftSideBarBgc }) {
       return LeftSideBarBgc
     },
@@ -95,7 +101,6 @@ export const boardStore = {
     updateCurrTask(state, { task }) {
       state.currTask = task
     },
-
     updateBoard(state, { board }) {
       const idx = state.boards.findIndex((c) => c._id === board._id)
       state.boards.splice(idx, 1, board)
@@ -235,10 +240,13 @@ export const boardStore = {
     async saveTask(context, { groupId, task }) {
       const boardId = context.getters.watchedBoardId
       try {
-        task = await boardService.saveTask(boardId, groupId, task)
-        context.commit({ type: 'saveTask', boardId, groupId, task })
-        // console.log("board: ", board);
-        // context.commit(getActionUpdateBoard(board))
+        if (task.id) {
+          context.commit({ type: 'saveTask', boardId, groupId, task })
+          task = await boardService.saveTask(boardId, groupId, task)
+        } else {
+          task = await boardService.saveTask(boardId, groupId, task)
+          context.commit({ type: 'saveTask', boardId, groupId, task })
+        }
       } catch (err) {
         console.log('boardStore: Error in save task', err)
         throw err
@@ -247,8 +255,8 @@ export const boardStore = {
 
     async removeTask({ commit, getters }, { groupId, taskId }) {
       const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
-      const currGroup = savedBoard.groups.find(g => (g.id === groupId))
-      const taskIdx = currGroup.tasks.findIndex(task => (task.id = taskId))
+      const currGroup = savedBoard.groups.find((g) => g.id === groupId)
+      const taskIdx = currGroup.tasks.findIndex((task) => (task.id = taskId))
       currGroup.tasks.splice(taskIdx, 1)
       try {
         const board = await boardService.save(savedBoard)
@@ -267,6 +275,6 @@ export const boardStore = {
         console.log('boardStore: Error in', err)
         throw err
       }
-    }
-  }
+    },
+  },
 }

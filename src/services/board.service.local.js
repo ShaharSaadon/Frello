@@ -84,6 +84,38 @@ function getEmptyBoard() {
     isStarred: false,
     archivedAt: '',
     createdBy: {},
+    labels: [
+      {
+        id: utilService.makeId(),
+        color: 'light-green',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-blue',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-orange',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-red',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-purple',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-sky',
+        title: '',
+      },
+    ],
     style: {
       'background-image': `${_getRandomBackground()}`,
     },
@@ -101,6 +133,8 @@ function getEmptyBoard() {
             labels: [],
             dueDate: null,
             checklists: [],
+            dueDate: 0,
+            isComplete: false,
           },
           {
             id: 'c102',
@@ -110,6 +144,8 @@ function getEmptyBoard() {
             labels: [],
             dueDate: null,
             checklists: [],
+            dueDate: 0,
+            isComplete: false,
           },
         ],
         style: {},
@@ -127,6 +163,8 @@ function getEmptyBoard() {
             labels: [],
             dueDate: null,
             checklists: [],
+            dueDate: 0,
+            isComplete: false,
           },
           {
             id: 'c104',
@@ -138,6 +176,8 @@ function getEmptyBoard() {
             members: [],
             labels: [],
             checklists: [],
+            dueDate: 0,
+            isComplete: false,
             comments: [
               {
                 id: 'ZdPnm',
@@ -152,7 +192,8 @@ function getEmptyBoard() {
             ],
             memberIds: ['u101'],
             labelIds: ['l101', 'l102'],
-            dueDate: 16156215211,
+            dueDate: 3467436734,
+            isComplete: false,
             byMember: {
               _id: 'u101',
               username: 'Tal',
@@ -179,6 +220,7 @@ function getEmptyTask() {
     checklists: [],
     isWatch: false,
     dueDate: 0,
+    isComplete: false,
   }
 }
 

@@ -3,7 +3,7 @@
     <header class="modal-picker-header">
       <h3>{{ title }}</h3>
       <button class="btn-modal-close" @click="$emit('closeModal')"></button>
-      <!-- <button class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button> -->
+      <button v-if="isArrowBack" @click="switchDynamicCmp" class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button>
     </header>
 
     <component
@@ -16,6 +16,8 @@
       @saveTask="$emit('saveTask', $event)"
       @closeModal="$emit('closeModal')"
       @toLabelEditor="toLabelEditor"
+      @updateLabel="$emit('updateLabel', $event)"
+      @switchDynamicCmp="switchDynamicCmp"
     />
   </section>
 </template>
@@ -50,10 +52,17 @@ export default {
       this.$emit('createBoard', data)
       this.$emit('closeModal')
     },
-    toLabelEditor(label) {
-      this.labelToEdit = label
-      this.$emit('toLabelEditor')
+    toLabelEditor(labelId) {
+      this.labelToEdit = labelId
+      this.$emit('switchDynamicCmp', 'LabelEditor')
     },
+    switchDynamicCmp(){
+      switch(this.type) {
+        case 'LabelEditor':
+          this.$emit('switchDynamicCmp', 'LabelPicker')
+          break
+      }
+    }
   },
   computed: {
     info() {
@@ -63,9 +72,9 @@ export default {
             labels: this.task.labels,
             title: 'Labels',
           }
-          case 'LabelEditor':
+        case 'LabelEditor':
           return {
-            label: this.labelToEdit,
+            labelId: this.labelToEdit,
             title: 'Edit label',
           }
           break
@@ -108,6 +117,9 @@ export default {
     title() {
       return this.info?.title
     },
+    isArrowBack(){
+      return this.type === 'LabelEditor'
+    }
   },
   components: {
     LabelPicker,
