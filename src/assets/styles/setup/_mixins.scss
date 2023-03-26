@@ -22,13 +22,6 @@ $breakpoints: (
   }
 }
 
-// instructions:
-// body {
-//     @include mq(small) {
-//         background-color: red;
-//     }
-// }
-
 @mixin for-mobile-layout {
   @media (max-width: calc($mobile-breakpoint + 40px)) {
     @content;

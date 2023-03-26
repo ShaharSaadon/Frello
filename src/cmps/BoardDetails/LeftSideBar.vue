@@ -18,8 +18,8 @@
                         </div>
                         {{ board.title }}
                     </div>
-                        <button class="star-icon" :class="{starred:board.isStarred}" @click="$emit('onToggleStarred',board)"> </button>
-                    </router-link>
+                    <button class="star-icon" :class="{starred:board.isStarred}" @click="$emit('onToggleStarred',board)"> </button>
+                </router-link>
                 </li>
             </ul>
         </div>

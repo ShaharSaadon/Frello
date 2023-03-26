@@ -9,9 +9,8 @@
         <p>in list {{ task.title }}</p>
       </div>
       <div class="main-content">
-        <TaskHeadTags :info="info" @toggleWatch="toggleWatch" />
+        <TaskHeadTags :task="task" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <pre>in list {{ task }}</pre>
         <TaskChecklist
           :key="list.title"
           v-for="list in task.checklists"
@@ -125,14 +124,14 @@ export default {
     getTaskFromStore() {
       return JSON.parse(JSON.stringify(this.$store.getters.currTask))
     },
-    info() {
-      return {
-        isWatch: this.task.isWatch,
-        labels: this.task.labels,
-        members: this.task.members,
-        dueDate: this.task.dueDate,
-      }
-    },
+    // info() {
+    //   return {
+    //     isWatch: this.task.isWatch,
+    //     labels: this.task.labels,
+    //     members: this.task.members,
+    //     dueDate: this.task.dueDate,
+    //   }
+    // },
     watchedBoard() {
       return this.$store.getters.watchedBoard
     },
