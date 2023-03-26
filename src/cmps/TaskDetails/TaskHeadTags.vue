@@ -8,7 +8,7 @@
     </div>
     <div v-if="labels?.length">
       <h3 class="title">Labels</h3>
-      <div class="head-labels"></div>
+      <div class="head-labels">
         <div v-for="label in labels" class="label-tag" :class="label.color">{{ label.title }}</div>
       </div>
     </div>

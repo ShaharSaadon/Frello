@@ -16,6 +16,7 @@
       @saveTask="$emit('saveTask', $event)"
       @closeModal="$emit('closeModal')"
       @toLabelEditor="toLabelEditor"
+      @updateLabel="$emit('updateLabel', $event)"
     />
   </section>
 </template>
@@ -50,8 +51,8 @@ export default {
       this.$emit('createBoard', data)
       this.$emit('closeModal')
     },
-    toLabelEditor(label) {
-      this.labelToEdit = label
+    toLabelEditor(labelId) {
+      this.labelToEdit = labelId
       this.$emit('toLabelEditor')
     },
   },
@@ -63,9 +64,9 @@ export default {
             labels: this.task.labels,
             title: 'Labels',
           }
-          case 'LabelEditor':
+        case 'LabelEditor':
           return {
-            label: this.labelToEdit,
+            labelId: this.labelToEdit,
             title: 'Edit label',
           }
           break
