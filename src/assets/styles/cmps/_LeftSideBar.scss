@@ -29,7 +29,6 @@ aside {
     }
   }
 
-
   .left-side-header {
     border-bottom: 1px solid hsla(0, 0%, 100%, 0.16);
     height: 70px;
@@ -62,20 +61,25 @@ aside {
     justify-content: space-between;
     align-items: center;
     height: 36px;
-    padding: 4px 0px 0px 8px;
+    padding: 2px 0px 2px 8px;
     font-size: 14px;
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.3);
+      .star-icon{
+        opacity: 1;
+      }
     }
-
+    
     .star-icon {
-      @include btn-main(inherit, inherit, inherit);
+      opacity: 0;
+      // @include btn-main($clr-base-4, inherit, $clr-base-4);
+      background-color: transparent;
       @include trello-icon($icon-star, $type: sm, $color: inherit);
+      transition: all .1s;
 
-      &:hover::before {
-        color: $clr-base-1;
-        scale: 1.5;
+      &:hover {
+        scale: 1.2;
       }
 
       &.starred::before {
@@ -84,8 +88,12 @@ aside {
       }
 
       &.starred:hover::before {
-        color: $clr-base-1;
+        // color: $clr-base-1;
         content: $icon-star;
+      }
+
+      &.starred{
+        opacity: 1;
       }
 
     }
