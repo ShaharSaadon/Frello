@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     getSvg(iconName) {
-      return svgService.getTrelloSvg(iconName)
+      return svgService.getMerlloSvg(iconName)
     },
     toggleCheck(idx) {
       const type = this.labels[idx].isChecked ? 'removeEntityVal' : 'updateEntityVal'

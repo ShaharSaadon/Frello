@@ -155,7 +155,7 @@ export default {
       }
     },
     getSvg(iconName) {
-            return svgService.getTrelloSvg(iconName)
+            return svgService.getMerlloSvg(iconName)
         }
   },
 }

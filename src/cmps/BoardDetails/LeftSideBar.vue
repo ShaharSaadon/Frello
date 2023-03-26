@@ -3,9 +3,9 @@
         <div class="toggle-menu" :hidden="!isExpended">
             <div class="left-side-header flex">
                 <div class="workspace-logo flex">
-                    T
+                    M
                 </div>
-                <h5>Trello Workspace</h5>
+                <h5>Merllo Workspace</h5>
                 <img class="close-menu" src="https://a.trellocdn.com/prgb/assets/58243262833f693f6101.svg"
                     alt="Workspace navigation collapse icon" @click.stop="isExpended = false">
             </div>
@@ -18,8 +18,8 @@
                         </div>
                         {{ board.title }}
                     </div>
-                    <button class="star-icon" :class="{starred:board.isStarred}" @click="$emit('onToggleStarred',board)"> </button>
-                </router-link>
+                        <button class="star-icon" :class="{starred:board.isStarred}" @click="$emit('onToggleStarred',board)"> </button>
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -40,7 +40,7 @@ export default {
             console.log('hola')
         },
         getSvg(iconName) {
-            return svgService.getTrelloSvg(iconName)
+            return svgService.getMerlloSvg(iconName)
         }
     },
     computed: {

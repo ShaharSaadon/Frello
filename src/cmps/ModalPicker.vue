@@ -44,7 +44,7 @@ export default {
   name: '',
   methods: {
     getSvg(iconName) {
-      return svgService.getTrelloSvg(iconName)
+      return svgService.getMerlloSvg(iconName)
     },
     createBoard(data) {
       this.$emit('createBoard', data)
