@@ -1,5 +1,5 @@
 <template>
-    <aside :class="counterClass" @click="isExpended = true" :style="{ backgroundColor: board.LeftSideBarBgc }">
+    <aside class="left-side-bar" :class="counterClass" @click="isExpended = true" :style="{ backgroundColor: board.LeftSideBarBgc }">
         <div class="toggle-menu" :hidden="!isExpended">
             <div class="left-side-header flex">
                 <div class="workspace-logo flex">
@@ -29,7 +29,7 @@
 <script>
 import { svgService } from '../../services/svg.service'
 export default {
-    name: '',
+    name: 'LeftSideBar',
     data() {
         return {
             isExpended: false
