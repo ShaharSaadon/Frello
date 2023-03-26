@@ -8,7 +8,7 @@
     </div>
     <div v-if="labels?.length">
       <h3 class="title">Labels</h3>
-      <div class="head-labels">
+      <div class="head-labels"></div>
         <div v-for="label in labels" class="label-tag" :class="label.color">{{ label.title }}</div>
       </div>
     </div>
@@ -20,7 +20,7 @@
     </div>
     <div v-if="task?.dueDate">
       <h3 class="title">Due date</h3>
-      <button class="notifications">{{getDate}}</button>
+      <button class="notifications">{{ getDate }}</button>
     </div>
   </div>
 </template>
@@ -39,16 +39,18 @@ export default {
   },
   methods: {},
   computed: {
-    labels(){
-      return this.task.labels
+    labels() {
+      return this.$store.getters.labels.filter((label) => {
+        if (this.task.labels.includes(label.id)) return label
+      })
     },
-    getDate(){
-      return (new Date(this.task.dueDate)).toLocaleString('en-GB', { timeZone: 'UTC' })
+    getDate() {
+      return new Date(this.task.dueDate).toLocaleString('en-GB', { timeZone: 'UTC' })
     },
     members() {
-      return this.$store.getters.watchedBoard.members.filter(m =>{
+      return this.$store.getters.watchedBoard.members.filter((m) => {
         if (this.task.members?.includes(m._id)) return m
-      } )
+      })
     },
   },
   created() {},
