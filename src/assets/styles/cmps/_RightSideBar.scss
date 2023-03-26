@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  max-height: 100vh;
+  overflow-y:scroll;
+  // overflow-x:hidden;
 
   transition: 1s ease-in-out;
   color: $clr-base-23;
@@ -9,7 +12,7 @@
   &.isExpended {
     width: em($right-side-bar-width);
     background-color: $clr-base-2;
-    min-height: 100%
+    max-height: 100vh;
   }
 
   p {
@@ -27,6 +30,10 @@
     .close-menu {
       @include trello-icon($icon-close, $type: sm, $color: $clr-base-4);
     }
+
+    .back{
+      cursor: pointer;
+    }
   }
 
   .right-menu-header {
@@ -35,30 +42,47 @@
   }
 
   .board-nav-item{
+    display: grid;
+    grid-template-columns: 10% 90%;
     align-items: flex-start;
-    padding-top:2px;
+    padding:6px;
+    border-radius: $border-radius-3;
+    &:hover{
+    background-color: $clr-base-24;
+    cursor: pointer;
+    }
   }
 
 
   .main-content {
-    display: grid;
-    row-gap: 8px;
-    grid-template-columns: 10% 90%;
-    padding: 12px 6px 8px 12px;
     border-bottom: 1px solid $clr-base-22;
     margin: 0 6px 0 12px;
-
-
+    padding: 12px 6px 8px 12px;
     h5{
       font-weight: 500;
     }
-
-    
     .board-image {
       width: em(18px);
       height: em(18px);
       border-radius: $border-radius-3;
       border: 1px solid $side-bar-image-border;
+    }
+  }
+
+  .color-choices {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: em(8px);
+
+    button {
+      width: 95%;
+      @include btn-main();
+
+      &.checked {
+        @include trello-icon($content: $icon-checked, $color: $clr-base-1);
+      }
+      height: 80px;
+      margin:8px 8px 0 8px;
+      border-radius: 8px;
     }
   }
 }

@@ -3,53 +3,64 @@
         <div class="right-side-menu" :hidden="!isExpended">
             <div class="right-menu-header">
                 <div class="menu-title">
-                    <span></span>
-                    <h5>Menu</h5>
+                    <span>
+                        <div v-if="type!=='SideBarMain'" class="back" @click="$emit('switchDynamicCmp', 'SideBarMain')">
+                            <p>Back</p>
+                        </div>
+                    </span>
+                    <h5>{{ info.title }}</h5>
                     <span @click="onCloseMenu" class="close-menu"></span>
                 </div>
             </div>
-
-            <div class="main-content">
-                
-                <i className="icon" v-html="getSvg('trello')"></i>
-                <div class="board-nav-item">
-                    <div class="div flex-column">
-                        <h5>About this board</h5>
-                        <p>Add a description to your board</p>
-                    </div>
-                </div>
-                
-                <div class="board-image" :style="board.style">
-                </div>
-
-                <div class="board-nav-item">
-                    <h5>change background</h5>
-                </div>
-
-            </div>
+            <component :is="type" :info="info"
+            @switchDynamicCmp="$emit('switchDynamicCmp',$event)"
+            @onChangeBackground="$emit('onChangeBackground',$event)" />
 
         </div>
     </aside>
 </template>
 
 <script>
-import { svgService } from '../../services/svg.service'
+import SideBarMain from '../RightSideBar/SideBarMain.vue'
+import SideBarBoardDetails from '../RightSideBar/SideBarBoardDetails.vue'
+import ChangeBackground from '../RightSideBar/ChangeBackground.vue'
 export default {
     name: 'RightSideBar',
+    props: {
+        type: {
+            type: String,
+            required: true,
+        },
+    },
     data() {
         return {
+
         }
     },
     methods: {
         onCloseMenu() {
             this.$store.commit('onToggleMenu')
         },
-        getSvg(iconName) {
-            return svgService.getMerlloSvg(iconName)
-        }
+
 
     },
     computed: {
+        info() {
+            switch (this.type) {
+                case 'SideBarMain':
+                    return {
+                        title: 'Menu',
+                    }
+                case 'SideBarBoardDetails':
+                    return {
+                        title: 'About this board',
+                    }
+                case 'ChangeBackground':
+                    return {
+                        title: 'Change Background',
+                    }
+                }
+        },
         counterClass() {
             return {
                 isExpended: this.isExpended,
@@ -58,16 +69,18 @@ export default {
         isExpended() {
             return this.$store.getters.isRightSideBarOpen
         },
-        
-        board(){
+
+        board() {
             return this.$store.getters.watchedBoard
-        }
+        },
     },
     created() {
 
     },
     components: {
-
+        SideBarMain,
+        SideBarBoardDetails,
+        ChangeBackground,        
     },
 }
 </script>

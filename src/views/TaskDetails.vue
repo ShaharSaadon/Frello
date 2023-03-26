@@ -46,11 +46,11 @@
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
         @removeEntityVal="removeEntityVal"
-        @addChecklist="addChecklist"
         @switchDynamicCmp="toggleModal"
-        @saveTask="saveTask"
         @updateLabel="updateLabel"
         @removeLabel="removeLabel"
+        @addChecklist="addChecklist"
+        @saveTask="saveTask"
       />
     </main>
   </section>

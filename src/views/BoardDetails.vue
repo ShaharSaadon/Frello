@@ -22,7 +22,9 @@
       <GroupList :groups="groups" @updateGroup="updateGroup" @removed="removeGroup" @addGroup="addGroup"
         @saveTask="saveTask" @updateGroups="updateGroups" @updateTasksPos="updateTasksPos" />
     </div>
-    <RightSideBar />
+    <RightSideBar :type="rightSideBar.type"  
+    @switchDynamicCmp="toggleSideBar"
+    @onChangeBackground="onChangeBackground"/>
 
     <RouterView />
   </section>
@@ -30,7 +32,6 @@
 
 <script>
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-import { boardService } from '../services/board.service.local'
 import { svgService } from '../services/svg.service'
 import { getActionRemoveGroup, getActionUpdateBoard } from '../store/board.store'
 import GroupList from '../cmps/BoardDetails/GroupList.vue'
@@ -41,7 +42,11 @@ import RightSideBar from '../cmps/BoardDetails/RightSideBar.vue'
 
 export default {
   data() {
-    return {}
+    return {
+      rightSideBar:{
+        type:'SideBarMain'
+      }
+    }
   },
   async created() { },
   watch: {
@@ -62,7 +67,6 @@ export default {
       },
       immediate: true,
     },
-    isRightMenuOpen: false,
   },
   computed: {
     board() {
@@ -162,7 +166,18 @@ export default {
     onOpenMenu() {
       this.$store.commit('onToggleMenu')
     },
- 
+    toggleSideBar(ev){
+      this.rightSideBar.type=ev
+    },
+    async onChangeBackground({LeftSideBarBgc,bgImg,bgc}) {
+      try {
+        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'bgImg', val: bgImg })
+        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'LeftSideBarBgc', val: LeftSideBarBgc })
+        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'bgc', val: bgc })
+      } catch (err) {
+        console.log(err)
+      }
+    },
   },
 }
 </script>
