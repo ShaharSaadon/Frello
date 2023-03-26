@@ -9,8 +9,10 @@
         value-format="x"
       />
     </div>
+    <VDatePicker locale="en" v-model="date" mode="dateTime" transparent borderless expanded />
     <button @click="saveDate" class="btn-save-date">save</button>
     <button @click="removeDate" class="btn-remove-date">remove</button>
+
   </div>
 </template>
 
