@@ -17,14 +17,14 @@
     <div>
       <h3 class="title">Notifications</h3>
       <button @click="$emit('toggleKey', 'isWatch')" class="notifications">
-        <span></span> {{ task.isWatch ? 'Watching' : 'Watch' }}
+        <span class="eye-icon"></span> {{ task.isWatch ? 'Watching' : 'Watch' }}
       </button>
     </div>
     <div v-if="task?.dueDate">
       <h3 class="title">Due date</h3>
       <div class="date-tag flex">
         <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete')" class="btn-is-complete"><span></span></button>
-        <button class="notifications">{{ getDate }}</button>
+        <button class="notifications">{{ getDate }}<span v-if="task.isComplete" class="complete-label">complete</span></button>
       </div>
     </div>
   </div>

@@ -5,12 +5,12 @@
       <div class="task-preview-footer">
         <div class="action-badges">
           <!-- <div v-if="task.members.length" class="badge-watch"></div> -->
-          <!-- <div class="badge-date">mar 25</div> -->
           <div v-if="task.description" class="badge-description"></div>
           <!-- <div class="badge-attachments">1</div> -->
-          <div v-if="task.checklists?.length" class="badge-checklist"> {{ checklist.checkedItems }}/{{ checklist.totalItems }}
-
+          <div v-if="task.checklists?.length" class="badge-checklist">
+            {{ checklist.checkedItems }}/{{ checklist.totalItems }}
           </div>
+          <div v-if="task.dueDate" class="badge-date">{{ getDate }}</div>
         </div>
 
         <TaskMember :members="task.members" />
@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import TaskMember from '../TaskMember.vue';
+import TaskMember from '../TaskMember.vue'
 
 export default {
-  name: "TaskPreview",
+  name: 'TaskPreview',
   props: {
     task: {
       type: Object,
@@ -37,45 +37,45 @@ export default {
     },
   },
   data() {
-    return {};
+    return {}
   },
   methods: {},
   computed: {
     boardId() {
-      return this.$store.getters.watchedBoardId;
+      return this.$store.getters.watchedBoardId
     },
     board() {
-      return this.$store.getters.watchedBoard;
+      return this.$store.getters.watchedBoard
     },
     checklist() {
       const checklists = this.task.checklists
       const stats = {
         totalItems: 0,
         checkedItems: 0,
-      };
+      }
 
       const result = checklists.reduce((accumulator, current) => {
         current.checklist.forEach((item) => {
-          accumulator.totalItems++;
+          accumulator.totalItems++
           if (item.isChecked) {
-            accumulator.checkedItems++;
+            accumulator.checkedItems++
           }
-        });
+        })
 
-        return accumulator;
-      }, stats);
+        return accumulator
+      }, stats)
 
-      return result;
+      return result
+    },
+    getDate(){
+      return 'Mar 26'
     }
-
-
-
   },
-  created() { },
+  created() {},
   components: {
     TaskMember,
   },
-};
+}
 </script>
 
 <style></style>
