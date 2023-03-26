@@ -72,6 +72,12 @@ export const boardStore = {
     appHeaderBgc({ appHeaderBgc }) {
       return appHeaderBgc
     },
+    labels(s, getters) {
+      return getters.watchedBoard.labels
+    },
+    getLabelsById(s, getters) {
+      return (id) => getters.labels.find((label) => label.id === id)
+    },
     LeftSideBarBgc({ LeftSideBarBgc }) {
       return LeftSideBarBgc
     },
@@ -95,7 +101,6 @@ export const boardStore = {
     updateCurrTask(state, { task }) {
       state.currTask = task
     },
-
     updateBoard(state, { board }) {
       const idx = state.boards.findIndex((c) => c._id === board._id)
       state.boards.splice(idx, 1, board)

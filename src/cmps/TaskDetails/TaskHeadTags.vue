@@ -3,15 +3,13 @@
     <div v-if="members?.length">
       <h3 class="title">Members</h3>
       <div class="head-members">
-        <img v-for="member in members" :src="member.imgUrl" class="member-profile" />
+        <img @click="$emit('openModal', 'MemberPicker')" v-for="member in members" :src="member.imgUrl" class="member-profile" />
       </div>
     </div>
     <div v-if="labels?.length">
       <h3 class="title">Labels</h3>
       <div class="head-labels">
-        <div v-for="label in labels" class="label-tag" :class="label.color">
-          {{ label.title }}
-        </div>
+        <div @click="$emit('openModal', 'LabelPicker')" v-for="label in labels" class="label-tag" :class="label.color">{{ label.title }}</div>
       </div>
     </div>
     <div>
@@ -44,7 +42,9 @@ export default {
   methods: {},
   computed: {
     labels() {
-      return this.task.labels
+      return this.$store.getters.labels.filter((label) => {
+        if (this.task.labels.includes(label.id)) return label
+      })
     },
     getDate() {
       const dueDate = new Date(this.task.dueDate)

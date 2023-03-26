@@ -84,6 +84,38 @@ function getEmptyBoard() {
     isStarred: false,
     archivedAt: '',
     createdBy: {},
+    labels: [
+      {
+        id: utilService.makeId(),
+        color: 'light-green',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-blue',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-orange',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-red',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-purple',
+        title: '',
+      },
+      {
+        id: utilService.makeId(),
+        color: 'light-sky',
+        title: '',
+      },
+    ],
     style: {
       'background-image': `${_getRandomBackground()}`,
     },

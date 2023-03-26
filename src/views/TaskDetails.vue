@@ -9,7 +9,7 @@
         <p>in list {{ groupTitle }}</p>
       </div>
       <div class="main-content">
-        <TaskHeadTags :task="task" @toggleKey="toggleKey" />
+        <TaskHeadTags @openModal="toggleModal" :task="task"  @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
         <!-- <pre> {{ task }}</pre> -->
         <TaskChecklist
@@ -47,9 +47,9 @@
         @updateEntityVal="updateEntityVal"
         @removeEntityVal="removeEntityVal"
         @addChecklist="addChecklist"
-        @toLabelEditor="toggleModal('LabelEditor')"
-        @updateLabel="updateLabel"
+        @switchDynamicCmp="toggleModal"
         @saveTask="saveTask"
+        @updateLabel="updateLabel"
       />
     </main>
   </section>
@@ -140,8 +140,21 @@ export default {
     watchedBoard() {
       return this.$store.getters.watchedBoard
     },
+    labels() {
+      return this.$store.getters.labels
+    },
   },
   methods: {
+    updateLabel(label) {
+      const labels = JSON.parse(JSON.stringify(this.labels))
+      const idx = labels.findIndex((l) => l.id === label.id)
+      if (idx === -1) {
+        labels.push(label)
+      } else {
+        labels.splice(idx, 1, label)
+      }
+      this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels })
+    },
     onEnter() {
       this.$refs.textarea.blur()
     },
