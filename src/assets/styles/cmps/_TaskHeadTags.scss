@@ -1,7 +1,13 @@
 .task-head-tags {
   margin-bottom: em(24px);
   display: flex;
-  gap: em(7px);
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  // gap: em(12px);
+  & > * {
+    margin-inline-end: rem(16px);
+    margin-block-end: rem(19px);
+  }
 
   .member-profile {
     width: 32px;
@@ -14,7 +20,7 @@
   .head-labels,
   .head-members {
     display: flex;
-    gap: em(2px);
+    gap: em(4px);
   }
 
   h3.title {
@@ -23,7 +29,7 @@
     font-weight: 600;
     line-height: em(16px);
     line-height: em(20px);
-    margin-bottom: 4px;
+    margin-bottom: rem(6px);
     font-family: 'Segoe UI';
   }
   .notifications {
