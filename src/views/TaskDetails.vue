@@ -9,7 +9,7 @@
         <p>in list {{ groupTitle }}</p>
       </div>
       <div class="main-content">
-        <TaskHeadTags @openModal="toggleModal" :task="task"  @toggleKey="toggleKey" />
+        <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
         <!-- <pre> {{ task }}</pre> -->
         <TaskChecklist
@@ -50,6 +50,7 @@
         @switchDynamicCmp="toggleModal"
         @saveTask="saveTask"
         @updateLabel="updateLabel"
+        @removeLabel="removeLabel"
       />
     </main>
   </section>
@@ -149,10 +150,17 @@ export default {
       const labels = JSON.parse(JSON.stringify(this.labels))
       const idx = labels.findIndex((l) => l.id === label.id)
       if (idx === -1) {
+        label.id = utilService.makeId()
         labels.push(label)
       } else {
         labels.splice(idx, 1, label)
       }
+      this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels })
+    },
+    removeLabel(labelId) {
+      const labels = JSON.parse(JSON.stringify(this.labels))
+      const idx = labels.findIndex((l) => l.id === labelId)
+      labels.splice(idx, 1)
       this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels })
     },
     onEnter() {
@@ -199,8 +207,12 @@ export default {
     },
     removeEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
-      const itemId = val.id ?? val
-      const idx = task[key].findIndex((item) => item.id === itemId)
+      let idx
+      if (val.id) {
+        idx = task[key].findIndex((item) => item.id === val.id)
+      } else {
+        idx = task[key].findIndex((id) => id === val)
+      }
       task[key].splice(idx, 1)
       this.saveTask({ key, newVal: task[key] })
     },

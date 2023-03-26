@@ -3,13 +3,20 @@
     <div v-if="members?.length">
       <h3 class="title">Members</h3>
       <div class="head-members">
-        <img @click="$emit('openModal', 'MemberPicker')" v-for="member in members" :src="member.imgUrl" class="member-profile" />
+        <img
+          @click="$emit('openModal', 'MemberPicker')"
+          v-for="member in members"
+          :src="member.imgUrl"
+          class="member-profile"
+        />
       </div>
     </div>
     <div v-if="labels?.length">
       <h3 class="title">Labels</h3>
       <div class="head-labels">
-        <div @click="$emit('openModal', 'LabelPicker')" v-for="label in labels" class="label-tag" :class="label.color">{{ label.title }}</div>
+        <div @click="$emit('openModal', 'LabelPicker')" v-for="label in labels" class="label-tag" :class="label.color">
+          {{ label.title }}
+        </div>
       </div>
     </div>
     <div>
@@ -21,15 +28,19 @@
     <div v-if="task?.dueDate">
       <h3 class="title">Due date</h3>
       <div class="date-tag flex">
-        <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete')" class="btn-is-complete"><span></span></button>
-        <button class="notifications">{{ getDate }}<span v-if="getDateLabel" :class="getDateClass" class="date-label">{{getDateLabel}}</span></button>
+        <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete')" class="btn-is-complete">
+          <span></span>
+        </button>
+        <button @click="$emit('openModal', 'DatePicker')" class="notifications">
+          {{ getDate }}<span v-if="getDateLabel" :class="getDateClass" class="date-label">{{ getDateLabel }}</span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {utilService} from '../../services/util.service.js'
+import { utilService } from '../../services/util.service.js'
 
 export default {
   name: 'TaskHeadTags',
@@ -81,8 +92,8 @@ export default {
         if (this.task.members?.includes(m._id)) return m
       })
     },
-    getCheckedClass(){
-      return this.task.isComplete? 'checked' : ''
+    getCheckedClass() {
+      return this.task.isComplete ? 'checked' : ''
     },
     getDateClass() {
       const msDay = 1000 * 60 * 60 * 24

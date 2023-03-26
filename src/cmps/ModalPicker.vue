@@ -17,6 +17,7 @@
       @closeModal="$emit('closeModal')"
       @toLabelEditor="toLabelEditor"
       @updateLabel="$emit('updateLabel', $event)"
+      @removeLabel="$emit('removeLabel', $event)"
       @switchDynamicCmp="switchDynamicCmp"
     />
   </section>

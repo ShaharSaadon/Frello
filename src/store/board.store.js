@@ -55,6 +55,7 @@ export const boardStore = {
     watchedBoardId: null,
     currTask: null,
     appHeaderBgc: '',
+    isRightSideBarOpen: false,
   },
   getters: {
     boards({ boards }) {
@@ -72,15 +73,19 @@ export const boardStore = {
     appHeaderBgc({ appHeaderBgc }) {
       return appHeaderBgc
     },
-    labels(s, getters) {
+    labels(state, getters) {
       return getters.watchedBoard.labels
     },
-    getLabelsById(s, getters) {
+    getLabelsById(state, getters) {
       return (id) => getters.labels.find((label) => label.id === id)
     },
     LeftSideBarBgc({ LeftSideBarBgc }) {
       return LeftSideBarBgc
     },
+    isRightSideBarOpen({ isRightSideBarOpen }) {
+      return isRightSideBarOpen
+    },
+    
   },
   mutations: {
     setBoards(state, { boards }) {
@@ -148,6 +153,9 @@ export const boardStore = {
       } else group.tasks.push(task)
       console.log('board: ', board)
     },
+    onToggleMenu(state){
+      state.isRightSideBarOpen=!state.isRightSideBarOpen
+    }
   },
   actions: {
     async loadBoards(context) {
