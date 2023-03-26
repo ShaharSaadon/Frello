@@ -1,6 +1,6 @@
 <template>
   <div class="label-editor">
-    {{ labelToEdit }}
+    <!-- {{ labelToEdit }} -->
     <div class="label-container">
       <div :class="this.labelToEdit.color" class="label-tag-preview label-tag">{{ labelToEdit.title }}</div>
     </div>

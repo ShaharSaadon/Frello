@@ -11,6 +11,7 @@
       <div class="main-content">
         <TaskHeadTags :task="task" @toggleWatch="toggleWatch" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
+        <!-- <pre> {{ task }}</pre> -->
         <TaskChecklist
           :key="list.title"
           v-for="list in task.checklists"
