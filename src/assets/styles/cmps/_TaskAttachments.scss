@@ -1,0 +1,21 @@
+.task-attachments {
+  @include TaskDetailsCmps($icon-attachment);
+
+  .tool-bar {
+    display: flex;
+    flex-wrap: wrap;
+
+    span {
+      color: $clr-base-4;
+      font-size: em(14px);
+      margin-inline-end: 3px;
+      &:not(:first-child, .dot) {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    &.dot::before {
+        content: ' • ';
+      }
+    }
+  }
+}

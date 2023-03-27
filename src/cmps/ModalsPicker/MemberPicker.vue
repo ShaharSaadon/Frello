@@ -12,7 +12,8 @@
         @click="toggleMember(member)"
       >
         <img :src="member.imgUrl" class="member-profile" />
-        <p>{{ member.fullname }}({{ member.username }})</p>
+        <!-- <pre>{{member}}</pre> -->
+        <p>{{ member.fullname }} ({{ member.username }})</p>
       </li>
     </ul>
 

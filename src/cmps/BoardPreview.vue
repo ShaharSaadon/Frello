@@ -25,9 +25,7 @@ export default {
   },
   methods: {
     async onToggleStarred() {
-      const newBoard = JSON.parse(JSON.stringify(this.board))
-      newBoard.isStarred = !newBoard.isStarred
-      this.$emit('updateBoardEntity', newBoard)
+      this.$emit('updateBoardEntity', this.board._id, 'isStarred', !this.board.isStarred)
     },
   },
   computed: {

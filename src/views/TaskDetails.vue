@@ -11,9 +11,14 @@
       <div class="main-content">
         <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <!-- <pre> {{ task }}</pre> -->
-        <TaskChecklist :key="list.title" v-for="list in task.checklists" :taskChecklist="list"
-          @removeChecklist="removeChecklist" @updateEntityVal="updateEntityVal" />
+        <TaskAttachments :taskAttachments="task.attachments"/>
+        <TaskChecklist
+          :key="list.title"
+          v-for="list in task.checklists"
+          :taskChecklist="list"
+          @removeChecklist="removeChecklist"
+          @updateEntityVal="updateEntityVal"
+        />
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -27,7 +32,7 @@
         <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
         <button class="btn-link checklist" @click="toggleModal('ChecklistPicker')"><span> Checklist</span></button>
         <button class="btn-link clock" @click="toggleModal('DatePicker')"><span> Dates</span></button>
-        <button class="btn-link attachment"><span> Attachment</span></button>
+        <button class="btn-link attachment" @click="toggleModal('AttachmentPicker')"><span> Attachment</span></button>
         <button class="btn-link card-cover"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
         <h3>Actions</h3>
@@ -48,6 +53,7 @@ import { boardService } from '../services/board.service.local'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { svgService } from '../services/svg.service.js'
 import TaskDescription from '../cmps/TaskDetails/TaskDescription.vue'
+import TaskAttachments from '../cmps/TaskDetails/TaskAttachments.vue'
 import TaskChecklist from '../cmps/TaskDetails/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
@@ -244,6 +250,7 @@ export default {
     ModalPicker,
     TaskHeadTags,
     TaskChecklist,
+    TaskAttachments,
   },
 }
 </script>

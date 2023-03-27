@@ -1,71 +1,75 @@
 .group-preview-wrapper {
-    display: inline-block;
-    height: 100%;
-    margin: 0 4px;
-    vertical-align: top;
-    width: 272px;
+  display: inline-block;
+  height: 100%;
+  margin: 0 4px;
+  vertical-align: top;
+  width: 272px;
 
-    .group-preview-content {
-        background-color: $clr-base-3;
-        border-radius: 3px;
-        display: flex;
-        flex-direction: column;
-        max-height: 100%;
-        position: relative;
-        width: 100%;
+  .group-preview-content {
+    background-color: $clr-base-3;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    position: relative;
+    width: 100%;
 
-        header {
-            min-height: em(40px);
-            padding-inline: em(8px);
+    header {
+      min-height: em(40px);
+      padding-inline: em(8px);
 
-            .three-dot-menu {
-                @include trello-icon($icon-three-dots, $type: md);
-                padding: 6px;
-                font-weight: 400;
-                color: #6b778c;
+      .three-dot-menu {
+        @include trello-icon($icon-three-dots, $type: md);
+        padding: 6px;
+        font-weight: 400;
+        color: #6b778c;
+      }
 
-            }
+      textarea {
+        background: transparent;
+        border-radius: $border-radius-3;
+        box-shadow: none;
+        font-weight: 600;
+        margin: 0.5em 0;
+        padding: em(4px) em(8px);
+        resize: none;
+        color: $clr-base-5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-            textarea {
-                background: transparent;
-                border-radius: $border-radius-3;
-                box-shadow: none;
-                font-weight: 600;
-                margin: .5em 0;
-                padding: em(4px) em(8px);
-                resize: none;
-                color: $clr-base-5;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-                &:focus {
-                    overflow: hidden;
-                    overflow-wrap: break-word;
-                    height: 28px;
-                    background-color: #fff;
-                    box-shadow: inset 0 0 0 2px #0079bf;
-                }
-            }
+        &:focus {
+          overflow: hidden;
+          overflow-wrap: break-word;
+          height: 28px;
+          background-color: #fff;
+          box-shadow: inset 0 0 0 2px #0079bf;
         }
+      }
+    }
+  }
+
+  footer {
+    height: max-content;
+    align-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+
+    P {
+      margin: 0;
+      margin-inline-start: em(8px);
+      font-size: em(14px);
+      color: $clr9;
     }
 
-    footer {
-        height: max-content;
-        align-content: center;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 14px;
-
-        P {
-            margin: 0;
-            margin-inline-start: em(8px);
-            font-size: em(14px);
-            color: $clr9;
-        }
-
-        i {
-            color: $clr9;
-            padding: 0;
-            margin: 0;
-        }
+    .close {
+        @include trello-icon($icon-close, lg);
+      color: $clr9;
+      padding: 0;
+      margin: 0;
+      
+      &:hover {
+        color: $clr-base-5;
+      }
+    }
 
         .add-card-container {
             cursor: pointer;
@@ -80,61 +84,57 @@
 
     
 
-        .add-a-card {
-            border-radius: $border-radius-3;
-            color: $clr-base-4;
-            display: block;
-            flex: 1 0 auto;
-            width: 100%;
-            padding: 0px em(8px) em(8px) em(8px);
-            position: relative;
-            overflow: hidden;
-            overflow-wrap: break-word;
-            text-decoration: none;
-            -webkit-user-select: none;
-            user-select: none;
+    .add-a-card {
+      border-radius: $border-radius-3;
+      color: $clr-base-4;
+      display: block;
+      flex: 1 0 auto;
+      width: 100%;
+      padding: 0px em(8px) em(8px) em(8px);
+      position: relative;
+      overflow: hidden;
+      overflow-wrap: break-word;
+      text-decoration: none;
+      -webkit-user-select: none;
+      user-select: none;
 
-            textarea {
-                height: 64px;
-                font-family: arial;
-                margin-block-end: 6px;
-                padding: 6px 8px 2px;
-                box-shadow: $box-shadow-task-preview;
-                margin-block-start: none;
-                resize: none;
+      textarea {
+        height: 64px;
+        font-family: arial;
+        margin-block-end: 6px;
+        padding: 6px 8px 2px;
+        box-shadow: $box-shadow-task-preview;
+        margin-block-start: none;
+        resize: none;
+      }
 
-
-            }
-
-            .footer-actions{
-               gap:5px;
-               color:$clr9; 
-            }
-            button {
-                width: rem(72px);
-                padding: em(6px);
-                margin: 0;
-                border-radius: $border-radius-3;
-                background-color: $clr-base-8;
-                cursor: pointer;
-                color: $clr-base-1;
-            }
-        }
-
-        span {
-            color: $clr-base-4;
-            cursor: pointer;
-            margin: em(2px) em(8px) 0 0;
-            padding: em(4px);
-            @include trello-icon($icon-close, $type: sm);
-
-        }
-
-        .icon {
-            width: 10px;
-            height: 10px;
-            // background-color: black;
-        }
-
+      .footer-actions {
+        gap: 5px;
+        color: $clr9;
+      }
+      button {
+        width: rem(72px);
+        padding: em(6px);
+        margin: 0;
+        border-radius: $border-radius-3;
+        background-color: $clr-base-8;
+        cursor: pointer;
+        color: $clr-base-1;
+      }
     }
+
+    span {
+      color: $clr-base-4;
+      cursor: pointer;
+      margin: em(2px) em(8px) 0 0;
+      padding: em(4px);
+      @include trello-icon($icon-close, $type: sm);
+    }
+
+    .icon {
+      width: 10px;
+      height: 10px;
+      // background-color: black;
+    }
+  }
 }

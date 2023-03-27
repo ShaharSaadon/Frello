@@ -24,7 +24,6 @@
         /> -->
         <button>Login</button>
       </form>
-      <p class="mute">user1 or admin, pass:123 </p>
       <form @submit.prevent="doSignup">
         <h2>Signup</h2>
         <input type="text" v-model="signupCred.fullname" placeholder="Your full name" />
@@ -58,7 +57,7 @@ export default {
   data() {
     return {
       msg: '',
-      loginCred: { username: 'user1', password: '123' },
+      loginCred: { username: 'ido', password: 'ido' },
       signupCred: { username: '', password: '', fullname: '', imgUrl : '' },
     }
   },
@@ -81,7 +80,7 @@ export default {
       }
       try {
         await this.$store.dispatch({ type: "login", userCred: this.loginCred })
-        this.$router.push('/')
+        this.$router.push('/board')
       } catch (err) {
         console.log(err)
         this.msg = 'Failed to login'
@@ -96,7 +95,7 @@ export default {
         return
       }
       await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
-      this.$router.push('/')
+      this.$router.push('/board')
 
     },
     loadUsers() {

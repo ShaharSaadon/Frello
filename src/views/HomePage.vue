@@ -7,8 +7,8 @@
       </nav>
     </div>
     <div class="right-nav flex clean-list">
-      <a class="nav-link">Log in</a>
-      <RouterLink class="nav-link-signup nav-link" to="/board">Get Merllo for free</RouterLink>
+      <RouterLink class="nav-link" to="/login">Log in</RouterLink>
+      <RouterLink class="nav-link-signup nav-link" to="/board">Try Our Demo!</RouterLink>
     </div>
   </header>
 
@@ -16,7 +16,7 @@
     <div class="left-box">
       <h1>Merllo brings all your tasks, teammates, and tools together</h1>
       <p>Keep everything in the same place-even if your team isn’t.</p>
-        <RouterLink to="/board"> <button>Try Our Demo!</button> </RouterLink>
+      <RouterLink to="/board"> <button>Try Our Demo!</button> </RouterLink>
     </div>
     <div class="right-box">
       <img src="../assets/imgs/TrelloUICollage_4x.webp" />

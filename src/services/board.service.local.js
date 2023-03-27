@@ -4,7 +4,7 @@ import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'board_db'
 const USER_KEY = 'user_db'
-_createUsers()
+// _createUsers()
 
 export const boardService = {
   query,
@@ -19,12 +19,15 @@ export const boardService = {
 }
 window.cs = boardService
 
-async function query(filterBy = { txt: '' }) {
+async function query(filterBy = { txt: '', memberId: '' }) {
   // TDOD: Add Filtering
   var boards = await storageService.query(STORAGE_KEY)
   if (filterBy.txt) {
     const regex = new RegExp(filterBy.txt, 'i')
     boards = boards.filter((board) => regex.test(board.title))
+  }
+  if (filterBy.memberId) {
+    boards = boards.filter((board) => board.members.find((member) => member._id === filterBy.memberId))
   }
   return boards
 }
@@ -44,6 +47,9 @@ async function save(board) {
   } else {
     // Later, owner is set by the backend
     board.createdBy = userService.getLoggedinUser()
+    console.log('board.createdBy: ', board.createdBy)
+    board.members.push(userService.getLoggedinUser())
+    console.log('board.members: ', board.members)
     savedBoard = await storageService.post(STORAGE_KEY, board)
   }
   return savedBoard
@@ -130,6 +136,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
+            attachments: [],
             dueDate: null,
             checklists: [],
             dueDate: 0,
@@ -141,6 +148,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
+            attachments: [],
             dueDate: undefined,
             checklists: [],
             dueDate: 0,
@@ -160,6 +168,7 @@ function getEmptyBoard() {
             archivedAt: 1589983468418,
             members: [],
             labels: [],
+            attachments: [],
             dueDate: null,
             checklists: [],
             dueDate: 0,
@@ -174,6 +183,7 @@ function getEmptyBoard() {
             description: 'description',
             members: [],
             labels: [],
+            attachments: [],
             checklists: [],
             dueDate: 0,
             isComplete: false,
@@ -182,23 +192,22 @@ function getEmptyBoard() {
                 id: 'ZdPnm',
                 txt: 'also @yaronb please CR this',
                 createdAt: 1590999817436,
-                byMember: {
-                  _id: 'u101',
-                  fullname: 'Tal Tarablus',
-                  imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-                },
+                // byMember: {
+                //   _id: 'u101',
+                //   fullname: 'Tal Tarablus',
+                //   imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+                // },
               },
             ],
-            memberIds: ['u101'],
-            labelIds: ['l101', 'l102'],
+
             dueDate: 3467436734,
             isComplete: false,
-            byMember: {
-              _id: 'u101',
-              username: 'Tal',
-              fullname: 'Tal Tarablus',
-              imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-            },
+            // byMember: {
+            //   _id: 'u101',
+            //   username: 'Tal',
+            //   fullname: 'Tal Tarablus',
+            //   imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+            // },
             style: {
               bgColor: '#26de81',
             },
@@ -206,54 +215,54 @@ function getEmptyBoard() {
         ],
       },
     ],
-    members: _createUsers(),
+    members: [],
     style: {
-      backgrounImage: ''
+      backgrounImage: '',
     },
     activities: [
       {
-        "id": "100",
-        "txt": "Changed Color",
-        "createdAt": 154514,
-        "byMember": {
-          "_id": "u100",
-          "fullname": "Shahar Saadon",
-          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png"
+        id: '100',
+        txt: 'Changed Color',
+        createdAt: 154514,
+        byMember: {
+          _id: 'u100',
+          fullname: 'Shahar Saadon',
+          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
         },
-        "task": {
-          "id": "c100",
-          "title": "Replace Logo"
-        }
+        task: {
+          id: 'c100',
+          title: 'Replace Logo',
+        },
       },
       {
-        "id": "101",
-        "txt": "Changed Color",
-        "createdAt": 154514,
-        "byMember": {
-          "_id": "u101",
-          "fullname": "Ido Peri",
-          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png"
+        id: '101',
+        txt: 'Changed Color',
+        createdAt: 154514,
+        byMember: {
+          _id: 'u101',
+          fullname: 'Ido Peri',
+          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
         },
-        "task": {
-          "id": "c101",
-          "title": "Replace Logo"
-        }
+        task: {
+          id: 'c101',
+          title: 'Replace Logo',
+        },
       },
       {
-        "id": "102",
-        "txt": "Changed Color",
-        "createdAt": 154514,
-        "byMember": {
-          "_id": "u102",
-          "fullname": "Tomer Huberman",
-          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png"
+        id: '102',
+        txt: 'Changed Color',
+        createdAt: 154514,
+        byMember: {
+          _id: 'u102',
+          fullname: 'Tomer Huberman',
+          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
         },
-        "task": {
-          "id": "c102",
-          "title": "Replace Logo"
-        }
-      }
-    ]
+        task: {
+          id: 'c102',
+          title: 'Replace Logo',
+        },
+      },
+    ],
   }
 }
 
@@ -285,33 +294,67 @@ function getEmptyActivity({ groupId, task }) {
   }
 }
 
-function _createUsers() {
-  let users = JSON.parse(localStorage.getItem(USER_KEY))
-  if (!users || !users.length) {
-    users = [
-      {
-        _id: 'u100',
-        fullname: 'Shahar Saadon',
-        username: 'ShaharSaadon1',
-        imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
-      },
-      {
-        _id: 'u101',
-        fullname: 'עידו פרי',
-        username: 'idoperi104',
-        imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-      },
-      {
-        _id: 'u102',
-        fullname: 'Tomer Huberman',
-        username: 'user15656051',
-        imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
-      },
-    ]
-    localStorage.setItem(USER_KEY, JSON.stringify(users))
-  }
-  return users
+function _getRandomBackground() {
+  const backgrounds = ['gray', 'green', 'light-blue', 'orenge', 'perple', 'pink']
+  const background = backgrounds[utilService.getRandomIntInclusive(0, 5)]
+  const strHtml = `url(../src/assets/imgs/bgc-basic/${background}.svg)`
+  return strHtml
 }
+
+// function _createUsers() {
+//   let users = JSON.parse(localStorage.getItem(USER_KEY))
+//   if (!users || !users.length) {
+//     users = [
+//       {
+//         _id: 'u100',
+//         fullname: 'Shahar Saadon',
+//         username: 'ShaharSaadon1',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//       },
+//       {
+//         _id: 'u101',
+//         fullname: 'עידו פרי',
+//         username: 'idoperi104',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//       },
+//       {
+//         _id: 'u102',
+//         fullname: 'Tomer Huberman',
+//         username: 'user15656051',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//       },
+//     ]
+//     localStorage.setItem(USER_KEY, JSON.stringify(users))
+//   }
+// }
+
+// function _createUsers() {
+//   let users = JSON.parse(localStorage.getItem(USER_KEY))
+//   if (!users || !users.length) {
+//     users = [
+//       {
+//         _id: 'u100',
+//         fullname: 'Shahar Saadon',
+//         username: 'ShaharSaadon1',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//       },
+//       {
+//         _id: 'u101',
+//         fullname: 'עידו פרי',
+//         username: 'idoperi104',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//       },
+//       {
+//         _id: 'u102',
+//         fullname: 'Tomer Huberman',
+//         username: 'user15656051',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//       },
+//     ]
+//     localStorage.setItem(USER_KEY, JSON.stringify(users))
+//   }
+//   return users
+// }
 
 // TEST DATA
 // ; (async () => {
