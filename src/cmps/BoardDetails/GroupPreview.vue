@@ -5,10 +5,15 @@
         <!-- <h3>{{ group.title }}</h3> -->
 
         <form @submit.prevent="updateGroup">
-          <textarea ref="textArea" v-model="clonedGroup.title" @input="resize($event)" rows="1" cols="50"
-            @keydown.enter.prevent="onEnter"></textarea>
+          <textarea
+            ref="textArea"
+            v-model="clonedGroup.title"
+            @input="resize($event)"
+            rows="1"
+            cols="50"
+            @keydown.enter.prevent="onGroupEnter"
+          ></textarea>
         </form>
-
       </header>
 
       <TaskList :tasks="tasks" :groupId="group.id" @updateTasks="updateTasksPos" />
@@ -16,17 +21,22 @@
       <footer>
         <div class="add-card-container flex" v-if="!isOnEdit" @click="onEdit">
           <i v-html="getSvg('plus')"></i>
-          <p>
-            Add a card
-          </p>
+          <p>Add a card</p>
         </div>
         <div class="add-a-card flex" v-if="isOnEdit">
-          <textarea @click.stop @blur="addTask" @input="resize($event)" v-model="newTask.title" ref="newTaskInput"
-            placeHolder="Enter a title for this card...">
-            </textarea>
+          <textarea
+            @keydown.enter.prevent="addTask"
+            @click.stop
+            @blur="addTask"
+            @input="resize($event)"
+            v-model="newTask.title"
+            ref="newTaskInput"
+            placeHolder="Enter a title for this card..."
+          >
+          </textarea>
           <div class="footer-actions flex algin-center">
             <button>Add card</button>
-            <i v-html="getSvg('x')" @click="closeEdit"></i>
+            <span class="close" @click="closeEdit"></span>
           </div>
         </div>
 
@@ -41,6 +51,7 @@
 import TaskList from './TaskList.vue'
 import { svgService } from '../../services/svg.service.js'
 import { boardService } from '../../services/board.service.local.js'
+import { add } from 'lodash'
 
 export default {
   name: 'GroupPreview',
@@ -68,7 +79,7 @@ export default {
       this.newTask = boardService.getEmptyTask()
       this.$nextTick(() => this.$refs.newTaskInput.focus())
     },
-    onEnter(ev) {
+    onGroupEnter() {
       this.$refs.textArea.blur()
       this.updateGroup()
     },
@@ -90,14 +101,14 @@ export default {
     resize(e) {
       e.target.style.height = 'maxcontent'
       e.target.style.height = `${e.target.scrollHeight}px`
-    }
+    },
   },
   computed: {
     tasks() {
       return this.group.tasks
     },
   },
-  created() { },
+  created() {},
   components: {
     TaskList,
   },

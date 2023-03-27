@@ -11,7 +11,7 @@
       <div class="main-content">
         <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <!-- <pre> {{ task }}</pre> -->
+        <TaskAttachments :taskAttachments="task.attachments"/>
         <TaskChecklist
           :key="list.title"
           v-for="list in task.checklists"
@@ -32,7 +32,7 @@
         <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
         <button class="btn-link checklist" @click="toggleModal('ChecklistPicker')"><span> Checklist</span></button>
         <button class="btn-link clock" @click="toggleModal('DatePicker')"><span> Dates</span></button>
-        <button class="btn-link attachment"><span> Attachment</span></button>
+        <button class="btn-link attachment" @click="toggleModal('AttachmentPicker')"><span> Attachment</span></button>
         <button class="btn-link card-cover"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
         <h3>Actions</h3>
@@ -40,28 +40,20 @@
           <span> Archive</span>
         </button>
       </div>
-      <ModalPicker
-        v-if="modal.isModalOpen"
-        :type="modal.type"
-        @closeModal="toggleModal"
-        @updateEntityVal="updateEntityVal"
-        @removeEntityVal="removeEntityVal"
-        @switchDynamicCmp="toggleModal"
-        @updateLabel="updateLabel"
-        @removeLabel="removeLabel"
-        @addChecklist="addChecklist"
-        @saveTask="saveTask"
-      />
+      <ModalPicker v-if="modal.isModalOpen" :type="modal.type" @closeModal="toggleModal"
+        @updateEntityVal="updateEntityVal" @removeEntityVal="removeEntityVal" @switchDynamicCmp="toggleModal"
+        @updateLabel="updateLabel" @removeLabel="removeLabel" @addChecklist="addChecklist" @saveTask="saveTask" />
     </main>
   </section>
 </template>
 
 <script>
-// import {boardService} from '../services/board.service'
+import { boardService } from '../services/board.service.local'
 // import GroupList from '../cmps/GroupList.vue'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { svgService } from '../services/svg.service.js'
 import TaskDescription from '../cmps/TaskDetails/TaskDescription.vue'
+import TaskAttachments from '../cmps/TaskDetails/TaskAttachments.vue'
 import TaskChecklist from '../cmps/TaskDetails/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
@@ -94,7 +86,6 @@ export default {
       handler(changed) {
         console.log(changed)
         if (this.watchedBoard) {
-          console.log('board has changed')
           this.task = this.getTaskFromStore
         }
       },
@@ -193,6 +184,7 @@ export default {
       }
     },
     updateEntityVal({ key, val }) {
+      let activity
       const task = JSON.parse(JSON.stringify(this.task))
       // var isObj = val.id
       const itemId = val.id ?? val
@@ -200,10 +192,12 @@ export default {
       const idx = task[key].findIndex((item) => item.id === itemId)
       if (idx === -1) {
         task[key].push(val)
+        activity = this.createActivity('add')
       } else {
         task[key].splice(idx, 1, val)
+        activity = this.createActivity('update')
       }
-      this.saveTask({ key, newVal: task[key] })
+      this.saveTask({ key, newVal: task[key], activity})
     },
     removeEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
@@ -216,12 +210,12 @@ export default {
       task[key].splice(idx, 1)
       this.saveTask({ key, newVal: task[key] })
     },
-    async saveTask({ key, newVal }) {
+    async saveTask({ key, newVal, activity }) {
       const task = JSON.parse(JSON.stringify(this.task))
       task[key] = newVal
       const groupId = this.groupId
       try {
-        this.$store.dispatch({ type: 'saveTask', groupId, task })
+        this.$store.dispatch({ type: 'saveTask', groupId, task, activity })
         showSuccessMsg('Task added')
       } catch (err) {
         console.log(err)
@@ -243,12 +237,20 @@ export default {
       const newVal = !this.task[key]
       this.saveTask({ key, newVal })
     },
+    createActivity(activityActionName){
+      const newActivity = boardService.getEmptyActivity({groupId:this.groupId,task:this.task.title})
+      console.log('activity=',newActivity)
+      console.log(activityActionName)
+      newActivity.txt = `${activityActionName}`
+      return newActivity
+    }
   },
   components: {
     TaskDescription,
     ModalPicker,
     TaskHeadTags,
     TaskChecklist,
+    TaskAttachments,
   },
 }
 </script>

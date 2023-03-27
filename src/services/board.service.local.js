@@ -15,6 +15,7 @@ export const boardService = {
   getEmptyGroup,
   getEmptyTask,
   saveTask,
+  getEmptyActivity,
 }
 window.cs = boardService
 
@@ -123,9 +124,6 @@ function getEmptyBoard() {
         title: '',
       },
     ],
-    style: {
-      'background-image': `${_getRandomBackground()}`,
-    },
     groups: [
       {
         id: 'g101',
@@ -138,6 +136,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
+            attachments: [],
             dueDate: null,
             checklists: [],
             dueDate: 0,
@@ -149,6 +148,7 @@ function getEmptyBoard() {
             isWatch: false,
             members: [],
             labels: [],
+            attachments: [],
             dueDate: undefined,
             checklists: [],
             dueDate: 0,
@@ -168,6 +168,7 @@ function getEmptyBoard() {
             archivedAt: 1589983468418,
             members: [],
             labels: [],
+            attachments: [],
             dueDate: null,
             checklists: [],
             dueDate: 0,
@@ -182,6 +183,7 @@ function getEmptyBoard() {
             description: 'description',
             members: [],
             labels: [],
+            attachments: [],
             checklists: [],
             dueDate: 0,
             isComplete: false,
@@ -214,6 +216,53 @@ function getEmptyBoard() {
       },
     ],
     members: [],
+    style: {
+      backgrounImage: ''
+    },
+    activities: [
+      {
+        "id": "100",
+        "txt": "Changed Color",
+        "createdAt": 154514,
+        "byMember": {
+          "_id": "u100",
+          "fullname": "Shahar Saadon",
+          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png"
+        },
+        "task": {
+          "id": "c100",
+          "title": "Replace Logo"
+        }
+      },
+      {
+        "id": "101",
+        "txt": "Changed Color",
+        "createdAt": 154514,
+        "byMember": {
+          "_id": "u101",
+          "fullname": "Ido Peri",
+          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png"
+        },
+        "task": {
+          "id": "c101",
+          "title": "Replace Logo"
+        }
+      },
+      {
+        "id": "102",
+        "txt": "Changed Color",
+        "createdAt": 154514,
+        "byMember": {
+          "_id": "u102",
+          "fullname": "Tomer Huberman",
+          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png"
+        },
+        "task": {
+          "id": "c102",
+          "title": "Replace Logo"
+        }
+      }
+    ]
   }
 }
 
@@ -236,6 +285,33 @@ function _getRandomBackground() {
   const strHtml = `url(../src/assets/imgs/bgc-basic/${background}.svg)`
   return strHtml
 }
+
+// function _createUsers() {
+//   let users = JSON.parse(localStorage.getItem(USER_KEY))
+//   if (!users || !users.length) {
+//     users = [
+//       {
+//         _id: 'u100',
+//         fullname: 'Shahar Saadon',
+//         username: 'ShaharSaadon1',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//       },
+//       {
+//         _id: 'u101',
+//         fullname: 'עידו פרי',
+//         username: 'idoperi104',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//       },
+//       {
+//         _id: 'u102',
+//         fullname: 'Tomer Huberman',
+//         username: 'user15656051',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//       },
+//     ]
+//     localStorage.setItem(USER_KEY, JSON.stringify(users))
+//   }
+// }
 
 // function _createUsers() {
 //   let users = JSON.parse(localStorage.getItem(USER_KEY))

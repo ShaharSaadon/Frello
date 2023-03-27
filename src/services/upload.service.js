@@ -1,15 +1,15 @@
 export const uploadService = {
   uploadImg
 }
-async function uploadImg(ev) {
-  const CLOUD_NAME = "dcwibf9o5"
-  const UPLOAD_PRESET = "vt0iqgff"
+async function uploadImg(file) {
+  const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET
+  const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
   const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
 
   try {
     const formData = new FormData()
     formData.append('upload_preset', UPLOAD_PRESET)
-    formData.append('file', ev.target.files[0])
+    formData.append('file', file)
 
     const res = await fetch(UPLOAD_URL, {
       method: 'POST',
