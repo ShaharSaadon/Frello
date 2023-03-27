@@ -29,7 +29,7 @@
                 <img :src="activity.byMember.imgUrl" class="member-profile">
             <div class="activity-description">
           <span>{{ activity.byMember.fullname }} </span>  
-            {{ activity.txt }} to
+            {{ activity.txt }} 
             {{ activity.task.title }}
             </div>
             </li>

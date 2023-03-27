@@ -194,6 +194,7 @@ export default {
         task[key].push(val)
         activity = this.createActivity('added', key)
       } else {
+        console.log('deleteUPADTE Label')
         task[key].splice(idx, 1, val)
         activity = this.createActivity('updated', key)
       }
@@ -210,7 +211,7 @@ export default {
       }
       task[key].splice(idx, 1)
       activity = this.createActivity('removed', key)
-      this.saveTask({ key, newVal: task[key] },activity)
+      this.saveTask({ key, newVal: task[key],activity })
     },
     async saveTask({ key, newVal, activity }) {
       const task = JSON.parse(JSON.stringify(this.task))
@@ -241,7 +242,7 @@ export default {
     },
     createActivity(activityActionName,key){
       const newActivity = boardService.getEmptyActivity({groupId:this.groupId,task:this.task})
-      newActivity.txt = `${activityActionName} ${key.slice(0,-1)}`
+      newActivity.txt =  activityActionName==='removed' ? `${activityActionName} ${key.slice(0,-1)} from` : `${activityActionName} ${key.slice(0,-1)} to`
       return newActivity
     }
   },

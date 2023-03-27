@@ -284,11 +284,7 @@ function getEmptyActivity({ groupId, task }) {
     id: utilService.makeId(),
     txt: '',
     createdAt: Date.now(),
-    byMember: {
-      "_id": "u100",
-      "fullname": "Shahar Saadon",
-      "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png"
-    },
+    byMember: userService.getLoggedinUser(),
     groupId,// optional
     task, // optional
   }

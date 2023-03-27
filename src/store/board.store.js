@@ -236,9 +236,8 @@ export const boardStore = {
       state.isRightSideBarOpen=!state.isRightSideBarOpen
     },
     addActivity(state,{ activity }){  
-    console.log('activity=',activity)
     let board = state.boards.find(board => board._id===state.watchedBoardId)
-    board.activities.push(activity)
+    board.activities.unshift(activity)
   }
 
   },
@@ -311,7 +310,6 @@ export const boardStore = {
     },
     async addActivity(context, {activity}){
       try {
-        console.log('activity=',activity)
         context.commit({ type: 'addActivity', activity })
         context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
       } catch (err) {
