@@ -2,7 +2,7 @@
   <div class="attachments-picker">
     <form @submit.prevent="handleFile"></form>
     <h3>Attach a link</h3>
-    <input placeholder="Paste any link here..." v-model="this.imgUrl" @change="handleFile" type="text" >
+    <input placeholder="Paste any link here..." v-model="this.imgUrl" @change="handleFile" type="text" />
     <button class="btn-attach">Attach</button>
   </div>
 </template>
@@ -25,9 +25,11 @@ export default {
       const file = this.imgUrl
 
       const { url } = await uploadService.uploadImg(file)
-      this.imgUrl = url
-      console.log("url: ", url);
-      const val = {url, title: this.title, id: utilService.makeId()}
+      const urlSplit = url.split('.')
+      const type = urlSplit[urlSplit.length - 1]
+      
+
+      const val = { url, title: this.title, id: utilService.makeId(), type}
       this.$emit('updateEntityVal', { key: 'attachments', val })
     },
   },
