@@ -186,14 +186,15 @@ export default {
       const idx = task[key].findIndex((item) => item.id === itemId)
       if (idx === -1) {
         task[key].push(val)
-        activity = this.createActivity('add')
+        activity = this.createActivity('added', key)
       } else {
         task[key].splice(idx, 1, val)
-        activity = this.createActivity('update')
+        activity = this.createActivity('updated', key)
       }
       this.saveTask({ key, newVal: task[key], activity})
     },
     removeEntityVal({ key, val }) {
+      let activity
       const task = JSON.parse(JSON.stringify(this.task))
       let idx
       if (val.id) {
@@ -202,7 +203,8 @@ export default {
         idx = task[key].findIndex((id) => id === val)
       }
       task[key].splice(idx, 1)
-      this.saveTask({ key, newVal: task[key] })
+      activity = this.createActivity('removed', key)
+      this.saveTask({ key, newVal: task[key] },activity)
     },
     async saveTask({ key, newVal, activity }) {
       const task = JSON.parse(JSON.stringify(this.task))
@@ -231,11 +233,9 @@ export default {
       const newVal = !this.task[key]
       this.saveTask({ key, newVal })
     },
-    createActivity(activityActionName){
-      const newActivity = boardService.getEmptyActivity({groupId:this.groupId,task:this.task.title})
-      console.log('activity=',newActivity)
-      console.log(activityActionName)
-      newActivity.txt = `${activityActionName}`
+    createActivity(activityActionName,key){
+      const newActivity = boardService.getEmptyActivity({groupId:this.groupId,task:this.task})
+      newActivity.txt = `${activityActionName} ${key.slice(0,-1)}`
       return newActivity
     }
   },

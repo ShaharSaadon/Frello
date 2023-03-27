@@ -214,9 +214,11 @@ export const boardStore = {
     onToggleMenu(state){
       state.isRightSideBarOpen=!state.isRightSideBarOpen
     },
-    addActivity(state,{ activity }){
+    addActivity(state,{ activity }){  
     console.log('activity=',activity)
-    }
+    let board = state.boards.find(board => board._id===state.watchedBoardId)
+    board.activities.push(activity)
+  }
 
   },
   actions: {

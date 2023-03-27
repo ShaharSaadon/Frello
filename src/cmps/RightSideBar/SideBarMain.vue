@@ -24,9 +24,9 @@
             <span class="activity-icon"></span>
             <h5>Activity</h5>
         </div>
-        <ul class="activities-list clean-list">
-            <li v-for="activity in board.activities" :key="activity.id" :activity="activity" class="activity">
-            <img :src="activity.byMember.imgUrl" class="member-profile">
+        <ul class="activities-list clean-list" >
+            <li v-for="activity in board.activities" :key="activity.id" :activity="activity" class="activity"> 
+                <img :src="activity.byMember.imgUrl" class="member-profile">
             <div class="activity-description">
           <span>{{ activity.byMember.fullname }} </span>  
             {{ activity.txt }} to
