@@ -13,7 +13,6 @@ export default {
     name: 'BoardMembers',
     data() {
         return {
-
         }
     },
     methods: {

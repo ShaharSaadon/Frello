@@ -11,14 +11,9 @@
       <div class="main-content">
         <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskAttachments :taskAttachments="task.attachments"/>
-        <TaskChecklist
-          :key="list.title"
-          v-for="list in task.checklists"
-          :taskChecklist="list"
-          @removeChecklist="removeChecklist"
-          @updateEntityVal="updateEntityVal"
-        />
+        <TaskAttachments :taskAttachments="task.attachments" />
+        <TaskChecklist :key="list.title" v-for="list in task.checklists" :taskChecklist="list"
+          @removeChecklist="removeChecklist" @updateEntityVal="updateEntityVal" />
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -158,16 +153,20 @@ export default {
       this.$refs.textarea.blur()
     },
     addChecklist(title) {
+      let activity
       const task = JSON.parse(JSON.stringify(this.task))
       task.checklists.push({ title, checklist: [], id: utilService.makeId() })
-      this.saveTask({ key: 'checklists', newVal: task.checklists })
+      activity = ['added','checklists','to',this.task.title]
+      this.saveTask({ key: 'checklists', newVal: task.checklists, activity })
       this.toggleModal()
     },
     removeChecklist(title) {
+      let activity
       const task = JSON.parse(JSON.stringify(this.task))
       const idx = task.checklists.findIndex((list) => list.title === title)
       task.checklists.splice(idx, 1)
-      this.saveTask({ key: 'checklists', newVal: task.checklists })
+      activity = ['removed','checklists','from',this.task.title]
+      this.saveTask({ key: 'checklists', newVal: task.checklists, activity })
     },
     async removeTask() {
       try {
@@ -192,13 +191,13 @@ export default {
       const idx = task[key].findIndex((item) => item.id === itemId)
       if (idx === -1) {
         task[key].push(val)
-        activity = this.createActivity('added', key)
+        activity = ['added',`${key.slice(0, -1)}`,'to',this.task.title]
       } else {
-        console.log('deleteUPADTE Label')
         task[key].splice(idx, 1, val)
-        activity = this.createActivity('updated', key)
+        activity = []
+
       }
-      this.saveTask({ key, newVal: task[key], activity})
+      this.saveTask({ key, newVal: task[key], activity })
     },
     removeEntityVal({ key, val }) {
       let activity
@@ -210,10 +209,11 @@ export default {
         idx = task[key].findIndex((id) => id === val)
       }
       task[key].splice(idx, 1)
-      activity = this.createActivity('removed', key)
-      this.saveTask({ key, newVal: task[key],activity })
+      activity = ['removed',`${key.slice(0, -1)}`,'from',this.task.title]
+      this.saveTask({ key, newVal: task[key], activity })
     },
     async saveTask({ key, newVal, activity }) {
+      if(!activity) activity = ['added',key ,'from',this.task.title]
       const task = JSON.parse(JSON.stringify(this.task))
       task[key] = newVal
       const groupId = this.groupId
@@ -238,13 +238,9 @@ export default {
     },
     toggleKey(key) {
       const newVal = !this.task[key]
-      this.saveTask({ key, newVal })
+      let activity = [newVal,key,'to',this.task.title]
+      this.saveTask({ key, newVal, activity })
     },
-    createActivity(activityActionName,key){
-      const newActivity = boardService.getEmptyActivity({groupId:this.groupId,task:this.task})
-      newActivity.txt =  activityActionName==='removed' ? `${activityActionName} ${key.slice(0,-1)} from` : `${activityActionName} ${key.slice(0,-1)} to`
-      return newActivity
-    }
   },
   components: {
     TaskDescription,

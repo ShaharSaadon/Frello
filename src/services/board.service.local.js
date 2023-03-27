@@ -279,14 +279,12 @@ function getEmptyTask() {
   }
 }
 
-function getEmptyActivity({ groupId, task }) {
+function getEmptyActivity() {
   return {
     id: utilService.makeId(),
     txt: '',
     createdAt: Date.now(),
     byMember: userService.getLoggedinUser(),
-    groupId,// optional
-    task, // optional
   }
 }
 

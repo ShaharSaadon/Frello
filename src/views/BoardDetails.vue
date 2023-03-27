@@ -81,7 +81,8 @@ export default {
     },
     isExpended() {
       return this.$store.getters.isRightSideBarOpen
-    }
+    },
+   
   },
   unmounted() {
     document.title = 'Merllo'
@@ -114,7 +115,8 @@ export default {
     },
     async saveTask({ task, groupId }) {
       try {
-        this.$store.dispatch({ type: 'saveTask', groupId, task })
+        let activity = ['added',task.title,'to',this.groupById(groupId).title]
+        this.$store.dispatch({ type: 'saveTask', groupId, task,activity })
         showSuccessMsg('Task added')
       } catch (err) {
         console.log(err)
@@ -180,6 +182,9 @@ export default {
         console.log(err)
       }
     },
+    groupById(groupId){
+    return this.groups.find(group=> group.id===groupId)
+    }
   },
 }
 </script>
