@@ -160,7 +160,35 @@ const board = {
     ],
     "activities": [
         {
-            "id": "a101",
+            "id": "100",
+            "txt": "Changed Color",
+            "createdAt": 154514,
+            "byMember": {
+                "_id": "u101",
+                "fullname": "Abi Abambi",
+                "imgUrl": "http://some-img"
+            },
+            "task": {
+                "id": "c101",
+                "title": "Replace Logo"
+            }
+        },
+        {
+            "id": "101",
+            "txt": "Changed Color",
+            "createdAt": 154514,
+            "byMember": {
+                "_id": "u101",
+                "fullname": "Abi Abambi",
+                "imgUrl": "http://some-img"
+            },
+            "task": {
+                "id": "c101",
+                "title": "Replace Logo"
+            }
+        },
+        {
+            "id": "102",
             "txt": "Changed Color",
             "createdAt": 154514,
             "byMember": {

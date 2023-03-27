@@ -22,9 +22,7 @@
       <GroupList :groups="groups" @updateGroup="updateGroup" @removed="removeGroup" @addGroup="addGroup"
         @saveTask="saveTask" @updateGroups="updateGroups" @updateTasksPos="updateTasksPos" />
     </div>
-    <RightSideBar :type="rightSideBar.type"  
-    @switchDynamicCmp="toggleSideBar"
-    @onChangeBackground="onChangeBackground"/>
+    <RightSideBar :type="rightSideBar.type" @switchDynamicCmp="toggleSideBar" @onChangeBackground="onChangeBackground" />
 
     <RouterView />
   </section>
@@ -43,8 +41,8 @@ import RightSideBar from '../cmps/BoardDetails/RightSideBar.vue'
 export default {
   data() {
     return {
-      rightSideBar:{
-        type:'SideBarMain'
+      rightSideBar: {
+        type: 'SideBarMain'
       }
     }
   },
@@ -81,9 +79,9 @@ export default {
     getStarClass() {
       return this.board.isStarred ? 'starred' : ''
     },
-    isExpended(){
-            return this.$store.getters.isRightSideBarOpen
-        }
+    isExpended() {
+      return this.$store.getters.isRightSideBarOpen
+    }
   },
   unmounted() {
     document.title = 'Merllo'
@@ -166,14 +164,18 @@ export default {
     onOpenMenu() {
       this.$store.commit('onToggleMenu')
     },
-    toggleSideBar(ev){
-      this.rightSideBar.type=ev
+    toggleSideBar(ev) {
+      this.rightSideBar.type = ev
     },
-    async onChangeBackground({LeftSideBarBgc,bgImg,bgc}) {
+    async onChangeBackground({ LeftSideBarBgc, bgImg, bgc }) {
+      const style = {
+        "backgroundImage": `${bgImg}`
+      }
       try {
-        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'bgImg', val: bgImg })
+        this.$store.commit('setAppHeaderBgc', { bgc })
+        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'appHeaderBgc', val: bgc })
+        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'style', val: style })
         await this.$store.dispatch({ type: 'updateBoardEntity', key: 'LeftSideBarBgc', val: LeftSideBarBgc })
-        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'bgc', val: bgc })
       } catch (err) {
         console.log(err)
       }

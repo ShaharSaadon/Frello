@@ -15,6 +15,7 @@ export const boardService = {
   getEmptyGroup,
   getEmptyTask,
   saveTask,
+  getEmptyActivity,
 }
 window.cs = boardService
 
@@ -117,9 +118,6 @@ function getEmptyBoard() {
         title: '',
       },
     ],
-    style: {
-      'background-image': `${_getRandomBackground()}`,
-    },
     groups: [
       {
         id: 'g101',
@@ -209,6 +207,53 @@ function getEmptyBoard() {
       },
     ],
     members: _createUsers(),
+    style: {
+      backgrounImage: ''
+    },
+    activities: [
+      {
+        "id": "100",
+        "txt": "Changed Color",
+        "createdAt": 154514,
+        "byMember": {
+          "_id": "u100",
+          "fullname": "Shahar Saadon",
+          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png"
+        },
+        "task": {
+          "id": "c100",
+          "title": "Replace Logo"
+        }
+      },
+      {
+        "id": "101",
+        "txt": "Changed Color",
+        "createdAt": 154514,
+        "byMember": {
+          "_id": "u101",
+          "fullname": "Ido Peri",
+          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png"
+        },
+        "task": {
+          "id": "c101",
+          "title": "Replace Logo"
+        }
+      },
+      {
+        "id": "102",
+        "txt": "Changed Color",
+        "createdAt": 154514,
+        "byMember": {
+          "_id": "u102",
+          "fullname": "Tomer Huberman",
+          "imgUrl": "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png"
+        },
+        "task": {
+          "id": "c102",
+          "title": "Replace Logo"
+        }
+      }
+    ]
   }
 }
 
@@ -225,11 +270,15 @@ function getEmptyTask() {
   }
 }
 
-function _getRandomBackground() {
-  const backgrounds = ['gray', 'green', 'light-blue', 'orenge', 'perple', 'pink']
-  const background = backgrounds[utilService.getRandomIntInclusive(0, 5)]
-  const strHtml = `url(../src/assets/imgs/bgc-basic/${background}.svg)`
-  return strHtml
+function getEmptyActivity({ groupId, task }) {
+  return {
+    id: utilService.makeId(),
+    txt: '',
+    createdAt: Date.now(),
+    byMember: 'Guest',
+    groupId,// optional
+    task, // optional
+  }
 }
 
 function _createUsers() {

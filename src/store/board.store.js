@@ -48,6 +48,12 @@ export function getActionSaveTask({ boardId, groupId, task }) {
     task,
   }
 }
+export function getActionAddActivity(activity) {
+  return {
+    type: 'addActivity',
+    activity
+  }
+}
 
 export const boardStore = {
   state: {
@@ -164,6 +170,7 @@ export const boardStore = {
     updateBoardEntity(state, { key, val }) {
       const board = state.boards.find((board) => board._id === state.watchedBoardId)
       board[key] = val
+      console.log('key=',key)
     },
     addBoard(state, { board }) {
       state.boards.push(board)
@@ -206,7 +213,11 @@ export const boardStore = {
     },
     onToggleMenu(state){
       state.isRightSideBarOpen=!state.isRightSideBarOpen
+    },
+    addActivity(state,{ activity }){
+    console.log('activity=',activity)
     }
+
   },
   actions: {
     async loadBoards(context) {
@@ -265,6 +276,16 @@ export const boardStore = {
         throw err
       }
     },
+    async addActivity(context, {activity}){
+      try {
+        console.log('activity=',activity)
+        context.commit({ type: 'addActivity', activity })
+        context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+      } catch (err) {
+        console.log('boardStore: Error in removeGroup', err)
+        throw err
+      }
+    },
 
     // Group
     async updateGroup(context, { boardId, group }) {
@@ -296,9 +317,11 @@ export const boardStore = {
     },
 
     // Task
-    async saveTask(context, { groupId, task }) {
+    async saveTask(context, { groupId, task, activity}) {
+      console.log('activity=',activity )
       const boardId = context.getters.watchedBoardId
       try {
+        context.commit(getActionAddActivity(activity))
         if (task.id) {
           context.commit({ type: 'saveTask', boardId, groupId, task })
           task = await boardService.saveTask(boardId, groupId, task)
@@ -311,7 +334,6 @@ export const boardStore = {
         throw err
       }
     },
-
     async removeTask({ commit, getters }, { groupId, taskId }) {
       const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
       const currGroup = savedBoard.groups.find((g) => g.id === groupId)
