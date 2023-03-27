@@ -134,6 +134,7 @@ export default {
       this.boardToAdd.appHeaderBgc = bg.bgc
       this.boardToAdd.LeftSideBarBgc = bg.LeftSideBarBgc
       this.boardToAdd.style.backgroundImage = bg.bgImg
+      // this.boardToAdd.members.push = this.$store.getters.loggedInUser
       console.log('this.$store.getters.loggedInUser: ', this.$store.getters.loggedInUser)
       try {
         await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })

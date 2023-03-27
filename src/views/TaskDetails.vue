@@ -177,16 +177,20 @@ export default {
       this.$refs.textarea.blur()
     },
     addChecklist(title) {
+      let activity
       const task = JSON.parse(JSON.stringify(this.task))
       task.checklists.push({ title, checklist: [], id: utilService.makeId() })
-      this.saveTask({ key: 'checklists', newVal: task.checklists })
+      activity = ['added','checklists','to',this.task.title]
+      this.saveTask({ key: 'checklists', newVal: task.checklists, activity })
       this.toggleModal()
     },
     removeChecklist(title) {
+      let activity
       const task = JSON.parse(JSON.stringify(this.task))
       const idx = task.checklists.findIndex((list) => list.title === title)
       task.checklists.splice(idx, 1)
-      this.saveTask({ key: 'checklists', newVal: task.checklists })
+      activity = ['removed','checklists','from',this.task.title]
+      this.saveTask({ key: 'checklists', newVal: task.checklists, activity })
     },
     async removeTask() {
       try {
@@ -211,14 +215,16 @@ export default {
       const idx = task[key].findIndex((item) => item.id === itemId)
       if (idx === -1) {
         task[key].push(val)
-        activity = this.createActivity('add')
+        activity = ['added',`${key.slice(0, -1)}`,'to',this.task.title]
       } else {
         task[key].splice(idx, 1, val)
-        activity = this.createActivity('update')
+        activity = []
+
       }
       this.saveTask({ key, newVal: task[key], activity })
     },
     removeEntityVal({ key, val }) {
+      let activity
       const task = JSON.parse(JSON.stringify(this.task))
       let idx
       if (val.id) {
@@ -227,9 +233,11 @@ export default {
         idx = task[key].findIndex((id) => id === val)
       }
       task[key].splice(idx, 1)
-      this.saveTask({ key, newVal: task[key] })
+      activity = ['removed',`${key.slice(0, -1)}`,'from',this.task.title]
+      this.saveTask({ key, newVal: task[key], activity })
     },
     async saveTask({ key, newVal, activity }) {
+      if(!activity) activity = ['added',key ,'from',this.task.title]
       const task = JSON.parse(JSON.stringify(this.task))
       task[key] = newVal
       const groupId = this.groupId
@@ -254,14 +262,8 @@ export default {
     },
     toggleKey(key) {
       const newVal = !this.task[key]
-      this.saveTask({ key, newVal })
-    },
-    createActivity(activityActionName) {
-      const newActivity = boardService.getEmptyActivity({ groupId: this.groupId, task: this.task.title })
-      console.log('activity=', newActivity)
-      console.log(activityActionName)
-      newActivity.txt = `${activityActionName}`
-      return newActivity
+      let activity = [newVal,key,'to',this.task.title]
+      this.saveTask({ key, newVal, activity })
     },
   },
   components: {
