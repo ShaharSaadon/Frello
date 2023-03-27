@@ -71,16 +71,18 @@
       }
     }
 
-    .add-card-container {
-      cursor: pointer;
-      margin: 2px 8px 8px 8px;
-      padding: 4px;
-      border-radius: $border-radius-3;
+        .add-card-container {
+            cursor: pointer;
+            margin: 2px 8px 8px 8px;
+            padding: 4px;
+            border-radius: $border-radius-3;
+            
+            &:hover {
+                background-color: $clr-base-16;
+            }
+        }
 
-      &:hover {
-        background-color: $clr-base-17;
-      }
-    }
+    
 
     .add-a-card {
       border-radius: $border-radius-3;
