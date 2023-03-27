@@ -11,7 +11,7 @@
     </div>
     <div class="flex align-center">
       <input class="main-header-search" placeholder="search" type="text">
-      <RouterLink class="profile" to="/board">
+      <RouterLink class="profile" to="/login">
         <div>
           <div :style="getImageStyle" class="profile-img"></div>
         </div>
