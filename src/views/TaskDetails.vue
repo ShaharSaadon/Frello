@@ -2,8 +2,10 @@
   <section @drop.prevent="handleFile"  @dragover.prevent="this.isDragover = true" class="task-details">
     <div class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
-      <div v-if="!!this.task.cover" :class="this.task.cover" class="task-details-cover"></div>
-      <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
+      <div v-if="!!this.task.cover" :class="this.task.cover" class="task-details-cover">
+        <button class="btn-card-cover" @click="toggleModal('CoverPicker')"><span></span>Cover</button>
+      </div>
+      <RouterLink :to="'/board/' + boardId" :class="(!!this.task.cover)?'cover':''" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>

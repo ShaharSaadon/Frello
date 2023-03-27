@@ -66,7 +66,7 @@ $clr-base-8-hover: #026aa7; // notification color
 $clr-base-9: #091e4221;
 $clr-base-10: #42526e;
 $clr-base-11: #2879bf;
-$clr-base-11-hover: #226AA7;
+$clr-base-11-hover: #226aa7;
 $clr-base-12: #f6f7f8;
 $clr-base-12-hover: #efeff1;
 $clr-base-13: #b04632; // btn cancel
@@ -76,19 +76,18 @@ $clr-base-14-hover: #0747a6; //Home Page Button Hover
 $clr-base-15: #f1f3f5; //Home Page Button Hover
 $clr-base-16: #dadbe2; // ADD Card Hover
 $clr-base-17: #61bd4f;
-$clr-base-18: #519839; 
-$clr-base-20: #EB5A46; 
-$clr-base-21: #D9B51C; 
-$clr-base-22:#d5d9e0;
+$clr-base-18: #519839;
+$clr-base-20: #eb5a46;
+$clr-base-21: #d9b51c;
+$clr-base-22: #d5d9e0;
 $clr-base-23: #40506d; //Right Menu Font
 $clr-base-24: #e2e4e9; // Right Menu Nav-Link Hover
 $clr-base-25: #7d7e7b; // img background
 
-
-$clr-base-30: #ECEDF0; // Right Menu Nav-Link Hover
-$clr-base-30-hover: #E4E6EA; // Right Menu Nav-Link Hover
+$clr-base-30: #ecedf0; // Right Menu Nav-Link Hover
+$clr-base-30-hover: #e4e6ea; // Right Menu Nav-Link Hover
 $clr-base-31: #667289; // Right Menu Nav-Link Hover
-$clr-base-32: #2E405D; // Right Menu Nav-Link Hover
+$clr-base-32: #2e405d; // Right Menu Nav-Link Hover
 // Dynamic Color
 $clr-dynamic-button: rgba(255, 255, 255, 0.2);
 $clr-dynamic-button-hovered: rgba(255, 255, 255, 0.3);
@@ -133,6 +132,8 @@ $normal-breakpoint: 960px;
 // task details
 $backdrop: rgb(0 0 0 / 14%);
 $task-details-content-grid: 56px 512px;
+$close-cover: rgba(0, 0, 0, 0.2);
+$close-cover-hover: rgba(0, 0, 0, 0.3);
 
 // border radius
 $border-radius-3: 3px;
@@ -193,10 +194,10 @@ $home-page-header-height: 60px;
 $board-header-height: 3rem;
 
 //Left SideBar
-$side-bar-width :240px;
+$side-bar-width: 240px;
 $side-bar-border: hsla(0, 0%, 100%, 0.16);
 $side-bar-hover: rgba(255, 255, 255, 0.3);
-$side-bar-image-border:  hsla(0, 0%, 100%, 0.1);
+$side-bar-image-border: hsla(0, 0%, 100%, 0.1);
 
 //Right SideBar
 $right-side-bar-width: 300px;

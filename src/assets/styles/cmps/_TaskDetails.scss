@@ -91,6 +91,18 @@
       width: 100%;
       min-height: em(116px);
       max-height: em(160px);
+      display: grid;
+      place-content: end;
+      padding: em(8px);
+      .btn-card-cover {
+        @include btn-main($close-cover, $bgc-hover: $close-cover-hover);
+        align-items: center;
+        padding: em(8px) em(15px) em(8px) em(8px);
+        span {
+          @include trello-icon($icon-card-cover, sm , $clr-base-5);
+          margin-inline-end: 4px;
+        }
+      }
     }
 
     .close {
@@ -105,7 +117,12 @@
       top: 4px;
       right: 4px;
       z-index: 2;
-
+      &.cover {
+        background-color: $close-cover;
+        &:hover {
+          background-color: $close-cover-hover;
+        }
+      }
       &:hover {
         background-color: $clr-base-3-hover;
       }
