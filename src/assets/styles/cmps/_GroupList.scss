@@ -1,119 +1,120 @@
 .group-list {
-height: calc(100% - $board-header-height);
+  height: calc(100% - $board-header-height);
+  overflow-x: scroll;
 }
 
 .draggable-group-list {
+  height: 100%;
+  // max-height: 100%;
+  padding: 0;
+  white-space: nowrap;
+  overflow-x: scroll;
+  margin-inline-start: em(4px);
+
+  // .group-preview-container{
+
+  //     display: inline-block;
+  // }
+  .group-preview-container,
+  .list-group {
+    display: inline-block;
     height: 100%;
-    // max-height: 100%;
+  }
+
+  .container {
     padding: 0;
-    white-space: nowrap;
-    overflow-x: scroll;
-    margin-inline-start: em(4px);
+    position: relative;
 
-    // .group-preview-container{
+    .btn-add-another-list {
+      position: absolute;
+      width: em(272px);
+      background-color: #ffffff3d;
+      cursor: pointer;
+      border-radius: $border-radius-3;
+      min-height: em(32px);
+      padding: em(4px);
+      color: $clr-base-1;
+      padding: em(6px) em(8px);
+      transition: background-color 0.2s;
 
-    //     display: inline-block;
-    // }
-    .group-preview-container,
-    .list-group {
-        display: inline-block;
-        height: 100%;
+      .plus-icon {
+        @include trello-icon($icon-plus, $type: sm);
+        color: $clr-base-1;
+        margin-inline-end: em(2px);
+      }
+
+      &:hover {
+        background-color: $clr-dynamic-button-hovered;
+      }
     }
-
-    .container {
-        padding: 0;
-        position: relative;
-
-        .btn-add-another-list {
-            position: absolute;
-            width: em(272px);
-            background-color: #ffffff3d;
-            cursor: pointer;
-            border-radius: $border-radius-3;
-            min-height: em(32px);
-            padding: em(4px);
-            color: $clr-base-1;
-            padding: em(6px) em(8px);
-            transition: background-color .2s;
-
-            .plus-icon {
-                @include trello-icon($icon-plus, $type: sm);
-                color: $clr-base-1;
-                margin-inline-end: em(2px);
-            }
-
-            &:hover {
-                background-color: $clr-dynamic-button-hovered;
-            }
-        }
-    }
+  }
 }
 
 .add-new-group {
-    padding: em(4px);
+  padding: em(4px);
 
-    form {
-        flex-direction: column;
+  form {
+    flex-direction: column;
 
-        textarea {
-            font-family: Arial, Helvetica, sans-serif;
-            height: rem(36px);
-            width: 100%;
-            border-radius: $border-radius-3;
-            box-shadow: inset 0 0 0 2px #0079bf;
-            border: none;
-            margin: 0;
-            padding: rem(8px) rem(12px);
+    textarea {
+      font-family: Arial, Helvetica, sans-serif;
+      height: rem(36px);
+      width: 100%;
+      border-radius: $border-radius-3;
+      box-shadow: inset 0 0 0 2px #0079bf;
+      border: none;
+      margin: 0;
+      padding: rem(8px) rem(12px);
 
-            &:focus-visible {
-                outline: none;
-            }
-        }
-
-        div {
-            height: em(32px);
-            margin: em(4px) 0 0 0;
-
-            button {
-              @include btn();
-              color: $clr-base-1;
-            }
-
-            span {
-                @include trello-icon($icon-close, $type: md);
-                cursor: pointer;
-                margin-inline-end: em(2px);
-            }
-        }
+      &:focus-visible {
+        outline: none;
+      }
     }
+
+    div {
+      height: em(32px);
+      margin: em(4px) 0 0 0;
+
+      button {
+        @include btn();
+        color: $clr-base-1;
+      }
+
+      span {
+        @include trello-icon($icon-close, $type: md);
+        cursor: pointer;
+        margin-inline-end: em(2px);
+      }
+    }
+  }
 }
 
 .v-enter-active,
 .v-leave-active {
-    transition: opacity 0.2s;
+  transition: opacity 0.2s;
 }
 
 .v-enter-from,
 .v-leave-to {
-    opacity: 0;
+  opacity: 0;
 }
 
 .ghost {
-    .group-preview-wrapper {
-        .group-preview-content {
-            background-color: $placeholder-bgc;
+  .group-preview-wrapper {
+    .group-preview-content {
+      background-color: $placeholder-bgc;
 
-            * {
-                visibility: hidden;
-            }
-        }
+      * {
+        visibility: hidden;
+      }
     }
+  }
 }
 
 .drag {
-    .group-preview-wrapper {
-        .group-preview-content {
-            transform: rotate(4deg);
-        }
+  .group-preview-wrapper {
+    .group-preview-content {
+      transform: rotate(4deg);
     }
+  }
 }

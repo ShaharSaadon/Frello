@@ -1,0 +1,19 @@
+.attachments-picker {
+  display: flex;
+  flex-direction: column;
+  gap: em(8px);
+
+  h3 {
+    font-size: em(12px);
+  }
+
+  input {
+    @include input();
+  }
+
+  .btn-attach {
+    @include btn-main();
+    align-self: flex-start;
+    padding: em(6px) em(24px);
+  }
+}
