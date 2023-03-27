@@ -2,8 +2,8 @@
   <div class="cover-picker">
     <h3>Size</h3>
     <div class="cover-preview-container">
-      <div :class="this.color" class="cover-preview"></div>
-      <div :class="this.color" class="cover-preview"></div>
+      <div :style="isGray" :class="this.color" class="cover-preview"></div>
+      <div :style="isGray" :class="this.color" class="cover-preview"></div>
     </div>
     <button></button>
     <h3>Colors</h3>
@@ -32,7 +32,11 @@
 
 <script>
 export default {
-  props: {},
+  props: {
+    info: {
+      type: Object,
+    },
+  },
   name: '',
   data() {
     return {
@@ -47,8 +51,13 @@ export default {
       this.$emit('saveTask', { key: 'cover', newVal: this.color })
     },
   },
-  computed: {},
-  created() {},
+  computed: {
+    isGray() {
+      return !this.color ? { backgroundColor: '#091e4240' } : ''
+    },
+  },
+  created() {
+  },
   components: {},
 }
 </script>

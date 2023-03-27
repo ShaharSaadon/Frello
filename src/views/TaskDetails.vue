@@ -1,11 +1,15 @@
 <template>
-  <section @drop.prevent="handleFile"  @dragover.prevent="this.isDragover = true" class="task-details">
+  <section @drop.prevent="handleFile" @dragover.prevent="this.isDragover = true" class="task-details">
     <div class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
-      <div v-if="!!this.task.cover" :class="this.task.cover" class="task-details-cover">
+      <div
+        v-if="!!this.task.cover"
+        :class="this.task.cover"
+        class="task-details-cover"
+      >
         <button class="btn-card-cover" @click="toggleModal('CoverPicker')"><span></span>Cover</button>
       </div>
-      <RouterLink :to="'/board/' + boardId" :class="(!!this.task.cover)?'cover':''" class="close"></RouterLink>
+      <RouterLink :to="'/board/' + boardId" :class="!!this.task.cover ? 'cover' : ''" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
@@ -182,7 +186,7 @@ export default {
       let activity
       const task = JSON.parse(JSON.stringify(this.task))
       task.checklists.push({ title, checklist: [], id: utilService.makeId() })
-      activity = ['added','checklists','to',this.task.title]
+      activity = ['added', 'checklists', 'to', this.task.title]
       this.saveTask({ key: 'checklists', newVal: task.checklists, activity })
       this.toggleModal()
     },
@@ -191,7 +195,7 @@ export default {
       const task = JSON.parse(JSON.stringify(this.task))
       const idx = task.checklists.findIndex((list) => list.title === title)
       task.checklists.splice(idx, 1)
-      activity = ['removed','checklists','from',this.task.title]
+      activity = ['removed', 'checklists', 'from', this.task.title]
       this.saveTask({ key: 'checklists', newVal: task.checklists, activity })
     },
     async removeTask() {
@@ -217,11 +221,10 @@ export default {
       const idx = task[key].findIndex((item) => item.id === itemId)
       if (idx === -1) {
         task[key].push(val)
-        activity = ['added',`${key.slice(0, -1)}`,'to',this.task.title]
+        activity = ['added', `${key.slice(0, -1)}`, 'to', this.task.title]
       } else {
         task[key].splice(idx, 1, val)
         activity = []
-
       }
       this.saveTask({ key, newVal: task[key], activity })
     },
@@ -235,11 +238,11 @@ export default {
         idx = task[key].findIndex((id) => id === val)
       }
       task[key].splice(idx, 1)
-      activity = ['removed',`${key.slice(0, -1)}`,'from',this.task.title]
+      activity = ['removed', `${key.slice(0, -1)}`, 'from', this.task.title]
       this.saveTask({ key, newVal: task[key], activity })
     },
     async saveTask({ key, newVal, activity }) {
-      if(!activity) activity = ['added',key ,'from',this.task.title]
+      if (!activity) activity = ['added', key, 'from', this.task.title]
       const task = JSON.parse(JSON.stringify(this.task))
       task[key] = newVal
       const groupId = this.groupId
@@ -264,7 +267,7 @@ export default {
     },
     toggleKey(key) {
       const newVal = !this.task[key]
-      let activity = [newVal,key,'to',this.task.title]
+      let activity = [newVal, key, 'to', this.task.title]
       this.saveTask({ key, newVal, activity })
     },
   },
