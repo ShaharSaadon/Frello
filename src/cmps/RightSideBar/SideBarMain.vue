@@ -13,27 +13,23 @@
             </div>
             <h5>change background</h5>
         </div>
-
-   
-
-
-    </div>
+   </div>
 
     <div class="activities main-content">
         <div class="board-nav-item" @click="$emit('switchDynamicCmp', 'SideBarActivities')">
             <span class="activity-icon"></span>
             <h5>Activity</h5>
         </div>
-        <ul class="activities-list clean-list">
-            <li v-for="activity in board.activities" :key="activity.id" :activity="activity" class="activity">
-            <img :src="activity.byMember.imgUrl" class="member-profile">
-            <div class="activity-description">
-          <span>{{ activity.byMember.fullname }} </span>  
-            {{ activity.txt }} to
-            {{ activity.task.title }}
-            </div>
-            </li>
-        </ul>
+      <!-- <pre>  {{board.activities}} </pre> -->
+            <ul class="activities-list clean-list" >
+                <li v-for="activity in board.activities" :key="activity.id" :activity="activity" class="activity"> 
+                    <img :src="activity.byMember.imgUrl" class="member-profile">
+                <div class="activity-description">
+            <span>{{ activity.byMember.fullname }} </span>  
+                {{ activity.txt }} 
+                </div>
+                </li>
+            </ul>
     </div>
 </template>
 

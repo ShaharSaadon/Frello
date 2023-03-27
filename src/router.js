@@ -2,7 +2,6 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Home from './views/Home.vue'
 import Chat from './views/Chat.vue'
-import CarIndex from './views/CarIndex.vue'
 import ReviewIndex from './views/ReviewIndex.vue'
 import LoginSignup from './views/LoginSignup.vue'
 import UserDetails from './views/UserDetails.vue'
@@ -17,11 +16,6 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: HomePage
-  },
-  {
-    path: '/car',
-    name: 'CarIndex',
-    component: CarIndex
   },
   {
     path: '/board',

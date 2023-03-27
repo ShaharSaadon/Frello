@@ -54,7 +54,6 @@ export function getActionAddActivity(activity) {
     activity
   }
 }
-
 export const boardStore = {
   state: {
     boards: [],
@@ -238,9 +237,38 @@ export const boardStore = {
     onToggleMenu(state){
       state.isRightSideBarOpen=!state.isRightSideBarOpen
     },
-    addActivity(state,{ activity }){
-    console.log('activity=',activity)
+    addActivity(state,{ activity }){  
+    if(!activity || !activity.length) return
+    let newActivity = boardService.getEmptyActivity()
+    let board = state.boards.find(board => board._id===state.watchedBoardId)
+    
+    switch (activity[1]) { // type of the changed entity 
+      case 'dueDate':
+        activity[1] = 'due date' 
+        break;
+      case 'isComplete':
+        activity[1] = 'the due date on'
+        activity[2] = activity[3]
+        activity[3] = activity[0] ? 'complete' : 'incomplete'
+        activity[0] ='marked' 
+        break;
+      case 'isWatch':
+        activity[0] = activity[0] ? 'joined to' : 'left'
+        activity[1] = ''
+        activity[2] = ''
+        activity[3]+= ' task'
+        break;
+      case 'description':
+        activity[0] = 'updated'
+        activity[1] = `${activity[3]}'s`
+        activity[2] = 'description'
+        activity[3] = ''
+        break;
+        
     }
+    newActivity.txt = activity.join(' ')
+    board.activities.unshift(newActivity)
+  }
 
   },
   actions: {
@@ -312,7 +340,6 @@ export const boardStore = {
     },
     async addActivity(context, {activity}){
       try {
-        console.log('activity=',activity)
         context.commit({ type: 'addActivity', activity })
         context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
       } catch (err) {
@@ -352,7 +379,7 @@ export const boardStore = {
 
     // Task
     async saveTask(context, { groupId, task, activity}) {
-      console.log('activity=',activity )
+
       const boardId = context.getters.watchedBoardId
       try {
         context.commit(getActionAddActivity(activity))
