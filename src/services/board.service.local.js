@@ -18,12 +18,15 @@ export const boardService = {
 }
 window.cs = boardService
 
-async function query(filterBy = { txt: '' }) {
+async function query(filterBy = { txt: '', memberId: '' }) {
   // TDOD: Add Filtering
   var boards = await storageService.query(STORAGE_KEY)
   if (filterBy.txt) {
     const regex = new RegExp(filterBy.txt, 'i')
     boards = boards.filter((board) => regex.test(board.title))
+  }
+  if (filterBy.memberId) {
+    boards = boards.filter((board) => board.members.find((member) => member._id === filterBy.memberId))
   }
   return boards
 }
@@ -43,9 +46,9 @@ async function save(board) {
   } else {
     // Later, owner is set by the backend
     board.createdBy = userService.getLoggedinUser()
-    console.log("board.createdBy: ", board.createdBy);
+    console.log('board.createdBy: ', board.createdBy)
     board.members.push(userService.getLoggedinUser())
-    console.log("board.members: ", board.members);
+    console.log('board.members: ', board.members)
     savedBoard = await storageService.post(STORAGE_KEY, board)
   }
   return savedBoard

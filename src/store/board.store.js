@@ -56,6 +56,10 @@ export const boardStore = {
     currTask: null,
     appHeaderBgc: '',
     isRightSideBarOpen: false,
+    filterBy: {
+      title: '',
+      userId: '',
+    },
     bgOpts: [
       {
         bgc: '#07479E',
@@ -66,7 +70,6 @@ export const boardStore = {
         bgc: '#2F1C0A',
         bgImg: 'url(https://a.trellocdn.com/prgb/assets/1cbae06b1a428ad6234a.svg)',
         LeftSideBarBgc: 'hsla(30,63.4%,16.1%,0.9)',
-
       },
       {
         bgc: '#07479E',
@@ -115,8 +118,11 @@ export const boardStore = {
     watchedBoardId({ watchedBoardId }) {
       return watchedBoardId
     },
-    boardById({boards}){
+    boardById({ boards }) {
       return (boardId) => boards.find((board) => board._id === boardId)
+    },
+    filterBy({ filterBy }) {
+      return filterBy
     },
     currTask({ currTask }) {
       return currTask
@@ -136,12 +142,14 @@ export const boardStore = {
     isRightSideBarOpen({ isRightSideBarOpen }) {
       return isRightSideBarOpen
     },
-    bgOpts({bgOpts}){
+    bgOpts({ bgOpts }) {
       return bgOpts
-    }
-    
+    },
   },
   mutations: {
+    setFilterBy(state, {filterBy}){
+      state.filterBy = filterBy
+    },
     setBoards(state, { boards }) {
       state.boards = boards
     },
@@ -168,7 +176,7 @@ export const boardStore = {
       const board = state.boards.find((board) => board._id === state.watchedBoardId)
       board[key] = val
     },
-    updateBoardEntityById(state, {boardId, key, val }) {
+    updateBoardEntityById(state, { boardId, key, val }) {
       const board = state.boards.find((board) => board._id === boardId)
       board[key] = val
     },
@@ -211,14 +219,15 @@ export const boardStore = {
       } else group.tasks.push(task)
       // console.log('board: ', board)
     },
-    onToggleMenu(state){
-      state.isRightSideBarOpen=!state.isRightSideBarOpen
-    }
+    onToggleMenu(state) {
+      state.isRightSideBarOpen = !state.isRightSideBarOpen
+    },
   },
   actions: {
     async loadBoards(context) {
       try {
-        const boards = await boardService.query()
+        const filterBy = context.getters.filterBy
+        const boards = await boardService.query(context.getters.filterBy)
         context.commit({ type: 'setBoards', boards })
       } catch (err) {
         console.log('boardStore: Error in loadBoards', err)
@@ -254,9 +263,9 @@ export const boardStore = {
         throw err
       }
     },
-    async updateBoardEntityById(context, {boardId, key, val }) {
+    async updateBoardEntityById(context, { boardId, key, val }) {
       try {
-        context.commit({ type: 'updateBoardEntityById',boardId, key, val })
+        context.commit({ type: 'updateBoardEntityById', boardId, key, val })
         context.dispatch(getActionUpdateBoard(context.getters.boardById(boardId)))
       } catch (err) {
         console.log('boardStore: Error in updateBoard', err)

@@ -52,6 +52,7 @@ export default {
         type: 'CreateBoard',
         isShowModal: false,
       },
+      filterBy: {...this.$store.getters.filterBy}
     }
   },
   computed: {
@@ -69,7 +70,10 @@ export default {
     },
   },
   created() {
-    // this.$store.dispatch({ type: "loadBoards" });
+    this.filterBy.memberId = this.$store.getters.loggedinUser?._id || ''
+    this.$store.commit({ type: "setFilterBy", filterBy: this.filterBy });
+    this.$store.dispatch({ type: "loadBoards" });
+    
   },
   methods: {
     async addBoard() {
@@ -111,10 +115,10 @@ export default {
         showErrorMsg('Cannot update board')
       }
     },
-    async updateBoardEntity(boardId, key, val){
-      console.log("boardId: ", boardId);
-      console.log("key: ", key);
-      console.log("val: ", val);
+    async updateBoardEntity(boardId, key, val) {
+      console.log('boardId: ', boardId)
+      console.log('key: ', key)
+      console.log('val: ', val)
       try {
         await this.$store.dispatch({ type: 'updateBoardEntityById', boardId, key, val })
         showSuccessMsg('Board updated')
@@ -129,7 +133,7 @@ export default {
       this.boardToAdd.appHeaderBgc = bg.bgc
       this.boardToAdd.LeftSideBarBgc = bg.LeftSideBarBgc
       this.boardToAdd.style.backgroundImage = bg.bgImg
-      console.log("this.$store.getters.loggedInUser: ", this.$store.getters.loggedInUser);
+      console.log('this.$store.getters.loggedInUser: ', this.$store.getters.loggedInUser)
       try {
         await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
         showSuccessMsg('Board added')
