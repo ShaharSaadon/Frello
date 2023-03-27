@@ -6,6 +6,11 @@
     grid-template-columns: em(112px) em(380px);
     gap: em(16px);
     margin-bottom: 10px;
+    border-radius: $border-radius-3;
+
+    &:hover {
+      background-color: $clr8;
+    }
   }
   .img-container {
     align-self: center;
@@ -16,6 +21,7 @@
     img {
       object-fit: contain;
       align-self: center;
+      max-height: 80px;
     }
   }
   .task-attachments-info {

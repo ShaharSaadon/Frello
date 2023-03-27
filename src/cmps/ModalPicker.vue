@@ -31,6 +31,7 @@ import ChecklistPicker from './ModalsPicker/ChecklistPicker.vue'
 import CreateBoard from './ModalsPicker/CreateBoard.vue'
 import DatePicker from './ModalsPicker/DatePicker.vue'
 import AttachmentPicker from './ModalsPicker/AttachmentPicker.vue'
+import CoverPicker from './ModalsPicker/CoverPicker.vue'
 import { svgService } from '../services/svg.service.js'
 
 export default {
@@ -69,6 +70,10 @@ export default {
   computed: {
     info() {
       switch (this.type) {
+        case 'CoverPicker':
+          return {
+            title: 'Cover',
+          }
         case 'AttachmentPicker':
           return {
             title: 'Attach from…',
@@ -135,6 +140,7 @@ export default {
     ChecklistPicker,
     DatePicker,
     AttachmentPicker,
+    CoverPicker,
   },
 }
 </script>

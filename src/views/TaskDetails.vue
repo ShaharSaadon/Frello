@@ -2,6 +2,7 @@
   <section @drop.prevent="handleFile"  @dragover.prevent="this.isDragover = true" class="task-details">
     <div class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
+      <div v-if="!!this.task.cover" :class="this.task.cover" class="task-details-cover"></div>
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
@@ -34,7 +35,7 @@
         <button class="btn-link checklist" @click="toggleModal('ChecklistPicker')"><span> Checklist</span></button>
         <button class="btn-link clock" @click="toggleModal('DatePicker')"><span> Dates</span></button>
         <button class="btn-link attachment" @click="toggleModal('AttachmentPicker')"><span> Attachment</span></button>
-        <button class="btn-link card-cover"><span> Cover</span></button>
+        <button class="btn-link card-cover" @click="toggleModal('CoverPicker')"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
         <h3>Actions</h3>
         <button @click="removeTask" class="btn-link archive">
