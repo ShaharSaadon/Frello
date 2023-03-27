@@ -102,7 +102,6 @@ export default {
       return result
     },
     getDate() {
-      console.log('this.task.dueDate: ', this.task.dueDate)
       return utilService.getDate(this.task.dueDate)
     },
   },

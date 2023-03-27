@@ -65,8 +65,6 @@ export default {
       else month = utilService.getDate(this.task.dueDate)
       const time = dueDate.toLocaleTimeString('en-US').split(' ')
       var timeToShow = time[0].split(':').splice(0,2).join(':')
-      console.log("timeToShow: ", timeToShow);
-      // const date = month}
       return  `${month} at ${timeToShow} ${time[1]}`
     },
     isToday() {

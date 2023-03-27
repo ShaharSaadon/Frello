@@ -4,7 +4,7 @@ import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'board_db'
 const USER_KEY = 'user_db'
-_createUsers()
+// _createUsers()
 
 export const boardService = {
   query,
@@ -43,6 +43,9 @@ async function save(board) {
   } else {
     // Later, owner is set by the backend
     board.createdBy = userService.getLoggedinUser()
+    console.log("board.createdBy: ", board.createdBy);
+    board.members.push(userService.getLoggedinUser())
+    console.log("board.members: ", board.members);
     savedBoard = await storageService.post(STORAGE_KEY, board)
   }
   return savedBoard
@@ -184,23 +187,22 @@ function getEmptyBoard() {
                 id: 'ZdPnm',
                 txt: 'also @yaronb please CR this',
                 createdAt: 1590999817436,
-                byMember: {
-                  _id: 'u101',
-                  fullname: 'Tal Tarablus',
-                  imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-                },
+                // byMember: {
+                //   _id: 'u101',
+                //   fullname: 'Tal Tarablus',
+                //   imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+                // },
               },
             ],
-            memberIds: ['u101'],
-            labelIds: ['l101', 'l102'],
+
             dueDate: 3467436734,
             isComplete: false,
-            byMember: {
-              _id: 'u101',
-              username: 'Tal',
-              fullname: 'Tal Tarablus',
-              imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-            },
+            // byMember: {
+            //   _id: 'u101',
+            //   username: 'Tal',
+            //   fullname: 'Tal Tarablus',
+            //   imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+            // },
             style: {
               bgColor: '#26de81',
             },
@@ -208,7 +210,7 @@ function getEmptyBoard() {
         ],
       },
     ],
-    members: _createUsers(),
+    members: [],
   }
 }
 
@@ -232,33 +234,33 @@ function _getRandomBackground() {
   return strHtml
 }
 
-function _createUsers() {
-  let users = JSON.parse(localStorage.getItem(USER_KEY))
-  if (!users || !users.length) {
-    users = [
-      {
-        _id: 'u100',
-        fullname: 'Shahar Saadon',
-        username: 'ShaharSaadon1',
-        imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
-      },
-      {
-        _id: 'u101',
-        fullname: 'עידו פרי',
-        username: 'idoperi104',
-        imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-      },
-      {
-        _id: 'u102',
-        fullname: 'Tomer Huberman',
-        username: 'user15656051',
-        imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
-      },
-    ]
-    localStorage.setItem(USER_KEY, JSON.stringify(users))
-  }
-  return users
-}
+// function _createUsers() {
+//   let users = JSON.parse(localStorage.getItem(USER_KEY))
+//   if (!users || !users.length) {
+//     users = [
+//       {
+//         _id: 'u100',
+//         fullname: 'Shahar Saadon',
+//         username: 'ShaharSaadon1',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//       },
+//       {
+//         _id: 'u101',
+//         fullname: 'עידו פרי',
+//         username: 'idoperi104',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//       },
+//       {
+//         _id: 'u102',
+//         fullname: 'Tomer Huberman',
+//         username: 'user15656051',
+//         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//       },
+//     ]
+//     localStorage.setItem(USER_KEY, JSON.stringify(users))
+//   }
+//   return users
+// }
 
 // TEST DATA
 // ; (async () => {

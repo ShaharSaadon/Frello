@@ -31,9 +31,6 @@ export default {
   },
   methods: {
     saveDate() {
-      console.log("-----------this.date: ", this.date);
-      // const date = (new Date(this.date)).getTime()
-      // console.log("date: ", date);
       this.$emit('saveTask', { key: 'dueDate', newVal: this.date })
       this.$emit('closeModal')
     },

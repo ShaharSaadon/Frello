@@ -12,7 +12,7 @@
         :board="board"
         @removeBoard="removeBoard"
         @updateBoard="updateBoard"
-        @updateBoardEntity="updateBoard"
+        @updateBoardEntity="updateBoardEntity"
       />
     </ul>
 
@@ -27,7 +27,7 @@
         :board="board"
         @removeBoard="removeBoard"
         @updateBoard="updateBoard"
-        @updateBoardEntity="updateBoard"
+        @updateBoardEntity="updateBoardEntity"
       />
       <li class="add-board">
         <button class="btn-add-board" @click="openModal">Create new board</button>
@@ -111,12 +111,25 @@ export default {
         showErrorMsg('Cannot update board')
       }
     },
+    async updateBoardEntity(boardId, key, val){
+      console.log("boardId: ", boardId);
+      console.log("key: ", key);
+      console.log("val: ", val);
+      try {
+        await this.$store.dispatch({ type: 'updateBoardEntityById', boardId, key, val })
+        showSuccessMsg('Board updated')
+      } catch (err) {
+        console.log(err)
+        showErrorMsg('Cannot update board')
+      }
+    },
 
     async createBoard({ title, bg }) {
       this.boardToAdd.title = title
       this.boardToAdd.appHeaderBgc = bg.bgc
       this.boardToAdd.LeftSideBarBgc = bg.LeftSideBarBgc
       this.boardToAdd.style.backgroundImage = bg.bgImg
+      console.log("this.$store.getters.loggedInUser: ", this.$store.getters.loggedInUser);
       try {
         await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
         showSuccessMsg('Board added')

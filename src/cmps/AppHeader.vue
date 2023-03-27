@@ -1,7 +1,8 @@
 <template>
   <header class="app-header" :style="getStyle">
     <div class="flex align-center">
-      <span class="icon" v-html="getSvg('boxes')"></span>
+    
+      <span @click="$router.push('/')" class="icon" v-html="getSvg('boxes')"></span>
       <RouterLink class="router-logo" to="/board">
         <div>
           <div class="main-header-logo"></div>
@@ -12,7 +13,7 @@
       <input class="main-header-search" placeholder="search" type="text">
       <RouterLink class="profile" to="/board">
         <div>
-          <div class="profile-img"></div>
+          <div :style="getImageStyle" class="profile-img"></div>
         </div>
       </RouterLink>
     </div>
@@ -27,7 +28,13 @@ export default {
     },
     getStyle(){
       return {'backgroundColor': this.$store.getters.appHeaderBgc}
-    }
+    },
+    getImageStyle(){
+      if(!this.loggedInUser) return
+      return {
+        backgroundImage: `url(${this.loggedInUser.imgUrl})`
+      }
+    },
   },
   methods: {
     getSvg(iconName) {

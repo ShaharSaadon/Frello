@@ -115,6 +115,9 @@ export const boardStore = {
     watchedBoardId({ watchedBoardId }) {
       return watchedBoardId
     },
+    boardById({boards}){
+      return (boardId) => boards.find((board) => board._id === boardId)
+    },
     currTask({ currTask }) {
       return currTask
     },
@@ -165,6 +168,10 @@ export const boardStore = {
       const board = state.boards.find((board) => board._id === state.watchedBoardId)
       board[key] = val
     },
+    updateBoardEntityById(state, {boardId, key, val }) {
+      const board = state.boards.find((board) => board._id === boardId)
+      board[key] = val
+    },
     addBoard(state, { board }) {
       state.boards.push(board)
     },
@@ -202,7 +209,7 @@ export const boardStore = {
         group.tasks.splice(idx, 1, task)
         state.currTask = task
       } else group.tasks.push(task)
-      console.log('board: ', board)
+      // console.log('board: ', board)
     },
     onToggleMenu(state){
       state.isRightSideBarOpen=!state.isRightSideBarOpen
@@ -242,6 +249,15 @@ export const boardStore = {
       try {
         context.commit({ type: 'updateBoardEntity', key, val })
         context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+      } catch (err) {
+        console.log('boardStore: Error in updateBoard', err)
+        throw err
+      }
+    },
+    async updateBoardEntityById(context, {boardId, key, val }) {
+      try {
+        context.commit({ type: 'updateBoardEntityById',boardId, key, val })
+        context.dispatch(getActionUpdateBoard(context.getters.boardById(boardId)))
       } catch (err) {
         console.log('boardStore: Error in updateBoard', err)
         throw err
