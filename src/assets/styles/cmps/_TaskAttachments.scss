@@ -1,6 +1,14 @@
 .task-attachments {
   @include TaskDetailsCmps($icon-attachment);
 
+  .task-attachments-preview {
+    display: grid;
+    grid-template-columns: em(112px) 580px;
+  }
+
+  .img {
+    object-fit: contain;
+  }
   .tool-bar {
     display: flex;
     flex-wrap: wrap;
@@ -12,8 +20,8 @@
       &:not(:first-child, .dot) {
         text-decoration: underline;
         cursor: pointer;
-    }
-    &.dot::before {
+      }
+      &.dot::before {
         content: ' • ';
       }
     }
