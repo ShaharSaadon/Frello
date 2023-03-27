@@ -3,12 +3,29 @@
 
   .task-attachments-preview {
     display: grid;
-    grid-template-columns: em(112px) 580px;
+    grid-template-columns: em(112px) em(380px);
+    gap: em(16px);
+    margin-bottom: 10px;
+  }
+  .img-container {
+    align-self: center;
+    display: grid;
+    background-color: $clr-base-25;
+    height: em(80px);
+    border-radius: $border-radius-3;
+    img {
+      object-fit: contain;
+      align-self: center;
+    }
+  }
+  .task-attachments-info {
+    .title-link {
+      word-wrap: break-word;
+      font-weight: 700;
+      color: $clr-base-5;
+    }
   }
 
-  .img {
-    object-fit: contain;
-  }
   .tool-bar {
     display: flex;
     flex-wrap: wrap;

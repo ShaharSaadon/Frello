@@ -1,6 +1,7 @@
 <template>
-  <section class="task-details">
-    <main class="task-details-container">
+  <section @drop.prevent="handleFile"  @dragover.prevent="this.isDragover = true" class="task-details">
+    <div class="task-details-container">
+      <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
       <RouterLink :to="'/board/' + boardId" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
@@ -11,7 +12,7 @@
       <div class="main-content">
         <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskAttachments :taskAttachments="task.attachments"/>
+        <TaskAttachments :taskAttachments="task.attachments" />
         <TaskChecklist
           :key="list.title"
           v-for="list in task.checklists"
@@ -40,10 +41,19 @@
           <span> Archive</span>
         </button>
       </div>
-      <ModalPicker v-if="modal.isModalOpen" :type="modal.type" @closeModal="toggleModal"
-        @updateEntityVal="updateEntityVal" @removeEntityVal="removeEntityVal" @switchDynamicCmp="toggleModal"
-        @updateLabel="updateLabel" @removeLabel="removeLabel" @addChecklist="addChecklist" @saveTask="saveTask" />
-    </main>
+      <ModalPicker
+        v-if="modal.isModalOpen"
+        :type="modal.type"
+        @closeModal="toggleModal"
+        @updateEntityVal="updateEntityVal"
+        @removeEntityVal="removeEntityVal"
+        @switchDynamicCmp="toggleModal"
+        @updateLabel="updateLabel"
+        @removeLabel="removeLabel"
+        @addChecklist="addChecklist"
+        @saveTask="saveTask"
+      />
+    </div>
   </section>
 </template>
 
@@ -58,6 +68,7 @@ import TaskChecklist from '../cmps/TaskDetails/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
 import { utilService } from '../services/util.service'
+import { uploadService } from '../services/upload.service'
 
 export default {
   watch: {
@@ -100,6 +111,7 @@ export default {
         isModalOpen: false,
       },
       task: null,
+      isDragover: false,
     }
   },
   computed: {
@@ -137,6 +149,12 @@ export default {
     },
   },
   methods: {
+    async handleFile(ev) {
+      this.isDragover = false
+      const file = ev.dataTransfer.files[0]
+      const val = await uploadService.handleFile(file)
+      this.updateEntityVal({ key: 'attachments', val })
+    },
     updateLabel(label) {
       const labels = JSON.parse(JSON.stringify(this.labels))
       const idx = labels.findIndex((l) => l.id === label.id)
@@ -197,7 +215,7 @@ export default {
         task[key].splice(idx, 1, val)
         activity = this.createActivity('update')
       }
-      this.saveTask({ key, newVal: task[key], activity})
+      this.saveTask({ key, newVal: task[key], activity })
     },
     removeEntityVal({ key, val }) {
       const task = JSON.parse(JSON.stringify(this.task))
@@ -237,13 +255,13 @@ export default {
       const newVal = !this.task[key]
       this.saveTask({ key, newVal })
     },
-    createActivity(activityActionName){
-      const newActivity = boardService.getEmptyActivity({groupId:this.groupId,task:this.task.title})
-      console.log('activity=',newActivity)
+    createActivity(activityActionName) {
+      const newActivity = boardService.getEmptyActivity({ groupId: this.groupId, task: this.task.title })
+      console.log('activity=', newActivity)
       console.log(activityActionName)
       newActivity.txt = `${activityActionName}`
       return newActivity
-    }
+    },
   },
   components: {
     TaskDescription,
