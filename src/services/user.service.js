@@ -20,6 +20,7 @@ export const userService = {
 }
 
 window.userService = userService
+window.loadUsers = loadUsers
 
 function getUsers() {
   return storageService.query('user')
@@ -129,3 +130,33 @@ function getLoggedinUser() {
 //   await userService.signup(users[2])
 //   await userService.signup(users[1])
 // })()
+
+async function loadUsers(){
+  const users = [
+        {
+          _id: 'u100',
+          fullname: 'Shahar Saadon',
+          username: 'shahar',
+          password: 'shahar',
+          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+        },
+        {
+          _id: 'u101',
+          fullname: 'Ido Peri',
+          username: 'ido',
+          password: 'ido',
+          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+        },
+        {
+          _id: 'u102',
+          fullname: 'Tomer Huberman',
+          username: 'tomer',
+          password: 'tomer',
+          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+        },
+      ]
+    
+      await userService.signup(users[0])
+      await userService.signup(users[2])
+      await userService.signup(users[1])
+}

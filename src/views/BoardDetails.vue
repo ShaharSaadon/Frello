@@ -11,7 +11,9 @@
         <div class="right-side-header flex align-center">
           <!-- right side of header goes here -->
           <BoardMembers />
+          <RouterLink :to="board._id + '/share'">
           <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i>Share</button>
+          </RouterLink>
 
           <span class="separate-line"></span>
           <div class="three-dot-btn" @click="onOpenMenu" v-if="!isExpended"></div>

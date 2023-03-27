@@ -127,6 +127,9 @@ export const boardStore = {
     boardById({ boards }) {
       return (boardId) => boards.find((board) => board._id === boardId)
     },
+    boardMembers(state, {watchedBoard}){
+      return watchedBoard.members
+    },
     filterBy({ filterBy }) {
       return filterBy
     },
