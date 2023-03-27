@@ -1,9 +1,9 @@
 <template>
   <article class="task-attachments">
     <h1 class="title"><span class="icon"></span> Attachments</h1>
-    <div>
-        <img :src="taskAttachments[0].url">
-        <pre>{{taskAttachments}}</pre>
+    <pre>{{taskAttachments}}</pre>
+    <div v-for="attch in this.taskAttachments">
+        <img v-if="attch.url" :src="attch.url">
         <div class="file-info">
             <h4 class="title"></h4>
             <div class="tool-bar">
