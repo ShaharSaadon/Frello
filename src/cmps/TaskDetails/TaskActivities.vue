@@ -2,11 +2,13 @@
   <article class="task-activities">
     <h1 class="title"><span class="icon"></span> Activities</h1>
     <ul class="task-activities-list clean-list">
-      <li v-for="activity in taskActivities" :key="activity.id" :activity="activity" class="activity flex">
+      <li v-for="activity in taskActivities" :key="activity.id" :activity="activity" class="activity flex-column">
         <img :src="activity.byMember.imgUrl" class="member-profile">
         <div class="activity-description">
-          <span>{{ activity.byMember.fullname }} </span>
-          {{ activity.txt }}
+          <span class="by-member">{{ activity.byMember.fullname }} </span>
+          <p class="activity-text"> {{ ' '+activity.txt }} </p>
+          <!-- <pre> {{ activity }} </pre> -->
+          <span class="time-ago">{{ getTime(activity.createdAt)}} </span>
         </div>
       </li>
     </ul>
@@ -34,6 +36,9 @@ export default {
     return {}
   },
   methods: {
+    getTime(timeStamp){
+            return utilService.daysAgo(timeStamp)
+        }
   },
   computed: {
     board() {
@@ -45,7 +50,7 @@ export default {
         return { ...activity, txt: activity.txt.replace(`${this.taskTitle}`, 'this card') };
       });
       return modifiedActivities
-    }
+    },
   },
   created() {
 

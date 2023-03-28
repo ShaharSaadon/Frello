@@ -1,6 +1,18 @@
 <template>
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
-    <div class="task-preview">
+    <div v-if="task.cover" :class="task.cover" class="task-preview-cover"></div>
+    <div :class="task.cover ? 'with-cover' : ''" class="task-preview">
+      <div v-if="task.labels?.length" class="task-preview-labels">
+        <div
+          v-for="label in labels"
+          :key="label.id"
+          :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
+          class="task-preview-label"
+          @click.prevent="toggleLabelFullDisplay"
+        >
+          {{ isLabelFullDisplay ? label.title : '' }}
+        </div>
+      </div>
       <h2 class="task-preview-title">{{ task.title }}</h2>
       <div v-if="showBadges" class="task-preview-footer">
         <div class="action-badges">
@@ -62,10 +74,14 @@ export default {
         console.log(err)
       }
     },
+    toggleLabelFullDisplay() {
+      this.$store.dispatch('updateBoardEntity', { key: 'isLabelFullDisplay', val: !this.isLabelFullDisplay })
+    },
   },
   computed: {
     showBadges() {
-      if (this.task.description || this.task.checklists?.length || this.task.dueDate || this.task.members?.length) return true
+      if (this.task.description || this.task.checklists?.length || this.task.dueDate || this.task.members?.length)
+        return true
     },
     boardId() {
       return this.$store.getters.watchedBoardId
@@ -103,6 +119,12 @@ export default {
     },
     getDate() {
       return utilService.getDate(this.task.dueDate)
+    },
+    labels() {
+      return this.task.labels.map((id) => this.$store.getters.getLabelsById(id))
+    },
+    isLabelFullDisplay() {
+      return this.$store.getters.isLabelFullDisplay
     },
   },
   created() {},

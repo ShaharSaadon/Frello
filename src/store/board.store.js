@@ -51,7 +51,7 @@ export function getActionSaveTask({ boardId, groupId, task }) {
 export function getActionAddActivity(activity) {
   return {
     type: 'addActivity',
-    activity
+    activity,
   }
 }
 export const boardStore = {
@@ -126,6 +126,9 @@ export const boardStore = {
     boardById({ boards }) {
       return (boardId) => boards.find((board) => board._id === boardId)
     },
+    boardMembers(state, { watchedBoard }) {
+      return watchedBoard.members
+    },
     filterBy({ filterBy }) {
       return filterBy
     },
@@ -140,6 +143,9 @@ export const boardStore = {
     },
     getLabelsById(state, getters) {
       return (id) => getters.labels.find((label) => label.id === id)
+    },
+    isLabelFullDisplay(state, getters) {
+      return getters.watchedBoard.isLabelFullDisplay
     },
     LeftSideBarBgc({ LeftSideBarBgc }) {
       return LeftSideBarBgc
@@ -275,8 +281,11 @@ export const boardStore = {
       activity[4] = ''
       newActivity.txt = activity.join(' ')
       board.activities.unshift(newActivity)
-    }
-
+    },
+    addMember(state, { member }) {
+      const watchedBoard = state.boards.find((board) => board._id === state.watchedBoardId)
+      watchedBoard.members.push(member)
+    },
   },
   actions: {
     async loadBoards(context) {
@@ -355,6 +364,16 @@ export const boardStore = {
         throw err
       }
     },
+    async addMember(context, { member }) {
+      try {
+        if(context.getters.watchedBoard.members.find(m => m._id === member._id)) return
+        context.commit({ type: 'addMember', member })
+        context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+      } catch (err) {
+        console.log('boardStore: Error in addMember', err)
+        throw err
+      }
+    },
 
     // Group
     async updateGroup(context, { boardId, group }) {
@@ -386,7 +405,7 @@ export const boardStore = {
     },
 
     // Task
-    async saveTask(context, { groupId, task, activity }) {
+    async saveTask(context, { groupId, task, activity}) {
 
       const boardId = context.getters.watchedBoardId
       try {

@@ -141,15 +141,24 @@ $breakpoints: (
 }
 
 @mixin label-tag-color($color) {
-  background-color: lighten($color, 10%);
   @include text-contrast($color);
-  &:hover {
-    background-color: $color;
-    &::before {
+  background-color: lighten($color, 10%);
+  &.task-preview-label {
+    background-color: darken($color, 10%);
+    &:hover {
       background-color: darken($color, 20%);
     }
   }
-  &::before {
+  &.label-tag {
+    background-color: lighten($color, 10%);
+    &:hover {
+      background-color: $color;
+      &::before {
+        background-color: darken($color, 20%);
+      }
+    }
+  }
+  &.label-tag::before {
     background-color: darken($color, 10%);
   }
 }
@@ -199,6 +208,6 @@ $breakpoints: (
   @if abs($color-brightness) < ($light-color/2) {
     color: white;
   } @else {
-    color: black;
+    color: $clr-base-5;
   }
 }

@@ -24,6 +24,7 @@
 import SideBarMain from '../RightSideBar/SideBarMain.vue'
 import SideBarBoardDetails from '../RightSideBar/SideBarBoardDetails.vue'
 import ChangeBackground from '../RightSideBar/ChangeBackground.vue'
+import SideBarActivities from '../RightSideBar/SideBarActivities.vue'
 export default {
     name: 'RightSideBar',
     props: {
@@ -59,6 +60,10 @@ export default {
                     return {
                         title: 'Change Background',
                     }
+                case 'SideBarActivities':
+                    return {
+                        title: 'Activity',
+                    }
                 }
         },
         counterClass() {
@@ -80,7 +85,8 @@ export default {
     components: {
         SideBarMain,
         SideBarBoardDetails,
-        ChangeBackground,        
+        ChangeBackground,
+        SideBarActivities,        
     },
 }
 </script>
