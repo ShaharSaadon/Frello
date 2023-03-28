@@ -277,6 +277,7 @@ function getEmptyTask() {
     members: [],
     labels: [],
     checklists: [],
+    attachments: [],
     isWatch: false,
     dueDate: null,
     isComplete: false,

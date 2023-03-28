@@ -18,6 +18,10 @@
       border-radius: $border-radius-3;
       width: em(135px);
       height: em(63px);
+      cursor: pointer;
+      &.active {
+        box-shadow: $box-shadow-input-active;
+      }
     }
   }
   .color-table {
@@ -35,5 +39,4 @@
   .btn-cover-picker {
     @include btn-main($clr-base-3, $clr-base-5, $clr-base-3-hover);
   }
-  
 }
