@@ -16,7 +16,7 @@
 
    <!-- Comments Start -->
    <ul class="comment-list clean-list">
-      <li v-for="comment in taskComments.slice().reverse()" :key="comment.id" :comment="comment" class="comment flex-column">
+      <li v-for="comment in taskComments?.slice().reverse()" :key="comment.id" :comment="comment" class="comment flex-column">
         <img :src="comment.byMember.imgUrl" class="member-profile">
         <div class="comment-description flex align-center">
           <span class="by-member">{{ comment.byMember.fullname }} </span>
