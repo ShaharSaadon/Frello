@@ -21,8 +21,8 @@
         <div v-for="member in boardMembers" :key="member._id" class="board-member">
           <img :src="member.imgUrl" class="profile-img" />
           <p class="fullname">{{ member.fullname }}</p>
-          <p class="username">{{ member.username }}</p>
-          <button class="btn-member">Admin</button>
+          <p class="username">@{{member.username}} <span class="dot"></span> Workspace {{getAdminText(member)}}</p>
+          <div class="btn-member"><span>{{getAdminText(member)}}</span></div>
           <!-- <pre>{{ member }}</pre> -->
         </div>
       </div>
@@ -61,6 +61,11 @@ export default {
       if(this.chosenMember.fullname !== this.fullname) return
       // if(this.members.find(member => member._id === this.chosenMember._id)) return
       this.$store.dispatch({type: 'addMember', member: this.chosenMember})
+    },
+    getAdminText(member){
+      return this.$store.getters.watchedBoard.createdBy._id === member._id 
+      ? 'Admin'
+      : 'Guest'
     }
   },
 }

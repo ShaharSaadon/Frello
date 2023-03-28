@@ -24,6 +24,7 @@
 
   .header-share {
     margin-block-end: rem(12px);
+    color: $clr-base-5;
 
     position: relative;
     h2 {
@@ -116,7 +117,11 @@
       'p fn b'
       'p un b';
 
-      margin-block: rem(24px);
+    margin-block-end: rem(24px);
+
+    &:first-of-type {
+      margin-block-start: 1rem;
+    }
 
     .profile-img {
       grid-area: p;
@@ -141,11 +146,13 @@
     .btn-member {
       grid-area: b;
       height: rem(32px);
-      cursor: pointer;
       border-radius: $border-radius-3;
       background-color: $clr-base-30;
-      &:hover {
-        background-color: $clr-base-30-hover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        color: $clr-base-10;
       }
     }
   }
