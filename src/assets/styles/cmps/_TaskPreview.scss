@@ -40,8 +40,7 @@
       border-radius: 555px;
       margin: em(4px) 0;
       max-height: rem(8px);
-      transition: min-width 0.22s ease-in, max-height 0.22s ease-in 0.28s;
-      animation: rightThenLeft 1s ease-in;
+      transition: min-width 0.22s ease-in, height 0.22s ease-in 0.28s;
 
       &.label-tag {
         max-height: rem(16px);
