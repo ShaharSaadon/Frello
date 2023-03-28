@@ -126,9 +126,6 @@ export const boardStore = {
     boardById({ boards }) {
       return (boardId) => boards.find((board) => board._id === boardId)
     },
-    boardMembers(state, {watchedBoard}){
-      return watchedBoard.members
-    },
     filterBy({ filterBy }) {
       return filterBy
     },
@@ -240,7 +237,15 @@ export const boardStore = {
     addActivity(state, { activity }) {
       if (!activity || !activity.length) return
       let newActivity = boardService.getEmptyActivity()
+      newActivity.taskId= activity[4]
       let board = state.boards.find(board => board._id === state.watchedBoardId)
+
+
+      //activity[0] - Action name
+      //activity[1] - Entity type
+      //activity[2] - Preposition
+      //activity[3] - Entity's father
+      //activity[4] - ?task.id?
 
       switch (activity[1]) { // type of the changed entity 
         case 'dueDate':
@@ -266,6 +271,8 @@ export const boardStore = {
           break;
 
       }
+
+      activity[4] = ''
       newActivity.txt = activity.join(' ')
       board.activities.unshift(newActivity)
     }
@@ -383,6 +390,8 @@ export const boardStore = {
 
       const boardId = context.getters.watchedBoardId
       try {
+        activity[4]=task.id
+        console.log('activity:', activity)
         context.dispatch(getActionAddActivity(activity))
         if (task.id) {
           context.commit({ type: 'saveTask', boardId, groupId, task })

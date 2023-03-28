@@ -28,7 +28,7 @@
             <span>{{ activity.byMember.fullname }} </span>  
                 {{ activity.txt }} 
                 </div>
-                </li>
+            </li>
             </ul>
     </div>
 </template>
@@ -37,7 +37,7 @@
 import { svgService } from '../../services/svg.service'
 
 export default {
-    name: '',
+    name: 'SideBarMain',
     data() {
         return {
 
