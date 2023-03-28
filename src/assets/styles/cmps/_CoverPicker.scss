@@ -1,0 +1,41 @@
+.cover-picker {
+  display: flex;
+  flex-direction: column;
+  .title-input {
+    @include input();
+  }
+  h3 {
+    margin: rem(12px) 0 rem(8px);
+    font-size: em(12px);
+    color: $clr9;
+    font-weight: 600;
+  }
+  .cover-preview-container {
+    display: flex;
+    gap: em(8px);
+    margin-bottom: em(4px);
+    .cover-preview {
+      border-radius: $border-radius-3;
+      width: em(135px);
+      height: em(63px);
+    }
+  }
+  .color-table {
+    display: grid;
+    grid-template-columns: repeat(5, em(50px));
+    gap: em(7px);
+
+    .color {
+      border-radius: $border-radius-3;
+      height: em(29px);
+      cursor: pointer;
+    }
+  }
+
+  .btn-save {
+    @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
+  }
+  .btn-cancel {
+    @include btn-main($clr-base-13, $clr-base-1, $clr-base-13-hover);
+  }
+}

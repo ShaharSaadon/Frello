@@ -1,6 +1,37 @@
 .task-attachments {
   @include TaskDetailsCmps($icon-attachment);
 
+  .task-attachments-preview {
+    display: grid;
+    grid-template-columns: em(112px) em(380px);
+    gap: em(16px);
+    margin-bottom: 10px;
+    border-radius: $border-radius-3;
+
+    &:hover {
+      background-color: $clr8;
+    }
+  }
+  .img-container {
+    align-self: center;
+    display: grid;
+    background-color: $clr-base-25;
+    height: em(80px);
+    border-radius: $border-radius-3;
+    img {
+      object-fit: contain;
+      align-self: center;
+      max-height: 80px;
+    }
+  }
+  .task-attachments-info {
+    .title-link {
+      word-wrap: break-word;
+      font-weight: 700;
+      color: $clr-base-5;
+    }
+  }
+
   .tool-bar {
     display: flex;
     flex-wrap: wrap;
@@ -12,8 +43,8 @@
       &:not(:first-child, .dot) {
         text-decoration: underline;
         cursor: pointer;
-    }
-    &.dot::before {
+      }
+      &.dot::before {
         content: ' • ';
       }
     }

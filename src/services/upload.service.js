@@ -1,6 +1,24 @@
+import { utilService } from './util.service'
+import { FastAverageColor } from 'fast-average-color'
+
 export const uploadService = {
-  uploadImg
+  uploadImg,
+  handleFile,
 }
+
+async function handleFile(urlToUpload) {
+  const file = urlToUpload
+
+  const { url } = await uploadService.uploadImg(file)
+  const urlSplit = url.split('.')
+  const type = urlSplit[urlSplit.length - 1]
+
+  const fac = new FastAverageColor()
+  const color = await fac.getColorAsync(url)
+
+  return { url, id: utilService.makeId(), type, bgc: color.hexa }
+}
+
 async function uploadImg(file) {
   const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET
   const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME
@@ -13,7 +31,7 @@ async function uploadImg(file) {
 
     const res = await fetch(UPLOAD_URL, {
       method: 'POST',
-      body: formData
+      body: formData,
     })
     const imgUrl = await res.json()
     return imgUrl
@@ -22,4 +40,3 @@ async function uploadImg(file) {
     throw err
   }
 }
-
