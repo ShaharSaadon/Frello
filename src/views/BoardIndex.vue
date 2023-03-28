@@ -35,7 +35,7 @@
       </li>
     </ul>
 
-    <ModalPicker v-if="modal.isShowModal" :type="modal.type" @closeModal="closeModal" @createBoard="createBoard" />
+    <ModalPicker v-if="modal.isShowModal" :modal="modal" @closeModal="closeModal" @createBoard="createBoard" :style="modalPos" />
   </div>
 </template>
 
@@ -52,6 +52,7 @@ export default {
       modal: {
         type: 'CreateBoard',
         isShowModal: false,
+        posX: null
       },
       filterBy: {...this.$store.getters.filterBy}
     }
@@ -68,6 +69,14 @@ export default {
     },
     unStarredBoards() {
       return this.boards.filter((b) => !b.isStarred)
+    },
+    modalPos() {
+      let x = this.modal.posX
+      const { width } = window.visualViewport
+      x += 198
+      if (width - x < 304) x = width - 304
+      console.log("{ top: '48px', left: x + 'px' }: ", { top: '48px', left: x + 'px' });
+      return { top: '48px', left: x + 'px' }
     },
   },
   created() {
@@ -148,8 +157,11 @@ export default {
 
     closeModal() {
       this.modal.isShowModal = false
+      this.modal.posX = null
     },
-    openModal() {
+    openModal(ev) {
+      const { x } = ev.target.getBoundingClientRect()
+      this.modal.posX = x
       this.modal.isShowModal = true
     },
   },

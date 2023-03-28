@@ -1,13 +1,18 @@
 <template>
-  <section class="modal-picker">
+  <section ref="modal" class="modal-picker">
     <header class="modal-picker-header">
       <h3>{{ title }}</h3>
       <button class="btn-modal-close" @click="$emit('closeModal')"></button>
-      <button v-if="isArrowBack" @click="switchDynamicCmp" class="btn-modal-arrow icon" v-html="getSvg('arrowLeft')"></button>
+      <button
+        v-if="isArrowBack"
+        @click="switchDynamicCmp"
+        class="btn-modal-arrow icon"
+        v-html="getSvg('arrowLeft')"
+      ></button>
     </header>
 
     <component
-      :is="type"
+      :is="modal.type"
       :info="info"
       @updateEntityVal="$emit('updateEntityVal', $event)"
       @removeEntityVal="$emit('removeEntityVal', $event)"
@@ -36,8 +41,8 @@ import { svgService } from '../services/svg.service.js'
 
 export default {
   props: {
-    type: {
-      type: String,
+    modal: {
+      type: Object,
       required: true,
     },
   },
@@ -45,6 +50,14 @@ export default {
     return {
       labelToEdit: null,
     }
+  },
+  created() {
+    // setTimeout(()=> {
+    //   const modal = this.$refs.modal
+    //   const rect = modal.getBoundingClientRect()
+    //   if (rect.bottom > window.visualViewport.height) this.$emit('outOfView', { height: rect.height })
+    // }, 500 )
+
   },
   name: '',
   methods: {
@@ -59,21 +72,21 @@ export default {
       this.labelToEdit = labelId
       this.$emit('switchDynamicCmp', 'LabelEditor')
     },
-    switchDynamicCmp(){
-      switch(this.type) {
+    switchDynamicCmp() {
+      switch (this.modal.type) {
         case 'LabelEditor':
           this.$emit('switchDynamicCmp', 'LabelPicker')
           break
       }
-    }
+    },
   },
   computed: {
     info() {
-      switch (this.type) {
+      switch (this.modal.type) {
         case 'CoverPicker':
           return {
             title: 'Cover',
-            cover: this.task.cover
+            cover: this.task.cover,
           }
         case 'AttachmentPicker':
           return {
@@ -129,9 +142,9 @@ export default {
     title() {
       return this.info?.title
     },
-    isArrowBack(){
-      return this.type === 'LabelEditor'
-    }
+    isArrowBack() {
+      return this.modal.type === 'LabelEditor'
+    },
   },
   components: {
     LabelPicker,

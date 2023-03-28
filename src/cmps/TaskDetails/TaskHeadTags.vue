@@ -4,7 +4,7 @@
       <h3 class="title">Members</h3>
       <div class="head-members">
         <img
-          @click="$emit('openModal', 'MemberPicker')"
+          @click="$emit('openModal', 'MemberPicker', $event)"
           v-for="member in members"
           :src="member.imgUrl"
           class="member-profile"
@@ -14,7 +14,7 @@
     <div v-if="labels?.length">
       <h3 class="title">Labels</h3>
       <div class="head-labels">
-        <div @click="$emit('openModal', 'LabelPicker')" v-for="label in labels" class="label-tag" :class="label.color">
+        <div @click="$emit('openModal', 'LabelPicker', $event)" v-for="label in labels" class="label-tag" :class="label.color">
           {{ label.title }}
         </div>
       </div>
@@ -28,10 +28,10 @@
     <div v-if="task?.dueDate">
       <h3 class="title">Due date</h3>
       <div class="date-tag flex">
-        <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete')" class="btn-is-complete">
+        <button :class="getCheckedClass" @click="$emit('toggleKey', 'isComplete', $event)" class="btn-is-complete">
           <span></span>
         </button>
-        <button @click="$emit('openModal', 'DatePicker')" class="notifications">
+        <button @click="$emit('openModal', 'DatePicker', $event)" class="notifications">
           {{ getDate }}<span v-if="getDateLabel" :class="getDateClass" class="date-label">{{ getDateLabel }}</span>
         </button>
       </div>

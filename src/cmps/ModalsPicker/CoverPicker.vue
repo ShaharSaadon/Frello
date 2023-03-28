@@ -7,13 +7,13 @@
         :style="isGray"
         :class="[this.isFull ? '' : 'active', this.color]"
         class="cover-preview"
-      ></div>
+      ><div class="cover-preview-info"><div class="content-preview long"></div><div class="content-preview medium"></div></div></div>
       <div
         @click="toggleIsFull(true)"
         :style="isGray"
         :class="[this.color, this.isFull ? 'active' : '']"
         class="cover-preview"
-      >Full</div>
+      ><div class="cover-preview-info-full"><div class="content-preview long"></div><div class="content-preview medium"></div></div></div>
     </div>
     <button @click="switchColor(null)" class="btn-cover-picker">Remove cover</button>
     <h3>Colors</h3>
