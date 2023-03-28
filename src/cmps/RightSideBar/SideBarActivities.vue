@@ -9,6 +9,7 @@
                 <span class="time-ago">{{ getTime(activity.createdAt) }} </span>
             </div>
         </li>
+        <button v-if="maximum" class="btn-show-more" @click="$emit('switchDynamicCmp', 'SideBarActivities')"> View all activity...</button>
     </ul>
 </template>
 
@@ -16,6 +17,12 @@
 import { utilService } from '../../services/util.service'
 export default {
     name: 'SideBarActivities',
+    props:{
+        maximum: {
+            type: Boolean,
+            required: false,
+        }
+    },
     data() {
         return {
 
@@ -31,7 +38,8 @@ export default {
             return this.$store.getters.watchedBoard
         },
         activities() {
-            return this.$store.getters.watchedBoard.activities
+            if (this.maximum) return this.board.activities.slice(0,15)
+            return this.board.activities
         },
     
     },

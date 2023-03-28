@@ -27,7 +27,7 @@
           @removeChecklist="removeChecklist"
           @updateEntityVal="updateEntityVal"
         />
-        <TaskActivities :taskId="task.id" :taskTitle="task.title"/>
+        <TaskActivities :taskId="task.id" :taskTitle="task.title" @updateEntityVal="updateEntityVal" :taskComments="task.comments"/>
 
       
       </div>
@@ -217,6 +217,9 @@ export default {
       }
     },
     updateEntityVal({ key, val }) {
+      console.log('key:', key)
+      console.log('val:', val)
+      
       let activity
       const task = JSON.parse(JSON.stringify(this.task))
       // var isObj = val.id
@@ -228,7 +231,6 @@ export default {
         activity = ['added', `${key.slice(0, -1)}`, 'to', this.task.title]
       } else {
         task[key].splice(idx, 1, val)
-        activity = []
       }
       this.saveTask({ key, newVal: task[key], activity })
     },

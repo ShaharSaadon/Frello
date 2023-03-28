@@ -116,6 +116,9 @@ function daysAgo(timestamp) {
   if (diff < 10000) {
     return 'just now';
   }
+  if (diff < 60000) {
+    return 'a few seconds ago';
+  }
 
   // more than 1 minute and less than 60 minutes
   if (diff < 3600000) {
@@ -129,14 +132,14 @@ function daysAgo(timestamp) {
     const date = new Date(timestamp);
     const yesterday = new Date(now - 86400000).getDate();
     if (date.getDate() === yesterday) {
-      return `yesterday at ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+      return `yesterday at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
     }
     return `${hours} hour${hours > 1 ? 's' : ''} ago`;
   }
 
   // more than yesterday at 00:01 am
   const date = new Date(timestamp);
-  return `on ${date.toLocaleDateString()} at ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+  return `on ${date.toLocaleDateString()} at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 }
 
 

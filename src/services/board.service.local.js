@@ -16,6 +16,7 @@ export const boardService = {
   getEmptyTask,
   saveTask,
   getEmptyActivity,
+  getEmptyComment,
 }
 window.cs = boardService
 
@@ -196,22 +197,25 @@ function getEmptyBoard() {
                 id: 'ZdPnm',
                 txt: 'also @yaronb please CR this',
                 createdAt: 1590999817436,
-                // byMember: {
-                //   _id: 'u101',
-                //   fullname: 'Tal Tarablus',
-                //   imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-                // },
+                byMember: {
+                  _id: "SfMA8",
+                  fullname: "Ido Da",
+                  username: "da",
+                  imgUrl: "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png",
+                  score: 10000
+                }
               },
             ],
 
             dueDate: 3467436734,
             isComplete: false,
-            // byMember: {
-            //   _id: 'u101',
-            //   username: 'Tal',
-            //   fullname: 'Tal Tarablus',
-            //   imgUrl: 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-            // },
+            byMember: {
+              _id: "SfMA8",
+              fullname: "Ido Da",
+              username: "da",
+              imgUrl: "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png",
+              score: 10000
+            },
             style: {
               bgColor: '#26de81',
             },
@@ -281,10 +285,20 @@ function getEmptyTask() {
     isWatch: false,
     dueDate: null,
     isComplete: false,
+    comments:[],
   }
 }
 
 function getEmptyActivity() {
+  return _getEmptyEntity()
+
+}
+
+function getEmptyComment(){
+   return _getEmptyEntity()
+}
+
+function _getEmptyEntity(){
   return {
     id: utilService.makeId(),
     txt: '',
@@ -292,7 +306,6 @@ function getEmptyActivity() {
     byMember: userService.getLoggedinUser(),
   }
 }
-
 function _getRandomBackground() {
   const backgrounds = ['gray', 'green', 'light-blue', 'orenge', 'perple', 'pink']
   const background = backgrounds[utilService.getRandomIntInclusive(0, 5)]
