@@ -61,28 +61,26 @@
     }
 
     .close {
-        @include trello-icon($icon-close, lg);
+      @include trello-icon($icon-close, lg);
       color: $clr9;
       padding: 0;
       margin: 0;
-      
+
       &:hover {
         color: $clr-base-5;
       }
     }
 
-        .add-card-container {
-            cursor: pointer;
-            margin: 2px 8px 8px 8px;
-            padding: 4px;
-            border-radius: $border-radius-3;
-            
-            &:hover {
-                background-color: $clr-base-16;
-            }
-        }
+    .add-card-container {
+      cursor: pointer;
+      margin: 2px 8px 8px 8px;
+      padding: 4px;
+      border-radius: $border-radius-3;
 
-    
+      &:hover {
+        background-color: $clr-base-16;
+      }
+    }
 
     .add-a-card {
       border-radius: $border-radius-3;
@@ -109,8 +107,10 @@
       }
 
       .footer-actions {
+        align-items: center;
         gap: 5px;
         color: $clr9;
+        max-height: rem(32px);
       }
       button {
         width: rem(72px);
@@ -120,6 +120,8 @@
         background-color: $clr-base-8;
         cursor: pointer;
         color: $clr-base-1;
+        height: rem(32px);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
     }
 

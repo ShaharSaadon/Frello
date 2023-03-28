@@ -1,8 +1,8 @@
 <template>
   <div class="label-picker">
-    <input class="search-input" type="text" placeholder="Search Labels..." />
+    <input class="search-input" type="text" v-model="filterBy" placeholder="Search Labels..." />
     <h3>Labels</h3>
-    <div class="label-picker-ops" v-for="(label, idx) in labelsToEdit" :key="idx">
+    <div class="label-picker-ops" v-for="(label, idx) in filteredLabels" :key="idx">
       <span @click="toggleCheck(idx)" class="check-box" :class="label.isChecked ? 'checked' : ''"></span>
 
       <div :class="label.color" @click="toggleCheck(idx)" class="btn-label-tag label-tag">{{ label.title }}</div>
@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       labelsToEdit: [],
+      filterBy: '',
     }
   },
   methods: {
@@ -43,6 +44,10 @@ export default {
   computed: {
     labels() {
       return JSON.parse(JSON.stringify(this.$store.getters.labels))
+    },
+    filteredLabels() {
+      const regex = new RegExp(this.filterBy, 'i')
+      return this.labelsToEdit.filter((label) => regex.test(label.title))
     },
   },
   created() {

@@ -3,7 +3,7 @@
 
   .task-attachments-preview {
     display: grid;
-    // grid-template-columns: em(112px) em(380px);
+    grid-template-columns: em(112px) em(380px);
     gap: em(16px);
     margin-bottom: 10px;
     border-radius: $border-radius-3;

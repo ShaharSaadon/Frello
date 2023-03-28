@@ -1,11 +1,11 @@
 <template>
   <div class="member-picker">
     <hr />
-    <input type="text" placeholder="Search Labels..." class="search-members" />
+    <input type="text" placeholder="Search Labels..." v-model="filterBy" class="search-members" />
     <p>Board members</p>
     <ul class="clean-list members flex column">
       <li
-        v-for="member in this.membersToPick"
+        v-for="member in this.filteredLabels"
         :key="member._id"
         :member="member"
         class="member-select flex"
@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       membersToPick: JSON.parse(JSON.stringify(this.info.members)),
+      filterBy: ''
     }
   },
   methods: {
@@ -42,7 +43,12 @@ export default {
       this.$emit(type, { key: 'members', val: member._id })
     },
   },
-  computed: {},
+  computed: {
+    filteredLabels() {
+      const regex = new RegExp(this.filterBy, 'i')
+      return this.membersToPick.filter((member) => regex.test(member.fullname) || regex.test(member.username) )
+    },
+  },
   created() {
     this.membersToPick.forEach((member) => {
       member.isChecked = this.info.taskMembers.includes(member._id) ? true : false
