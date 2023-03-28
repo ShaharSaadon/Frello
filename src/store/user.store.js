@@ -80,7 +80,6 @@ export const userStore = {
     async loadUsers({ state, commit }) {
       // TODO: loading
       try {
-        console.log('state.userFilterBy: ', state.userFilterBy)
         const users = await userService.getUsers(state.userFilterBy)
         commit({ type: 'setUsers', users })
       } catch (err) {
