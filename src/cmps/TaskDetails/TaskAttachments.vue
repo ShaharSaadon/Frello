@@ -2,22 +2,22 @@
   <article class="task-attachments">
     <h1 class="title"><span class="icon"></span> Attachments</h1>
     <!-- <pre>{{taskAttachments}}</pre> -->
-    <div class="task-attachments-preview" v-for="attch in this.taskAttachments">
-      <div v-if="attch.type === 'jpg' || 'png'" :style="{ backgroundColor: attch.bgc}" class="img-container">
-        <img :src="attch.url" />
+    <div :key="attach.id" class="task-attachments-preview" v-for="attach in this.taskAttachments">
+      <div v-if="attach.type === 'jpg' || 'png'" :style="{ backgroundColor: attach.bgc}" class="img-container">
+        <img :src="attach.url" />
       </div>
       <!-- <div  v-if="attch.type === 'jpg' || 'png'" :style="{'background-image': `url(${attch.url})`}"></div> -->
       <div class="task-attachments-info">
-        <a class="title-link" target="_blank" :href="attch.url">{{ attch.title || attch.url }}</a>
+        <a class="title-link" target="_blank" :href="attach.url">{{ attach.title || attach.url }}</a>
         <div class="file-info">
           <div class="tool-bar">
-            <span></span>
+            <!-- <span></span>
             <span class="dot"></span>
             <span>Comment</span>
             <span class="dot"></span>
             <span>Remove</span>
             <span class="dot"></span>
-            <span>Edit</span>
+            <span>Edit</span> -->
           </div>
         </div>
       </div>
@@ -40,8 +40,11 @@ export default {
     return {}
   },
   methods: {
+
   },
-  computed: {},
+  computed: {
+    
+  },
   created() {},
   components: {},
 }

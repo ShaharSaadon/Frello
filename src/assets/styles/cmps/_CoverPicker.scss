@@ -22,6 +22,9 @@
       width: em(135px);
       height: em(63px);
       cursor: pointer;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       &.active {
         box-shadow: $box-shadow-input-active;
       }
@@ -62,10 +65,28 @@
     grid-template-columns: repeat(5, em(50px));
     gap: em(7px);
 
-    .color {
+    .preview {
       border-radius: $border-radius-3;
       height: em(29px);
       cursor: pointer;
+    }
+  }
+  .img-table {
+    display: grid;
+    grid-template-columns: repeat(3, em(88px));
+    gap: em(7px);
+
+    .preview {
+      border-radius: $border-radius-3;
+      height: em(44px);
+      cursor: pointer;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      &:hover {
+        filter: saturate(85%) brightness(85%);
+        background-color: $clr-base-3-hover;
+      }
     }
   }
 

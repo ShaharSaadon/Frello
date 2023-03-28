@@ -2,8 +2,8 @@
   <section @drop.prevent="handleFile" @dragover.prevent="this.isDragover = true" class="task-details">
     <div class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
-      <div v-if="!!this.task.cover?.color" :class="this.task.cover.color" class="task-details-cover">
-        <button class="btn-card-cover" @click="toggleModal('CoverPicker')"><span></span>Cover</button>
+      <div v-if="!!this.task.cover?.color" :class="this.task.cover.color" :style="imgCover" class="task-details-cover">
+        <button class="btn-card-cover" @click="toggleModal('CoverPicker', $event)"><span></span>Cover</button>
       </div>
       <RouterLink :to="'/board/' + boardId" :class="!!this.task.cover?.color ? 'cover' : ''" class="close"></RouterLink>
       <div class="header">
@@ -166,6 +166,11 @@ export default {
     labels() {
       return this.$store.getters.labels
     },
+    imgCover() {
+      return this.task.cover?.url
+        ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '160px' }
+        : ''
+    },
     // setBottom({height}) {
     //   console.log("height: ", height);
     //   this.modal.pos.top = window.visualViewport.height - height
@@ -175,7 +180,7 @@ export default {
       let y = this.modal.pos.top
       const { width } = window.visualViewport
       if (width - x < 304) x = width - 308
-      if ( y > 350 || this.modal.type === 'DatePicker') y = 48
+      if (y > 350 || this.modal.type === 'DatePicker' || this.modal.type === 'LabelPicker') y = 48
       return { top: y + 'px', left: x + 'px' }
     },
   },

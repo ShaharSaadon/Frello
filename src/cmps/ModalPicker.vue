@@ -87,6 +87,7 @@ export default {
           return {
             title: 'Cover',
             cover: this.task.cover,
+            attachments: this.task.attachments,
           }
         case 'AttachmentPicker':
           return {
