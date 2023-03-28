@@ -273,7 +273,7 @@ function getEmptyBoard() {
 function getEmptyTask() {
   return {
     title: '',
-    description: 'description...',
+    description: '',
     members: [],
     labels: [],
     checklists: [],
