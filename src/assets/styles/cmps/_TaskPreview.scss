@@ -187,7 +187,7 @@
 }
 
 .ghost-task {
-  .task-preview {
+  .tp {
     background-color: $clr-dynamic-button-highlighted;
     box-shadow: none;
 
@@ -198,7 +198,7 @@
 }
 
 .drag-task {
-  .task-preview {
+  .tp {
     transform: rotate(3deg);
   }
 }
