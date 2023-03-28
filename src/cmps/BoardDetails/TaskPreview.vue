@@ -1,40 +1,42 @@
 <template>
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
-    <div v-if="task.cover?.color" :class="task.cover.color" :style="imgCover" class="task-preview-cover"></div>
-    <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
-      <div v-if="task.labels?.length" class="task-preview-labels">
-        <div
-          v-for="label in labels"
-          :key="label.id"
-          :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
-          class="task-preview-label"
-          @click.prevent="toggleLabelFullDisplay"
-        >
-          {{ isLabelFullDisplay ? label.title : '' }}
-        </div>
-      </div>
-      <h2 class="task-preview-title">{{ task.title }}</h2>
-      <div v-if="showBadges" class="task-preview-footer">
-        <div class="action-badges">
-          <!-- <div v-if="task.members.length" class="badge-watch"></div> -->
-          <div v-if="task.description" class="badge-description"></div>
-          <div v-if="task.attachments?.length" class="badge-attachments">
-            <span>{{ task.attachments.length }}</span>
-          </div>
-          <div v-if="task.checklists?.length" class="badge-checklist">
-            <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
-          </div>
+    <div class="tp">
+      <div v-if="task.cover?.color" :class="task.cover.color" class="task-preview-cover"></div>
+      <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
+        <div v-if="task.labels?.length" class="task-preview-labels">
           <div
-            :class="getDateClass"
-            @click.prevent="toggleKey('isComplete')"
-            v-if="task.dueDate"
-            class="badge-date flex align-center"
+            v-for="label in labels"
+            :key="label.id"
+            :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
+            class="task-preview-label"
+            @click.prevent="toggleLabelFullDisplay"
           >
-            <span></span>{{ getDate }}
+            {{ isLabelFullDisplay ? label.title : '' }}
           </div>
         </div>
+        <h2 class="task-preview-title">{{ task.title }}</h2>
+        <div v-if="showBadges" class="task-preview-footer">
+          <div class="action-badges">
+            <!-- <div v-if="task.members.length" class="badge-watch"></div> -->
+            <div v-if="task.description" class="badge-description"></div>
+            <div v-if="task.attachments?.length" class="badge-attachments">
+              <span>{{ task.attachments.length }}</span>
+            </div>
+            <div v-if="task.checklists?.length" class="badge-checklist">
+              <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
+            </div>
+            <div
+              :class="getDateClass"
+              @click.prevent="toggleKey('isComplete')"
+              v-if="task.dueDate"
+              class="badge-date flex align-center"
+            >
+              <span></span>{{ getDate }}
+            </div>
+          </div>
 
-        <TaskMember :members="task.members" />
+          <TaskMember :members="task.members" />
+        </div>
       </div>
     </div>
   </RouterLink>

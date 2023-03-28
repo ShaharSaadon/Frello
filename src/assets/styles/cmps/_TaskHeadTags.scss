@@ -1,12 +1,15 @@
 .task-head-tags {
   margin-bottom: em(24px);
+  grid-column: span 2;
   display: flex;
+  // width: 320px;
+  // flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
-  // gap: em(12px);
+
   & > * {
-    margin-inline-end: rem(16px);
-    margin-block-end: rem(19px);
+    margin-block-end: rem(8px);
+    margin-inline: rem(8px);
   }
 
   .member-profile {
@@ -89,6 +92,14 @@
       &.complete {
         background-color: $clr-base-17;
       }
+    }
+  }
+
+  @include mq(mq-780) {
+    grid-column: 2;
+    & > * {
+      margin-inline-end: rem(16px);
+      margin-block-end: rem(19px);
     }
   }
 }

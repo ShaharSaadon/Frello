@@ -1,56 +1,63 @@
 .task-description {
-    @include TaskDetailsCmps($icon-description);
+  @include TaskDetailsCmps($icon-description);
 
-    header {
-        display: flex;
+  header {
+    display: flex;
 
-        .btn-edit-description {
-            @include btn-main();
-            margin-inline-start: 8px;
-        }
+    .btn-edit-description {
+      @include btn-main();
+      margin-inline-start: 8px;
+    }
+  }
+
+  .btn-add-description {
+    background-color: $clr8;
+    color: $clr-dynamic-button-highlighted-text;
+    min-height: 40px;
+    padding: 8px 12px 31px;
+    // width: 100%;
+    text-align: start;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $clr-base-3-hover;
+    }
+  }
+
+  .description-editor {
+    // width: 100%;
+
+    textarea {
+      height: 223px;
+      font-size: 14px;
+      font-weight: 400;
+      padding: em(16px);
+      margin: 0;
+      border: 1px solid $backdrop;
     }
 
+    .btn-save {
+      @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
+    }
 
+    .btn-cancel {
+      @include btn-main($clr-base-2, $clr-base-5, $clr-base-3-hover);
+    }
+
+    .save-cancel {
+      margin: 8px 0 0;
+      gap: 4px;
+    }
+  }
+
+  @include mq(mq-780) {
     .btn-add-description {
-        background-color: $clr8;
-        color: $clr-dynamic-button-highlighted-text;
-        min-height: 40px;
-        padding: 8px 12px 31px;
-        width: 100%;
-        text-align: start;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        border-radius: 3px;
-        cursor: pointer;
-
-        &:hover{
-            background-color: $clr-base-3-hover;
-        }
+      width: 100%;
     }
-
     .description-editor {
-        width: 100%;
-
-        textarea {
-            height: 223px;
-            font-size: 14px;
-            font-weight: 400;
-            padding: em(16px);
-            margin: 0;
-            border: 1px solid $backdrop;
-        }
-
-        .btn-save {
-            @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
-        }
-
-        .btn-cancel {
-            @include btn-main($clr-base-2, $clr-base-5, $clr-base-3-hover)
-        }
-
-        .save-cancel {
-            margin: 8px 0 0;
-            gap: 4px;
-        }
+      width: 100%;
     }
-
+  }
 }
