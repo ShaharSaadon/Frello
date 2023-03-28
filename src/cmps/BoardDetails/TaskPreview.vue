@@ -1,6 +1,6 @@
 <template>
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
-    <div v-if="task.cover?.color" :class="task.cover.color" class="task-preview-cover"></div>
+    <div v-if="task.cover?.color" :class="task.cover.color" :style="imgCover" class="task-preview-cover"></div>
     <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
       <div v-if="task.labels?.length" class="task-preview-labels">
         <div
@@ -133,6 +133,11 @@ export default {
     },
     isLabelFullDisplay() {
       return this.$store.getters.isLabelFullDisplay
+    },
+    imgCover() {
+      return this.task.cover?.url
+        ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '200px'}
+        : ''
     },
   },
   created() {},

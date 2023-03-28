@@ -2,14 +2,10 @@
   <section @drop.prevent="handleFile" @dragover.prevent="this.isDragover = true" class="task-details">
     <div class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
-      <div
-        v-if="!!this.task.cover?.color"
-        :class="this.task.cover.color"
-        class="task-details-cover"
-      >
-        <button class="btn-card-cover" @click="toggleModal('CoverPicker')"><span></span>Cover</button>
+      <div v-if="!!this.task.cover?.color" :class="this.task.cover.color" :style="imgCover" class="task-details-cover">
+        <button class="btn-card-cover" @click="toggleModal('CoverPicker', $event)"><span></span>Cover</button>
       </div>
-      <RouterLink :to="'/board/' + boardId" :class="!!this.task.cover ? 'cover' : ''" class="close"></RouterLink>
+      <RouterLink :to="'/board/' + boardId" :class="!!this.task.cover?.color ? 'cover' : ''" class="close"></RouterLink>
       <div class="header">
         <div class="title icon-card">
           <textarea @blur="saveTask" ref="textarea" v-model="task.title" @keydown.enter.prevent="onEnter"></textarea>
@@ -38,13 +34,16 @@
         </div> -->
         <!-- <button class="btn-link member"><span> Join</span></button> -->
         <h3>Add to card</h3>
+        <button
+          class="btn-link"
+          :class="cmp.class"
+          @click="toggleModal(cmp.cmpType, $event)"
+          v-for="cmp in cmps"
+          :key="cmp.title"
+        >
+          <span>{{ cmp.title }}</span>
+        </button>
 
-        <button class="btn-link member" @click="toggleModal('MemberPicker')"><span> Members</span></button>
-        <button class="btn-link label" @click="toggleModal('LabelPicker')"><span> Labels</span></button>
-        <button class="btn-link checklist" @click="toggleModal('ChecklistPicker')"><span> Checklist</span></button>
-        <button class="btn-link clock" @click="toggleModal('DatePicker')"><span> Dates</span></button>
-        <button class="btn-link attachment" @click="toggleModal('AttachmentPicker')"><span> Attachment</span></button>
-        <button class="btn-link card-cover" @click="toggleModal('CoverPicker')"><span> Cover</span></button>
         <!-- <button class="button-link"> Custom Fields</button> -->
         <h3>Actions</h3>
         <button @click="removeTask" class="btn-link archive">
@@ -53,7 +52,7 @@
       </div>
       <ModalPicker
         v-if="modal.isModalOpen"
-        :type="modal.type"
+        :modal="modal"
         @closeModal="toggleModal"
         @updateEntityVal="updateEntityVal"
         @removeEntityVal="removeEntityVal"
@@ -62,6 +61,8 @@
         @removeLabel="removeLabel"
         @addChecklist="addChecklist"
         @saveTask="saveTask"
+        @outOfView="setBottom"
+        :style="modalPos"
       />
     </div>
   </section>
@@ -120,7 +121,16 @@ export default {
       modal: {
         type: '',
         isModalOpen: false,
+        pos: { top: null, left: null },
       },
+      cmps: [
+        { class: 'member', cmpType: 'MemberPicker', title: ' Members' },
+        { class: 'label', cmpType: 'LabelPicker', title: ' Labels' },
+        { class: 'checklist', cmpType: 'ChecklistPicker', title: ' Checklist' },
+        { class: 'clock', cmpType: 'DatePicker', title: ' Dates' },
+        { class: 'attachment', cmpType: 'AttachmentPicker', title: ' Attachment' },
+        { class: 'card-cover', cmpType: 'CoverPicker', title: ' Cover' },
+      ],
       task: null,
       isDragover: false,
     }
@@ -157,6 +167,23 @@ export default {
     },
     labels() {
       return this.$store.getters.labels
+    },
+    imgCover() {
+      return this.task.cover?.url
+        ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '160px' }
+        : ''
+    },
+    // setBottom({height}) {
+    //   console.log("height: ", height);
+    //   this.modal.pos.top = window.visualViewport.height - height
+    // },
+    modalPos() {
+      let x = this.modal.pos.left
+      let y = this.modal.pos.top
+      const { width } = window.visualViewport
+      if (width - x < 304) x = width - 308
+      if (y > 350 || this.modal.type === 'DatePicker' || this.modal.type === 'LabelPicker') y = 48
+      return { top: y + 'px', left: x + 'px' }
     },
   },
   methods: {
@@ -260,7 +287,8 @@ export default {
         showErrorMsg('Cannot add Task')
       }
     },
-    toggleModal(cmpType) {
+    toggleModal(cmpType, ev) {
+      if (ev) this.setModalPos(ev)
       let isModalOpen = true
       let type = cmpType
 
@@ -275,6 +303,13 @@ export default {
       const newVal = !this.task[key]
       let activity = [newVal, key, 'to', this.task.title]
       this.saveTask({ key, newVal, activity })
+    },
+    setModalPos(ev) {
+      const target = ev.target.localName === 'span' ? ev.target.offsetParent : ev.target
+      let { x, y, height } = target.getBoundingClientRect()
+      y += height + 4
+      this.modal.pos.left = x
+      this.modal.pos.top = y
     },
   },
   components: {
