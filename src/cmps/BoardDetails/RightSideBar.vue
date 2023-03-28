@@ -12,7 +12,7 @@
                     <span @click="onCloseMenu" class="close-menu"></span>
                 </div>
             </div>
-            <component :is="type" :info="info"
+            <component :is="type"
             @switchDynamicCmp="$emit('switchDynamicCmp',$event)"
             @onChangeBackground="$emit('onChangeBackground',$event)" />
 

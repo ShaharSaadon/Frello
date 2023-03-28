@@ -152,7 +152,7 @@ export const boardStore = {
     },
   },
   mutations: {
-    setFilterBy(state, {filterBy}){
+    setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy
     },
     setBoards(state, { boards }) {
@@ -231,41 +231,41 @@ export const boardStore = {
     onToggleMenu(state) {
       state.isRightSideBarOpen = !state.isRightSideBarOpen
     },
-    onToggleMenu(state){
-      state.isRightSideBarOpen=!state.isRightSideBarOpen
+    onToggleMenu(state) {
+      state.isRightSideBarOpen = !state.isRightSideBarOpen
     },
-    addActivity(state,{ activity }){  
-    if(!activity || !activity.length) return
-    let newActivity = boardService.getEmptyActivity()
-    let board = state.boards.find(board => board._id===state.watchedBoardId)
-    
-    switch (activity[1]) { // type of the changed entity 
-      case 'dueDate':
-        activity[1] = 'due date' 
-        break;
-      case 'isComplete':
-        activity[1] = 'the due date on'
-        activity[2] = activity[3]
-        activity[3] = activity[0] ? 'complete' : 'incomplete'
-        activity[0] ='marked' 
-        break;
-      case 'isWatch':
-        activity[0] = activity[0] ? 'joined to' : 'left'
-        activity[1] = ''
-        activity[2] = ''
-        activity[3]+= ' task'
-        break;
-      case 'description':
-        activity[0] = 'updated'
-        activity[1] = `${activity[3]}'s`
-        activity[2] = 'description'
-        activity[3] = ''
-        break;
-        
+    addActivity(state, { activity }) {
+      if (!activity || !activity.length) return
+      let newActivity = boardService.getEmptyActivity()
+      let board = state.boards.find(board => board._id === state.watchedBoardId)
+
+      switch (activity[1]) { // type of the changed entity 
+        case 'dueDate':
+          activity[1] = 'due date'
+          break;
+        case 'isComplete':
+          activity[1] = 'the due date on'
+          activity[2] = activity[3]
+          activity[3] = activity[0] ? 'complete' : 'incomplete'
+          activity[0] = 'marked'
+          break;
+        case 'isWatch':
+          activity[0] = activity[0] ? 'joined to' : 'left'
+          activity[1] = ''
+          activity[2] = ''
+          activity[3] += ' task'
+          break;
+        case 'description':
+          activity[0] = 'updated'
+          activity[1] = `${activity[3]}'s`
+          activity[2] = 'description'
+          activity[3] = ''
+          break;
+
+      }
+      newActivity.txt = activity.join(' ')
+      board.activities.unshift(newActivity)
     }
-    newActivity.txt = activity.join(' ')
-    board.activities.unshift(newActivity)
-  }
 
   },
   actions: {
@@ -291,6 +291,7 @@ export const boardStore = {
     },
     async updateBoard(context, { board }) {
       try {
+
         context.commit(getActionUpdateBoard(board))
         board = await boardService.save(board)
         return board
@@ -335,12 +336,12 @@ export const boardStore = {
         throw err
       }
     },
-    async addActivity(context, {activity}){
+    async addActivity(context, { activity }) {
       try {
         context.commit({ type: 'addActivity', activity })
         context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
       } catch (err) {
-        console.log('boardStore: Error in removeGroup', err)
+        console.log('boardStore: Error in addActivity', err)
         throw err
       }
     },
@@ -375,11 +376,11 @@ export const boardStore = {
     },
 
     // Task
-    async saveTask(context, { groupId, task, activity}) {
+    async saveTask(context, { groupId, task, activity }) {
 
       const boardId = context.getters.watchedBoardId
       try {
-        context.commit(getActionAddActivity(activity))
+        context.dispatch(getActionAddActivity(activity))
         if (task.id) {
           context.commit({ type: 'saveTask', boardId, groupId, task })
           task = await boardService.saveTask(boardId, groupId, task)
