@@ -88,10 +88,12 @@
       grid-column: 1 / -1;
       width: 100%;
       min-height: em(116px);
-      max-height: em(160px);
       display: grid;
       place-content: end;
       padding: em(8px);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position-x: center;
       .btn-card-cover {
         @include btn-main($close-cover, $bgc-hover: $close-cover-hover);
         align-items: center;

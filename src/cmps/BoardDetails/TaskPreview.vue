@@ -136,6 +136,11 @@ export default {
     isLabelFullDisplay() {
       return this.$store.getters.isLabelFullDisplay
     },
+    imgCover() {
+      return this.task.cover?.url
+        ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '200px'}
+        : ''
+    },
   },
   created() {},
   components: {

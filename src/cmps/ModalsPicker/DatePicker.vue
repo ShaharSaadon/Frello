@@ -29,6 +29,8 @@ export default {
       date: this.info.dueDate,
     }
   },
+  created() {
+  },
   methods: {
     saveDate() {
       this.$emit('saveTask', { key: 'dueDate', newVal: this.date })
