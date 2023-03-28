@@ -7,6 +7,9 @@
     border-radius: 3px;
     box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15);
     margin: auto;
+    padding: em(7px);
+    background-position: 50%;
+    background-size: cover;
 
     display: flex;
     align-items: center;
@@ -23,12 +26,14 @@
   }
 
   .color-choices {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: em(8px);
 
     button {
       width: 100%;
       @include btn-main();
+      background-position: 50%;
+      background-size: cover;
 
       &.checked {
         @include trello-icon($content: $icon-checked, $color: $clr-base-1);

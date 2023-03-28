@@ -89,6 +89,8 @@
     button {
       width: 95%;
       @include btn-main();
+      background-position: 50%;
+  background-size: cover;
 
       &.checked {
         @include trello-icon($content: $icon-checked, $color: $clr-base-1);

@@ -4,6 +4,8 @@
   height: calc(100% - $app-header-height);
   flex-wrap: nowrap;
   // width: 100%;
+  background-position: 50%;
+  background-size: cover;
 
   .main {
     flex: 1 1 0%;

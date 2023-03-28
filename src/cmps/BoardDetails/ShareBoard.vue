@@ -70,7 +70,7 @@ export default {
     },
     shareBoard() {
       if (this.chosenMember.fullname !== this.fullname) return
-      // if(this.members.find(member => member._id === this.chosenMember._id)) return
+      this.fullname = ''
       this.$store.dispatch({ type: 'addMember', member: this.chosenMember })
     },
     getAdminText(member) {
