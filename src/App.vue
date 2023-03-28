@@ -23,6 +23,7 @@ export default {
       this.$store.commit({ type: 'setFilterBy', filterBy: { memberId: memberId } })
     }
     this.$store.dispatch({ type: 'loadBoards' })
+    this.$store.dispatch({ type: 'loadUsers' })
   },
   methods: {},
   components: {

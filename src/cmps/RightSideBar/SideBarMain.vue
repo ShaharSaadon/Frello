@@ -20,24 +20,17 @@
             <span class="activity-icon"></span>
             <h5>Activity</h5>
         </div>
-      <!-- <pre>  {{board.activities}} </pre> -->
-            <ul class="activities-list clean-list" >
-                <li v-for="activity in board.activities" :key="activity.id" :activity="activity" class="activity"> 
-                    <img :src="activity.byMember.imgUrl" class="member-profile">
-                <div class="activity-description">
-            <span>{{ activity.byMember.fullname }} </span>  
-                {{ activity.txt }} 
-                </div>
-                </li>
-            </ul>
+        <SideBarActivities/>
+            
     </div>
 </template>
 
 <script>
 import { svgService } from '../../services/svg.service'
-
+import {utilService} from '../../services/util.service'
+import SideBarActivities from './SideBarActivities.vue'
 export default {
-    name: '',
+    name: 'SideBarMain',
     data() {
         return {
 
@@ -46,18 +39,25 @@ export default {
     methods: {
         getSvg(iconName) {
             return svgService.getMerlloSvg(iconName)
+        },
+        getTime(timeStamp){
+            return utilService.daysAgo(timeStamp)
         }
+    
     },
     computed: {
         board() {
             return this.$store.getters.watchedBoard
+        },
+        activities() {
+            return this.$store.getters.watchedBoard.activities
         },
     },
     created() {
 
     },
     components: {
-
+        SideBarActivities
     },
 }
 </script>

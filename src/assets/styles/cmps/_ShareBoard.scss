@@ -1,116 +1,159 @@
 .share-board {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.6);
-    width: 100vw;
-    height: 100vh;
-    box-sizing: border-box;
-    overflow: auto;
-    position: absolute;
-    top: 0;
-    z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  z-index: 100;
 }
 
 .share-board-modal {
-    // max-width: calc(100vw - 24px);
-    width: rem(584px);
-    min-height: 200px;
-    padding: 26px 24px 0px 24px;
-    background-color: $clr-base-2;
-    font-size: em(14px);
-    border-radius: $border-radius-3;
+  // max-width: calc(100vw - 24px);
+  width: rem(584px);
+  min-height: 200px;
+  padding: 26px 24px 0px 24px;
+  background-color: $clr-base-2;
+  font-size: em(14px);
+  border-radius: $border-radius-3;
+  position: relative;
 
-    .header-share{
-        margin-block-end: rem(12px);
+  .header-share {
+    margin-block-end: rem(12px);
+    color: $clr-base-5;
 
-        position: relative;
-        h2{
-            font-weight: 400;
-            font-size: rem(20px);
-        }
-        .btn-exit{
-            @include trello-icon($icon-close, lg);
-            position: absolute;
-            right: -11px;
-            top: -7px;
-            background-color: $clr-transparent;
-            cursor: pointer;
-        }
+    position: relative;
+    h2 {
+      font-weight: 400;
+      font-size: rem(20px);
     }
-
-    .form-share{
-        .input-share{
-            flex-grow: 1;
-            margin-inline-end: rem(8px);
-            background-color: $input-bgc;
-            padding: rem(6px) rem(4px) rem(6px) rem(12px);
-            border-radius: $border-radius-3;
-            box-shadow: $box-shadow-checkbox;
-            border: none;
-            &:hover:not(:focus-visible){
-                background-color: $clr-base-3;
-            }
-            &:focus-visible{
-                outline: 0;
-                box-shadow: $box-shadow-input-active;
-            }
-            
-
-        }
-        .btn-share{
-            font-size: rem(14px);
-            height: rem(40px);
-            width: rem(61px);
-            background-color: $clr-base-11;
-            border: none;
-            color: $clr-base-1;
-            border-radius: $border-radius-3;
-            &:hover{
-                background-color: $clr-base-11-hover;
-            }
-        }
-    }
-
-    .board-member{
-        display: grid;
-        grid-template-columns: rem(32px) 1fr rem(94px);
-        grid-template-rows: repeat(2, 1rem);
-        grid-template-areas: 
-        "p fn b"
-        "p un b";
-        .profile-img{
-            grid-area: p;
-            height: 32px;
-            width: 32px;
-            border-radius: 50%;
-            object-fit: contain
-            
-        }
-
-        .fullname{
-            grid-area: fn;
-            margin: 0 rem(12px) 0 rem(12px);
-            font-weight: 400;
-            color: $clr-base-32;
-        }
-        
-        .username{
-            grid-area: un;
-            margin: 0 rem(12px) 0 rem(12px);
-            font-size: rem(12px);
-            color: $clr-base-31;
-        }
-
-        .btn-member{
-            grid-area: b;
-            height: rem(32px);
-            cursor: pointer;
-            border-radius: $border-radius-3;
-            background-color: $clr-base-30;
-            &:hover{
-                background-color: $clr-base-30-hover;
-            }
-        }
+    .btn-exit {
+      @include trello-icon($icon-close, lg);
+      position: absolute;
+      right: -11px;
+      top: -7px;
+      background-color: $clr-transparent;
+      cursor: pointer;
     }
   }
+
+  .form-share {
+    .input-share {
+      flex-grow: 1;
+      margin-inline-end: rem(8px);
+      background-color: $input-bgc;
+      padding: rem(6px) rem(4px) rem(6px) rem(12px);
+      border-radius: $border-radius-3;
+      box-shadow: $box-shadow-checkbox;
+      border: none;
+      &:hover:not(:focus-visible) {
+        background-color: $clr-base-3;
+      }
+      &:focus-visible {
+        outline: 0;
+        box-shadow: $box-shadow-input-active;
+      }
+    }
+    .btn-share {
+      font-size: rem(14px);
+      height: rem(40px);
+      width: rem(61px);
+      background-color: $clr-base-11;
+      border: none;
+      color: $clr-base-1;
+      border-radius: $border-radius-3;
+      cursor: pointer;
+      &:hover {
+        background-color: $clr-base-11-hover;
+      }
+    }
+  }
+
+  .members-select {
+    background-color: $clr-base-1;
+    max-height: rem(264px);
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+    border-radius: $border-radius-3;
+    width: rem(467px);
+    position: absolute;
+    top: rem(114px);
+    padding: rem(8px);
+    overflow-y: scroll;
+
+    .member-select {
+      display: flex;
+      margin-block-start: rem(6px);
+      padding-block: rem(10px);
+      border-radius: $border-radius-3;
+      cursor: pointer;
+      &:hover {
+        background-color: $clr-base-12;
+      }
+      .fullname {
+        margin: 0 rem(12px) 0 rem(12px);
+        color: $clr-base-5;
+        height: fit-content;
+        margin-block: auto;
+      }
+    }
+  }
+
+  .profile-img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: contain;
+  }
+
+  .board-member {
+    display: grid;
+    grid-template-columns: rem(32px) 1fr rem(94px);
+    grid-template-rows: repeat(2, 1rem);
+    grid-template-areas:
+      'p fn b'
+      'p un b';
+
+    margin-block-end: rem(24px);
+
+    &:first-of-type {
+      margin-block-start: 1rem;
+    }
+
+    .profile-img {
+      grid-area: p;
+      justify-self: center;
+      align-self: center;
+    }
+
+    .fullname {
+      grid-area: fn;
+      margin: 0 rem(12px) 0 rem(12px);
+      font-weight: 400;
+      color: $clr-base-32;
+    }
+
+    .username {
+      grid-area: un;
+      margin: 0 rem(12px) 0 rem(12px);
+      font-size: rem(12px);
+      color: $clr-base-31;
+    }
+
+    .btn-member {
+      grid-area: b;
+      height: rem(32px);
+      border-radius: $border-radius-3;
+      background-color: $clr-base-30;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        color: $clr-base-10;
+      }
+    }
+  }
+}
