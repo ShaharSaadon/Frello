@@ -87,6 +87,7 @@ function getEmptyGroup() {
 
 function getEmptyBoard() {
   _getDemoDataBoard()
+  // _getEmptyDataBoard()
 }
 
 function getEmptyTask() {

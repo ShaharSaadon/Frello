@@ -9,7 +9,7 @@
                 <span class="time-ago">{{ getTime(activity.createdAt) }} </span>
             </div>
         </li>
-        <button v-if="maximum" class="btn-show-more" @click="$emit('switchDynamicCmp', 'SideBarActivities')"> View all activity...</button>
+        <button v-if="maximum&activities.length===15" class="btn-show-more" @click="$emit('switchDynamicCmp', 'SideBarActivities')"> View all activity...</button>
     </ul>
 </template>
 
