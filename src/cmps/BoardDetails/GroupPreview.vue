@@ -15,7 +15,6 @@
           ></textarea>
         </form>
       </header>
-
       <TaskList :tasks="tasks" :groupId="group.id" @updateTasks="updateTasksPos" />
 
       <footer>
