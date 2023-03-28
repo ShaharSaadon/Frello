@@ -14,6 +14,7 @@ $breakpoints: (
   mq-Board-index-sm: em(450px),
   mq-Board-index-md: em(596px),
   mq-Board-index-lg: em(825px),
+  mq-780: em(780px)
 );
 
 @mixin mq($key) {

@@ -14,7 +14,8 @@
             </div>
             <component :is="type"
             @switchDynamicCmp="$emit('switchDynamicCmp',$event)"
-            @onChangeBackground="$emit('onChangeBackground',$event)" />
+            @onChangeBackground="$emit('onChangeBackground',$event)" 
+            class="main-content"/>
 
         </div>
     </aside>
