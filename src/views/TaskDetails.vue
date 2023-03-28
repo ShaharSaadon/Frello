@@ -3,8 +3,8 @@
     <div class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
       <div
-        v-if="!!this.task.cover"
-        :class="this.task.cover"
+        v-if="!!this.task.cover?.color"
+        :class="this.task.cover.color"
         class="task-details-cover"
       >
         <button class="btn-card-cover" @click="toggleModal('CoverPicker')"><span></span>Cover</button>

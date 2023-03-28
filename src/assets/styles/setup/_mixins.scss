@@ -142,6 +142,7 @@ $breakpoints: (
 
 @mixin label-tag-color($color) {
   @include text-contrast($color);
+
   background-color: lighten($color, 10%);
   &.task-preview-label {
     background-color: darken($color, 10%);
@@ -160,6 +161,13 @@ $breakpoints: (
   }
   &.label-tag::before {
     background-color: darken($color, 10%);
+  }
+  &.task-preview {
+    background-color: lighten($color, 10%);
+    @include text-contrast($color);
+    &:hover {
+      background-color: lighten($color, 10%);
+    }
   }
 }
 

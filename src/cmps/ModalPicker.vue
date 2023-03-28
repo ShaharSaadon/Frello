@@ -73,7 +73,7 @@ export default {
         case 'CoverPicker':
           return {
             title: 'Cover',
-            color: this.task.cover
+            cover: this.task.cover
           }
         case 'AttachmentPicker':
           return {
