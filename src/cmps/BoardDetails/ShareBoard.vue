@@ -1,5 +1,5 @@
 <template>
-  <section class="share-board">
+  <section @click="isMemberSelect=false" class="share-board">
     <section class="share-board-modal">
       <header class="header-share">
         <h2>Share board</h2>
@@ -7,19 +7,23 @@
           <button @click="closeModal" class="btn-exit"></button>
         </RouterLink>
       </header>
-      <form class="form-share flex">
-        <input class="input-share" type="text" />
-        <button @click.prevent class="btn-share">Share</button>
+      <form @submit.prevent="shareBoard" class="form-share flex">
+        <input v-model="fullname" @click.stop @focus="isMemberSelect = true" class="input-share" type="text" />
+        <button class="btn-share">Share</button>
       </form>
-      <div class="board-members">
-        <div v-for="member in boardMembers" class="board-member">
+      <div class="members-select" v-if="isMemberSelect">
+        <div v-for="member in members" :key="member._id" class="member-select" @click.stop="setChosenMember(member)">
           <img :src="member.imgUrl" class="profile-img" />
-          <p class="fullname">{{member.fullname}}</p>
-          <p class="username">{{member.username}}</p>
+          <p class="fullname">{{ member.fullname }}</p>
+        </div>
+      </div>
+      <div class="board-members">
+        <div v-for="member in boardMembers" :key="member._id" class="board-member">
+          <img :src="member.imgUrl" class="profile-img" />
+          <p class="fullname">{{ member.fullname }}</p>
+          <p class="username">{{ member.username }}</p>
           <button class="btn-member">Admin</button>
-
           <!-- <pre>{{ member }}</pre> -->
-          
         </div>
       </div>
     </section>
@@ -28,6 +32,13 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isMemberSelect: false,
+      chosenMember: null,
+      fullname: ''
+    }
+  },
   computed: {
     boardMembers() {
       return this.$store.getters.boardMembers
@@ -35,6 +46,22 @@ export default {
     boardId() {
       return this.$route.params.id
     },
+    members() {
+      console.log('this.$store.getters.users: ', this.$store.getters.users)
+      return this.$store.getters.users
+    },
+  },
+  methods: {
+    setChosenMember(member) {
+      this.chosenMember = member
+      this.isMemberSelect = false
+      this.fullname = member.fullname
+    },
+    shareBoard(){
+      if(this.chosenMember.fullname !== this.fullname) return
+      // if(this.members.find(member => member._id === this.chosenMember._id)) return
+      this.$store.dispatch({type: 'addMember', member: this.chosenMember})
+    }
   },
 }
 </script>

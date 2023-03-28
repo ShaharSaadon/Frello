@@ -51,7 +51,7 @@ export function getActionSaveTask({ boardId, groupId, task }) {
 export function getActionAddActivity(activity) {
   return {
     type: 'addActivity',
-    activity
+    activity,
   }
 }
 export const boardStore = {
@@ -126,7 +126,7 @@ export const boardStore = {
     boardById({ boards }) {
       return (boardId) => boards.find((board) => board._id === boardId)
     },
-    boardMembers(state, {watchedBoard}){
+    boardMembers(state, { watchedBoard }) {
       return watchedBoard.members
     },
     filterBy({ filterBy }) {
@@ -155,7 +155,7 @@ export const boardStore = {
     },
   },
   mutations: {
-    setFilterBy(state, {filterBy}){
+    setFilterBy(state, { filterBy }) {
       state.filterBy = filterBy
     },
     setBoards(state, { boards }) {
@@ -234,42 +234,46 @@ export const boardStore = {
     onToggleMenu(state) {
       state.isRightSideBarOpen = !state.isRightSideBarOpen
     },
-    onToggleMenu(state){
-      state.isRightSideBarOpen=!state.isRightSideBarOpen
+    onToggleMenu(state) {
+      state.isRightSideBarOpen = !state.isRightSideBarOpen
     },
-    addActivity(state,{ activity }){  
-    if(!activity || !activity.length) return
-    let newActivity = boardService.getEmptyActivity()
-    let board = state.boards.find(board => board._id===state.watchedBoardId)
-    
-    switch (activity[1]) { // type of the changed entity 
-      case 'dueDate':
-        activity[1] = 'due date' 
-        break;
-      case 'isComplete':
-        activity[1] = 'the due date on'
-        activity[2] = activity[3]
-        activity[3] = activity[0] ? 'complete' : 'incomplete'
-        activity[0] ='marked' 
-        break;
-      case 'isWatch':
-        activity[0] = activity[0] ? 'joined to' : 'left'
-        activity[1] = ''
-        activity[2] = ''
-        activity[3]+= ' task'
-        break;
-      case 'description':
-        activity[0] = 'updated'
-        activity[1] = `${activity[3]}'s`
-        activity[2] = 'description'
-        activity[3] = ''
-        break;
-        
-    }
-    newActivity.txt = activity.join(' ')
-    board.activities.unshift(newActivity)
-  }
+    addActivity(state, { activity }) {
+      if (!activity || !activity.length) return
+      let newActivity = boardService.getEmptyActivity()
+      let board = state.boards.find((board) => board._id === state.watchedBoardId)
 
+      switch (
+        activity[1] // type of the changed entity
+      ) {
+        case 'dueDate':
+          activity[1] = 'due date'
+          break
+        case 'isComplete':
+          activity[1] = 'the due date on'
+          activity[2] = activity[3]
+          activity[3] = activity[0] ? 'complete' : 'incomplete'
+          activity[0] = 'marked'
+          break
+        case 'isWatch':
+          activity[0] = activity[0] ? 'joined to' : 'left'
+          activity[1] = ''
+          activity[2] = ''
+          activity[3] += ' task'
+          break
+        case 'description':
+          activity[0] = 'updated'
+          activity[1] = `${activity[3]}'s`
+          activity[2] = 'description'
+          activity[3] = ''
+          break
+      }
+      newActivity.txt = activity.join(' ')
+      board.activities.unshift(newActivity)
+    },
+    addMember(state, { member }) {
+      const watchedBoard = state.boards.find((board) => board._id === state.watchedBoardId)
+      watchedBoard.members.push(member)
+    },
   },
   actions: {
     async loadBoards(context) {
@@ -338,12 +342,22 @@ export const boardStore = {
         throw err
       }
     },
-    async addActivity(context, {activity}){
+    async addActivity(context, { activity }) {
       try {
         context.commit({ type: 'addActivity', activity })
         context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
       } catch (err) {
         console.log('boardStore: Error in removeGroup', err)
+        throw err
+      }
+    },
+    async addMember(context, { member }) {
+      try {
+        if(context.getters.watchedBoard.members.find(m => m._id === member._id)) return
+        context.commit({ type: 'addMember', member })
+        context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+      } catch (err) {
+        console.log('boardStore: Error in addMember', err)
         throw err
       }
     },
@@ -378,8 +392,7 @@ export const boardStore = {
     },
 
     // Task
-    async saveTask(context, { groupId, task, activity}) {
-
+    async saveTask(context, { groupId, task, activity }) {
       const boardId = context.getters.watchedBoardId
       try {
         context.commit(getActionAddActivity(activity))

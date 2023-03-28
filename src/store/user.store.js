@@ -20,6 +20,9 @@ export const userStore = {
             // Yaron: needed this workaround as for score not reactive from birth
             state.loggedinUser = (user)? {...user} : null
         },
+        addUser(state, { user }) {
+            state.users.push(user)
+        },
         setWatchedUser(state, { user }) {
             state.watchedUser = user
         },       
@@ -48,6 +51,7 @@ export const userStore = {
             try {
                 const user = await userService.signup(userCred)
                 commit({ type: 'setLoggedinUser', user })
+                commit({ type: 'addUser', user })
                 return user
             } catch (err) {
                 console.log('userStore: Error in signup', err)
@@ -78,7 +82,6 @@ export const userStore = {
             try {
                 const user = await userService.getById(userId)
                 commit({ type: 'setWatchedUser', user })
-                
             } catch (err) {
                 console.log('userStore: Error in loadAndWatchUser', err)
                 throw err
@@ -109,6 +112,15 @@ export const userStore = {
                 commit({ type: 'setUserScore', score })
             } catch (err) {
                 console.log('userStore: Error in increaseScore', err)
+                throw err
+            }
+        },
+        async loadUsers({commit}){
+            try {
+                const users = await userService.getUsers()
+                commit({ type: 'setUsers', users })
+            } catch (err) {
+                console.log('userStore: Error in loadUsers', err)
                 throw err
             }
         },
