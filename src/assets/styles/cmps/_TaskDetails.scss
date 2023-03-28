@@ -95,7 +95,7 @@
       padding: em(8px);
       background-size: contain;
       background-repeat: no-repeat;
-      background-position-x: center;
+      background-position: center;
       .btn-card-cover {
         @include btn-main($close-cover, $bgc-hover: $close-cover-hover);
         align-items: center;
