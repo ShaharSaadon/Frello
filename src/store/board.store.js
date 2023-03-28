@@ -144,6 +144,9 @@ export const boardStore = {
     getLabelsById(state, getters) {
       return (id) => getters.labels.find((label) => label.id === id)
     },
+    isLabelFullDisplay(state, getters) {
+      return getters.watchedBoard.isLabelFullDisplay
+    },
     LeftSideBarBgc({ LeftSideBarBgc }) {
       return LeftSideBarBgc
     },
