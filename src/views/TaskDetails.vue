@@ -106,7 +106,7 @@ export default {
     },
     watchedBoard: {
       handler(changed) {
-        console.log(changed)
+        // console.log(changed)
         if (this.watchedBoard) {
           this.task = this.getTaskFromStore
         }

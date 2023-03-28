@@ -410,7 +410,6 @@ export const boardStore = {
       const boardId = context.getters.watchedBoardId
       try {
         activity[4]=task.id
-        console.log('activity:', activity)
         context.dispatch(getActionAddActivity(activity))
         if (task.id) {
           context.commit({ type: 'saveTask', boardId, groupId, task })
