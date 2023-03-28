@@ -22,7 +22,6 @@ window.cs = boardService
 async function query(filterBy = { txt: '', memberId: '' }) {
   // TDOD: Add Filtering
   var boards = await storageService.query(STORAGE_KEY)
-  console.log('boards: ', boards)
   if (filterBy.txt) {
     const regex = new RegExp(filterBy.txt, 'i')
     boards = boards.filter((board) => regex.test(board.title))
@@ -274,7 +273,7 @@ function getEmptyBoard() {
 function getEmptyTask() {
   return {
     title: '',
-    description: 'description...',
+    description: '',
     members: [],
     labels: [],
     checklists: [],

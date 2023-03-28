@@ -235,15 +235,6 @@
   @include label-tag-color($clr-label-dark-black);
 }
 
-@keyframes rightThenLeft {
-  0% {
-    left: 0%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
 .dot::before {
   content: ' • ';
 }

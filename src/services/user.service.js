@@ -22,9 +22,13 @@ export const userService = {
 window.userService = userService
 window.loadUsers = loadUsers
 
-function getUsers() {
-  return storageService.query('user')
-  // return httpService.get(`user`)
+async function getUsers(filterBy = { txt: '' }) {
+  let users = await storageService.query('user')
+  if (filterBy.txt) {
+    const regex = new RegExp(filterBy.txt, 'i')
+    users = users.filter((user) => regex.test(user.fullname))
+  }
+  return users
 }
 
 function onUserUpdate(user) {
@@ -91,13 +95,12 @@ async function changeScore(by) {
 }
 
 function saveLocalUser(user) {
-  user = { _id: user._id, fullname: user.fullname, username:user.username, imgUrl: user.imgUrl, score: user.score }
+  user = { _id: user._id, fullname: user.fullname, username: user.username, imgUrl: user.imgUrl, score: user.score }
   sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
   return user
 }
 
 function getLoggedinUser() {
-  console.log('----')
   return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
@@ -131,32 +134,56 @@ function getLoggedinUser() {
 //   await userService.signup(users[1])
 // })()
 
-async function loadUsers(){
+async function loadUsers() {
   const users = [
-        {
-          _id: 'u100',
-          fullname: 'Shahar Saadon',
-          username: 'shahar',
-          password: 'shahar',
-          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
-        },
-        {
-          _id: 'u101',
-          fullname: 'Ido Peri',
-          username: 'ido',
-          password: 'ido',
-          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-        },
-        {
-          _id: 'u102',
-          fullname: 'Tomer Huberman',
-          username: 'tomer',
-          password: 'tomer',
-          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
-        },
-      ]
-    
-      await userService.signup(users[0])
-      await userService.signup(users[2])
-      await userService.signup(users[1])
+    {
+      _id: 'u100',
+      fullname: 'Shahar Saadon',
+      username: 'shahar',
+      password: 'shahar',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+    },
+    {
+      _id: 'u101',
+      fullname: 'Ido Peri',
+      username: 'ido',
+      password: 'ido',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+    },
+    {
+      _id: 'u102',
+      fullname: 'Tomer Huberman',
+      username: 'tomer',
+      password: 'tomer',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+    },
+    {
+      _id: 'u103',
+      fullname: 'Puki Ka',
+      username: 'puki',
+      password: 'puki',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+    },
+    {
+      _id: 'u104',
+      fullname: 'Muki Ka',
+      username: 'muki',
+      password: 'muki',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+    },
+    {
+      _id: 'u105',
+      fullname: 'Ido Da',
+      username: 'da',
+      password: 'da',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+    },
+  ]
+
+  await userService.signup(users[0])
+  await userService.signup(users[2])
+  await userService.signup(users[3])
+  await userService.signup(users[4])
+  await userService.signup(users[5])
+  await userService.signup(users[1])
 }

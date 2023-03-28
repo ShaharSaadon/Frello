@@ -5,28 +5,14 @@
       <div :style="isGray" :class="this.color" class="cover-preview"></div>
       <div :style="isGray" :class="this.color" class="cover-preview"></div>
     </div>
-    <button></button>
+    <button @click="switchColor(null)" class="btn-cover-picker">Remove cover</button>
     <h3>Colors</h3>
     <div class="color-table">
-      <div
-        @click="switchColor(color)"
-        class="color"
-        :class="'dark-' + color"
-        :key="color"
-        color
-        v-for="color in colorOne"
-      ></div>
-      <div
-        @click="switchColor(color)"
-        class="color"
-        :class="'dark-' + color"
-        :key="color"
-        color
-        v-for="color in colorTwo"
-      ></div>
+      <div @click="switchColor(color)" class="color" :class="color" :key="color" color v-for="color in colorOne"></div>
+      <div @click="switchColor(color)" class="color" :class="color" :key="color" color v-for="color in colorTwo"></div>
     </div>
     <h3>Attachments</h3>
-    <button @click="addChecklist" class="btn-add-check-list">Add</button>
+    <button @click="addChecklist" class="btn-cover-picker">Add</button>
   </div>
 </template>
 
@@ -41,13 +27,14 @@ export default {
   data() {
     return {
       color: null,
-      colorOne: ['green', 'yellow', 'orange', 'red', 'purple'],
-      colorTwo: ['blue', 'sky', 'lime', 'pink', 'black'],
+      colorOne: ['dark-green', 'dark-yellow', 'dark-orange', 'dark-red', 'dark-purple'],
+      colorTwo: ['dark-blue', 'dark-sky', 'dark-lime', 'dark-pink', 'dark-black'],
     }
   },
   methods: {
     switchColor(color) {
-      this.color = 'dark-' + color
+      if (this.color === color) return
+      this.color = color
       this.$emit('saveTask', { key: 'cover', newVal: this.color })
     },
   },
@@ -56,8 +43,7 @@ export default {
       return !this.color ? { backgroundColor: '#091e4240' } : ''
     },
   },
-  created() {
-  },
+  created() {},
   components: {},
 }
 </script>
