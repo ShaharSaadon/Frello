@@ -7,6 +7,7 @@ export const utilService = {
   saveToStorage,
   loadFromStorage,
   getDate,
+  daysAgo,
 }
 
 function makeId(length = 6) {
@@ -104,3 +105,47 @@ function getDate(timestamp) {
   let day = date.getDate()
   return `${month} ${day}`
 }
+
+
+
+function daysAgo(timestamp) {
+  const date = new Date(timestamp)
+
+  const seconds = Math.floor((new Date() - date) / 1000);
+
+  let interval = Math.floor(seconds / 31536000);
+  if (interval > 1) {
+    return interval + ' years ago';
+  }
+
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + ' months ago';
+  }
+
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + ' days ago';
+  }
+
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + ' hours ago';
+  }
+
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + ' minutes ago';
+  }
+
+  if(seconds < 10) return 'just now';
+
+  return Math.floor(seconds) + ' seconds ago';
+};
+
+  // const diffTime = today.getTime() - date.getTime()
+  // const diffDays = Math.floor(diffTime / (1000 * 3600 * 24))
+  // if (diffDays === 0) return date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0')
+  // if (diffDays === 1) return 'yesterday'
+  // if (diffDays > 5) return date.toLocaleDateString()
+  // return `${diffDays} days ago`

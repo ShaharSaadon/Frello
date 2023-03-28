@@ -51,6 +51,10 @@ $clr-label-light-black: #505e79;
 $clr-label-black: #344563;
 $clr-label-dark-black: #091e42;
 
+$clr-left-bar-blue: 'hsla(215,90%,37.7%,0.9)';
+$clr-left-bar-red: hsla(30,63.4%,16.1%,0.9);
+
+
 // Base Colors
 $clr-transparent: rgba(0, 0, 0, 0);
 $clr-base-1: #ffffff;
@@ -99,6 +103,7 @@ $clr-dynamic-button-highlighted-hovered: #ffffff;
 $clr-dynamic-star: #f2d600;
 $clr-dynamic-icon: #ffffff;
 $clr-dynamic-text: #ffffff;
+$clr-dynamic-subtitle: #5e6c84;
 $clr-dynamic-text-transparent: hsla(0, 0%, 100%, 0.16);
 
 // Merllo Workspace logo
@@ -201,7 +206,7 @@ $side-bar-hover: rgba(255, 255, 255, 0.3);
 $side-bar-image-border: hsla(0, 0%, 100%, 0.1);
 
 //Right SideBar
-$right-side-bar-width: 300px;
+$right-side-bar-width: 340px;
 //SideBar
 $side-bar-width: 240px;
 $side-bar-border: hsla(0, 0%, 100%, 0.16);

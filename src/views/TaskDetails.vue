@@ -27,6 +27,9 @@
           @removeChecklist="removeChecklist"
           @updateEntityVal="updateEntityVal"
         />
+        <TaskActivities :taskId="task.id" :taskTitle="task.title"/>
+
+      
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -74,6 +77,7 @@ import TaskAttachments from '../cmps/TaskDetails/TaskAttachments.vue'
 import TaskChecklist from '../cmps/TaskDetails/TaskChecklist.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
+import TaskActivities from '../cmps/TaskDetails/TaskActivities.vue'
 import { utilService } from '../services/util.service'
 import { uploadService } from '../services/upload.service'
 
@@ -277,6 +281,7 @@ export default {
     TaskHeadTags,
     TaskChecklist,
     TaskAttachments,
+    TaskActivities,
   },
 }
 </script>

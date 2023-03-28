@@ -243,33 +243,42 @@ export const boardStore = {
     addActivity(state, { activity }) {
       if (!activity || !activity.length) return
       let newActivity = boardService.getEmptyActivity()
-      let board = state.boards.find((board) => board._id === state.watchedBoardId)
+      newActivity.taskId= activity[4]
+      let board = state.boards.find(board => board._id === state.watchedBoardId)
 
-      switch (
-        activity[1] // type of the changed entity
-      ) {
+
+      //activity[0] - Action name
+      //activity[1] - Entity type
+      //activity[2] - Preposition
+      //activity[3] - Entity's father
+      //activity[4] - ?task.id?
+
+      switch (activity[1]) { // type of the changed entity 
         case 'dueDate':
           activity[1] = 'due date'
-          break
+          break;
         case 'isComplete':
           activity[1] = 'the due date on'
           activity[2] = activity[3]
           activity[3] = activity[0] ? 'complete' : 'incomplete'
           activity[0] = 'marked'
-          break
+          break;
         case 'isWatch':
           activity[0] = activity[0] ? 'joined to' : 'left'
           activity[1] = ''
           activity[2] = ''
           activity[3] += ' task'
-          break
+          break;
         case 'description':
           activity[0] = 'updated'
           activity[1] = `${activity[3]}'s`
           activity[2] = 'description'
           activity[3] = ''
-          break
+          break;
+
       }
+
+      activity[4] = ''
       newActivity.txt = activity.join(' ')
       board.activities.unshift(newActivity)
     },
@@ -301,6 +310,7 @@ export const boardStore = {
     },
     async updateBoard(context, { board }) {
       try {
+
         context.commit(getActionUpdateBoard(board))
         board = await boardService.save(board)
         return board
@@ -350,7 +360,7 @@ export const boardStore = {
         context.commit({ type: 'addActivity', activity })
         context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
       } catch (err) {
-        console.log('boardStore: Error in removeGroup', err)
+        console.log('boardStore: Error in addActivity', err)
         throw err
       }
     },
@@ -395,10 +405,13 @@ export const boardStore = {
     },
 
     // Task
-    async saveTask(context, { groupId, task, activity }) {
+    async saveTask(context, { groupId, task, activity}) {
+
       const boardId = context.getters.watchedBoardId
       try {
-        context.commit(getActionAddActivity(activity))
+        activity[4]=task.id
+        console.log('activity:', activity)
+        context.dispatch(getActionAddActivity(activity))
         if (task.id) {
           context.commit({ type: 'saveTask', boardId, groupId, task })
           task = await boardService.saveTask(boardId, groupId, task)
