@@ -2,8 +2,18 @@
   <div class="cover-picker">
     <h3>Size</h3>
     <div class="cover-preview-container">
-      <div :style="isGray" :class="this.color" class="cover-preview"></div>
-      <div :style="isGray" :class="this.color" class="cover-preview"></div>
+      <div
+        @click="toggleIsFull(false)"
+        :style="isGray"
+        :class="[this.isFull ? '' : 'active', this.color]"
+        class="cover-preview"
+      ></div>
+      <div
+        @click="toggleIsFull(true)"
+        :style="isGray"
+        :class="[this.color, this.isFull ? 'active' : '']"
+        class="cover-preview"
+      >Full</div>
     </div>
     <button @click="switchColor(null)" class="btn-cover-picker">Remove cover</button>
     <h3>Colors</h3>
@@ -26,7 +36,8 @@ export default {
   name: '',
   data() {
     return {
-      color: null,
+      color: this.info.cover?.color || null,
+      isFull: this.info.cover?.isFull || false,
       colorOne: ['dark-green', 'dark-yellow', 'dark-orange', 'dark-red', 'dark-purple'],
       colorTwo: ['dark-blue', 'dark-sky', 'dark-lime', 'dark-pink', 'dark-black'],
     }
@@ -35,7 +46,12 @@ export default {
     switchColor(color) {
       if (this.color === color) return
       this.color = color
-      this.$emit('saveTask', { key: 'cover', newVal: this.color })
+      this.$emit('saveTask', { key: 'cover', newVal: { color: this.color, isFull: this.isFull } })
+    },
+    toggleIsFull(isFull) {
+      this.isFull = isFull
+      console.log('isFull: ', isFull)
+      this.$emit('saveTask', { key: 'cover', newVal: { color: this.color, isFull: this.isFull } })
     },
   },
   computed: {

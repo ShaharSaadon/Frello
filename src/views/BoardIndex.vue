@@ -23,7 +23,7 @@
     </div>
     <ul class="board-list clean-list">
       <BoardPreview
-        v-for="board in unStarredBoards"
+        v-for="board in boards"
         :key="board._id"
         :board="board"
         @removeBoard="removeBoard"

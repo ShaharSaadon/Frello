@@ -95,11 +95,19 @@
     height: em(26px);
 
     & > * {
-      margin-inline-end: em(4px);
+      margin-inline-end: em(13px);
+      display: flex;
+      align-items: center;
+      color: $clr-base-4;
+      span {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: em(12px);
+        padding-inline-start: em(4px);
+      }
     }
 
     .badge-watch {
-      @include trello-icon($icon-eye);
+      @include trello-icon($icon-eye, $color: $clr-base-4);
     }
 
     .badge-date {
@@ -165,15 +173,15 @@
     }
 
     .badge-description {
-      @include trello-icon($icon-description);
+      @include trello-icon($icon-description, $color: $clr-base-4);
     }
 
     .badge-attachments {
-      @include trello-icon($icon-attachment);
+      @include trello-icon($icon-attachment, $color: $clr-base-4);
     }
 
     .badge-checklist {
-      @include trello-icon($icon-checklist);
+      @include trello-icon($icon-checklist, $color: $clr-base-4);
     }
   }
 }

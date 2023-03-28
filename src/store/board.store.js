@@ -111,6 +111,21 @@ export const boardStore = {
         bgImg: 'url(https://a.trellocdn.com/prgb/assets/941e9fef7b1b1129b904.svg)',
         LeftSideBarBgc: 'hsla(218,20.4%,39.4%,0.9)',
       },
+      {
+        bgc: '#CDE3EE',
+        bgImg: 'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/98094133a39f95bfbe6fb0c007f7a23e/photo-1679597454618-d1ae16573606.jpg)',
+        LeftSideBarBgc: 'hsl(200,50.5%,86.8%)',
+      },
+      {
+        bgc: '#050B15',
+        bgImg: 'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2405x1600/b3c21985b9a1841427ad456ea59734c9/photo-1679673177212-8a011a4f86f7.jpg)',
+        LeftSideBarBgc: 'rgba(255,255,255,.5)',
+      },
+      {
+        bgc: '#3A5770',
+        bgImg: 'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/1593651a4aa806d8f504e04d9aec15ff/photo-1679597454485-d1d04f88b78a.jpg)',
+        LeftSideBarBgc: 'hsl(207,31.4%,33.2%)',
+      },
     ],
   },
   getters: {

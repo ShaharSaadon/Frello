@@ -1,7 +1,7 @@
 <template>
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
-    <div v-if="task.cover" :class="task.cover" class="task-preview-cover"></div>
-    <div :class="task.cover ? 'with-cover' : ''" class="task-preview">
+    <div v-if="task.cover?.color" :class="task.cover.color" class="task-preview-cover"></div>
+    <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
       <div v-if="task.labels?.length" class="task-preview-labels">
         <div
           v-for="label in labels"
@@ -18,9 +18,11 @@
         <div class="action-badges">
           <!-- <div v-if="task.members.length" class="badge-watch"></div> -->
           <div v-if="task.description" class="badge-description"></div>
-          <!-- <div class="badge-attachments">1</div> -->
+          <div v-if="task.attachments?.length" class="badge-attachments">
+            <span>{{ task.attachments.length }}</span>
+          </div>
           <div v-if="task.checklists?.length" class="badge-checklist">
-            {{ checklist.checkedItems }}/{{ checklist.totalItems }}
+            <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
           </div>
           <div
             :class="getDateClass"
@@ -80,7 +82,13 @@ export default {
   },
   computed: {
     showBadges() {
-      if (this.task.description || this.task.checklists?.length || this.task.dueDate || this.task.members?.length)
+      if (
+        this.task.description ||
+        this.task.checklists?.length ||
+        this.task.dueDate ||
+        this.task.members?.length ||
+        this.task.attachments?.length
+      )
         return true
     },
     boardId() {
