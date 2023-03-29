@@ -109,39 +109,71 @@ function getDate(timestamp) {
 
 
 function daysAgo(timestamp) {
-  const date = new Date(timestamp)
+  const now = Date.now();
+  const diff = now - timestamp;
 
-  const seconds = Math.floor((new Date() - date) / 1000);
-
-  let interval = Math.floor(seconds / 31536000);
-  if (interval > 1) {
-    return interval + ' years ago';
+  // less than 10 seconds
+  if (diff < 10000) {
+    return 'just now';
+  }
+  if (diff < 60000) {
+    return 'a few seconds ago';
   }
 
-  interval = Math.floor(seconds / 2592000);
-  if (interval > 1) {
-    return interval + ' months ago';
+  // more than 1 minute and less than 60 minutes
+  if (diff < 3600000) {
+    const minutes = Math.floor(diff / 60000);
+    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
   }
 
-  interval = Math.floor(seconds / 86400);
-  if (interval > 1) {
-    return interval + ' days ago';
+  // more than 60 minutes and less than 24 hours
+  if (diff < 86400000) {
+    const hours = Math.floor(diff / 3600000);
+    const date = new Date(timestamp);
+    const yesterday = new Date(now - 86400000).getDate();
+    if (date.getDate() === yesterday) {
+      return `yesterday at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    }
+    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
   }
 
-  interval = Math.floor(seconds / 3600);
-  if (interval > 1) {
-    return interval + ' hours ago';
-  }
+  // more than yesterday at 00:01 am
+  const date = new Date(timestamp);
+  return `on ${date.toLocaleDateString()} at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+}
 
-  interval = Math.floor(seconds / 60);
-  if (interval > 1) {
-    return interval + ' minutes ago';
-  }
 
-  if(seconds < 10) return 'just now';
+//   const seconds = Math.floor((new Date() - date) / 1000);
 
-  return Math.floor(seconds) + ' seconds ago';
-};
+//   let interval = Math.floor(seconds / 31536000);
+//   if (interval > 1) {
+//     return interval + ' years ago';
+//   }
+
+//   interval = Math.floor(seconds / 2592000);
+//   if (interval > 1) {
+//     return interval + ' months ago';
+//   }
+
+//   interval = Math.floor(seconds / 86400);
+//   if (interval > 1) {
+//     return interval + ' days ago';
+//   }
+
+//   interval = Math.floor(seconds / 3600);
+//   if (interval > 1) {
+//     return interval + ' hours ago';
+//   }
+
+//   interval = Math.floor(seconds / 60);
+//   if (interval > 1) {
+//     return interval + ' minutes ago';
+//   }
+
+//   if(seconds < 10) return 'just now';
+
+//   return Math.floor(seconds) + ' seconds ago';
+// };
 
   // const diffTime = today.getTime() - date.getTime()
   // const diffDays = Math.floor(diffTime / (1000 * 3600 * 24))

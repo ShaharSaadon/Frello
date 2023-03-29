@@ -93,7 +93,7 @@
       padding: em(8px);
       background-size: contain;
       background-repeat: no-repeat;
-      background-position-x: center;
+      background-position: center;
       .btn-card-cover {
         @include btn-main($close-cover, $bgc-hover: $close-cover-hover);
         align-items: center;
@@ -256,10 +256,10 @@
       min-height: 32px;
       padding: 24px 40px 8px 0;
     }
-    .main-content {
-      grid-template-columns: 56px 1fr;
-      padding: 0;
-    }
+    // .main-content {
+    //   grid-template-columns: 56px 1fr;
+    //   padding: 0;
+    // }
     
   }
 

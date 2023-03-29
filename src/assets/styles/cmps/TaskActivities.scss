@@ -1,26 +1,121 @@
-.task-activities{
+.task-activities {
     @include TaskDetailsCmps($icon-activity);
+    position: relative;
     font-size: 14px;
-    .by-member{
+
+    .by-member {
         font-weight: 700;
     }
 
-    .activity-text{
-        margin:0;
+    .btn-toggle-activities {
+        @include btn-main();
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .comment-list {
+        width: 100%;
+    }
+
+    .comment-box {
+        position: relative;
+
+
+        .comment-place-holder {
+            width: 100%;
+            height: 36px;
+            background-color: $input-bgc;
+            border: $input-border;
+            border-radius: $border-radius-3;
+            outline: none;
+            font-size: 12px;
+            padding: 8px 12px;
+            margin-inline-start: 0px;
+            margin-block-end: 12px;
+        }
+
+        .comment-input {
+            width: 100%;
+            height: 84px;
+            background-color: $input-bgc;
+            border: $input-border;
+            border-radius: $border-radius-3;
+            outline: none;
+            font-size: 12px;
+            padding: 8px 12px;
+            margin-inline-start: 0px;
+
+
+            &:hover:not(:focus-visible) {
+                background-color: $clr-base-3-hover;
+            }
+
+            &:focus {
+                border: none;
+                box-shadow: inset 0 0 0 1px $clr-base-8;
+            }
+
+            margin-block-end: $large-space;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            // &::placeholder{
+            //     font-size: 12px;
+            // }
+        }
+
+        .btn-save-comment {
+            @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
+            align-self: flex-start;
+            height: 28px;
+            position: absolute;
+            bottom: 8px;
+            left: 12px;
+            padding: 10px em(12px);
+        }
+    }
+
+    .activity-text {
+        margin: 0;
         padding: 0;
         display: inline;
     }
-    .time-ago{
+
+    .comment-text {
+        margin: 0;
+        background-color: $clr-base-1;
+        max-width: 100%;
+        height: 36px;
+        border: $input-border;
+        border-radius: $border-radius-3;
+        outline: none;
+        font-size: 12px;
+        padding: 8px;
+        margin-block-start: -12px;
+    }
+
+    .time-ago {
         color: $clr-dynamic-subtitle;
         font-size: 12px;
         margin: 0;
         display: block;
     }
 
-    .activity-description{
+    .activity-description {
         margin-block-end: 14px;
         margin-inline-start: 4px;
     }
+
+    .comment-description {
+        margin-block-end: 14px;
+        margin-inline-start: 4px;
+        gap: 4px;
+
+    }
+
     .member-profile {
         grid-column: 1;
         width: 32px;
@@ -31,6 +126,6 @@
         position: absolute;
         left: -35px;
 
-        
-      }
+
+    }
 }

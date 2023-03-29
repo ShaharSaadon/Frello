@@ -20,7 +20,7 @@
             <span class="activity-icon"></span>
             <h5>Activity</h5>
         </div>
-        <SideBarActivities/>
+        <SideBarActivities :maximum="true" @click="$emit('switchDynamicCmp', 'SideBarActivities')"/>
             
     </div>
 </template>

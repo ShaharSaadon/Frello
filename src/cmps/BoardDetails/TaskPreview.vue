@@ -1,8 +1,8 @@
 <template>
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
     <div class="tp">
-      <div v-if="task.cover?.color" :class="task.cover.color" class="task-preview-cover"></div>
-      <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
+      <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover"></div>
+      <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']"  class="task-preview">
         <div v-if="task.labels?.length" class="task-preview-labels">
           <div
             v-for="label in labels"
