@@ -37,18 +37,20 @@ h6 {
     width: 12px;
 }
 
-::-webkit-scrollbar-track {
-    border-radius: 555px;
+::-webkit-scrollbar-thumb  {
+    border-radius: 4px;
     background: $scrollbar-track;
 }
 
-::-webkit-scrollbar-thumb {
-    border-radius: 555px;
+::-webkit-scrollbar-track {
+    border-radius: 4px;
     background: $scrollbar-piece;
 }
 
 ::-webkit-scrollbar-button {
-    width: 24px;
+    display: block;
+    height: 4px;
+    width: 4px;
 }
 
 // section, main, footer {

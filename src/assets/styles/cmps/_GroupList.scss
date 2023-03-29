@@ -1,6 +1,6 @@
 .group-list {
-  height: calc(100% - $board-header-height);
-  overflow-x: scroll;
+  height: calc(100% - 3rem - 8px);
+  margin-bottom: 8px;
 }
 
 .draggable-group-list {

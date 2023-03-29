@@ -1,7 +1,6 @@
 <template>
   <div class="member-picker">
-    <hr />
-    <input type="text" placeholder="Search members..." v-model="filterBy" class="search-members" />
+    <input type="text" placeholder="Search members..." ref="mainInput" v-model="filterBy" class="search-members" />
     <p>Board members</p>
     <ul class="clean-list members flex column">
       <li
@@ -53,6 +52,7 @@ export default {
     this.membersToPick.forEach((member) => {
       member.isChecked = this.info.taskMembers.includes(member._id) ? true : false
     })
+    this.$nextTick(() => this.$refs.mainInput.focus())
   },
   components: {},
 }

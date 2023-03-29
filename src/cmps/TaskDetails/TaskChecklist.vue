@@ -12,13 +12,28 @@
           <button @click="isItemEdit = null" class="close-item-edit"></button>
         </div>
       </div>
-      <button v-if="!(this.isItemEdit === 'title')"  @click="$emit('removeChecklist', list.title)" class="btn-remove-checklist">Delete</button>
+      <div class="flex">
+        <button
+          v-if="!(isAnyChecked && this.isItemEdit === 'title')"
+          @click="isUnCheckedOnly = !isUnCheckedOnly"
+          class="btn-checklist"
+        >
+          {{ hideCheckedTitle }}
+        </button>
+        <button
+          v-if="!(this.isItemEdit === 'title')"
+          @click="$emit('removeChecklist', list.title)"
+          class="btn-checklist"
+        >
+          Delete
+        </button>
+      </div>
     </header>
     <div class="progress-bar">
       <span>{{ donePercent }}%</span>
       <div class="progress-bar-container"><div class="progress-bar-percent" :style="this.stylePercent"></div></div>
     </div>
-    <div class="checklist-item" v-for="(item, idx) in list.checklist" :key="idx">
+    <div class="checklist-item" v-for="(item, idx) in checklistItems" :key="idx">
       <span @click="toggleCheck(idx)" class="check-box" :class="item.isChecked ? 'checked' : ''"></span>
       <h3
         v-if="this.isItemEdit !== idx"
@@ -67,6 +82,7 @@ export default {
       list: JSON.parse(JSON.stringify(this.taskChecklist)),
       isItemEdit: null,
       itemToEdit: '',
+      isUnCheckedOnly: false,
     }
   },
   methods: {
@@ -100,9 +116,7 @@ export default {
       this.itemToEdit = ''
       this.update()
     },
-    saveTitle(){
-
-    },
+    saveTitle() {},
     update() {
       const val = JSON.parse(JSON.stringify(this.list))
       this.$emit('updateEntityVal', { key: 'checklists', val })
@@ -118,6 +132,18 @@ export default {
     stylePercent() {
       if (this.donePercent === 100) return { backgroundColor: '#61bd4f', width: this.donePercent + '%' }
       return { width: this.donePercent + '%' }
+    },
+    checklistItems() {
+      return this.list.checklist.filter((item) => {
+        return this.isUnCheckedOnly ? !item.isChecked : true
+      })
+    },
+    isAnyChecked() {
+      return this.list.checklist.find((item) => item.isChecked)
+    },
+    hideCheckedTitle() {
+      const nomOfChecked = this.list.checklist.filter((item) => item.isChecked).length
+      return this.isUnCheckedOnly ? `Show checked items (${nomOfChecked})` : 'Hide checked items'
     },
   },
   created() {},

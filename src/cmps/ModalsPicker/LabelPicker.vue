@@ -1,6 +1,6 @@
 <template>
   <div class="label-picker">
-    <input class="search-input" type="text" v-model="filterBy" placeholder="Search Labels..." />
+    <input class="search-input" ref="mainInput" type="text" v-model="filterBy" placeholder="Search Labels..." />
     <h3>Labels</h3>
     <div class="label-picker-ops" v-for="(label, idx) in filteredLabels" :key="idx">
       <span @click="toggleCheck(idx)" class="check-box" :class="label.isChecked ? 'checked' : ''"></span>
@@ -55,6 +55,7 @@ export default {
     this.labelsToEdit.forEach((label) => {
       if (this.info.labels.find((id) => id === label.id)) label.isChecked = true
     })
+    this.$nextTick(() => this.$refs.mainInput.focus())
   },
   components: {},
 }

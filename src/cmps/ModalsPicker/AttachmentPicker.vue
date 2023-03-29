@@ -2,7 +2,7 @@
   <div class="attachments-picker">
     <form @submit.prevent="handleFile">
       <h3>Attach a link</h3>
-      <input placeholder="Paste any link here..." v-model="this.imgUrl" type="text" />
+      <input ref="mainInput" placeholder="Paste any link here..." v-model="this.imgUrl" type="text" />
       <h3 v-if="this.imgUrl">Link name (optional)</h3>
       <input v-if="this.imgUrl"  v-model="this.title" type="text" />
       <button class="btn-attach">Attach</button>
@@ -33,7 +33,9 @@ export default {
     },
   },
   computed: {},
-  created() {},
+  created() {
+    this.$nextTick(() => this.$refs.mainInput.focus())
+  },
   components: {},
 }
 </script>
