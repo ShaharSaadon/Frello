@@ -1,5 +1,8 @@
 <template>
-    <aside class="left-side-bar" :class="counterClass" @click="isExpended = true" :style="{ backgroundColor: board.LeftSideBarBgc }">
+    <aside class="left-side-bar" title="" :class="counterClass" @click="isExpended = true"
+        :style="{ backgroundColor: board.LeftSideBarBgc }">
+        <div class="open-side-bar" :style="getStyle" ><i className="icon open-side-bar" v-html="getSvg('arrowRight')" ></i>
+</div>
         <div class="toggle-menu" :hidden="!isExpended">
             <div class="left-side-header flex">
                 <div class="workspace-logo flex">
@@ -14,15 +17,17 @@
                 <li v-for="board in boards" :key="board._id" :board="board">
                     <router-link :to="board._id" class="board-select">
                         <div class="board-title flex">
-                        <div class="board-image" :style="board.style">
+                            <div class="board-image" :style="board.style">
+                            </div>
+                            {{ board.title }}
                         </div>
-                        {{ board.title }}
-                    </div>
-                    <button class="star-icon" :class="{starred:board.isStarred}" @click.prevent="$emit('onToggleStarred',board)"> </button>
-                </router-link>
+                        <button class="star-icon" :class="{ starred: board.isStarred }"
+                        @click.prevent="$emit('onToggleStarred', board)"> </button>
+                    </router-link>
                 </li>
             </ul>
         </div>
+    
     </aside>
 </template>
 
@@ -41,7 +46,8 @@ export default {
         },
         getSvg(iconName) {
             return svgService.getMerlloSvg(iconName)
-        }
+        },
+      
     },
     computed: {
         boards() {
@@ -53,8 +59,12 @@ export default {
         counterClass() {
             return {
                 isExpended: this.isExpended,
+                hide: this.isExpended,
             }
-        }
+        },
+        getStyle() {
+            return { 'backgroundColor': this.$store.getters.appHeaderBgc }
+        },
     },
     created() {
 

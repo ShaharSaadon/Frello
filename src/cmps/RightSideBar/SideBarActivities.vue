@@ -1,13 +1,12 @@
 <template>
     <ul class="activities-list clean-list ">
         <li v-for="activity in activities" :key="activity.id" :activity="activity"  class="activity flex">
-            <img :src="activity.byMember.imgUrl" class="member-profile">
+            <img :src="activity.byMember.imgUrl" class="member-profile"> 
             <div class="activity-description">
                 <span class="by-member">{{ activity.byMember.fullname }} </span>
                 <p class="activity-text"> {{ ' ' + activity.txt }} </p>
-                <!-- <pre> {{ activity }} </pre> -->
                 <span class="time-ago">{{ getTime(activity.createdAt) }} </span>
-            </div>
+             </div>
         </li>
         <button v-if="maximum&activities.length===15" class="btn-show-more" @click="$emit('switchDynamicCmp', 'SideBarActivities')"> View all activity...</button>
     </ul>

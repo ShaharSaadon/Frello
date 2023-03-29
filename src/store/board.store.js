@@ -48,12 +48,6 @@ export function getActionSaveTask({ boardId, groupId, task }) {
     task,
   }
 }
-export function getActionAddActivity(activity) {
-  return {
-    type: 'addActivity',
-    activity,
-  }
-}
 export const boardStore = {
   state: {
     boards: [],
@@ -127,6 +121,7 @@ export const boardStore = {
         LeftSideBarBgc: 'hsl(207,31.4%,33.2%)',
       },
     ],
+    newActivity:null
   },
   getters: {
     boards({ boards }) {
@@ -170,6 +165,9 @@ export const boardStore = {
     },
     bgOpts({ bgOpts }) {
       return bgOpts
+    },
+    newActivity({ newActivity }) {
+      return newActivity
     },
   },
   mutations: {
@@ -247,7 +245,6 @@ export const boardStore = {
         group.tasks.splice(idx, 1, task)
         state.currTask = task
       } else group.tasks.push(task)
-      // console.log('board: ', board)
     },
     onToggleMenu(state) {
       state.isRightSideBarOpen = !state.isRightSideBarOpen
@@ -256,6 +253,7 @@ export const boardStore = {
       state.isRightSideBarOpen = !state.isRightSideBarOpen
     },
     addActivity(state, { activity }) {
+      
       if (!activity || !activity.length) return
       let newActivity = boardService.getEmptyActivity()
       newActivity.taskId= activity[4]
@@ -295,8 +293,10 @@ export const boardStore = {
 
       activity[4] = ''
       newActivity.txt = activity.join(' ')
-      board.activities.unshift(newActivity)
-    },
+      // board.activities.unshift(newActivity)  
+      board.activities = [newActivity,...board.activities]
+      state.newActivity=newActivity
+    },  
     addMember(state, { member }) {
       const watchedBoard = state.boards.find((board) => board._id === state.watchedBoardId)
       watchedBoard.members.push(member)
@@ -370,15 +370,15 @@ export const boardStore = {
         throw err
       }
     },
-    async addActivity(context, { activity }) {
-      try {
-        context.commit({ type: 'addActivity', activity })
-        context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
-      } catch (err) {
-        console.log('boardStore: Error in addActivity', err)
-        throw err
-      }
-    },
+    // async addActivity(context, { activity }) {
+    //   try {
+    //     context.commit({ type: 'addActivity', activity })
+    //     // context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+    //   } catch (err) {
+    //     console.log('boardStore: Error in addActivity', err)
+    //     throw err
+    //   }
+    // },
     async addMember(context, { member }) {
       try {
         if(context.getters.watchedBoard.members.find(m => m._id === member._id)) return
@@ -425,12 +425,14 @@ export const boardStore = {
       const boardId = context.getters.watchedBoardId
       try {
         activity[4]=task.id
-        context.dispatch(getActionAddActivity(activity))
+
+        context.commit({ type: 'addActivity', activity })
+        activity = context.state.newActivity
         if (task.id) {
           context.commit({ type: 'saveTask', boardId, groupId, task })
-          task = await boardService.saveTask(boardId, groupId, task)
+          task = await boardService.saveTask(boardId, groupId, task,activity)
         } else {
-          task = await boardService.saveTask(boardId, groupId, task)
+          task = await boardService.saveTask(boardId, groupId, task,activity)
           context.commit({ type: 'saveTask', boardId, groupId, task })
         }
       } catch (err) {

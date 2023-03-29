@@ -16,7 +16,7 @@
     <div class="left-box">
       <h1>Merllo brings all your tasks, teammates, and tools together</h1>
       <p>Keep everything in the same place-even if your team isn’t.</p>
-      <RouterLink to="/board"> <button>Try Our Demo!</button> </RouterLink>
+      <RouterLink to="/board"> <button class="btn-demo">Try Our Demo!</button> </RouterLink>
     </div>
     <div class="right-box">
       <img src="../assets/imgs/TrelloUICollage_4x.webp" />
@@ -27,7 +27,8 @@
 <script>
 import { svgService } from '../services/svg.service.js'
 export default {
-  name: '',
+  name: 'HomePage',
+  emits:['toggleHeader'], 
   data() {
     return {}
   },

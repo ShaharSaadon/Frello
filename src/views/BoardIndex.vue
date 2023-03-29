@@ -75,7 +75,6 @@ export default {
       const { width } = window.visualViewport
       x += 198
       if (width - x < 304) x = width - 304
-      console.log("{ top: '48px', left: x + 'px' }: ", { top: '48px', left: x + 'px' });
       return { top: '48px', left: x + 'px' }
     },
   },
@@ -126,9 +125,6 @@ export default {
       }
     },
     async updateBoardEntity(boardId, key, val) {
-      console.log('boardId: ', boardId)
-      console.log('key: ', key)
-      console.log('val: ', val)
       try {
         await this.$store.dispatch({ type: 'updateBoardEntityById', boardId, key, val })
         showSuccessMsg('Board updated')
@@ -144,7 +140,6 @@ export default {
       this.boardToAdd.LeftSideBarBgc = bg.LeftSideBarBgc
       this.boardToAdd.style.backgroundImage = bg.bgImg
       // this.boardToAdd.members.push = this.$store.getters.loggedInUser
-      console.log('this.$store.getters.loggedInUser: ', this.$store.getters.loggedInUser)
       try {
         await this.$store.dispatch({ type: 'addBoard', board: this.boardToAdd })
         showSuccessMsg('Board added')

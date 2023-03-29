@@ -11,6 +11,7 @@
     width: 100px;
     object-fit: scale-down;
     margin-inline-start: 15px;
+    padding:12px;
   }
   .nav-link {
     padding: em($nav-padding);
@@ -18,6 +19,7 @@
     font-size: 1.2rem;
     display: flex;
     align-items: center;
+    color:$clr-base-27;
 
     &:hover {
       color: $clr-base-14;
@@ -43,9 +45,16 @@
   display: grid;
   grid-template-columns:
   //UNTIL THE NEXT BREAK
-    1fr 720px 1fr;
+    1fr max-content 1fr;
   >* {
     grid-column: 2;
+    width: 90vw;
+    text-align: center;
+  }
+
+  button{
+    margin:0 auto;
+
   }
 
   background: url(https://images.ctfassets.net/rz1oowkt5gyp/6bFuTiN5YQ78rFkHb3aJlo/b608362b08e14f5dec4c4aeea3a3ca72/white-wave-mobile.svg) center bottom -0.5px / 100% 24% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto no-repeat scroll padding-box border-box rgb(82, 67, 170);
@@ -55,10 +64,25 @@
   height: 85vh;
   
 
-  // 1000PX AND MORE
+
+
+  // 800px AND MORE
   @include mq(homePageMain1) {
     grid-template-columns:
+    1fr 720px 1fr;
+   >*{
+    width: 100%;
+   }
+
+  }
+
+  // 1000PX AND MORE
+  @include mq(homePageMain2) {
+    grid-template-columns:
       1fr 480px 530px 1fr;
+      >*{
+        text-align: start;
+      }
     .left-box {
       grid-column: 2;
     }
@@ -66,10 +90,11 @@
       grid-column: 3;
     }
 
+
   }
 
   //1200PX AND MORE
-  @include mq(homePageMain2) {
+  @include mq(homePageMain3) {
     grid-template-columns:
       1fr 540px 630px 1fr;
   }
@@ -89,5 +114,12 @@
     @include btn-main($clr-base-14, $clr-base-1, $clr-base-14-hover);
     font-family: charlie;
     padding: $xLarge-space $large-space;
+    margin: 0 auto;
   }
+
+  .btn-demo{
+    font-size: 16px;
+    letter-spacing: .8px;
+  }
+
 }

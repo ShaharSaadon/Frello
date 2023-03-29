@@ -189,7 +189,6 @@ async function loadUsers() {
 }
 
 ; (async ()=> {
-  console.log('dddd');
   const user = await storageService.query('user')
   // console.log("users: ", users);
   if(user.length) return
