@@ -1,32 +1,34 @@
 <template>
-<pre> {{ board}}</pre>
+    <h4>Board admins</h4>
+    <BoardMembers />
+
+    <h4>Description</h4>
 </template>
 
 <script>
+import BoardMembers from '../BoardDetails/BoardMembers.vue';
 export default {
-name: 'SideBarBoardDetails',
-data() {
-return {
+    name: 'SideBarBoardDetails',
+    data() {
+        return {
 
-}
-},
-methods: {
+        }
+    },
+    methods: {
 
-},
-computed: {
-    board() {
+    },
+    computed: {
+        board() {
             return this.$store.getters.watchedBoard
         },
-},
-created() {
+    },
+    created() {
 
-},
-components: {
-
-},
+    },
+    components: {
+        BoardMembers
+    },
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

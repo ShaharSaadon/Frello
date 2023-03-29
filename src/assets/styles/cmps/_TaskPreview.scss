@@ -83,6 +83,7 @@
       position: relative;
     }
   }
+
 }
 
 .task-preview-footer {
@@ -193,6 +194,22 @@
     .badge-checklist {
       @include trello-icon($icon-checklist, $color: $clr-base-4);
     }
+
+    .complete {
+      border-radius: $border-radius-3;
+      color: $clr-base-1;
+      height: rem(24px);
+      // padding: rem(2px);
+      padding: 0 rem(6px) 0 rem(2px);
+      color: $clr-base-4;
+      display: flex;
+      align-items: center;
+      background-color: $clr-base-17;
+      color: $clr-base-1;
+      span::before {
+        color: $clr-base-1;
+      }
+    }
   }
 }
 
@@ -212,4 +229,7 @@
     transform: rotate(3deg);
     opacity: 1;
   }
+
+  
+  
 }

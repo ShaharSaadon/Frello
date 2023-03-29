@@ -234,3 +234,36 @@ $breakpoints: (
     }
   }
 }
+
+@mixin board-members(){
+    display: flex;
+    align-items: center;
+    margin-block-start: 1px;
+
+    .member-profile-box {
+      position: relative;
+      margin-inline-end: em(4px);
+
+      .arrow {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        z-index: 19;
+        bottom: 1px;
+        right: -2px;
+      }
+
+      .member-profile {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        margin: 0 -1px 2px;
+        cursor: pointer;
+        position: relative;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+}
