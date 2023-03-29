@@ -208,7 +208,7 @@ export default {
       const labels = JSON.parse(JSON.stringify(this.labels))
       const idx = labels.findIndex((l) => l.id === labelId)
       labels.splice(idx, 1)
-      this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels })
+      this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels, })
     },
     onEnter() {
       this.$refs.textarea.blur()

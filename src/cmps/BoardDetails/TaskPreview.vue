@@ -2,15 +2,10 @@
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
     <div class="tp">
       <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover"></div>
-      <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']"  class="task-preview">
+      <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
         <div v-if="task.labels?.length" class="task-preview-labels">
-          <div
-            v-for="label in labels"
-            :key="label.id"
-            :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
-            class="task-preview-label"
-            @click.prevent="toggleLabelFullDisplay"
-          >
+          <div v-for="label in labels" :key="label.id" :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
+            class="task-preview-label" @click.prevent="toggleLabelFullDisplay">
             {{ isLabelFullDisplay ? label.title : '' }}
           </div>
         </div>
@@ -25,12 +20,8 @@
             <div v-if="task.checklists?.length" class="badge-checklist">
               <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
             </div>
-            <div
-              :class="getDateClass"
-              @click.prevent="toggleKey('isComplete')"
-              v-if="task.dueDate"
-              class="badge-date flex align-center"
-            >
+            <div :class="getDateClass" @click.prevent="toggleKey('isComplete')" v-if="task.dueDate"
+              class="badge-date flex align-center">
               <span></span>{{ getDate }}
             </div>
           </div>
@@ -66,14 +57,17 @@ export default {
   methods: {
     toggleKey(key) {
       const newVal = !this.task[key]
-      this.saveTask({ key, newVal })
+      console.log('key=',key)
+      console.log('newVal:', newVal)
+      let activity = [newVal, key , 'to', this.task.title]
+      this.saveTask({ key, newVal, activity })
     },
-    async saveTask({ key, newVal }) {
+    async saveTask({ key, newVal, activity }) {
       const task = JSON.parse(JSON.stringify(this.task))
       task[key] = newVal
       const groupId = this.groupId
       try {
-        this.$store.dispatch({ type: 'saveTask', groupId, task })
+        this.$store.dispatch({ type: 'saveTask', groupId, task, activity })
       } catch (err) {
         console.log(err)
       }
@@ -138,11 +132,11 @@ export default {
     },
     imgCover() {
       return this.task.cover?.url
-        ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '200px'}
+        ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '200px' }
         : ''
     },
   },
-  created() {},
+  created() { },
   components: {
     TaskMember,
   },
