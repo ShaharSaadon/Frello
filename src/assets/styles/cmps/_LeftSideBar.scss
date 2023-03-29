@@ -3,12 +3,11 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  color:$clr-base-1;
+  color: $clr-base-1;
   min-width: 16px;
   min-height: 100%;
 
   transition: 0.3s ease-in-out;
-
 
   border-right: 1px solid $side-bar-border;
 
@@ -27,7 +26,7 @@
     &:hover {
       cursor: pointer;
       scale: 1.4;
-      transition: .3s;
+      transition: 0.3s;
     }
   }
 
@@ -37,7 +36,6 @@
     height: em(72px);
     padding: em(14px) em(12px);
     border-bottom: 1px solid $side-bar-border;
-
 
     .workspace-logo {
       align-items: center;
@@ -59,7 +57,6 @@
   .router-link-active {
     background-color: $side-bar-border;
   }
-
 
   .board-select {
     display: flex;
@@ -83,7 +80,7 @@
 
       cursor: pointer;
       background-color: transparent;
-      transition: all .1s;
+      transition: all 0.1s;
 
       opacity: 0;
 
@@ -103,20 +100,18 @@
       &.starred {
         opacity: 1;
       }
-
     }
 
     .board-image {
+      background-position: 50%;
+      background-size: cover;
       width: em(24px);
       height: em(24px);
       margin-inline-end: 8px;
       border-radius: $border-radius-3;
       border: 1px solid $side-bar-image-border;
     }
-
   }
-
-
 
   a {
     text-decoration: none;

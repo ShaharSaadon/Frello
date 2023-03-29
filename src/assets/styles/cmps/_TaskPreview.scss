@@ -121,10 +121,12 @@
       // padding: rem(2px);
       padding: 0 rem(6px) 0 rem(2px);
       color: $clr-base-4;
+      display: flex;
+      align-items: center;
 
       &:hover {
         background-color: $clr-base-3;
-        span::before {
+        .clock::before {
           content: $icon-empty-checked;
         }
 
@@ -135,19 +137,24 @@
           background-color: $clr-base-21;
         }
         &.complete {
-          span::before {
+          .clock::before {
             content: $icon-full-checked;
           }
           background-color: $clr-base-18;
         }
       }
 
-      span {
+      .clock {
         @include trello-icon($icon-clock, $color: $clr-base-4);
         height: max-content;
         // font-size: 15px;
         padding: rem(4px) rem(2px) rem(2px) rem(2px);
         margin-inline-end: rem(2px);
+      }
+      .date{
+        // padding-top: em(3px);
+        height: fit-content;
+        font-size: 12px;
       }
 
       &.closeToDate {
