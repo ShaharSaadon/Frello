@@ -6,6 +6,7 @@
 
     .btn-edit-description {
       @include btn-main();
+      @include btn-active();
       margin-inline-start: 8px;
     }
   }
@@ -20,10 +21,11 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 3px;
     cursor: pointer;
-
+    
     &:hover {
       background-color: $clr-base-3-hover;
     }
+    @include btn-active();
   }
 
   .description-editor {

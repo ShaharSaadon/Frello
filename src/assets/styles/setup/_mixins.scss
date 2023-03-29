@@ -221,3 +221,16 @@ $breakpoints: (
     color: $clr-base-5;
   }
 }
+
+@mixin btn-active() {
+  &:active {
+    background-color: $clr-base-27;
+    color: $clr-base-8;
+    span {
+      color: $clr-base-8;
+    }
+    &::before {
+      color: $clr-base-8;
+    }
+  }
+}

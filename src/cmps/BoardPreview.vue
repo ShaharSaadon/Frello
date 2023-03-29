@@ -1,6 +1,7 @@
 <template>
   <li class="board-preview" :style="board.style">
     <router-link :to="'board/' + board._id">
+      <div class="fade"></div>
       <div class="container">
         <div class="board-title">{{ board.title }}</div>
         <!-- <button @click="$emit('removeBoard', board._id)">x</button> -->

@@ -88,12 +88,18 @@ $clr-base-23: #40506d; //Right Menu Font
 $clr-base-24: #e2e4e9; // Right Menu Nav-Link Hover
 $clr-base-25: #7d7e7b; // img background
 $clr-base-26: #091e4240; 
-$clr-base-27: #121e30;
+$clr-base-27: #e4f0f6; // bgc active btn
+$clr-base-28: #121e30;
 
 $clr-base-30: #ecedf0; // Right Menu Nav-Link Hover
 $clr-base-30-hover: #e4e6ea; // Right Menu Nav-Link Hover
 $clr-base-31: #667289; // Right Menu Nav-Link Hover
 $clr-base-32: #2e405d; // Right Menu Nav-Link Hover
+
+$clr-fade: #00000040;
+$clr-fade-hover: #0006;
+$clr-create-board-hover: #E9EBEE;
+
 // Dynamic Color
 $clr-dynamic-button: rgba(255, 255, 255, 0.2);
 $clr-dynamic-button-hovered: rgba(255, 255, 255, 0.3);
@@ -176,7 +182,9 @@ $icon-empty-checked: '\e919';
 $icon-full-checked: '\e918';
 
 // scrollbar
-$scrollbar-track: #091e4214;
+$scrollbar-track-task: #091e4214;
+$scrollbar-piece-task: #00000026;
+$scrollbar-track: #fafbfc63;
 $scrollbar-piece: #00000026;
 
 // <TaskDetails> :

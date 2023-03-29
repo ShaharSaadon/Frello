@@ -42,6 +42,9 @@
   }
 
   form {
+    .asterisk {
+      color: $clr-base-20;
+    }
     .btn-create {
       @include btn-main($bgc: $clr-base-8, $color: $clr-base-1, $bgc-hover: $clr-base-8-hover);
       width: 100%;
@@ -49,6 +52,18 @@
     input {
       @include input();
       margin-block-start: 0;
+
+      border: none;
+      box-shadow: inset 0 0 0 2px $clr-base-8;
+      &.validRequired {
+        box-shadow: inset 0 0 0 2px $clr-base-20;
+      }
+      &:focus {
+        box-shadow: inset 0 0 0 2px $clr-base-8;
+        &:hover.validRequired {
+          box-shadow: inset 0 0 0 2px $clr-base-20;
+        }
+      }
     }
   }
 }

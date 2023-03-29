@@ -22,7 +22,7 @@
             </div>
             <div :class="getDateClass" @click.prevent="toggleKey('isComplete')" v-if="task.dueDate"
               class="badge-date flex align-center">
-              <span></span>{{ getDate }}
+              <span class="clock"></span><span class="date">{{ getDate }}</span> 
             </div>
           </div>
 
