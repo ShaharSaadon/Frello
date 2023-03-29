@@ -75,15 +75,21 @@
       align-items: center;
       justify-content: center;
 
-      width: em(36px);
-      height: em(36px);
+      width: em(32px);
+      height: em(32px);
       font-weight: bold;
       font-size: em(20px);
 
+      border-radius: $border-radius-3;
+
       background: $clr-merllo-workspace-logo;
+    }
+    .title{
+      font-size: 14px;
     }
   }
 
+  
   .left-side-bar-title {
     padding: em(12px);
   }

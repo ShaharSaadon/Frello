@@ -12,6 +12,7 @@
           <div class="tool-bar">
             <!-- <span class="dot"></span>
             <span>Comment</span> -->
+           <span class="attach-link">Added {{ getTime(attach.uploadAt) }} </span>
             <span class="attach-link dot"></span>
             <span class="attach-link" @click="remove(attach.id)">Remove</span>
             <span class="attach-link dot"></span>
@@ -20,7 +21,7 @@
           <div class="flex align-center">
             <span class="btn-make-cover"></span>
             <span class="attach-link" @click="toggleCover(attach.url, attach.bgc)">
-            {{  attach.url === taskCover?.url ? 'Remove cover' : 'Make cover'}}
+              {{ attach.url === taskCover?.url ? 'Remove cover' : 'Make cover' }}
             </span>
           </div>
         </div>
@@ -60,12 +61,14 @@ export default {
       }
       this.$emit('saveTask', { key: 'cover', newVal: { isFull: false, color, url } })
     },
+    getTime(timeStamp) {
+      return utilService.daysAgo(timeStamp)
+    }
   },
 
   computed: {
-
   },
-  created() {},
+  created() { },
   components: {},
 }
 </script>

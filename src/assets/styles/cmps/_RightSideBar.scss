@@ -15,6 +15,9 @@
     max-height: 100vh;
   }
 
+  .title{
+    font-size:em(16px)
+  }
   p {
     margin: 0;
     font-size: 14px;
@@ -29,6 +32,9 @@
 
     .close-menu {
       @include trello-icon($icon-close, $type: sm, $color: $clr-base-4);
+     &:hover{
+      cursor: pointer;
+      }
     }
 
     .back {
