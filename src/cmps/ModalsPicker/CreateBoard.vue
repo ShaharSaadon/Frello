@@ -16,7 +16,7 @@
     </ul>
 
     <form @submit.prevent="createNewBoard">
-      <p>Board title<span v-if="!title" class="asterisk"> *</span></p>
+      <p>Board title<span class="asterisk"> *</span></p>
       <input :class="getFormClass" type="text" v-model="title" />
       <button class="btn-create">Create</button>
     </form>
