@@ -10,17 +10,20 @@
         <a class="title-link" target="_blank" :href="attach.url">{{ attach.title || attach.url }}</a>
         <div class="file-info">
           <div class="tool-bar">
-            <span></span>
             <!-- <span class="dot"></span>
             <span>Comment</span> -->
-            <span class="dot"></span>
-            <span @click="remove(attach.id)">Remove</span>
-            <span class="dot"></span>
-            <span @click="edit($event, attach.id)">Edit</span>
+            <span class="attach-link dot"></span>
+            <span class="attach-link" @click="remove(attach.id)">Remove</span>
+            <span class="attach-link dot"></span>
+            <span class="attach-link" @click="edit($event, attach.id)">Edit</span>
           </div>
-          <span @click="toggleCover(attach.url)">Make cover</span>
+          <div class="flex align-center">
+            <span class="btn-make-cover"></span>
+            <span class="attach-link" @click="toggleCover(attach.url, attach.bgc)">
+            {{  attach.url === taskCover.url ? 'Remove cover' : 'Make cover'}}
+            </span>
+          </div>
         </div>
-        <pre>{{ coverToEdit }}</pre>
       </div>
     </div>
   </article>
@@ -38,7 +41,6 @@ export default {
     },
     taskCover: {
       type: Object,
-      required: true,
     },
   },
   data() {
@@ -51,13 +53,18 @@ export default {
     edit(ev, id) {
       this.$emit('edit', ev, id)
     },
-    toggleCover(url) {
-      const newUrl = this.taskCover.url === url ? null : url
-      this.$emit('saveTask', { key: 'cover', newVal: { ...this.taskCover, url: newUrl } })
+    toggleCover(url, color) {
+      if (url === this.taskCover?.url) {
+        url = null
+        color = null
+      }
+      this.$emit('saveTask', { key: 'cover', newVal: { isFull: false, color, url } })
     },
   },
 
-  computed: {},
+  computed: {
+
+  },
   created() {},
   components: {},
 }
