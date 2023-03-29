@@ -23,7 +23,7 @@
           @removeChecklist="removeChecklist"
           @updateEntityVal="updateEntityVal"
         />
-        <TaskActivities :taskId="task.id" :taskTitle="task.title" @updateEntityVal="updateEntityVal" :taskComments="task.comments"/>
+        <TaskActivities :taskId="taskId" :taskTitle="task.title" @updateEntityVal="updateEntityVal" :taskComments="task.comments"/>
 
       
       </div>
@@ -281,10 +281,10 @@ export default {
       const groupId = this.groupId
       try {
         this.$store.dispatch({ type: 'saveTask', groupId, task, activity })
-        showSuccessMsg('Task added')
+        // showSuccessMsg('Task added')
       } catch (err) {
         console.log(err)
-        showErrorMsg('Cannot add Task')
+        // showErrorMsg('Cannot add Task')
       }
     },
     toggleModal(cmpType, ev) {

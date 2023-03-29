@@ -51,7 +51,7 @@ export default {
   name: 'TaskActivities',
   props: {
     taskId: {
-      type: Number,
+      type: String,
       required: true,
     },
     taskTitle: {

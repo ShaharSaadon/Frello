@@ -32,6 +32,7 @@ import {utilService} from '../../services/util.service'
 import SideBarActivities from './SideBarActivities.vue'
 export default {
     name: 'SideBarMain',
+    emits: ['switchDynamicCmp'],
     data() {
         return {
 

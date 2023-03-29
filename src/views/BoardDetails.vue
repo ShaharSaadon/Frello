@@ -100,47 +100,47 @@ export default {
     async removeGroup(groupId) {
       try {
         await this.$store.dispatch(getActionRemoveGroup(this.boardId, groupId))
-        showSuccessMsg('Group removed')
+        // showSuccessMsg('Group removed')
       } catch (err) {
         console.log(err)
-        showErrorMsg('Cannot remove Group')
+        // showErrorMsg('Cannot remove Group')
       }
     },
     async addGroup(group) {
       try {
         await this.$store.dispatch({ type: 'addGroup', boardId: this.boardId, group })
-        showSuccessMsg('Group added')
+        // showSuccessMsg('Group added')
       } catch (err) {
         console.log(err)
-        showErrorMsg('Cannot add Group')
+        // showErrorMsg('Cannot add Group')
       }
     },
     async saveTask({ task, groupId }) {
       try {
         let activity = ['added',task.title,'to',this.groupById(groupId).title]
         this.$store.dispatch({ type: 'saveTask', groupId, task,activity })
-        showSuccessMsg('Task added')
+        // showSuccessMsg('Task added')
       } catch (err) {
         console.log(err)
-        showErrorMsg('Cannot add Task')
+        // showErrorMsg('Cannot add Task')
       }
     },
     async updateGroup(group) {
       try {
         await this.$store.dispatch({ type: 'updateGroup', boardId: this.boardId, group })
-        showSuccessMsg('group updated')
+        // showSuccessMsg('group updated')
       } catch (err) {
         console.log(err)
-        showErrorMsg('Cannot update group')
+        // showErrorMsg('Cannot update group')
       }
     },
     async updateGroups(groups) {
       try {
         await this.$store.dispatch({ type: 'updateGroups', boardId: this.boardId, groups })
-        showSuccessMsg('board Drag updated')
+        // showSuccessMsg('board Drag updated')
       } catch (err) {
         console.log(err)
-        showErrorMsg('Cannot Drag group')
+        // showErrorMsg('Cannot Drag group')
       }
     },
     async updateTasksPos({ tasks, groupId }) {
@@ -156,10 +156,10 @@ export default {
       const isStarred = board.isStarred
       try {
         await this.$store.dispatch({ type: 'updateBoardEntity', key: 'isStarred', val: !isStarred })
-        showSuccessMsg('board Drag updated')
+        // showSuccessMsg('board Drag updated')
       } catch (err) {
         console.log(err)
-        showErrorMsg('Cannot Drag group')
+        // showErrorMsg('Cannot Drag group')
       }
     },
     getSvg(iconName) {

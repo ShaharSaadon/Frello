@@ -17,6 +17,7 @@
 import { utilService } from '../../services/util.service'
 export default {
     name: 'SideBarActivities',
+    emits: ['switchDynamicCmp'],
     props:{
         maximum: {
             type: Boolean,
