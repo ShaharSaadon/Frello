@@ -6,7 +6,8 @@
   }
   .btn-create {
     @include btn-main($clr-base-3, $clr-base-4, $clr-base-9);
-    margin-top: em(12px)
+    margin-top: em(12px);
+    @include btn-active();
   }
   h3 {
     margin: rem(12px) 0 rem(8px);

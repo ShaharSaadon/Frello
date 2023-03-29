@@ -15,7 +15,13 @@
       <div class="main-content">
         <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskAttachments @removeEntityVal="removeEntityVal" :taskAttachments="task.attachments" />
+        <TaskAttachments
+          @edit="(ev, id) => toggleModal('AttachmentEditor', ev, id)"
+          @removeEntityVal="removeEntityVal"
+          @saveTask="saveTask"
+          :taskAttachments="task.attachments"
+          :taskCover="task.cover"
+        />
         <TaskChecklist
           :key="list.title"
           v-for="list in task.checklists"
@@ -23,9 +29,12 @@
           @removeChecklist="removeChecklist"
           @updateEntityVal="updateEntityVal"
         />
-        <TaskActivities :taskId="task.id" :taskTitle="task.title" @updateEntityVal="updateEntityVal" :taskComments="task.comments"/>
-
-      
+        <TaskActivities
+          :taskId="task.id"
+          :taskTitle="task.title"
+          @updateEntityVal="updateEntityVal"
+          :taskComments="task.comments"
+        />
       </div>
       <div class="sidebar flex">
         <!-- <div class="flex space-between">
@@ -208,7 +217,7 @@ export default {
       const labels = JSON.parse(JSON.stringify(this.labels))
       const idx = labels.findIndex((l) => l.id === labelId)
       labels.splice(idx, 1)
-      this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels, })
+      this.$store.dispatch('updateBoardEntity', { key: 'labels', val: labels })
     },
     onEnter() {
       this.$refs.textarea.blur()
@@ -246,7 +255,7 @@ export default {
     updateEntityVal({ key, val }) {
       console.log('key:', key)
       console.log('val:', val)
-      
+
       let activity
       const task = JSON.parse(JSON.stringify(this.task))
       // var isObj = val.id
@@ -275,6 +284,7 @@ export default {
       this.saveTask({ key, newVal: task[key], activity })
     },
     async saveTask({ key, newVal, activity }) {
+      console.log("newVal: ", newVal);
       if (!activity) activity = ['added', key, 'from', this.task.title]
       const task = JSON.parse(JSON.stringify(this.task))
       task[key] = newVal
@@ -287,7 +297,7 @@ export default {
         showErrorMsg('Cannot add Task')
       }
     },
-    toggleModal(cmpType, ev) {
+    toggleModal(cmpType, ev, id) {
       if (ev) this.setModalPos(ev)
       let isModalOpen = true
       let type = cmpType
@@ -298,6 +308,7 @@ export default {
       }
       this.modal.isModalOpen = isModalOpen
       this.modal.type = type
+      if (id) this.modal.id = id
     },
     toggleKey(key) {
       const newVal = !this.task[key]

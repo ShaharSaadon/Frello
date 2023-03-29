@@ -9,12 +9,19 @@
           :src="member.imgUrl"
           class="member-profile"
         />
+
+        <div class="member-profile member-plus" @click="$emit('openModal', 'MemberPicker', $event)"></div>
       </div>
     </div>
     <div v-if="labels?.length">
       <h3 class="title">Labels</h3>
       <div class="head-labels">
-        <div @click="$emit('openModal', 'LabelPicker', $event)" v-for="label in labels" class="label-tag" :class="label.color">
+        <div
+          @click="$emit('openModal', 'LabelPicker', $event)"
+          v-for="label in labels"
+          class="label-tag"
+          :class="label.color"
+        >
           {{ label.title }}
         </div>
       </div>
@@ -64,8 +71,8 @@ export default {
       else if (this.isTomorrow) month = 'tomorrow'
       else month = utilService.getDate(this.task.dueDate)
       const time = dueDate.toLocaleTimeString('en-US').split(' ')
-      var timeToShow = time[0].split(':').splice(0,2).join(':')
-      return  `${month} at ${timeToShow} ${time[1]}`
+      var timeToShow = time[0].split(':').splice(0, 2).join(':')
+      return `${month} at ${timeToShow} ${time[1]}`
     },
     isToday() {
       const date = new Date(this.task.dueDate)
@@ -107,9 +114,9 @@ export default {
       const msDay = 1000 * 60 * 60 * 24
       const dueDate = new Date(this.task.dueDate)
       const diff = dueDate - Date.now()
-      if(this.task.isComplete) return 'complete'
-      if(diff < msDay && diff > 0) return 'due soon'
-      if(diff < 0) return 'overdue'
+      if (this.task.isComplete) return 'complete'
+      if (diff < msDay && diff > 0) return 'due soon'
+      if (diff < 0) return 'overdue'
       return ''
     },
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="check-list-picker">
     <h3>Title</h3>
-    <input class="search-input" v-model="title" type="text" placeholder="Add check list title here" />
+    <input ref="mainInput" class="search-input" v-model="title" type="text" placeholder="Add check list title here" />
 
     <button @click="addChecklist" class="btn-add-check-list">Add</button>
   </div>
@@ -13,7 +13,7 @@ export default {
   name: '',
   data() {
     return {
-      title: '',
+      title: 'Checklist',
     }
   },
   methods: {
@@ -23,7 +23,12 @@ export default {
     },
   },
   computed: {},
-  created() {},
+  created() {
+    this.$nextTick(() => {
+      this.$refs.mainInput.focus()
+      this.$refs.mainInput.select()
+    })
+  },
   components: {},
 }
 </script>
