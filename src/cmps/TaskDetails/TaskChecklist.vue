@@ -14,7 +14,7 @@
       </div>
       <div class="flex">
         <button
-          v-if="!(isAnyChecked && this.isItemEdit === 'title')"
+          v-if="(isAnyChecked && !(this.isItemEdit === 'title'))"
           @click="isUnCheckedOnly = !isUnCheckedOnly"
           class="btn-checklist"
         >
