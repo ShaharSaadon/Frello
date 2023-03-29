@@ -28,6 +28,7 @@ import ChangeBackground from '../RightSideBar/ChangeBackground.vue'
 import SideBarActivities from '../RightSideBar/SideBarActivities.vue'
 export default {
     name: 'RightSideBar',
+    emits: ['switchDynamicCmp','onChangeBackground'],
     props: {
         type: {
             type: String,

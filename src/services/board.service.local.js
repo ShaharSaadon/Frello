@@ -86,8 +86,8 @@ function getEmptyGroup() {
 }
 
 function getEmptyBoard() {
-  return _getEmptyBoard()
-  // return _getDemoDataBoard()
+  return _getDemoDataBoard()
+//  return _getEmptyBoard()
 }
 
 function getEmptyTask() {
@@ -889,13 +889,6 @@ function _getDemoDataBoard() {
     ],
     members: [
       {
-        _id: 'SfMA8',
-        fullname: 'Ido Da',
-        username: 'da',
-        imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-        score: 10000,
-      },
-      {
         _id: 'CnKGh',
         fullname: 'Tomer Huberman',
         username: 'tomer',
@@ -903,8 +896,15 @@ function _getDemoDataBoard() {
         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
         score: 10000,
       },
+      // {
+      //   _id: 'u102',
+      //   fullname: 'Ido Peri',
+      //   username: 'ido',
+      //   password: 'ido',
+      //   imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+      // },
       {
-        _id: 'd3FXM',
+        _id: 'u100',
         fullname: 'Shahar Saadon',
         username: 'shahar',
         password: 'shahar',
@@ -2937,45 +2937,46 @@ function _getDemoDataBoard() {
   }
 }
 
-function _getEmptyBoard() {
+function _getEmptyBoard(){
   return {
     title: '',
     appHeaderBgc: '',
     isStarred: false,
     archivedAt: '',
-    createdBy: {},
+    createdBy: {
+    },
     isLabelFullDisplay: false,
     labels: [
       {
-        id: utilService.makeId(),
+        id: 'BD8j2P',
         color: 'light-green',
-        title: '',
+        title: ''
       },
       {
-        id: utilService.makeId(),
+        id: 'OuYRj8',
         color: 'light-blue',
-        title: '',
+        title: ''
       },
       {
-        id: utilService.makeId(),
+        id: 'MMgK4L',
         color: 'light-orange',
-        title: '',
+        title: ''
       },
       {
-        id: utilService.makeId(),
+        id: 'S88O4M',
         color: 'light-red',
-        title: '',
+        title: ''
       },
       {
-        id: utilService.makeId(),
+        id: 'OFCdQO',
         color: 'light-purple',
-        title: '',
+        title: ''
       },
       {
-        id: utilService.makeId(),
+        id: '97LqwY',
         color: 'light-sky',
-        title: '',
-      },
+        title: ''
+      }
     ],
     groups: [
       {
@@ -2984,146 +2985,338 @@ function _getEmptyBoard() {
         archivedAt: 1589983468418,
         tasks: [
           {
-            id: 'c101',
-            title: 'Replace logo',
-            isWatch: false,
+            title: 'task 1',
+            description: '',
             members: [],
             labels: [],
-            attachments: [],
-            cover: null,
-            dueDate: null,
             checklists: [],
-            dueDate: 0,
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
             isComplete: false,
+            comments: [],
+            id: 'fSL3MC'
           },
           {
-            id: 'c102',
-            title: 'Add Samples',
-            isWatch: false,
+            title: 'task 2',
+            description: '',
             members: [],
             labels: [],
-            attachments: [],
-            cover: null,
-            dueDate: undefined,
             checklists: [],
-            dueDate: 0,
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
             isComplete: false,
+            comments: [],
+            id: 't3iXuK'
           },
+          {
+            title: 'task 3',
+            description: '',
+            members: [],
+            labels: [],
+            checklists: [],
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
+            isComplete: false,
+            comments: [],
+            id: '7baW59'
+          }
         ],
-        style: {},
+        style: {}
       },
       {
         id: 'g102',
         title: 'Group 2',
         tasks: [
           {
-            id: 'c103',
-            title: 'Do that',
-            isWatch: false,
-            archivedAt: 1589983468418,
+            title: 'task A',
+            description: '',
             members: [],
             labels: [],
-            attachments: [],
-            cover: null,
-            dueDate: null,
             checklists: [],
-            dueDate: 0,
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
             isComplete: false,
+            comments: [],
+            id: 'bqvHlK'
           },
           {
-            id: 'c104',
-            title: 'Help me',
-            isWatch: false,
-            status: 'in-progress', // monday
-            priority: 'high',
-            description: 'description',
+            title: 'task B',
+            description: '',
             members: [],
             labels: [],
-            attachments: [],
-            cover: null,
             checklists: [],
-            dueDate: 0,
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
             isComplete: false,
-            comments: [
-              {
-                id: 'ZdPnm',
-                txt: 'also @yaronb please CR this',
-                createdAt: 1590999817436,
-                byMember: {
-                  _id: "SfMA8",
-                  fullname: "Ido Da",
-                  username: "da",
-                  imgUrl: "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png",
-                  score: 10000
-                }
-              },
-            ],
-            dueDate: 3467436734,
-            isComplete: false,
-            byMember: {
-              _id: "SfMA8",
-              fullname: "Ido Da",
-              username: "da",
-              imgUrl: "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png",
-              score: 10000
-            },
-            style: {
-              bgColor: '#26de81',
-            },
+            comments: [],
+            id: 'YdpBiN'
           },
-        ],
+          {
+            title: 'task C',
+            description: '',
+            members: [],
+            labels: [],
+            checklists: [],
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
+            isComplete: false,
+            comments: [],
+            id: 'd4cqNw'
+          }
+        ]
       },
+      {
+        id: '8ci1LS',
+        title: 'Group 3',
+        archivedAt: 0,
+        tasks: [
+          {
+            title: 'task 1',
+            description: '',
+            members: [],
+            labels: [],
+            checklists: [],
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
+            isComplete: false,
+            comments: [],
+            id: 'FqQ7b4'
+          },
+          {
+            title: 'task 2',
+            description: '',
+            members: [],
+            labels: [],
+            checklists: [],
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
+            isComplete: false,
+            comments: [],
+            id: '8OqVpH'
+          },
+          {
+            title: 'task 3',
+            description: '',
+            members: [],
+            labels: [],
+            checklists: [],
+            attachments: [],
+            isWatch: false,
+            dueDate: null,
+            isComplete: false,
+            comments: [],
+            id: 'mHUVI4'
+          }
+        ],
+        style: {}
+      }
     ],
-    members: [],
+    members: [
+    ],
     style: {
-      backgrounImage: '',
+      backgroundImage: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)'
     },
     activities: [
-      {
-        id: '100',
-        txt: 'Changed Color',
-        createdAt: 154514,
-        byMember: {
-          _id: 'u100',
-          fullname: 'Shahar Saadon',
-          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
-        },
-        task: {
-          id: 'c100',
-          title: 'Replace Logo',
-        },
-      },
-      {
-        id: '101',
-        txt: 'Changed Color',
-        createdAt: 154514,
-        byMember: {
-          _id: 'u101',
-          fullname: 'Ido Peri',
-          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-        },
-        task: {
-          id: 'c101',
-          title: 'Replace Logo',
-        },
-      },
-      {
-        id: '102',
-        txt: 'Changed Color',
-        createdAt: 154514,
-        byMember: {
-          _id: 'u102',
-          fullname: 'Tomer Huberman',
-          imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
-        },
-        task: {
-          id: 'c102',
-          title: 'Replace Logo',
-        },
-      },
     ],
   }
 }
+
+// function _getEmptyBoard() {
+//   return {
+//     title: '',
+//     appHeaderBgc: '',
+//     isStarred: false,
+//     archivedAt: '',
+//     createdBy: {},
+//     isLabelFullDisplay: false,
+//     labels: [
+//       {
+//         id: utilService.makeId(),
+//         color: 'light-green',
+//         title: '',
+//       },
+//       {
+//         id: utilService.makeId(),
+//         color: 'light-blue',
+//         title: '',
+//       },
+//       {
+//         id: utilService.makeId(),
+//         color: 'light-orange',
+//         title: '',
+//       },
+//       {
+//         id: utilService.makeId(),
+//         color: 'light-red',
+//         title: '',
+//       },
+//       {
+//         id: utilService.makeId(),
+//         color: 'light-purple',
+//         title: '',
+//       },
+//       {
+//         id: utilService.makeId(),
+//         color: 'light-sky',
+//         title: '',
+//       },
+//     ],
+//     groups: [
+//       {
+//         id: 'g101',
+//         title: 'Group 1',
+//         archivedAt: 1589983468418,
+//         tasks: [
+//           {
+//             id: 'c101',
+//             title: 'Replace logo',
+//             isWatch: false,
+//             members: [],
+//             labels: [],
+//             attachments: [],
+//             cover: null,
+//             dueDate: null,
+//             checklists: [],
+//             dueDate: 0,
+//             isComplete: false,
+//           },
+//           {
+//             id: 'c102',
+//             title: 'Add Samples',
+//             isWatch: false,
+//             members: [],
+//             labels: [],
+//             attachments: [],
+//             cover: null,
+//             dueDate: undefined,
+//             checklists: [],
+//             dueDate: 0,
+//             isComplete: false,
+//           },
+//         ],
+//         style: {},
+//       },
+//       {
+//         id: 'g102',
+//         title: 'Group 2',
+//         tasks: [
+//           {
+//             id: 'c103',
+//             title: 'Do that',
+//             isWatch: false,
+//             archivedAt: 1589983468418,
+//             members: [],
+//             labels: [],
+//             attachments: [],
+//             cover: null,
+//             dueDate: null,
+//             checklists: [],
+//             dueDate: 0,
+//             isComplete: false,
+//           },
+//           {
+//             id: 'c104',
+//             title: 'Help me',
+//             isWatch: false,
+//             status: 'in-progress', // monday
+//             priority: 'high',
+//             description: 'description',
+//             members: [],
+//             labels: [],
+//             attachments: [],
+//             cover: null,
+//             checklists: [],
+//             dueDate: 0,
+//             isComplete: false,
+//             comments: [
+//               {
+//                 id: 'ZdPnm',
+//                 txt: 'also @yaronb please CR this',
+//                 createdAt: 1590999817436,
+//                 byMember: {
+//                   _id: "SfMA8",
+//                   fullname: "Ido Da",
+//                   username: "da",
+//                   imgUrl: "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png",
+//                   score: 10000
+//                 }
+//               },
+//             ],
+//             dueDate: 3467436734,
+//             isComplete: false,
+//             byMember: {
+//               _id: "SfMA8",
+//               fullname: "Ido Da",
+//               username: "da",
+//               imgUrl: "https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png",
+//               score: 10000
+//             },
+//             style: {
+//               bgColor: '#26de81',
+//             },
+//           },
+//         ],
+//       },
+//     ],
+//     members: [],
+//     style: {
+//       backgrounImage: '',
+//     },
+//     activities: [
+//       {
+//         id: '100',
+//         txt: 'Changed Color',
+//         createdAt: 154514,
+//         byMember: {
+//           _id: 'u100',
+//           fullname: 'Shahar Saadon',
+//           imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//         },
+//         task: {
+//           id: 'c100',
+//           title: 'Replace Logo',
+//         },
+//       },
+//       {
+//         id: '101',
+//         txt: 'Changed Color',
+//         createdAt: 154514,
+//         byMember: {
+//           _id: 'u101',
+//           fullname: 'Ido Peri',
+//           imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//         },
+//         task: {
+//           id: 'c101',
+//           title: 'Replace Logo',
+//         },
+//       },
+//       {
+//         id: '102',
+//         txt: 'Changed Color',
+//         createdAt: 154514,
+//         byMember: {
+//           _id: 'u102',
+//           fullname: 'Tomer Huberman',
+//           imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//         },
+//         task: {
+//           id: 'c102',
+//           title: 'Replace Logo',
+//         },
+//       },
+//     ],
+//   }
+// }
+
 
 // function _createUsers() {
 //   let users = JSON.parse(localStorage.getItem(USER_KEY))

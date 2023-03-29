@@ -72,6 +72,8 @@ export default {
       if (this.chosenMember.fullname !== this.fullname) return
       this.fullname = ''
       this.$store.dispatch({ type: 'addMember', member: this.chosenMember })
+      this.$store.commit({ type: 'setUserFilterBy', filterBy: { txt: '' } })
+      this.$store.dispatch({ type: 'loadUsers' })
     },
     getAdminText(member) {
       return this.$store.getters.watchedBoard.createdBy._id === member._id ? 'Admin' : 'Guest'
