@@ -86,8 +86,8 @@ function getEmptyGroup() {
 }
 
 function getEmptyBoard() {
-  // return _getDemoDataBoard()
- return _getEmptyBoard()
+  return _getDemoDataBoard()
+//  return _getEmptyBoard()
 }
 
 function getEmptyTask() {

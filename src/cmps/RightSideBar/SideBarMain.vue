@@ -1,6 +1,7 @@
 <template>
     <div class="main-content">
-        <div class="board-nav-item abot" @click="$emit('switchDynamicCmp', 'SideBarBoardDetails')">
+        <div class="board-nav-item about">
+        <!-- <div class="board-nav-item abot" @click="$emit('switchDynamicCmp', 'SideBarBoardDetails')"> -->
             <i className="icon" v-html="getSvg('trello')"></i>
             <div class="title">
                 <h5>About this board</h5>
