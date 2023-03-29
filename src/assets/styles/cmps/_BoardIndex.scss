@@ -28,6 +28,9 @@
       cursor: pointer;
       border-radius: $border-radius-3;
       background-color: $clr-base-15;
+      &:hover{
+        background-color: $clr-create-board-hover;
+      }
     }
   }
 

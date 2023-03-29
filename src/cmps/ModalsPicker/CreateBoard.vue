@@ -7,13 +7,17 @@
     <p>Background</p>
     <ul class="color-choices clean-list grid">
       <li v-for="bgOpt in bgOpts" :key="bgOpt.bgc">
-        <button @click="chosenBg=bgOpt" :style="{ backgroundImage: bgOpt.bgImg }" :class="getCheckedClass(bgOpt)"></button>
+        <button
+          @click="chosenBg = bgOpt"
+          :style="{ backgroundImage: bgOpt.bgImg }"
+          :class="getCheckedClass(bgOpt)"
+        ></button>
       </li>
     </ul>
 
     <form @submit.prevent="createNewBoard">
-      <p>Board title</p>
-      <input type="text" v-model="title" />
+      <p>Board title<span v-if="!title" class="asterisk"> *</span></p>
+      <input :class="getFormClass" type="text" v-model="title" />
       <button class="btn-create">Create</button>
     </form>
   </div>
@@ -25,15 +29,16 @@ export default {
   data() {
     return {
       chosenBg: {
-          bgc: '#07479E',
-          bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
+        bgc: '#07479E',
+        bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
       },
       title: '',
+      isValid: false,
     }
   },
   methods: {
     getCheckedClass(bgOpt) {
-      if(this.chosenBg.bgc === bgOpt.bgc && this.chosenBg.bgImg === bgOpt.bgImg) return 'checked'
+      if (this.chosenBg.bgc === bgOpt.bgc && this.chosenBg.bgImg === bgOpt.bgImg) return 'checked'
       return ''
     },
   },
@@ -45,9 +50,14 @@ export default {
       if (!this.title) return
       this.$emit('createBoard', { title: this.title, bg: this.chosenBg })
     },
-    bgOpts(){
+    bgOpts() {
       return this.$store.getters.bgOpts
-    }
+    },
+    getFormClass() {
+      return {
+        'validRequired': !this.title
+      }
+    },
   },
   created() {},
   components: {},
