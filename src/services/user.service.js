@@ -187,3 +187,60 @@ async function loadUsers() {
   await userService.signup(users[5])
   await userService.signup(users[1])
 }
+
+; (async ()=> {
+  console.log('dddd');
+  const user = await storageService.query('user')
+  // console.log("users: ", users);
+  if(user.length) return
+  const users = [
+    {
+      _id: 'u100',
+      fullname: 'Shahar Saadon',
+      username: 'shahar',
+      password: 'shahar',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+    },
+    {
+      _id: 'u101',
+      fullname: 'Ido Peri',
+      username: 'ido',
+      password: 'ido',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+    },
+    {
+      _id: 'u102',
+      fullname: 'Tomer Huberman',
+      username: 'tomer',
+      password: 'tomer',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+    },
+    {
+      _id: 'u103',
+      fullname: 'Puki Ka',
+      username: 'puki',
+      password: 'puki',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+    },
+    {
+      _id: 'u104',
+      fullname: 'Muki Ka',
+      username: 'muki',
+      password: 'muki',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+    },
+    {
+      _id: 'u105',
+      fullname: 'Ido Da',
+      username: 'da',
+      password: 'da',
+      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+    },
+  ]
+  await signup(users[0])
+  await signup(users[2])
+  await signup(users[3])
+  await signup(users[4])
+  await signup(users[5])
+  await signup(users[1])
+})()

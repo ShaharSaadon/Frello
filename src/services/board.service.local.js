@@ -86,8 +86,8 @@ function getEmptyGroup() {
 }
 
 function getEmptyBoard() {
-  // return _getDemoDataBoard()
- return _getEmptyBoard()
+  return _getDemoDataBoard()
+//  return _getEmptyBoard()
 }
 
 function getEmptyTask() {
@@ -889,13 +889,6 @@ function _getDemoDataBoard() {
     ],
     members: [
       {
-        _id: 'SfMA8',
-        fullname: 'Ido Da',
-        username: 'da',
-        imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-        score: 10000,
-      },
-      {
         _id: 'CnKGh',
         fullname: 'Tomer Huberman',
         username: 'tomer',
@@ -903,8 +896,15 @@ function _getDemoDataBoard() {
         imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
         score: 10000,
       },
+      // {
+      //   _id: 'u102',
+      //   fullname: 'Ido Peri',
+      //   username: 'ido',
+      //   password: 'ido',
+      //   imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+      // },
       {
-        _id: 'd3FXM',
+        _id: 'u100',
         fullname: 'Shahar Saadon',
         username: 'shahar',
         password: 'shahar',
