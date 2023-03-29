@@ -12,7 +12,7 @@
           <div class="tool-bar">
             <!-- <span class="dot"></span>
             <span>Comment</span> -->
-           <span class="attach-link">Added {{ getTime(attach.uploadAt) }} </span>
+            <span class="attach-link">Added {{ getTime(attach.uploadAt) }} </span>
             <span class="attach-link dot"></span>
             <span class="attach-link" @click="remove(attach.id)">Remove</span>
             <span class="attach-link dot"></span>
@@ -50,9 +50,15 @@ export default {
   methods: {
     remove(id) {
       this.$emit('removeEntityVal', { key: 'attachments', val: id })
+      this.$nextTick(this.removeCover)
     },
     edit(ev, id) {
       this.$emit('edit', ev, id)
+    },
+    removeCover() {
+      const url = null
+      const color = null
+      this.$emit('saveTask', { key: 'cover', newVal: { isFull: false, color, url } })
     },
     toggleCover(url, color) {
       if (url === this.taskCover?.url) {
@@ -63,12 +69,11 @@ export default {
     },
     getTime(timeStamp) {
       return utilService.daysAgo(timeStamp)
-    }
+    },
   },
 
-  computed: {
-  },
-  created() { },
+  computed: {},
+  created() {},
   components: {},
 }
 </script>
