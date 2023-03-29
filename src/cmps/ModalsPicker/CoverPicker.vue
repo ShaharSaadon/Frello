@@ -91,7 +91,6 @@ export default {
     },
     toggleIsFull(isFull) {
       this.isFull = isFull
-      console.log('isFull: ', isFull)
       this.$emit('saveTask', { key: 'cover', newVal: { color: this.color, isFull: this.isFull, url: this.url } })
     },
     attachments() {

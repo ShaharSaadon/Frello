@@ -48,17 +48,17 @@ async function save(board) {
   } else {
     // Later, owner is set by the backend
     board.createdBy = userService.getLoggedinUser()
-    console.log('board.createdBy: ', board.createdBy)
     board.members.push(userService.getLoggedinUser())
-    console.log('board.members: ', board.members)
     savedBoard = await storageService.post(STORAGE_KEY, board)
   }
   return savedBoard
 }
 
-async function saveTask(boardId, groupId, task) {
+async function saveTask(boardId, groupId, task,activity) {
   task = JSON.parse(JSON.stringify(task))
   const board = await getById(boardId)
+  console.log('activity:', activity)
+  board.activities=[activity,...board.activities]
   const group = board.groups.find((group) => group.id === groupId)
   if (!task.id) {
     task.id = utilService.makeId()

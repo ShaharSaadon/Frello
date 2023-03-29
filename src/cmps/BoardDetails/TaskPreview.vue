@@ -57,8 +57,6 @@ export default {
   methods: {
     toggleKey(key) {
       const newVal = !this.task[key]
-      console.log('key=',key)
-      console.log('newVal:', newVal)
       let activity = [newVal, key , 'to', this.task.title]
       this.saveTask({ key, newVal, activity })
     },

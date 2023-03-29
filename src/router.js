@@ -28,15 +28,16 @@ const routes = [
     component: BoardDetails,
     children: [
       {
-        path: ':groupId/:taskId',
-        name: 'TaskDetails',
-        component: TaskDetails
-      },
-      {
         path: 'share',
         name: 'ShareBoard',
         component: ShareBoard
       },
+      {
+        path: ':groupId/:taskId',
+        name: 'TaskDetails',
+        component: TaskDetails
+      },
+    
     ]
   },
   {

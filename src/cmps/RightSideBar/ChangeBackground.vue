@@ -9,6 +9,7 @@
 <script>
 export default {
   name: 'ChangeBackground',
+  emits: ['onChangeBackground'],
   data() {
     return {}
   },

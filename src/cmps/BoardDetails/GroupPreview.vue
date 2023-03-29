@@ -95,7 +95,6 @@ export default {
     closeEdit() {
       this.isOnEdit = false
       this.newTask = boardService.getEmptyTask()
-      this.$nextTick(() => this.$refs.newTaskInput.focus())
     },
     resize(e) {
       e.target.style.height = 'maxcontent'

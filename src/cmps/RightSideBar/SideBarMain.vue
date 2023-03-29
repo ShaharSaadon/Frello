@@ -1,7 +1,8 @@
 <template>
+    <div class="box">
     <div class="main-content">
         <div class="board-nav-item about">
-        <!-- <div class="board-nav-item abot" @click="$emit('switchDynamicCmp', 'SideBarBoardDetails')"> -->
+            <!-- <div class="board-nav-item abot" @click="$emit('switchDynamicCmp', 'SideBarBoardDetails')"> -->
             <i className="icon" v-html="getSvg('trello')"></i>
             <div class="title">
                 <h5>About this board</h5>
@@ -14,16 +15,17 @@
             </div>
             <h5>change background</h5>
         </div>
-   </div>
-
+    </div>
+    
     <div class="activities main-content">
         <div class="board-nav-item" @click="$emit('switchDynamicCmp', 'SideBarActivities')">
             <span class="activity-icon"></span>
             <h5>Activity</h5>
         </div>
         <SideBarActivities :maximum="true" @click="$emit('switchDynamicCmp', 'SideBarActivities')"/>
-            
+
     </div>
+</div>
 </template>
 
 <script>
@@ -32,6 +34,7 @@ import {utilService} from '../../services/util.service'
 import SideBarActivities from './SideBarActivities.vue'
 export default {
     name: 'SideBarMain',
+    emits: ['switchDynamicCmp'],
     data() {
         return {
 

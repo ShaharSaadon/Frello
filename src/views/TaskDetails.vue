@@ -70,7 +70,6 @@
         @removeLabel="removeLabel"
         @addChecklist="addChecklist"
         @saveTask="saveTask"
-        @outOfView="setBottom"
         :style="modalPos"
       />
     </div>
@@ -116,7 +115,6 @@ export default {
     },
     watchedBoard: {
       handler(changed) {
-        // console.log(changed)
         if (this.watchedBoard) {
           this.task = this.getTaskFromStore
         }
@@ -253,9 +251,7 @@ export default {
       }
     },
     updateEntityVal({ key, val }) {
-      console.log('key:', key)
-      console.log('val:', val)
-
+  
       let activity
       const task = JSON.parse(JSON.stringify(this.task))
       // var isObj = val.id
@@ -291,10 +287,10 @@ export default {
       const groupId = this.groupId
       try {
         this.$store.dispatch({ type: 'saveTask', groupId, task, activity })
-        showSuccessMsg('Task added')
+        // showSuccessMsg('Task added')
       } catch (err) {
         console.log(err)
-        showErrorMsg('Cannot add Task')
+        // showErrorMsg('Cannot add Task')
       }
     },
     toggleModal(cmpType, ev, id) {
