@@ -52,16 +52,23 @@ export default {
       labelToEdit: null,
     }
   },
-  created() {
+  mounted() {
+    // this.$nextTick(this.checkHeight)
     // setTimeout(()=> {
     //   const modal = this.$refs.modal
     //   const rect = modal.getBoundingClientRect()
     //   if (rect.bottom > window.visualViewport.height) this.$emit('outOfView', { height: rect.height })
     // }, 500 )
-
   },
+
   name: '',
   methods: {
+    checkHeight() {
+      const modal = this.$refs.modal
+      const rect = modal.getBoundingClientRect()
+      console.log("rect: ", rect);
+      // if (rect.bottom > window.visualViewport.height) this.$emit('outOfView', { height: rect.height })
+    },
     getSvg(iconName) {
       return svgService.getMerlloSvg(iconName)
     },
@@ -93,7 +100,6 @@ export default {
         case 'AttachmentPicker':
           return {
             title: 'Attach from…',
-            
           }
         case 'AttachmentEditor':
           return {

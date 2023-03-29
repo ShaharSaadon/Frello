@@ -7,9 +7,10 @@
         placeholder="Pick a Date"
         format="YYYY/MM/DD hh:mm:ss"
         value-format="x"
+        
       />
     </div>
-    <VDatePicker locale="en" v-model="date" mode="dateTime" transparent borderless expanded />
+    <VDatePicker  locale="en" v-model="date" mode="dateTime" transparent borderless expanded />
     <button @click="saveDate" class="btn-save-date">save</button>
     <button @click="removeDate" class="btn-remove-date">remove</button>
   </div>
@@ -28,8 +29,6 @@ export default {
       value3: 0,
       date: this.info.dueDate,
     }
-  },
-  created() {
   },
   methods: {
     saveDate() {
