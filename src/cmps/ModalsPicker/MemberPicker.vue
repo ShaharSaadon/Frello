@@ -1,7 +1,7 @@
 <template>
   <div class="member-picker">
     <hr />
-    <input type="text" placeholder="Search Labels..." v-model="filterBy" class="search-members" />
+    <input type="text" placeholder="Search members..." v-model="filterBy" class="search-members" />
     <p>Board members</p>
     <ul class="clean-list members flex column">
       <li
