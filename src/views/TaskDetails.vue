@@ -15,7 +15,7 @@
       <div class="main-content">
         <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskAttachments :taskAttachments="task.attachments" />
+        <TaskAttachments @removeEntityVal="removeEntityVal" :taskAttachments="task.attachments" />
         <TaskChecklist
           :key="list.title"
           v-for="list in task.checklists"

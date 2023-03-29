@@ -93,6 +93,11 @@ export default {
           return {
             title: 'Attach from…',
           }
+        // case 'AttachmentEditor':
+        //   return {
+        //     title: 'Edit attachment',
+
+        //   }
         case 'LabelPicker':
           return {
             labels: this.task.labels,
