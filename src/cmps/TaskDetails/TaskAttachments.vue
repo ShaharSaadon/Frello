@@ -20,7 +20,7 @@
           <div class="flex align-center">
             <span class="btn-make-cover"></span>
             <span class="attach-link" @click="toggleCover(attach.url, attach.bgc)">
-            {{  attach.url === taskCover.url ? 'Remove cover' : 'Make cover'}}
+            {{  attach.url === taskCover?.url ? 'Remove cover' : 'Make cover'}}
             </span>
           </div>
         </div>
