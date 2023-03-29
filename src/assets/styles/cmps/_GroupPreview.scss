@@ -55,9 +55,20 @@
 
     P {
       margin: 0;
-      margin-inline-start: em(8px);
-      font-size: em(14px);
+      margin-inline-start: em(32px);
+      font-size: em(15px);
       color: $clr9;
+      // background-color: red;
+      padding-block-start: em(3px);
+    }
+
+    i{
+      position: relative;
+      svg{
+        position: absolute;
+        top: 5px;
+        left: 7px;
+      }
     }
 
     .close {
