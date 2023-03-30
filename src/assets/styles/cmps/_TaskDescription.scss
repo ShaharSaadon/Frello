@@ -1,5 +1,6 @@
 .task-description {
   @include TaskDetailsCmps($icon-description);
+  grid-column: span 2;
 
   header {
     display: flex;
@@ -16,7 +17,7 @@
     color: $clr-dynamic-button-highlighted-text;
     min-height: 40px;
     padding: 8px 12px 31px;
-    // width: 100%;
+    width: 100%;
     text-align: start;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 3px;
@@ -55,9 +56,7 @@
   }
 
   @include mq(mq-780) {
-    .btn-add-description {
-      width: 100%;
-    }
+    grid-column: 2;
     .description-editor {
       width: 100%;
     }

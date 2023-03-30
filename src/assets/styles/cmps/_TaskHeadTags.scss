@@ -1,9 +1,7 @@
 .task-head-tags {
-  margin-bottom: em(24px);
+  margin-bottom: em(8px);
   grid-column: span 2;
   display: flex;
-  // width: 320px;
-  // flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
 
@@ -48,6 +46,7 @@
     margin-bottom: rem(6px);
     font-family: 'Segoe UI';
   }
+
   .notifications {
     display: flex;
     align-items: center;
@@ -109,6 +108,7 @@
 
   @include mq(mq-780) {
     grid-column: 2;
+    margin-bottom: em(24px);
     & > * {
       margin-inline-end: rem(16px);
       // margin-block-end: rem(19px);
