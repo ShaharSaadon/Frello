@@ -1,0 +1,13 @@
+.dashboard-container{
+    @include modal-background()
+}
+
+.dashboard-modal{
+    width: 90vw;
+    height: 90vh;
+    background-color: inherit;
+    font-size: em(14px);
+    border-radius: $border-radius-3;
+    position: relative;
+    color: $clr-base-1;
+}
