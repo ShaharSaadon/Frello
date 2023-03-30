@@ -9,6 +9,7 @@
         drag-class="drag"
         @start="drag = true"
         @end="drag = false"
+        handle=".drag-me"
       >
         <template #item="{ element }">
           <div class="group-preview-container">
