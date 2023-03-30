@@ -45,7 +45,8 @@
 
 <script>
 import { utilService } from '../../services/util.service'
-import { boardService } from '../../services/board.service.local'
+// import { boardService } from '../../services/board.service.local.js'
+import { boardService } from '../../services/board.service.js'
 
 export default {
   name: 'TaskActivities',

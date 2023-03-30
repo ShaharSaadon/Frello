@@ -41,7 +41,8 @@
 
 <script>
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-import { boardService } from '../services/board.service.local'
+// import { boardService } from '../services/board.service.local.js'
+import { boardService } from '../services/board.service.js'
 import BoardPreview from '../cmps/BoardPreview.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import { getActionRemoveBoard, getActionUpdateBoard } from '../store/board.store'

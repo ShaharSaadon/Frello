@@ -1,5 +1,5 @@
-import { boardService } from '../services/board.service.local'
-// import { boardService } from '../services/board.service'
+// import { boardService } from '../services/board.service.local.js'
+import { boardService } from '../services/board.service.js'
 
 export function getActionRemoveBoard(boardId) {
   return {
@@ -314,6 +314,7 @@ export const boardStore = {
       }
     },
     async addBoard(context, { board }) {
+      console.log("board: ", board);
       try {
         board = await boardService.save(board)
         context.commit(getActionAddBoard(board))
