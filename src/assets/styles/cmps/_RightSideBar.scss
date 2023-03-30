@@ -3,6 +3,8 @@
   flex-direction: column;
   position: relative;
   max-height: 100vh;
+  max-height: var(--app-height);
+  // max-height: -webkit-fill-available;
   overflow-y: scroll;
   // overflow-x:hidden;
 
@@ -13,10 +15,12 @@
     width: em($right-side-bar-width);
     background-color: $clr-base-2;
     max-height: 100vh;
+    max-height: var(--app-height);
+    // max-height: -webkit-fill-available;
   }
 
   .title {
-    font-size: em(16px)
+    font-size: em(16px);
   }
 
   p {
@@ -62,9 +66,8 @@
     }
 
     &:not(.about) {
-      align-items: center
+      align-items: center;
     }
-
   }
 
   .main-content {
@@ -105,7 +108,7 @@
       }
 
       height: 80px;
-      margin:8px 8px 0 0px;
+      margin: 8px 8px 0 0px;
       border-radius: 8px;
     }
   }
@@ -152,11 +155,10 @@
   }
 
   .btn-show-more {
-    @include btn-main()
+    @include btn-main();
   }
 
   .board-members {
-    @include board-members()
+    @include board-members();
   }
-
 }

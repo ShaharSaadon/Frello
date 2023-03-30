@@ -1,6 +1,22 @@
 .share-board {
+<<<<<<< HEAD
 
 @include modal-background()
+=======
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  height: var(--app-height);
+  // height: -webkit-fill-available;
+  box-sizing: border-box;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+>>>>>>> 7106f13cc851971c9a9ccd482972aefebd97b508
 }
 
 .share-board-modal {
