@@ -7,12 +7,6 @@
   background-position: 50%;
   background-size: cover;
 
-  .main {
-    flex: 1 1 0%;
-    position: relative;
-    overflow-y: auto;
-  }
-
   .board-header {
     background-color: inherit;
     padding: rem(4px) rem(4px) rem(4px) rem(9px);
@@ -25,6 +19,18 @@
       font-family: sans-serif;
     }
 
+    .title-input{
+      font-size:18px; 
+      font-weight: 700;
+      line-height: 32px;
+      padding: 0 12px 0 8px;
+      max-width: max-content; 
+      margin-inline-end: em(24px);
+      margin-inline-start: em(4px);
+
+
+
+    }
     .btn-header-star {
       @include btn-main($clr-dynamic-button, $clr-base-1, $clr-dynamic-button);
       @include trello-icon($icon-star, $type: sm, $color: $clr-base-1);
@@ -66,9 +72,11 @@
       padding: 0px 8px 0px 4px;
       height: 31px;
       width: 76px;
+
       i {
         height: 45%;
       }
+
       span {
         height: fit-content;
         font-size: 14px;
@@ -76,37 +84,10 @@
     }
 
     .board-members {
-      display: flex;
-      align-items: center;
-      margin-block-start: 1px;
-
-      .member-profile-box {
-        position: relative;
-        margin-inline-end: em(4px);
-
-        .arrow {
-          position: absolute;
-          width: 10px;
-          height: 10px;
-          z-index: 19;
-          bottom: 1px;
-          right: -2px;
-        }
-
-        .member-profile {
-          width: 26px;
-          height: 26px;
-          border-radius: 50%;
-          margin: 0 -1px 2px;
-          cursor: pointer;
-          position: relative;
-
-          &:hover {
-            opacity: 0.9;
-          }
-        }
-      }
+      @include board-members()
     }
+
+
 
     .three-dot-btn {
       @include btn-main(rgba(255, 255, 255, 0.3), $clr-base-1, $clr-base-1);
@@ -122,4 +103,13 @@
       }
     }
   }
+
+  .main {
+    flex: 1 1 0%;
+    position: relative;
+    overflow-y: auto;
+  }
+
+ 
+
 }

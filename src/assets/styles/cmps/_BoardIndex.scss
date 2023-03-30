@@ -1,6 +1,6 @@
 .board-index {
-  padding: .5em 0 0.5em 0.5em;
-  
+  padding: 0.5em 0 0.5em 0.5em;
+
   .title-type-boards {
     margin: em(0px) 0 em(3px) em(4px);
 
@@ -28,7 +28,7 @@
       cursor: pointer;
       border-radius: $border-radius-3;
       background-color: $clr-base-15;
-      &:hover{
+      &:hover {
         background-color: $clr-create-board-hover;
       }
     }
@@ -38,7 +38,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    
+
     li {
       height: em(96px);
       border-radius: $border-radius-3;
@@ -47,7 +47,7 @@
       width: 48%;
     }
   }
-  
+
   @include mq(mq-Board-index-sm) {
     padding-block-start: 1em;
     .board-list {
@@ -62,7 +62,7 @@
   }
 
   @include mq(mq-Board-index-md) {
-      // padding-block-start: 1.5em;
+    // padding-block-start: 1.5em;
 
     .board-list {
       li {

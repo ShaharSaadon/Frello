@@ -4,7 +4,7 @@
   display: flex;
   height: 100%;
   justify-content: center;
-  // overflow: hidden;
+  overflow: visible;
   position: absolute;
   left: 0;
   top: 0;
@@ -49,7 +49,6 @@
       margin: 3px 0 calc(1em - 3px);
     }
   }
-
   textarea {
     color: $clr-base-5;
     background: #0000;
@@ -72,7 +71,6 @@
       box-shadow: inset 0 0 0 2px $clr-base-8;
     }
   }
-
   .task-details-container {
     display: grid;
     grid-template-columns: 56px 1fr;
@@ -134,28 +132,27 @@
       }
     }
   }
-
   .main-content {
     grid-column: span 2;
     display: grid;
-    grid-template-columns: $task-details-content-grid;
+    grid-template-columns: 56px 1fr;
     grid-auto-rows: max-content;
     margin: 0;
     min-height: 24px;
-    padding: 0 8px 8px 0;
-    & > *:not(.task-Checklist) {
-      grid-column: 2;
-    }
+    padding: 0 8px 8px 8px;
+    // & > *:not(.task-Checklist) {
+    //   grid-column: 2;
+    // }
   }
-
   .sidebar {
     display: flex;
-    flex-direction: column;
-    padding: 0 16px 8px 8px;
-
-    & > :first-child {
-      margin-top: 0;
-    }
+    // flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 8px 8px 8px;
+    grid-column: span 2;
+    grid-row: 3;
+    gap: 8px;
+    margin-block-end: em(16px);
 
     span {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -163,7 +160,7 @@
       padding-inline-start: em(22px);
     }
 
-    button.gear {
+    .gear {
       @include trello-icon($icon-gear, $type: sm);
       background-color: $clr-base-3;
       width: 20px;
@@ -180,6 +177,8 @@
 
     h3 {
       @include sub-title();
+      margin-top: 0;
+      width: 100%;
     }
 
     .btn-link {
@@ -190,18 +189,14 @@
       color: $clr-dynamic-button-highlighted-text;
       cursor: pointer;
       height: 32px;
-      margin-top: 8px;
-      max-width: 300px;
       padding: 6px 12px;
       position: relative;
       transition-duration: 85ms;
       transition-property: background-color, border-color, box-shadow;
       transition-timing-function: ease;
       white-space: nowrap;
-      margin-top: em(8px);
-      &:first-of-type {
-        margin-top: em(6px);
-      }
+      width: calc(50% - 4px);
+
       &::before {
         position: absolute;
         left: 8px;
@@ -256,9 +251,19 @@
       min-height: 32px;
       padding: 24px 40px 8px 0;
     }
-    // .main-content {
-    //   grid-template-columns: 56px 1fr;
-    //   padding: 0;
-    // }
+    .main-content {
+      grid-template-columns: $task-details-content-grid;
+      padding: 0;
+      padding: 0 8px 8px 0;
+    }
+    .sidebar {
+      // gap: 0;
+      grid-column: 3;
+      padding: 0 16px 8px 8px;
+      flex-direction: column;
+      .btn-link {
+        width: 100%;
+      }
+    }
   }
 }

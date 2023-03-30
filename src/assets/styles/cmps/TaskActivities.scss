@@ -2,6 +2,7 @@
     @include TaskDetailsCmps($icon-activity);
     position: relative;
     font-size: 14px;
+    grid-column: span 2;
 
     .by-member {
         font-weight: 700;
@@ -128,5 +129,9 @@
         left: -35px;
 
 
+    }
+
+    @include mq(mq-780){
+        grid-column: 2;
     }
 }

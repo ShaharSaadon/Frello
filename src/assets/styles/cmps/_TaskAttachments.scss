@@ -1,5 +1,6 @@
 .task-attachments {
   @include TaskDetailsCmps($icon-attachment);
+  grid-column: span 2;
 
   .task-attachments-preview {
     display: grid;
@@ -49,5 +50,9 @@
 
   .btn-make-cover{
     @include trello-icon($icon-card-cover);
+  }
+
+  @include mq(mq-780){
+    grid-column: 2;
   }
 }

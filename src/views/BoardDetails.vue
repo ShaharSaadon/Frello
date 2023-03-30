@@ -4,7 +4,8 @@
     <div class="main">
       <header class="board-header flex space-between">
         <div class="left-side-header flex align-center">
-          <h1>{{ board.title }}</h1>
+          <h1 @click="onStartEdit" v-if="!isTitleOnEdit">{{ board.title }}</h1>
+          <input class="title-input" type="text" v-if="isTitleOnEdit" v-model="editedTitle" ref="titleInput" @keydown.enter.prevent="changeTitle" @blur="changeTitle">
           <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
           <span class="separate-line"></span>
         </div>
@@ -12,7 +13,7 @@
           <!-- right side of header goes here -->
           <BoardMembers />
           <RouterLink :to="board._id + '/share'">
-          <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i><span>Share</span></button>
+            <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i><span>Share</span></button>
           </RouterLink>
 
           <span class="separate-line"></span>
@@ -45,10 +46,11 @@ export default {
     return {
       rightSideBar: {
         type: 'SideBarMain'
-      }
+      },
+      isTitleOnEdit: false,
+      editedTitle: ''
     }
   },
-  async created() { },
   watch: {
     boardId: {
       handler() {
@@ -63,6 +65,7 @@ export default {
         if (this.board) {
           this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
           document.title = this.board.title + ' | Merllo'
+          this.editedTitle=this.board.title
         }
       },
       immediate: true,
@@ -84,7 +87,8 @@ export default {
     isExpended() {
       return this.$store.getters.isRightSideBarOpen
     },
-   
+
+
   },
   unmounted() {
     document.title = 'Merllo'
@@ -117,8 +121,8 @@ export default {
     },
     async saveTask({ task, groupId }) {
       try {
-        let activity = ['added',task.title,'to',this.groupById(groupId).title]
-        this.$store.dispatch({ type: 'saveTask', groupId, task,activity })
+        let activity = ['added', task.title, 'to', this.groupById(groupId).title]
+        this.$store.dispatch({ type: 'saveTask', groupId, task, activity })
         // showSuccessMsg('Task added')
       } catch (err) {
         console.log(err)
@@ -184,8 +188,23 @@ export default {
         console.log(err)
       }
     },
-    groupById(groupId){
-    return this.groups.find(group=> group.id===groupId)
+    groupById(groupId) {
+      return this.groups.find(group => group.id === groupId)
+    },
+    onStartEdit() {
+      this.isTitleOnEdit = true;
+      this.$nextTick(() => {
+        this.$refs.titleInput.focus()
+      this.$refs.titleInput.select()
+      })
+    },
+    async changeTitle(){
+      try {
+        await this.$store.dispatch({ type: 'updateBoardEntity', key: 'title', val: this.editedTitle })
+        this.isTitleOnEdit=false
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
 }
