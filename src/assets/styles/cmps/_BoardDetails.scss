@@ -17,6 +17,7 @@
     background-color: inherit;
     padding: rem(4px) rem(4px) rem(4px) rem(9px);
     width: 100%;
+    flex-wrap: wrap;
 
     h1 {
       color: $clr6;
@@ -52,6 +53,9 @@
       margin: em(12px) em(8px);
     }
 
+    .right-side-header {
+      flex-wrap: wrap;
+    }
 
     .btn-share {
       @include btn-main($clr-base-1, $clr-base-5, $clr10);
@@ -62,10 +66,10 @@
       padding: 0px 8px 0px 4px;
       height: 31px;
       width: 76px;
-      i{
+      i {
         height: 45%;
       }
-      span{
+      span {
         height: fit-content;
         font-size: 14px;
       }
@@ -102,12 +106,9 @@
           }
         }
       }
-
-     
     }
 
     .three-dot-btn {
-
       @include btn-main(rgba(255, 255, 255, 0.3), $clr-base-1, $clr-base-1);
       @include trello-icon($icon-three-dots, $type: md, $color: $clr-base-1);
       width: 32px;
@@ -116,11 +117,9 @@
       align-items: center;
       justify-content: center;
 
-
       &:hover {
         background-color: inherit;
       }
     }
   }
-
 }
