@@ -1,5 +1,5 @@
-import { storageService } from './async-storage.service'
-// import { httpService } from './http.service'
+// import { storageService } from './async-storage.service'
+import { httpService } from './http.service'
 // import { store } from '../store/store'
 // import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from './socket.service'
 // import { showSuccessMsg } from './event-bus.service'
@@ -16,19 +16,21 @@ export const userService = {
   getById,
   remove,
   update,
-  changeScore,
+  // changeScore,
 }
 
 window.userService = userService
-window.loadUsers = loadUsers
+// window.loadUsers = loadUsers
 
 async function getUsers(filterBy = { txt: '' }) {
-  let users = await storageService.query('user')
-  if (filterBy.txt) {
-    const regex = new RegExp(filterBy.txt, 'i')
-    users = users.filter((user) => regex.test(user.fullname))
-  }
-  return users
+  // let users = await storageService.query('user')
+  // if (filterBy.txt) {
+  //   const regex = new RegExp(filterBy.txt, 'i')
+  //   users = users.filter((user) => regex.test(user.fullname))
+  // }
+  // return users
+
+  return await httpService.get(`user`)
 }
 
 function onUserUpdate(user) {
@@ -37,8 +39,8 @@ function onUserUpdate(user) {
 }
 
 async function getById(userId) {
-  const user = await storageService.get('user', userId)
-  // const user = await httpService.get(`user/${userId}`)
+  // const user = await storageService.get('user', userId)
+  const user = await httpService.get(`user/${userId}`)
 
   // socketService.emit(SOCKET_EMIT_USER_WATCH, userId)
   // socketService.off(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
@@ -46,52 +48,47 @@ async function getById(userId) {
 
   return user
 }
+
 function remove(userId) {
-  return storageService.remove('user', userId)
-  // return httpService.delete(`user/${userId}`)
+  // return storageService.remove('user', userId)
+  return httpService.delete(`user/${userId}`)
 }
 
-async function update({ _id, score }) {
-  const user = await storageService.get('user', _id)
-  // let user = getById(_id)
-  user.score = score
-  await storageService.put('user', user)
+async function update(user) {
+  // const user = await storageService.get('user', _id)
+  // // let user = getById(_id)
+  // user.score = score
+  // await storageService.put('user', user)
 
-  // user = await httpService.put(`user/${user._id}`, user)
+  user = await httpService.put(`user/${user._id}`, user)
   // Handle case in which admin updates other user's details
   if (getLoggedinUser()._id === user._id) saveLocalUser(user)
   return user
 }
 
 async function login(userCred) {
-  const users = await storageService.query('user')
-  const user = users.find((user) => user.username === userCred.username)
-  // const user = await httpService.post('auth/login', userCred)
+  // const users = await storageService.query('user')
+  // const user = users.find((user) => user.username === userCred.username)
+  const user = await httpService.post('auth/login', userCred)
+  console.log("user: ", user);
   if (user) {
     // socketService.login(user._id)
     return saveLocalUser(user)
   }
 }
+
 async function signup(userCred) {
-  userCred.score = 10000
   if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-  const user = await storageService.post('user', userCred)
-  // const user = await httpService.post('auth/signup', userCred)
+  // const user = await storageService.post('user', userCred)
+  const user = await httpService.post('auth/signup', userCred)
   // socketService.login(user._id)
   return saveLocalUser(user)
 }
+
 async function logout() {
   sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
   // socketService.logout()
-  // return await httpService.post('auth/logout')
-}
-
-async function changeScore(by) {
-  const user = getLoggedinUser()
-  if (!user) throw new Error('Not loggedin')
-  user.score = user.score + by || by
-  await update(user)
-  return user.score
+  return await httpService.post('auth/logout')
 }
 
 function saveLocalUser(user) {
@@ -103,6 +100,13 @@ function saveLocalUser(user) {
 function getLoggedinUser() {
   return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
+// async function changeScore(by) {
+//   const user = getLoggedinUser()
+//   if (!user) throw new Error('Not loggedin')
+//   user.score = user.score + by || by
+//   await update(user)
+//   return user.score
+// }
 
 // ;(async () => {
 //   const users = [
@@ -134,112 +138,112 @@ function getLoggedinUser() {
 //   await userService.signup(users[1])
 // })()
 
-async function loadUsers() {
-  const users = [
-    {
-      _id: 'u100',
-      fullname: 'Shahar Saadon',
-      username: 'shahar',
-      password: 'shahar',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
-    },
-    {
-      _id: 'u101',
-      fullname: 'Ido Peri',
-      username: 'ido',
-      password: 'ido',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-    },
-    {
-      _id: 'u102',
-      fullname: 'Tomer Huberman',
-      username: 'tomer',
-      password: 'tomer',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
-    },
-    {
-      _id: 'u103',
-      fullname: 'Puki Ka',
-      username: 'puki',
-      password: 'puki',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
-    },
-    {
-      _id: 'u104',
-      fullname: 'Muki Ka',
-      username: 'muki',
-      password: 'muki',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
-    },
-    {
-      _id: 'u105',
-      fullname: 'Ido Da',
-      username: 'da',
-      password: 'da',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-    },
-  ]
+// async function loadUsers() {
+//   const users = [
+//     {
+//       _id: 'u100',
+//       fullname: 'Shahar Saadon',
+//       username: 'shahar',
+//       password: 'shahar',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//     },
+//     {
+//       _id: 'u101',
+//       fullname: 'Ido Peri',
+//       username: 'ido',
+//       password: 'ido',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//     },
+//     {
+//       _id: 'u102',
+//       fullname: 'Tomer Huberman',
+//       username: 'tomer',
+//       password: 'tomer',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//     },
+//     {
+//       _id: 'u103',
+//       fullname: 'Puki Ka',
+//       username: 'puki',
+//       password: 'puki',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//     },
+//     {
+//       _id: 'u104',
+//       fullname: 'Muki Ka',
+//       username: 'muki',
+//       password: 'muki',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//     },
+//     {
+//       _id: 'u105',
+//       fullname: 'Ido Da',
+//       username: 'da',
+//       password: 'da',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//     },
+//   ]
 
-  await userService.signup(users[0])
-  await userService.signup(users[2])
-  await userService.signup(users[3])
-  await userService.signup(users[4])
-  await userService.signup(users[5])
-  await userService.signup(users[1])
-}
+//   await userService.signup(users[0])
+//   await userService.signup(users[2])
+//   await userService.signup(users[3])
+//   await userService.signup(users[4])
+//   await userService.signup(users[5])
+//   await userService.signup(users[1])
+// }
 
-; (async ()=> {
-  const user = await storageService.query('user')
-  // console.log("users: ", users);
-  if(user.length) return
-  const users = [
-    {
-      _id: 'u100',
-      fullname: 'Shahar Saadon',
-      username: 'shahar',
-      password: 'shahar',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
-    },
-    {
-      _id: 'u101',
-      fullname: 'Ido Peri',
-      username: 'ido',
-      password: 'ido',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-    },
-    {
-      _id: 'u102',
-      fullname: 'Tomer Huberman',
-      username: 'tomer',
-      password: 'tomer',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
-    },
-    {
-      _id: 'u103',
-      fullname: 'Puki Ka',
-      username: 'puki',
-      password: 'puki',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
-    },
-    {
-      _id: 'u104',
-      fullname: 'Muki Ka',
-      username: 'muki',
-      password: 'muki',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
-    },
-    {
-      _id: 'u105',
-      fullname: 'Ido Da',
-      username: 'da',
-      password: 'da',
-      imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
-    },
-  ]
-  await signup(users[0])
-  await signup(users[2])
-  await signup(users[3])
-  await signup(users[4])
-  await signup(users[5])
-  await signup(users[1])
-})()
+// ;(async () => {
+//   const user = await storageService.query('user')
+//   // console.log("users: ", users);
+//   if (user.length) return
+//   const users = [
+//     {
+//       _id: 'u100',
+//       fullname: 'Shahar Saadon',
+//       username: 'shahar',
+//       password: 'shahar',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//     },
+//     {
+//       _id: 'u101',
+//       fullname: 'Ido Peri',
+//       username: 'ido',
+//       password: 'ido',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//     },
+//     {
+//       _id: 'u102',
+//       fullname: 'Tomer Huberman',
+//       username: 'tomer',
+//       password: 'tomer',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//     },
+//     {
+//       _id: 'u103',
+//       fullname: 'Puki Ka',
+//       username: 'puki',
+//       password: 'puki',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588803/tomer_wm04gf.png',
+//     },
+//     {
+//       _id: 'u104',
+//       fullname: 'Muki Ka',
+//       username: 'muki',
+//       password: 'muki',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588778/shahar_wnnnux.png',
+//     },
+//     {
+//       _id: 'u105',
+//       fullname: 'Ido Da',
+//       username: 'da',
+//       password: 'da',
+//       imgUrl: 'https://res.cloudinary.com/dbf0uxszt/image/upload/v1679588729/ido_wqplye.png',
+//     },
+//   ]
+//   await signup(users[0])
+//   await signup(users[2])
+//   await signup(users[3])
+//   await signup(users[4])
+//   await signup(users[5])
+//   await signup(users[1])
+// })()

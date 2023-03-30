@@ -49,7 +49,8 @@
 <script>
 import TaskList from './TaskList.vue'
 import { svgService } from '../../services/svg.service.js'
-import { boardService } from '../../services/board.service.local.js'
+// import { boardService } from '../../services/board.service.local.js'
+import { boardService } from '../../services/board.service.js'
 import { add } from 'lodash'
 
 export default {

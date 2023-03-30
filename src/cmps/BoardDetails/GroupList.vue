@@ -56,7 +56,8 @@
 </template>
 <script>
 import { eventBus } from '../../services/event-bus.service.js'
-import { boardService } from '../../services/board.service.local.js'
+// import { boardService } from '../../services/board.service.local.js'
+import { boardService } from '../../services/board.service.js'
 import GroupPreview from './GroupPreview.vue'
 import Draggable from 'vuedraggable'
 
