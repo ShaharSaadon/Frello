@@ -150,7 +150,8 @@
     flex-wrap: wrap;
     padding: 0 8px 8px 8px;
     grid-column: span 2;
-    grid-row: 3;
+    // width: 100%;
+    // grid-row: 3;
     gap: 8px;
     margin-block-end: em(16px);
 
@@ -259,10 +260,12 @@
     .sidebar {
       // gap: 0;
       grid-column: 3;
-      padding: 0 16px 8px 8px;
+      grid-row: 1 / 10;
+
+      padding: 0 16px 8px 16px;
       flex-direction: column;
       .btn-link {
-        width: 100%;
+        width: rem(168px);
       }
     }
   }
