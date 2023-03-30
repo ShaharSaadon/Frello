@@ -8,7 +8,7 @@
                 <div class="workspace-logo flex">
                     M
                 </div>
-                <h5>Merllo Workspace</h5>
+                <h5 class="title">Merllo Workspace</h5>
                 <img class="close-menu" src="https://a.trellocdn.com/prgb/assets/58243262833f693f6101.svg"
                     alt="Workspace navigation collapse icon" @click.stop="isExpended = false">
             </div>

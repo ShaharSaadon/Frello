@@ -16,7 +16,7 @@ async function handleFile(urlToUpload) {
   const fac = new FastAverageColor()
   const color = await fac.getColorAsync(url)
 
-  return { title: '', url, id: utilService.makeId(), type, bgc: color.hexa }
+  return { title: '', url, id: utilService.makeId(), type, bgc: color.hexa, uploadAt: Date.now() }
 }
 
 async function uploadImg(file) {

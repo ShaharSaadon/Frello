@@ -35,15 +35,19 @@
   .tool-bar {
     display: flex;
     flex-wrap: wrap;
+  }
 
-    span {
-      color: $clr-base-4;
-      font-size: em(14px);
-      margin-inline-end: 3px;
-      &:not(:first-child, .dot) {
-        text-decoration: underline;
-        cursor: pointer;
-      }
+  .attach-link {
+    color: $clr-base-4;
+    font-size: em(14px);
+    margin-inline-end: 3px;
+    &:not(:first-child, .dot) {
+      text-decoration: underline;
+      cursor: pointer;
     }
+  }
+
+  .btn-make-cover{
+    @include trello-icon($icon-card-cover);
   }
 }

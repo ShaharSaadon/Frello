@@ -19,7 +19,7 @@ export default {
   methods: {
     addChecklist() {
       this.$emit('addChecklist', this.title)
-      this.title = ''
+      this.title = 'checklist'
     },
   },
   computed: {},

@@ -17,8 +17,8 @@
             <div v-if="task.attachments?.length" class="badge-attachments">
               <span>{{ task.attachments.length }}</span>
             </div>
-            <div v-if="task.checklists?.length" class="badge-checklist">
-              <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
+            <div v-if="task.checklists?.length" class="badge-checklist" :class="getChecklistClass">
+              <span > {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
             </div>
             <div :class="getDateClass" @click.prevent="toggleKey('isComplete')" v-if="task.dueDate"
               class="badge-date flex align-center">
@@ -99,6 +99,13 @@ export default {
     },
     board() {
       return this.$store.getters.watchedBoard
+    },
+    getChecklistClass(){
+      console.log('checklist.checkedItems:', this.checklist.checkedItems)
+      console.log('checklist.totalItems:', this.checklist.totalItems)
+      return {
+        complete: this.checklist.checkedItems===this.checklist.totalItems&this.checklist.totalItems!==0
+      }
     },
     checklist() {
       const checklists = this.task.checklists

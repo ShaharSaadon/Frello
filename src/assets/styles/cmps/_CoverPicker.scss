@@ -4,11 +4,15 @@
   .title-input {
     @include input();
   }
-  h3 {
+  h3,
+  p {
     margin: rem(12px) 0 rem(8px);
     font-size: em(12px);
     color: $clr9;
     font-weight: 600;
+  }
+  p {
+    font-weight: 400;
   }
   .cover-preview-container {
     display: flex;
@@ -92,5 +96,7 @@
 
   .btn-cover-picker {
     @include btn-main($clr-base-3, $clr-base-5, $clr-base-3-hover);
+    @include btn-active();
+    margin-top: 4px;
   }
 }

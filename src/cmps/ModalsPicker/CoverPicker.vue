@@ -48,18 +48,23 @@
     <h3>Attachments</h3>
     <div class="img-table">
       <div
+        v-if="info.attachments?.length"
         @click="setToImg(attach)"
         :key="attach.id"
         v-for="attach in info.attachments"
-        :style="{ backgroundImage: `url(${attach.url})` }"
+        :style="{ backgroundImage: `url(${attach.url})`, backgroundColor: attach.bgc }"
         class="preview"
       ></div>
     </div>
-    <!-- <button @click="addChecklist" class="btn-cover-picker">Add</button> -->
+    <button @click="$refs.uploadFile.click()" class="btn-cover-picker">Upload a cover image</button
+    ><input @change="handleFile" hidden ref="uploadFile" accept="image/*" type="file" />
+    <p>Tip: Darg an image on to the card to upload it.</p>
   </div>
 </template>
 
 <script>
+import { uploadService } from '../../services/upload.service'
+
 export default {
   props: {
     info: {
@@ -96,6 +101,12 @@ export default {
     attachments() {
       return info.attachments.filter((attach) => attach.type === 'png' || 'jpg')
     },
+    async handleFile() {
+      console.log(this.$refs.uploadFile.files[0]);
+      const val = await uploadService.handleFile(this.$refs.uploadFile.files[0])
+      this.$emit('updateEntityVal', { key: 'attachments', val })
+    },
+    
   },
   computed: {
     isGray() {
