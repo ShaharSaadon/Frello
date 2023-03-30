@@ -108,20 +108,20 @@ export default {
     getTaskFromStore: {
       handler() {
         if (this.getTaskFromStore) {
-          this.task = this.getTaskFromStore
+          this.task = JSON.parse(JSON.stringify(this.getTaskFromStore))
         }
       },
       immediate: true,
     },
-    watchedBoard: {
-      handler(changed) {
-        if (this.watchedBoard) {
-          this.task = this.getTaskFromStore
-        }
-      },
-      deep: true,
-      immediate: true,
-    },
+    // watchedBoard: {
+    //   handler(changed) {
+    //     if (this.watchedBoard) {
+    //       this.task = this.getTaskFromStore
+    //     }
+    //   },
+    //   deep: true,
+    //   immediate: true,
+    // },
   },
   data() {
     return {
@@ -159,7 +159,7 @@ export default {
       return taskId
     },
     getTaskFromStore() {
-      return JSON.parse(JSON.stringify(this.$store.getters.currTask))
+      return this.$store.getters.currTask
     },
     // info() {
     //   return {
@@ -280,7 +280,6 @@ export default {
       this.saveTask({ key, newVal: task[key], activity })
     },
     async saveTask({ key, newVal, activity }) {
-      console.log("newVal: ", newVal);
       if (!activity) activity = ['added', key, 'from', this.task.title]
       const task = JSON.parse(JSON.stringify(this.task))
       task[key] = newVal
