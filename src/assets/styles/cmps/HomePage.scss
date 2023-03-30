@@ -7,19 +7,25 @@
     margin: 0 auto;
   }
 
-  .logo{
+  .logo {
     width: 100px;
     object-fit: scale-down;
     margin-inline-start: 15px;
-    padding:12px;
+    padding: 12px;
   }
+
   .nav-link {
     padding: em($nav-padding);
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: .9rem;
     display: flex;
     align-items: center;
-    color:$clr-base-28;
+    color: $clr-base-28;
+
+    @include mq(mq-home-page-sm){
+        font-size: 1.2rem;
+  }
+
 
     &:hover {
       color: $clr-base-14;
@@ -44,48 +50,71 @@
 .home-page-main-container {
   display: grid;
   grid-template-columns:
-  //UNTIL THE NEXT BREAK
+    //UNTIL THE NEXT BREAK
     1fr max-content 1fr;
+
   >* {
     grid-column: 2;
     width: 90vw;
     text-align: center;
   }
 
-  button{
-    margin:0 auto;
-
+  h1 {
+    font-size: 32px;
+    line-height: 1.25;
+    font-family: Charlie;
+    font-weight: 800;
   }
 
-  background: url(https://images.ctfassets.net/rz1oowkt5gyp/6bFuTiN5YQ78rFkHb3aJlo/b608362b08e14f5dec4c4aeea3a3ca72/white-wave-mobile.svg) center bottom -0.5px / 100% 24% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto no-repeat scroll padding-box border-box rgb(82, 67, 170);
+  button {
+    width: 100%;
+  }
+
+  img {
+    margin-block-start: $large-space;
+  }
+
+  background: url(https://images.ctfassets.net/rz1oowkt5gyp/6bFuTiN5YQ78rFkHb3aJlo/b608362b08e14f5dec4c4aeea3a3ca72/white-wave-mobile.svg) center bottom -0.5px / 100% 24% no-repeat scroll padding-box border-box,
+  linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto no-repeat scroll padding-box border-box rgb(82, 67, 170);
   color: $clr6;
 
   padding-top: em(70px);
   height: 85vh;
-  
 
 
+  @include mq(mq-home-page-sm) {
+
+    h1 {
+      font-size: 3rem;
+    }
+  }
 
   // 800px AND MORE
-  @include mq(homePageMain1) {
+  @include mq(mq-home-page-md) {
     grid-template-columns:
-    1fr 720px 1fr;
-   >*{
-    width: 100%;
-   }
+      1fr 720px 1fr;
+
+    >* {
+      width: 100%;
+    }
+
+  
 
   }
 
   // 1000PX AND MORE
-  @include mq(homePageMain2) {
+  @include mq(mq-home-page-lg) {
     grid-template-columns:
       1fr 480px 530px 1fr;
-      >*{
-        text-align: start;
-      }
+
+    >* {
+      text-align: start;
+    }
+
     .left-box {
       grid-column: 2;
     }
+
     .right-box {
       grid-column: 3;
     }
@@ -94,17 +123,12 @@
   }
 
   //1200PX AND MORE
-  @include mq(homePageMain3) {
+  @include mq(mq-home-page-xl) {
     grid-template-columns:
       1fr 540px 630px 1fr;
   }
 
-  h1 {
-    font-size: 3rem;
-    line-height: 1.25;
-    font-family: Charlie;
-    font-weight: 800;
-  }
+
 
   p {
     font-size: 20px;
@@ -117,7 +141,7 @@
     margin: 0 auto;
   }
 
-  .btn-demo{
+  .btn-demo {
     font-size: 16px;
     letter-spacing: .8px;
   }
