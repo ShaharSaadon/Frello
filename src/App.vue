@@ -23,8 +23,15 @@ export default {
     }
     this.$store.dispatch({ type: 'loadBoards' })
     this.$store.dispatch({ type: 'loadUsers' })
+    window.addEventListener('resize', this.appHeight)
+    this.appHeight()
   },
-  methods: {},
+  methods: {
+    appHeight() {
+      const doc = document.documentElement
+      doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+    },
+  },
   components: {
     AppHeader,
     UserMsg,
