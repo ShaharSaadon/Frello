@@ -1,7 +1,7 @@
 <template>
   <div class="group-preview-wrapper">
     <div class="group-preview-content">
-      <header class="group-preview-header flex space-between align-center">
+      <header class="group-preview-header flex space-between align-center drag-me">
         <!-- <h3>{{ group.title }}</h3> -->
 
         <form @submit.prevent="updateGroup">

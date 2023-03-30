@@ -23,6 +23,10 @@
           <RouterLink :to="board._id + '/share'">
             <button class="btn-share"><i className="icon" v-html="getSvg('share')"></i><span>Share</span></button>
           </RouterLink>
+          <RouterLink :to="board._id + '/dashboard'">
+            <button class="btn-dashboard"> <i className="icon" v-html="getSvg('share')"></i><span>Dashboard
+            </span></button>  
+          </RouterLink>
 
           <span class="separate-line"></span>
           <div class="three-dot-btn" @click="onOpenMenu" v-if="!isExpended"></div>

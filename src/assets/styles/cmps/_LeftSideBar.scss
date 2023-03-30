@@ -31,7 +31,7 @@
 
   }
   &.isExpended {
-    min-width: em($side-bar-width);
+    max-width: em($side-bar-width);
     transition: 0.3s ease-in-out;
     .open-side-bar{
       opacity: 0;
@@ -91,6 +91,7 @@
   
   .left-side-bar-title {
     padding: em(12px);
+    
   }
 
   .router-link-active {
@@ -175,4 +176,5 @@
     white-space: nowrap;
     z-index: 1000;
   }
+
 }

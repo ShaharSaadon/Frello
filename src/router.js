@@ -10,6 +10,7 @@ import BoardDetails from './views/BoardDetails.vue'
 import TaskDetails from './views/TaskDetails.vue'
 import ShareBoard from './cmps/BoardDetails/ShareBoard.vue'
 import HomePage from './views/HomePage.vue'
+import Dashboard from './cmps/BoardDetails/Dashboard.vue'
 
 const routes = [
   {
@@ -33,10 +34,16 @@ const routes = [
         component: ShareBoard
       },
       {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: Dashboard
+      },
+      {
         path: ':groupId/:taskId',
         name: 'TaskDetails',
         component: TaskDetails
       },
+
     
     ]
   },
