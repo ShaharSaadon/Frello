@@ -58,7 +58,7 @@ export const boardStore = {
     isRightSideBarOpen: false,
     filterBy: {
       title: '',
-      userId: '',
+      memberId: '',
     },
     bgOpts: [
       {

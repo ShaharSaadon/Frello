@@ -83,7 +83,7 @@
       span {
         @include trello-icon($icon-close, $type: md);
         cursor: pointer;
-        margin-inline-end: em(2px);
+        margin-inline-end: em(2px); 
       }
     }
   }

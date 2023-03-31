@@ -18,6 +18,8 @@
           <span class="separate-line"></span>
         </div>
         <div class="right-side-header flex align-center">
+          <button class="btn-filter"  @click="isFilterOpen = true"><i class="filter-icon" v-html="getSvg('filter')"></i>Filter</button>
+          <span class="separate-line"></span>
           <!-- right side of header goes here -->
           <BoardMembers />
           <RouterLink :to="board._id + '/share'">
@@ -33,6 +35,7 @@
       </header>
 
       <GroupList
+        v-if="groups?.length"
         :groups="groups"
         @updateGroup="updateGroup"
         @removed="removeGroup"
@@ -47,7 +50,7 @@
       @switchDynamicCmp="toggleSideBar"
       @onChangeBackground="onChangeBackground"
     />
-
+    <FilterBy @setFilterBy="setFilterBy" @closeFilterBy="isFilterOpen = false" v-if="isFilterOpen" />
     <RouterView />
   </section>
 </template>
@@ -62,6 +65,7 @@ import LeftSideBar from '../cmps/BoardDetails/LeftSideBar.vue'
 import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
 import BoardMembers from '../cmps/BoardDetails/BoardMembers.vue'
 import RightSideBar from '../cmps/BoardDetails/RightSideBar.vue'
+import FilterBy from '../cmps/BoardDetails/FilterBy.vue'
 import { userService } from '../services/user.service'
 
 export default {
@@ -72,6 +76,13 @@ export default {
       },
       isTitleOnEdit: false,
       editedTitle: '',
+      isFilterOpen: false,
+      filterBy: {
+        txt: '',
+        members: null,
+        dueDate: null,
+        labels: null,
+      },
     }
   },
   watch: {
@@ -103,8 +114,18 @@ export default {
       return this.$route.params.id
     },
     groups() {
-      return this.board.groups
+      const groups = JSON.parse(JSON.stringify(this.board.groups))
+      return groups.map((group) => {
+        group.tasks = group.tasks.filter((task) => {
+          // if (task.members.includes('64257cdba8754b4d0079fd70')) return task
+          if (this.filterTasksByTxt(task) && this.filterTasksByMembers(task)) return task
+        })
+        return group
+      })
     },
+    // groups() {
+    //   return this.board.groups
+    // },
     getStarClass() {
       return this.board.isStarred ? 'starred' : ''
     },
@@ -127,8 +148,31 @@ export default {
     TaskHeadTags,
     BoardMembers,
     RightSideBar,
+    FilterBy,
   },
   methods: {
+    setFilterBy(filterBy) {
+      this.filterBy = filterBy
+    },
+    filterTasksByTxt(task) {
+      const { txt } = this.filterBy
+      const regex = new RegExp(txt, 'i')
+      return regex.test(task.title)
+    },
+    filterTasksByMembers(task) {
+      const { members } = this.filterBy
+
+      if (members?.length) {
+        if (task.members.some((member) => members.includes(member))) return true
+        if (members.includes('noMembers')) {
+          if (!task.members.length) return true
+        }
+      } else {
+        return true
+      }
+
+      return false
+    },
     updateBoard(board) {
       this.$store.commit(getActionUpdateBoard(board))
     },

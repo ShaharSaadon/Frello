@@ -19,17 +19,14 @@
       font-family: sans-serif;
     }
 
-    .title-input{
-      font-size:18px; 
+    .title-input {
+      font-size: 18px;
       font-weight: 700;
       line-height: 32px;
       padding: 0 12px 0 8px;
-      max-width: max-content; 
+      max-width: max-content;
       margin-inline-end: em(24px);
       margin-inline-start: em(4px);
-
-
-
     }
     .btn-header-star {
       @include btn-main($clr-dynamic-button, $clr-base-1, $clr-dynamic-button);
@@ -83,10 +80,22 @@
     }
 
     .board-members {
-      @include board-members()
+      @include board-members();
     }
 
-
+    .btn-filter {
+      @include btn-main(rgba(255, 255, 255, 0.2), $clr-base-1, rgba(255, 255, 255, 0.3));
+      position: relative;
+      gap: 6px;
+      padding-inline-start: em(42px);
+      .filter-icon {
+        width: em(16px);
+        height: em(16px);
+        position: absolute;
+        left: em(12px);
+        top: em(10px);
+      }
+    }
 
     .three-dot-btn {
       @include btn-main(rgba(255, 255, 255, 0.3), $clr-base-1, $clr-base-1);
@@ -110,7 +119,4 @@
     display: flex;
     flex-direction: column;
   }
-
- 
-
 }

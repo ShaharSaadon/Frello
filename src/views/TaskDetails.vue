@@ -1,5 +1,5 @@
 <template>
-  <section @drop.prevent="handleFile" @dragover.prevent="this.isDragover = true" class="task-details">
+  <section v-click-outside="showEv" @drop.prevent="handleFile" @dragover.prevent="this.isDragover = true" class="task-details">
     <div class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
       <div v-if="!!this.task.cover?.color" :class="this.task.cover.color" :style="imgCover" class="task-details-cover">
@@ -92,6 +92,7 @@ import { utilService } from '../services/util.service'
 import { uploadService } from '../services/upload.service'
 
 export default {
+
   watch: {
     taskId: {
       handler() {
@@ -195,6 +196,9 @@ export default {
     },
   },
   methods: {
+    showEv(ev){
+      console.log("ev: ", ev);
+    },
     async handleFile(ev) {
       this.isDragover = false
       const file = ev.dataTransfer.files[0]
