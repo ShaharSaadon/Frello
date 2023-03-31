@@ -13,6 +13,29 @@
         <p>in list {{ groupTitle }}</p>
       </div>
       <div class="main-content">
+        <div class="sidebar flex">
+          <!-- <div class="flex space-between">
+          <h3>Suggested</h3>
+          <button class="gear"></button>
+        </div> -->
+          <!-- <button class="btn-link member"><span> Join</span></button> -->
+          <h3>Add to card</h3>
+          <button
+            class="btn-link"
+            :class="cmp.class"
+            @click="toggleModal(cmp.cmpType, $event)"
+            v-for="cmp in cmps"
+            :key="cmp.title"
+          >
+            <span>{{ cmp.title }}</span>
+          </button>
+
+          <!-- <button class="button-link"> Custom Fields</button> -->
+          <h3>Actions</h3>
+          <button @click="removeTask" class="btn-link archive">
+            <span> Archive</span>
+          </button>
+        </div>
         <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
         <TaskAttachments
@@ -36,29 +59,7 @@
           :taskComments="task.comments"
         />
       </div>
-      <div class="sidebar flex">
-        <!-- <div class="flex space-between">
-          <h3>Suggested</h3>
-          <button class="gear"></button>
-        </div> -->
-        <!-- <button class="btn-link member"><span> Join</span></button> -->
-        <h3>Add to card</h3>
-        <button
-          class="btn-link"
-          :class="cmp.class"
-          @click="toggleModal(cmp.cmpType, $event)"
-          v-for="cmp in cmps"
-          :key="cmp.title"
-        >
-          <span>{{ cmp.title }}</span>
-        </button>
 
-        <!-- <button class="button-link"> Custom Fields</button> -->
-        <h3>Actions</h3>
-        <button @click="removeTask" class="btn-link archive">
-          <span> Archive</span>
-        </button>
-      </div>
       <ModalPicker
         v-if="modal.isModalOpen"
         :modal="modal"
@@ -108,20 +109,20 @@ export default {
     getTaskFromStore: {
       handler() {
         if (this.getTaskFromStore) {
-          this.task = this.getTaskFromStore
+          this.task = JSON.parse(JSON.stringify(this.getTaskFromStore))
         }
       },
       immediate: true,
     },
-    watchedBoard: {
-      handler(changed) {
-        if (this.watchedBoard) {
-          this.task = this.getTaskFromStore
-        }
-      },
-      deep: true,
-      immediate: true,
-    },
+    // watchedBoard: {
+    //   handler(changed) {
+    //     if (this.watchedBoard) {
+    //       this.task = this.getTaskFromStore
+    //     }
+    //   },
+    //   deep: true,
+    //   immediate: true,
+    // },
   },
   data() {
     return {
@@ -159,7 +160,7 @@ export default {
       return taskId
     },
     getTaskFromStore() {
-      return JSON.parse(JSON.stringify(this.$store.getters.currTask))
+      return this.$store.getters.currTask
     },
     // info() {
     //   return {
@@ -251,7 +252,6 @@ export default {
       }
     },
     updateEntityVal({ key, val }) {
-  
       let activity
       const task = JSON.parse(JSON.stringify(this.task))
       // var isObj = val.id
@@ -280,7 +280,6 @@ export default {
       this.saveTask({ key, newVal: task[key], activity })
     },
     async saveTask({ key, newVal, activity }) {
-      console.log("newVal: ", newVal);
       if (!activity) activity = ['added', key, 'from', this.task.title]
       const task = JSON.parse(JSON.stringify(this.task))
       task[key] = newVal

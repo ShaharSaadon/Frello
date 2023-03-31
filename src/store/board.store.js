@@ -1,5 +1,6 @@
 // import { boardService } from '../services/board.service.local.js'
 import { boardService } from '../services/board.service.js'
+import { socketService, SOCKET_EMIT_UPDATE_BOARD } from '../services/socket.service'
 
 export function getActionRemoveBoard(boardId) {
   return {
@@ -107,21 +108,24 @@ export const boardStore = {
       },
       {
         bgc: '#CDE3EE',
-        bgImg: 'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/98094133a39f95bfbe6fb0c007f7a23e/photo-1679597454618-d1ae16573606.jpg)',
+        bgImg:
+          'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/98094133a39f95bfbe6fb0c007f7a23e/photo-1679597454618-d1ae16573606.jpg)',
         LeftSideBarBgc: 'hsl(200,50.5%,86.8%)',
       },
       {
         bgc: '#050B15',
-        bgImg: 'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2405x1600/b3c21985b9a1841427ad456ea59734c9/photo-1679673177212-8a011a4f86f7.jpg)',
+        bgImg:
+          'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2405x1600/b3c21985b9a1841427ad456ea59734c9/photo-1679673177212-8a011a4f86f7.jpg)',
         LeftSideBarBgc: 'rgba(255,255,255,.5)',
       },
       {
         bgc: '#3A5770',
-        bgImg: 'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/1593651a4aa806d8f504e04d9aec15ff/photo-1679597454485-d1d04f88b78a.jpg)',
+        bgImg:
+          'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2400x1600/1593651a4aa806d8f504e04d9aec15ff/photo-1679597454485-d1d04f88b78a.jpg)',
         LeftSideBarBgc: 'hsl(207,31.4%,33.2%)',
       },
     ],
-    newActivity:null
+    newActivity: null,
   },
   getters: {
     boards({ boards }) {
@@ -253,12 +257,10 @@ export const boardStore = {
       state.isRightSideBarOpen = !state.isRightSideBarOpen
     },
     addActivity(state, { activity }) {
-      
       if (!activity || !activity.length) return
       let newActivity = boardService.getEmptyActivity()
-      newActivity.taskId= activity[4]
-      let board = state.boards.find(board => board._id === state.watchedBoardId)
-
+      newActivity.taskId = activity[4]
+      let board = state.boards.find((board) => board._id === state.watchedBoardId)
 
       //activity[0] - Action name
       //activity[1] - Entity type
@@ -266,37 +268,38 @@ export const boardStore = {
       //activity[3] - Entity's father
       //activity[4] - ?task.id?
 
-      switch (activity[1]) { // type of the changed entity 
+      switch (
+        activity[1] // type of the changed entity
+      ) {
         case 'dueDate':
           activity[1] = 'due date'
-          break;
+          break
         case 'isComplete':
           activity[1] = 'the due date on'
           activity[2] = activity[3]
           activity[3] = activity[0] ? 'complete' : 'incomplete'
           activity[0] = 'marked'
-          break;
+          break
         case 'isWatch':
           activity[0] = activity[0] ? 'joined to' : 'left'
           activity[1] = ''
           activity[2] = ''
           activity[3] += ' task'
-          break;
+          break
         case 'description':
           activity[0] = 'updated'
           activity[1] = `${activity[3]}'s`
           activity[2] = 'description'
           activity[3] = ''
-          break;
-
+          break
       }
 
       activity[4] = ''
       newActivity.txt = activity.join(' ')
-      // board.activities.unshift(newActivity)  
-      board.activities = [newActivity,...board.activities]
-      state.newActivity=newActivity
-    },  
+      // board.activities.unshift(newActivity)
+      board.activities = [newActivity, ...board.activities]
+      state.newActivity = newActivity
+    },
     addMember(state, { member }) {
       const watchedBoard = state.boards.find((board) => board._id === state.watchedBoardId)
       watchedBoard.members.push(member)
@@ -314,7 +317,7 @@ export const boardStore = {
       }
     },
     async addBoard(context, { board }) {
-      console.log("board: ", board);
+      console.log('board: ', board)
       try {
         board = await boardService.save(board)
         context.commit(getActionAddBoard(board))
@@ -326,7 +329,6 @@ export const boardStore = {
     },
     async updateBoard(context, { board }) {
       try {
-
         context.commit(getActionUpdateBoard(board))
         board = await boardService.save(board)
         return board
@@ -382,7 +384,7 @@ export const boardStore = {
     // },
     async addMember(context, { member }) {
       try {
-        if(context.getters.watchedBoard.members.find(m => m._id === member._id)) return
+        if (context.getters.watchedBoard.members.find((m) => m._id === member._id)) return
         context.commit({ type: 'addMember', member })
         context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
       } catch (err) {
@@ -421,19 +423,18 @@ export const boardStore = {
     },
 
     // Task
-    async saveTask(context, { groupId, task, activity}) {
-
+    async saveTask(context, { groupId, task, activity }) {
       const boardId = context.getters.watchedBoardId
       try {
-        activity[4]=task.id
+        activity[4] = task.id
 
         context.commit({ type: 'addActivity', activity })
         activity = context.state.newActivity
         if (task.id) {
           context.commit({ type: 'saveTask', boardId, groupId, task })
-          task = await boardService.saveTask(boardId, groupId, task,activity)
+          task = await boardService.saveTask(boardId, groupId, task, activity)
         } else {
-          task = await boardService.saveTask(boardId, groupId, task,activity)
+          task = await boardService.saveTask(boardId, groupId, task, activity)
           context.commit({ type: 'saveTask', boardId, groupId, task })
         }
       } catch (err) {

@@ -2,6 +2,7 @@
 import { httpService } from './http.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+import { socketService, SOCKET_EMIT_UPDATE_BOARD } from './socket.service'
 
 const STORAGE_KEY = 'board'
 
@@ -44,6 +45,7 @@ async function remove(boardId) {
 async function save(board) {
   var savedBoard
   if (board._id) {
+    socketService.emit(SOCKET_EMIT_UPDATE_BOARD, board)
     savedBoard = await httpService.put(`board/${board._id}`, board)
   } else {
     board.createdBy = userService.getLoggedinUser()

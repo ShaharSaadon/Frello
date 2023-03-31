@@ -5,7 +5,15 @@
       <header class="board-header flex space-between">
         <div class="left-side-header flex align-center">
           <h1 @click="onStartEdit" v-if="!isTitleOnEdit">{{ board.title }}</h1>
-          <input class="title-input" type="text" v-if="isTitleOnEdit" v-model="editedTitle" ref="titleInput" @keydown.enter.prevent="changeTitle" @blur="changeTitle">
+          <input
+            class="title-input"
+            type="text"
+            v-if="isTitleOnEdit"
+            v-model="editedTitle"
+            ref="titleInput"
+            @keydown.enter.prevent="changeTitle"
+            @blur="changeTitle"
+          />
           <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
           <span class="separate-line"></span>
         </div>
@@ -13,7 +21,7 @@
           <!-- right side of header goes here -->
           <BoardMembers />
           <RouterLink :to="board._id + '/share'">
-            <button class="btn-share"> <i className="icon" v-html="getSvg('share')"></i><span>Share</span></button>
+            <button class="btn-share"><i className="icon" v-html="getSvg('share')"></i><span>Share</span></button>
           </RouterLink>
           <RouterLink :to="board._id + '/dashboard'">
             <button class="btn-dashboard"> <i className="icon" v-html="getSvg('share')"></i><span>Dashboard
@@ -22,14 +30,24 @@
 
           <span class="separate-line"></span>
           <div class="three-dot-btn" @click="onOpenMenu" v-if="!isExpended"></div>
-
         </div>
       </header>
 
-      <GroupList :groups="groups" @updateGroup="updateGroup" @removed="removeGroup" @addGroup="addGroup"
-        @saveTask="saveTask" @updateGroups="updateGroups" @updateTasksPos="updateTasksPos" />
+      <GroupList
+        :groups="groups"
+        @updateGroup="updateGroup"
+        @removed="removeGroup"
+        @addGroup="addGroup"
+        @saveTask="saveTask"
+        @updateGroups="updateGroups"
+        @updateTasksPos="updateTasksPos"
+      />
     </div>
-    <RightSideBar :type="rightSideBar.type" @switchDynamicCmp="toggleSideBar" @onChangeBackground="onChangeBackground" />
+    <RightSideBar
+      :type="rightSideBar.type"
+      @switchDynamicCmp="toggleSideBar"
+      @onChangeBackground="onChangeBackground"
+    />
 
     <RouterView />
   </section>
@@ -37,6 +55,7 @@
 
 <script>
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { socketService, SOCKET_EMIT_SET_BOARD_ID, SOCKET_EVENT_BOARD_UPDATED } from '../services/socket.service'
 import { svgService } from '../services/svg.service'
 import { getActionRemoveGroup, getActionUpdateBoard } from '../store/board.store'
 import GroupList from '../cmps/BoardDetails/GroupList.vue'
@@ -49,10 +68,10 @@ export default {
   data() {
     return {
       rightSideBar: {
-        type: 'SideBarMain'
+        type: 'SideBarMain',
       },
       isTitleOnEdit: false,
-      editedTitle: ''
+      editedTitle: '',
     }
   },
   watch: {
@@ -60,6 +79,7 @@ export default {
       handler() {
         if (this.boardId) {
           this.$store.commit({ type: 'setWatchedBoardId', boardId: this.boardId })
+          socketService.emit(SOCKET_EMIT_SET_BOARD_ID, this.boardId)
         }
       },
       immediate: true,
@@ -69,7 +89,7 @@ export default {
         if (this.board) {
           this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
           document.title = this.board.title + ' | Merllo'
-          this.editedTitle=this.board.title
+          this.editedTitle = this.board.title
         }
       },
       immediate: true,
@@ -91,8 +111,9 @@ export default {
     isExpended() {
       return this.$store.getters.isRightSideBarOpen
     },
-
-
+  },
+  created() {
+    socketService.on(SOCKET_EVENT_BOARD_UPDATED, this.updateBoard)
   },
   unmounted() {
     document.title = 'Merllo'
@@ -102,9 +123,12 @@ export default {
     LeftSideBar,
     TaskHeadTags,
     BoardMembers,
-    RightSideBar
+    RightSideBar,
   },
   methods: {
+    updateBoard(board){
+      this.$store.commit(getActionUpdateBoard(board))
+    },
     async removeGroup(groupId) {
       try {
         await this.$store.dispatch(getActionRemoveGroup(this.boardId, groupId))
@@ -181,7 +205,7 @@ export default {
     },
     async onChangeBackground({ LeftSideBarBgc, bgImg, bgc }) {
       const style = {
-        "backgroundImage": `${bgImg}`
+        backgroundImage: `${bgImg}`,
       }
       try {
         this.$store.commit('setAppHeaderBgc', { bgc })
@@ -193,23 +217,23 @@ export default {
       }
     },
     groupById(groupId) {
-      return this.groups.find(group => group.id === groupId)
+      return this.groups.find((group) => group.id === groupId)
     },
     onStartEdit() {
-      this.isTitleOnEdit = true;
+      this.isTitleOnEdit = true
       this.$nextTick(() => {
         this.$refs.titleInput.focus()
-      this.$refs.titleInput.select()
+        this.$refs.titleInput.select()
       })
     },
-    async changeTitle(){
+    async changeTitle() {
       try {
         await this.$store.dispatch({ type: 'updateBoardEntity', key: 'title', val: this.editedTitle })
-        this.isTitleOnEdit=false
+        this.isTitleOnEdit = false
       } catch (err) {
         console.log(err)
       }
-    }
+    },
   },
 }
 </script>
