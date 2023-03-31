@@ -1,4 +1,5 @@
 .task-Checklist {
+
   @include TaskDetailsCmps($icon-checklist);
   .title {
     cursor: pointer;
