@@ -17,7 +17,7 @@
    <!-- Comments Start -->
    <ul class="comment-list clean-list">
       <li v-for="comment in taskComments?.slice().reverse()" :key="comment.id" :comment="comment" class="comment flex-column">
-        <img :src="comment.byMember.imgUrl" class="member-profile">
+        <img :src="comment.byMember.imgUrl" class="member-profile bottom">
         <div class="comment-description flex align-center">
           <span class="by-member">{{ comment.byMember.fullname }} </span>
           <span class="time-ago">{{ getTime(comment.createdAt) }} </span>
@@ -29,7 +29,7 @@
     <ul class="task-activities-list clean-list">
       <li v-for="activity in taskActivities" :key="activity.id" :activity="activity" class="activity flex-column"
         v-if="showActivities">
-        <img :src="activity.byMember.imgUrl" class="member-profile">
+        <img :src="activity.byMember.imgUrl" class="member-profile bottom">
         <div class="activity-description">
           <span class="by-member">{{ activity.byMember.fullname }} </span>
           <p class="activity-text"> {{ ' ' + activity.txt }} </p>

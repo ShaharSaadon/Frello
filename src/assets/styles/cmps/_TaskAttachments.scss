@@ -1,10 +1,11 @@
 .task-attachments {
   @include TaskDetailsCmps($icon-attachment);
   grid-column: span 2;
-
+  width: 100%;
+  
   .task-attachments-preview {
     display: grid;
-    grid-template-columns: em(112px) em(380px);
+    grid-template-columns: em(112px) calc(100% - em(130px));
     gap: em(16px);
     margin-bottom: 10px;
     border-radius: $border-radius-3;
@@ -48,11 +49,14 @@
     }
   }
 
-  .btn-make-cover{
+  .btn-make-cover {
     @include trello-icon($icon-card-cover);
   }
 
-  @include mq(mq-780){
+  @include mq(mq-780) {
     grid-column: 2;
+    .task-attachments-preview {
+      grid-template-columns: em(112px) em(380px);
+    }
   }
 }
