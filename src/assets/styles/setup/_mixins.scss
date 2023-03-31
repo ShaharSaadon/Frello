@@ -63,7 +63,7 @@ $breakpoints: (
     padding-top: calc(($height / $width) * 100%);
   }
 
-  > * {
+  >* {
     position: absolute;
     top: 0;
     left: 0;
@@ -71,7 +71,7 @@ $breakpoints: (
     bottom: 0;
   }
 
-  > img {
+  >img {
     height: 100%;
     object-fit: cover;
   }
@@ -92,10 +92,17 @@ $breakpoints: (
 
   @if $type ==sm {
     font-size: 1rem;
-  } @else if $type ==md {
+  }
+
+  @else if $type ==md {
     font-size: 1.25rem;
-  } @else if $type ==lg {
+  }
+
+  @else if $type ==lg {
     font-size: 1.5rem;
+  }
+  @else if $type ==xl {
+    font-size: 2.5rem;
   }
 
   &::before {
@@ -147,27 +154,35 @@ $breakpoints: (
   @include text-contrast($color);
 
   background-color: lighten($color, 10%);
+
   &.task-preview-label {
     background-color: darken($color, 10%);
+
     &:hover {
       background-color: darken($color, 20%);
     }
   }
+
   &.label-tag {
     background-color: lighten($color, 10%);
+
     &:hover {
       background-color: $color;
+
       &::before {
         background-color: darken($color, 20%);
       }
     }
   }
+
   &.label-tag::before {
     background-color: darken($color, 10%);
   }
+
   &.task-preview {
     background-color: lighten($color, 10%);
     @include text-contrast($color);
+
     &:hover {
       background-color: lighten($color, 10%);
     }
@@ -218,7 +233,9 @@ $breakpoints: (
 
   @if abs($color-brightness) < calc(($light-color/2)) {
     color: white;
-  } @else {
+  }
+
+  @else {
     color: $clr-base-5;
   }
 }
@@ -227,51 +244,53 @@ $breakpoints: (
   &:active {
     background-color: $clr-base-27;
     color: $clr-base-8;
+
     span {
       color: $clr-base-8;
     }
+
     &::before {
       color: $clr-base-8;
     }
   }
 }
 
-@mixin board-members(){
-    display: flex;
-    align-items: center;
-    margin-block-start: 1px;
+@mixin board-members() {
+  display: flex;
+  align-items: center;
+  margin-block-start: 1px;
 
-    .member-profile-box {
+  .member-profile-box {
+    position: relative;
+    margin-inline-end: em(4px);
+
+    .arrow {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      z-index: 19;
+      bottom: 1px;
+      right: -2px;
+    }
+
+    .member-profile {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      margin: 0 -1px 2px;
+      cursor: pointer;
       position: relative;
-      margin-inline-end: em(4px);
 
-      .arrow {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        z-index: 19;
-        bottom: 1px;
-        right: -2px;
-      }
-
-      .member-profile {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        margin: 0 -1px 2px;
-        cursor: pointer;
-        position: relative;
-
-        &:hover {
-          opacity: 0.9;
-        }
+      &:hover {
+        opacity: 0.9;
       }
     }
+  }
 
 
 }
 
-@mixin modal-background(){
+@mixin modal-background() {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -283,4 +302,16 @@ $breakpoints: (
   position: absolute;
   top: 0;
   z-index: 100;
+}
+
+@mixin dashboard-box($color) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 18vh;
+  height: 18vh;
+  background-color: $color;
+  border-radius: $border-radius-3;
+
 }

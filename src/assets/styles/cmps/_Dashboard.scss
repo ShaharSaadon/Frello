@@ -1,8 +1,11 @@
-.dashboard-container{
-    @include modal-background()
+.dashboard-container {
+    @include modal-background();
+     &:hover {
+        cursor: pointer;
+    }
 }
 
-.dashboard-modal{
+.dashboard-modal {
     width: 90vw;
     height: 90vh;
     background-color: inherit;
@@ -10,4 +13,52 @@
     border-radius: $border-radius-3;
     position: relative;
     color: $clr-base-1;
+
+    header{
+        text-align: center;
+        .title{
+            font-size:3rem;
+            margin-block-end: 1.5rem;
+            margin-block-start: 2rem;
+        }
+        .subtitle{
+            font-size: 2rem;
+            font-weight: 300;
+        }
+    }
+
+    .stats{
+        display: grid;
+        grid-auto-flow: column;
+        place-content: center;
+        gap:3vw;
+        margin-block-end: 10vh;
+        margin-block-start: 10vh;
+    }
+    &:hover {
+        cursor:auto;
+    }
+    .member-icon{
+        @include trello-icon($icon-member, $type: xl, $color:$clr-base-1);
+    }
+
+
+    .members {
+        @include dashboard-box($clr12);
+    }
+
+    .groups {
+        @include dashboard-box($clr13)
+    }
+
+    .tasks {
+        @include dashboard-box($clr14)
+    }
+
+    .charts {
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+        grid-template-rows: 300px 300px 300px;
+
+    }
 }
