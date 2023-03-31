@@ -1,18 +1,21 @@
 .filter-by {
   width: em(384px);
-  background-color: $clr6;
   position: fixed;
+  background-color: $clr6;
   right: 3px;
   top: rem(88px);
-  max-height: calc(100vh - rem(88px));
+  max-height: calc(100vh - rem(120px));
   box-shadow: $modal-picker-box-shadow;
   padding: 0 em(12px) em(12px) em(12px);
   color: $clr-base-4;
   border-radius: $border-radius-3;
   z-index: 20;
-
+  overflow-y: scroll;
+  
   .filter-header {
-    position: relative;
+    position: sticky;
+    top: 0;
+    background-color: $clr6;
     h3 {
       font-size: rem(14px);
       font-weight: 400;
@@ -75,11 +78,28 @@
       height: em(24px);
       background-color: $clr-base-3;
       margin-inline-start: em(11px);
+      &.overdue {
+        background-color: $clr-base-20;
+      }
+      &.due-soon {
+        background-color: $clr-dynamic-star;
+      }
+      .calender{
+        align-self: normal;
+      }
+      svg {
+        width: em(16px);
+      }
     }
 
     .icon-member {
       @include trello-icon($icon-member);
       color: inherit;
+    }
+
+    .icon-clock {
+      @include trello-icon($icon-clock);
+      color: $clr-base-1;
     }
 
     input {

@@ -18,7 +18,9 @@
           <span class="separate-line"></span>
         </div>
         <div class="right-side-header flex align-center">
-          <button class="btn-filter"  @click="isFilterOpen = true"><i class="filter-icon" v-html="getSvg('filter')"></i>Filter</button>
+          <button class="btn-filter" @click="isFilterOpen = true">
+            <i class="filter-icon" v-html="getSvg('filter')"></i>Filter
+          </button>
           <span class="separate-line"></span>
           <!-- right side of header goes here -->
           <BoardMembers />
@@ -50,7 +52,7 @@
       @switchDynamicCmp="toggleSideBar"
       @onChangeBackground="onChangeBackground"
     />
-    <FilterBy @setFilterBy="setFilterBy" @closeFilterBy="isFilterOpen = false" v-if="isFilterOpen" />
+    <FilterBy :currFilterBy="filterBy" @setFilterBy="setFilterBy" @closeFilterBy="isFilterOpen = false" v-if="isFilterOpen" />
     <RouterView />
   </section>
 </template>
@@ -79,9 +81,9 @@ export default {
       isFilterOpen: false,
       filterBy: {
         txt: '',
-        members: null,
-        dueDate: null,
-        labels: null,
+        members: [],
+        dueDate: [],
+        labels: [],
       },
     }
   },
@@ -118,7 +120,8 @@ export default {
       return groups.map((group) => {
         group.tasks = group.tasks.filter((task) => {
           // if (task.members.includes('64257cdba8754b4d0079fd70')) return task
-          if (this.filterTasksByTxt(task) && this.filterTasksByMembers(task)) return task
+          if (this.filterTasksByTxt(task) && this.filterTasksByMembers(task) && this.filterTasksByDate(task))
+            return task
         })
         return group
       })
@@ -169,6 +172,25 @@ export default {
         }
       } else {
         return true
+      }
+
+      return false
+    },
+    filterTasksByDate(task) {
+      const { dueDate } = this.filterBy
+      if (!dueDate?.length) return true
+      const msDay = 1000 * 60 * 60 * 24
+      const taskDueDate = new Date(task?.dueDate)
+      const diff = taskDueDate - Date.now()
+
+      if (dueDate.includes('noDates')) {
+        if (!task.dueDate) return true
+      }
+      if (dueDate.includes('dueSoon')) {
+        if (diff < msDay && diff > 0) return true
+      }
+      if (dueDate.includes('overdue')) {
+        if (diff < 0 && task?.dueDate) return true
       }
 
       return false

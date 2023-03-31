@@ -31,17 +31,40 @@
         </div>
       </div>
       <h4>Due date</h4>
+      <div class="filter-item-list">
+        <div @click="setFilterBy('dueDate', 'noDates')" class="filter-item-preview">
+          <span :class="isNoDatesChecked" class="check-box"></span>
+          <div class="filter-icon-container"><span class="calender" v-html="getSvg('calender')"></span></div>
+          <h5>No dates</h5>
+        </div>
+        <div @click="setFilterBy('dueDate', 'overdue')" class="filter-item-preview">
+          <span :class="isOverdueChecked" class="check-box"></span>
+          <div class="filter-icon-container icon-clock overdue"></div>
+          <h5>Overdue</h5>
+        </div>
+        <div @click="setFilterBy('dueDate', 'dueSoon')" class="filter-item-preview">
+          <span :class="isDueSoonChecked" class="check-box"></span>
+          <div class="filter-icon-container icon-clock due-soon"></div>
+          <h5>Due in the next day</h5>
+        </div>
+      </div>
       <h4>Labels</h4>
     </div>
   </section>
 </template>
 
 <script>
+import { svgService } from '../../services/svg.service'
 import { userService } from '../../services/user.service'
 import { utilService } from '../../services/util.service'
 
 export default {
   name: 'FilterBy',
+  props: {
+    currFilterBy: {
+      type: Object,
+    },
+  },
   data() {
     return {
       filterBy: {
@@ -69,6 +92,9 @@ export default {
       console.log('filter: ', this.filterBy)
       this.$emit('setFilterBy', JSON.parse(JSON.stringify(this.filterBy)))
     },
+    getSvg(iconName) {
+      return svgService.getMerlloSvg(iconName)
+    },
   },
   computed: {
     members() {
@@ -87,12 +113,22 @@ export default {
     isNoMembersChecked() {
       return this.filterBy.members.includes('noMembers') ? 'checked' : ''
     },
+    isNoDatesChecked() {
+      return this.filterBy.dueDate.includes('noDates') ? 'checked' : ''
+    },
+    isOverdueChecked() {
+      return this.filterBy.dueDate.includes('overdue') ? 'checked' : ''
+    },
+    isDueSoonChecked() {
+      return this.filterBy.dueDate.includes('dueSoon') ? 'checked' : ''
+    },
     loggedInUser() {
       return userService.getLoggedinUser()
     },
   },
   created() {
     this.debounceEmitFilterBy = utilService.debounce(this.emitFilterBy, 400)
+    this.filterBy = JSON.parse(JSON.stringify(this.currFilterBy))
   },
   components: {},
 }
