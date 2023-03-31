@@ -1,137 +1,157 @@
 .task-activities {
-    @include TaskDetailsCmps($icon-activity);
+  @include TaskDetailsCmps($icon-activity);
+  position: relative;
+  font-size: 14px;
+  grid-column: span 2;
+
+  .by-member {
+    font-weight: 700;
+  }
+
+  .btn-toggle-activities {
+    @include btn-main();
+    position: absolute;
+    top: 0;
+    right: rem(8px);
+    @include btn-active();
+  }
+
+  .comment-list {
+    width: 100%;
+    padding-inline-start: 35px;
+  }
+
+  .comment-box {
     position: relative;
-    font-size: 14px;
-    grid-column: span 2;
-
-    .by-member {
-        font-weight: 700;
+    padding-inline-start: 35px;
+    .comment-place-holder {
+      width: 100%;
+      height: 36px;
+      background-color: $input-bgc;
+      border: $input-border;
+      border-radius: $border-radius-3;
+      outline: none;
+      font-size: 12px;
+      padding: 8px 12px;
+      margin-inline-start: 0px;
+      margin-block-end: 12px;
     }
 
-    .btn-toggle-activities {
-        @include btn-main();
-        position: absolute;
-        top: 0;
-        right: 0;
-        @include btn-active();
-    }
+    .comment-input {
+      width: 100%;
+      height: 84px;
+      background-color: $input-bgc;
+      border: $input-border;
+      border-radius: $border-radius-3;
+      outline: none;
+      font-size: 12px;
+      padding: 8px 12px;
+      margin-inline-start: 0px;
 
-    .comment-list {
-        width: 100%;
-    }
+      &:hover:not(:focus-visible) {
+        background-color: $clr-base-3-hover;
+      }
 
-    .comment-box {
-        position: relative;
+      &:focus {
+        border: none;
+        box-shadow: inset 0 0 0 1px $clr-base-8;
+      }
 
+      margin-block-end: $large-space;
 
-        .comment-place-holder {
-            width: 100%;
-            height: 36px;
-            background-color: $input-bgc;
-            border: $input-border;
-            border-radius: $border-radius-3;
-            outline: none;
-            font-size: 12px;
-            padding: 8px 12px;
-            margin-inline-start: 0px;
-            margin-block-end: 12px;
-        }
-
-        .comment-input {
-            width: 100%;
-            height: 84px;
-            background-color: $input-bgc;
-            border: $input-border;
-            border-radius: $border-radius-3;
-            outline: none;
-            font-size: 12px;
-            padding: 8px 12px;
-            margin-inline-start: 0px;
-
-
-            &:hover:not(:focus-visible) {
-                background-color: $clr-base-3-hover;
-            }
-
-            &:focus {
-                border: none;
-                box-shadow: inset 0 0 0 1px $clr-base-8;
-            }
-
-            margin-block-end: $large-space;
-
-            &:hover {
-                cursor: pointer;
-            }
-
-            // &::placeholder{
-            //     font-size: 12px;
-            // }
-        }
-
-        .btn-save-comment {
-            @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
-            align-self: flex-start;
-            height: 28px;
-            position: absolute;
-            bottom: 8px;
-            left: 12px;
-            padding: 10px em(12px);
-        }
-    }
-
-    .activity-text {
-        margin: 0;
-        padding: 0;
-        display: inline;
-    }
-
-    .comment-text {
-        margin: 0;
-        background-color: $clr-base-1;
-        max-width: 100%;
-        height: 36px;
-        border: $input-border;
-        border-radius: $border-radius-3;
-        outline: none;
-        font-size: 12px;
-        padding: 8px;
-        margin-block-start: -12px;
-    }
-
-    .time-ago {
-        color: $clr-dynamic-subtitle;
-        font-size: 12px;
-        margin: 0;
-        display: block;
-    }
-
-    .activity-description {
-        margin-block-end: 14px;
-        margin-inline-start: 4px;
-    }
-
-    .comment-description {
-        margin-block-end: 14px;
-        margin-inline-start: 4px;
-        gap: 4px;
-
-    }
-
-    .member-profile {
-        grid-column: 1;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        margin: 0 -1px 2px;
+      &:hover {
         cursor: pointer;
-        position: absolute;
-        left: -35px;
+      }
 
-
+      // &::placeholder{
+      //     font-size: 12px;
+      // }
     }
 
-    @include mq(mq-780){
-        grid-column: 2;
+    .btn-save-comment {
+      @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
+      align-self: flex-start;
+      height: 28px;
+      position: absolute;
+      bottom: 8px;
+      left: 47px;
+      padding: 10px em(12px);
     }
+  }
+
+  .activity-text {
+    margin: 0;
+    padding: 0;
+    display: inline;
+  }
+
+  .comment-text {
+    margin: 0;
+    background-color: $clr-base-1;
+    max-width: 100%;
+    height: 36px;
+    border: $input-border;
+    border-radius: $border-radius-3;
+    outline: none;
+    font-size: 12px;
+    padding: 8px;
+    margin-block-start: -12px;
+  }
+
+  .time-ago {
+    color: $clr-dynamic-subtitle;
+    font-size: 12px;
+    margin: 0;
+    display: block;
+  }
+
+  .activity-description {
+    margin-block-end: 14px;
+    margin-inline-start: 39px;
+  }
+
+  .comment-description {
+    margin-block-end: 14px;
+    margin-inline-start: 4px;
+    gap: 4px;
+  }
+
+  .member-profile {
+    grid-column: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin: 0 -1px 2px;
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    &.bottom {
+      left: 8px;
+    }
+  }
+
+  @include mq(mq-780) {
+    grid-column: 2;
+    .comment-box {
+      padding-inline-start: 0;
+      .btn-save-comment {
+        left: 12px;
+      }
+    }
+    .member-profile {
+      left: -36px;
+      &.bottom {
+        left: -36px;
+      }
+    }
+    .btn-toggle-activities {
+      right: 0;
+    }
+    .comment-list {
+      padding-inline-start: 0px;
+    }
+    .activity-description {
+      margin-inline-start: 4px;
+    }
+  }
 }

@@ -1,19 +1,22 @@
 .task-Checklist {
 
   @include TaskDetailsCmps($icon-checklist);
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: $task-details-content-grid;
+  // background-color: red;
+  & > *:not(.checklist-item, .progress-bar) {
+    grid-column: 2;
+  }
+
   .title {
     cursor: pointer;
   }
+
   .icon {
     &::before {
       left: em(13px);
     }
-  }
-  grid-column: span 2;
-  display: grid;
-  grid-template-columns: $task-details-content-grid;
-  & > *:not(.checklist-item, .progress-bar) {
-    grid-column: 2;
   }
 
   header {
@@ -21,6 +24,7 @@
     justify-content: space-between;
     min-height: em(38px);
   }
+
   .progress-bar {
     display: grid;
     grid-column: 1 / -1;
@@ -103,12 +107,14 @@
       }
     }
   }
+
   .btn-add-item {
     @include btn-main();
     @include btn-active();
     justify-self: start;
     margin: em(18px) 0;
   }
+
   .btn-checklist {
     @include btn-main();
     @include btn-active();
@@ -122,6 +128,7 @@
       margin: 4px 0 0;
     }
   }
+
   .item-editor {
     width: 100%;
     input {
@@ -142,6 +149,7 @@
   .btn-cancel {
     @include btn-main($clr-base-2, $clr-base-5, $clr-base-3-hover);
   }
+
   .close-item-edit {
     @include trello-icon($icon-close, lg);
     cursor: pointer;
@@ -155,4 +163,13 @@
     margin: 8px 0 0;
     gap: 4px;
   }
+
+  // @include mq(mq-780) {
+  //   grid-column: span 2;
+  //   display: grid;
+  //   grid-template-columns: $task-details-content-grid;
+  //   & > *:not(.checklist-item, .progress-bar) {
+  //     grid-column: 2;
+  //   }
+  // }
 }

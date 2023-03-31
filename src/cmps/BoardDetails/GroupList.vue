@@ -1,6 +1,6 @@
 <template>
   <section class="group-list">
-    <div ref="groupList" class="draggable-group-list">
+    <div @click.right.prevent="" v-dragscroll.noleft="true" ref="groupList" class="draggable-group-list">
       <Draggable
         v-model="groupList"
         class="list-group"
@@ -11,7 +11,7 @@
         @end="drag = false"
         handle=".drag-me"
       >
-        <template #item="{ element }">
+        <template #item="{ element }" >
           <div class="group-preview-container">
             <GroupPreview
               :key="element.id"
@@ -61,9 +61,13 @@ import { eventBus } from '../../services/event-bus.service.js'
 import { boardService } from '../../services/board.service.js'
 import GroupPreview from './GroupPreview.vue'
 import Draggable from 'vuedraggable'
+import { dragscroll } from 'vue-dragscroll'
 
 export default {
   name: 'GroupList',
+  directives: {
+    dragscroll,
+  },
   props: {
     groups: {
       type: Array,
