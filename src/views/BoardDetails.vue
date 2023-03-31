@@ -24,8 +24,7 @@
             <button class="btn-share"><i className="icon" v-html="getSvg('share')"></i><span>Share</span></button>
           </RouterLink>
           <RouterLink :to="board._id + '/dashboard'">
-            <button class="btn-dashboard"> <i className="icon" v-html="getSvg('share')"></i><span>Dashboard
-            </span></button>  
+            <button class="btn-share"><i className="icon" v-html="getSvg('share')"></i><span>Dashboard </span></button>
           </RouterLink>
 
           <span class="separate-line"></span>
@@ -63,6 +62,7 @@ import LeftSideBar from '../cmps/BoardDetails/LeftSideBar.vue'
 import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
 import BoardMembers from '../cmps/BoardDetails/BoardMembers.vue'
 import RightSideBar from '../cmps/BoardDetails/RightSideBar.vue'
+import { userService } from '../services/user.service'
 
 export default {
   data() {
@@ -111,6 +111,9 @@ export default {
     isExpended() {
       return this.$store.getters.isRightSideBarOpen
     },
+    isAdmin() {
+      return userService.getLoggedinUser().isAdmin
+    },
   },
   created() {
     socketService.on(SOCKET_EVENT_BOARD_UPDATED, this.updateBoard)
@@ -126,7 +129,7 @@ export default {
     RightSideBar,
   },
   methods: {
-    updateBoard(board){
+    updateBoard(board) {
       this.$store.commit(getActionUpdateBoard(board))
     },
     async removeGroup(groupId) {
