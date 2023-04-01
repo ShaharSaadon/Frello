@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <button @click="$emit('closeModal')">close</button>
+    <!-- <button @click="$emit('closeModal')">close</button> -->
   </section>
 </template>
 
