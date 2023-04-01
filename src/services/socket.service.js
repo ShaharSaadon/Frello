@@ -1,6 +1,7 @@
 import io from 'socket.io-client'
 import { userService } from './user.service'
 export const SOCKET_EMIT_SET_BOARD_ID = 'board-set-id'
+export const SOCKET_EMIT_SET_BOARD_INDEX = 'board-index'
 export const SOCKET_EMIT_UPDATE_BOARD = 'update-board'
 export const SOCKET_EVENT_BOARD_UPDATED = 'get-updated-board'
 

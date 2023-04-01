@@ -42,11 +42,13 @@
 
 <script>
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { socketService, SOCKET_EMIT_SET_BOARD_INDEX, SOCKET_EVENT_BOARD_UPDATED } from '../services/socket.service'
 // import { boardService } from '../services/board.service.local.js'
 import { boardService } from '../services/board.service.js'
 import BoardPreview from '../cmps/BoardPreview.vue'
 import ModalPicker from '../cmps/ModalPicker.vue'
 import { getActionRemoveBoard, getActionUpdateBoard } from '../store/board.store'
+
 export default {
   data() {
     return {
@@ -84,7 +86,8 @@ export default {
     this.filterBy.memberId = this.$store.getters.loggedinUser?._id || ''
     this.$store.commit({ type: "setFilterBy", filterBy: this.filterBy });
     this.$store.dispatch({ type: "loadBoards" });
-    
+  },
+  unmounted() {
   },
   methods: {
     async addBoard() {
@@ -118,6 +121,7 @@ export default {
     //   }
     // },
     async updateBoard(board) {
+      console.log("board: ", board);
       try {
         await this.$store.dispatch(getActionUpdateBoard(board))
         showSuccessMsg('Board updated')
