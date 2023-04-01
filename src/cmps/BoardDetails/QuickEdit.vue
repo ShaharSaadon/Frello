@@ -1,36 +1,31 @@
 <template>
     <!-- <div class="quick-edit-background"> -->
-        <section class="quick-edit">
-            <div class="main-edit">
-                <input type="text" v-model="currTask.title" v-if="currTask">
-                <button class="btn blue" @lick="saveTask">Save</button>
-            </div>
-            <div class="quick-edit-buttons">
+    <section class="quick-edit">
+        <div class="main-edit">
+            <input type="text" v-model="currTask.title" v-if="currTask">
+            <button class="btn blue" @lick="saveTask">Save</button>
+        </div>
+        <div class="quick-edit-buttons">
 
-                <button class="quick-edit-btn" @click="$emit('closeFastEdit')">
-                    <RouterLink style="text-decoration: none"
-                        :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
-                        <span class="open icon"></span>
-                        Open card
-                    </RouterLink>
-                </button>
+            <button class="quick-edit-btn" @click="$emit('closeFastEdit')">
+                <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
+                    <span class="open icon"></span>
+                    Open card
+                </RouterLink>
+            </button>
 
-                <button class="quick-edit-btn" @click.stop="toggleModal(cmp.cmpType, $event)" v-for="cmp in cmps"
-                    :key="cmp.title"> <span class="icon" :class="cmp.class"></span>{{ cmp.title }}
-                </button>
-
+            <button class="quick-edit-btn" @click.stop="toggleModal(cmp.cmpType, $event)" v-for="cmp in cmps"
+                :key="cmp.title"> <span class="icon" :class="cmp.class"></span>{{ cmp.title }}
+            </button>
 
 
-            </div>
-        </section>
 
-        <ModalPicker v-if="modal.isModalOpen" :modal="modal" @closeModal="toggleModal" 
-        @updateEntityVal="updateEntityVal"
-        @removeEntityVal="removeEntityVal" 
-        @switchDynamicCmp="toggleModal" 
-        @updateLabel="updateLabel"
-        @removeLabel="removeLabel" 
-        @saveTask="saveTask"/>
+        </div>
+    </section>
+
+    <ModalPicker v-if="modal.isModalOpen" :modal="modal" @closeModal="toggleModal" @updateEntityVal="updateEntityVal"
+        @switchDynamicCmp="toggleModal" @updateLabel="updateLabel" @removeLabel="removeLabel" @saveTask="saveTask"
+        @removeEntityVal="removeEntityVal" />
     <!-- </div> -->
 </template>
 
@@ -40,7 +35,7 @@ import { utilService } from '../../services/util.service'
 export default {
     name: 'QuickEdit',
     emits: ['closeFastEdit'],
-  
+
     data() {
         return {
             modal: {
@@ -94,20 +89,16 @@ export default {
             }
         },
         updateEntityVal({ key, val }) {
-            console.log('key:', key)
-            console.log('val:', val)
-            console.log('this.currTask:', this.currTask)
             let activity
-            const task = JSON.parse(JSON.stringify(this.currTask))
+            let task = JSON.parse(JSON.stringify(this.task))
+            // var isObj = val.id
             const itemId = val.id ?? val
             // finds the item index and pushes or removes
             const idx = task[key].findIndex((item) => item.id === itemId)
             if (idx === -1) {
-                console.log('noHayBefore:')
                 task[key].push(val)
                 activity = ['added', `${key.slice(0, -1)}`, 'to', task.title]
             } else {
-                console.log('HayBefore:')
                 task[key].splice(idx, 1, val)
             }
             this.saveTask({ key, newVal: task[key], activity })
@@ -131,7 +122,7 @@ export default {
         },
         removeEntityVal({ key, val }) {
             let activity
-            const task = JSON.parse(JSON.stringify(this.currTask))
+            const task = JSON.parse(JSON.stringify(this.task))
             let idx
             if (val.id) {
                 idx = task[key].findIndex((item) => item.id === val.id)
@@ -139,7 +130,7 @@ export default {
                 idx = task[key].findIndex((id) => id === val)
             }
             task[key].splice(idx, 1)
-            activity = ['removed', `${key.slice(0, -1)}`, 'from', task.title]
+            activity = ['removed', `${key.slice(0, -1)}`, 'from', this.task.title]
             this.saveTask({ key, newVal: task[key], activity })
         },
     },
@@ -150,10 +141,10 @@ export default {
         task() {
             return this.$store.getters.currTask
         },
-        taskId(){
+        taskId() {
             return this.task.id
         },
-        groupId(){
+        groupId() {
             return this.task.groupId
         },
         // modalPos() {
