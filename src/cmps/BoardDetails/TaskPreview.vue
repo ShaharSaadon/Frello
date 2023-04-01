@@ -30,7 +30,7 @@
         </div>
         <div class="task-body">
           <h2 class="task-preview-title">{{ task.title }}</h2>
-          <button class="fast-edit-btn" @click="toggleEdit"><i className="icon" v-html="getSvg('edit')"></i></button>
+          <button class="fast-edit-btn" @click.prevent="toggleEdit"><i className="icon" v-html="getSvg('edit')"></i></button>
         </div>
         <div v-if="showBadges" class="task-preview-footer">
           <div class="action-badges">
@@ -40,7 +40,6 @@
               <span>{{ task.attachments.length }}</span>
             </div>
             <div v-if="task.checklists?.length" class="badge-checklist" :class="getChecklistClass">
-              <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
               <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
             </div>
             <div
@@ -64,6 +63,10 @@
 <script>
 import TaskMember from '../TaskMember.vue'
 import { utilService } from '../../services/util.service.js'
+import Draggable from 'vuedraggable'
+import {svgService} from '../../services/svg.service'
+import { eventBus } from '../../services/event-bus.service'
+
 
 export default {
   name: 'TaskPreview',
@@ -117,10 +120,7 @@ export default {
       })
     },
     toggleEdit(ev) {
-      this.isOnFastEdit = !this.isOnFastEdit
       this.setCurrTask()
-      console.log('ev:', ev.target)
-      console.log('ev:', ev)
       eventBus.emit('onFastEdit',ev)
     }
   },

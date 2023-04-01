@@ -29,12 +29,14 @@
     z-index: 100;
     top:3px;
     right: 3px;
+    opacity: 0;
 
   }
   &:hover {
     background-color: $clr-base-2;
     .fast-edit-btn{
       opacity: 1;
+      cursor: pointer;
     }
   }
 
