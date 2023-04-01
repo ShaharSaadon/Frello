@@ -1,6 +1,6 @@
 <template>
   <section class="drop-down">
-    <div class="main-filter">
+    <div v-click-outside="showEv" class="main-filter">
       <div v-if="dropDown.type === 'members'" class="filter-item-list">
         <div
           v-for="member in filteredMembers"
@@ -10,7 +10,9 @@
         >
           <span :class="isCheckedMembers[member._id] ? 'checked' : ''" class="check-box"></span>
           <img :src="member.imgUrl" class="filter-icon-container" />
-          <h5>{{ member.fullname }}<span class="username">@{{ member.username }}</span></h5>
+          <h5>
+            {{ member.fullname }}<span class="username">@{{ member.username }}</span>
+          </h5>
         </div>
       </div>
 
@@ -55,6 +57,9 @@ export default {
     }
   },
   methods: {
+    showEv() {
+      console.log('heyyyyy')
+    },
     setFilterBy(key, val) {
       if (this.filterBy[key]?.includes(val)) {
         const idx = this.filterBy[key].findIndex((item) => item === val)

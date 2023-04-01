@@ -5,8 +5,15 @@
       <header class="board-header flex space-between">
         <div class="left-side-header flex align-center">
           <h1 @click="onStartEdit" v-if="!isTitleOnEdit">{{ board.title }}</h1>
-          <input class="title-input" type="text" v-if="isTitleOnEdit" v-model="editedTitle" ref="titleInput"
-            @keydown.enter.prevent="changeTitle" @blur="changeTitle" />
+          <input
+            class="title-input"
+            type="text"
+            v-if="isTitleOnEdit"
+            v-model="editedTitle"
+            ref="titleInput"
+            @keydown.enter.prevent="changeTitle"
+            @blur="changeTitle"
+          />
           <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
           <span class="separate-line"></span>
         </div>
@@ -45,7 +52,8 @@
       @switchDynamicCmp="toggleSideBar"
       @onChangeBackground="onChangeBackground"
     />
-
+    <FilterBy v-if="isFilterOpen" :currFilterBy="filterBy" @setFilterBy="setFilterBy" @closeFilterBy="isFilterOpen = false"/>
+    <QuickEdit ref="quickEdit" v-if="quickEdit.isOn" :style="quickEditPos" />
     <RouterView />
   </section>
 </template>
@@ -72,6 +80,17 @@ export default {
       },
       isTitleOnEdit: false,
       editedTitle: '',
+      isFilterOpen: false,
+      filterBy: {
+        txt: '',
+        members: [],
+        dueDate: [],
+        labels: [],
+      },
+      quickEdit: {
+        isOn: false,
+        pos: { top: null, left: null, height: null },
+      },
     }
   },
   watch: {
@@ -131,13 +150,26 @@ export default {
     isAdmin() {
       return userService.getLoggedinUser().isAdmin
     },
+    quickEditPos() {
+      let x = this.quickEdit.pos.left
+      let y = this.quickEdit.pos.top
+      let quickEditHeight = this.quickEdit.pos.height
+      const { width, height } = window.visualViewport
+      if (width - x < 304) x = width - 308
+      if (y + quickEditHeight > height) y = 48
+      return { top: y + 'px', left: x + 'px' }
+    },
   },
   created() {
     socketService.on(SOCKET_EVENT_BOARD_UPDATED, this.updateBoard)
     eventBus.on('onFastEdit', (ev) => {
-      console.log('ev:', ev)
-      // if (ev) this.setQuickEditPos(ev)toggleEdit
-      this.fastEdit.isOnFastEdit = !this.fastEdit.isOnFastEdit
+      if (ev) this.setQuickEditPos(ev)
+      this.quickEdit.isOn = !this.quickEdit.isOn
+      if (this.quickEdit.isOn) {
+        this.$nextTick(() => {
+          this.quickEdit.pos.height = this.$refs.quickEdit.$el.offsetHeight
+        })
+      }
     })
   },
   unmounted() {
@@ -212,6 +244,32 @@ export default {
     updateBoard(board) {
       this.$store.commit(getActionUpdateBoard(board))
     },
+    getSvg(iconName) {
+      return svgService.getMerlloSvg(iconName)
+    },
+    onOpenMenu() {
+      this.$store.commit('onToggleMenu')
+    },
+    toggleSideBar(ev) {
+      this.rightSideBar.type = ev
+    },
+    setQuickEditPos(ev) {
+      const target = ev.target.localName === 'span' ? ev.target.offsetParent : ev.target
+      let { x, y, height } = target.getBoundingClientRect()
+      y += height + 4
+      this.quickEdit.pos.left = x
+      this.quickEdit.pos.top = y
+    },
+    groupById(groupId) {
+      return this.groups.find((group) => group.id === groupId)
+    },
+    onStartEdit() {
+      this.isTitleOnEdit = true
+      this.$nextTick(() => {
+        this.$refs.titleInput.focus()
+        this.$refs.titleInput.select()
+      })
+    },
     async removeGroup(groupId) {
       try {
         await this.$store.dispatch(getActionRemoveGroup(this.boardId, groupId))
@@ -277,22 +335,6 @@ export default {
         // showErrorMsg('Cannot Drag group')
       }
     },
-    getSvg(iconName) {
-      return svgService.getMerlloSvg(iconName)
-    },
-    onOpenMenu() {
-      this.$store.commit('onToggleMenu')
-    },
-    toggleSideBar(ev) {
-      this.rightSideBar.type = ev
-    },
-    setQuickEditPos(ev) {
-      const target = ev.target.localName === 'span' ? ev.target.offsetParent : ev.target
-      let { x, y, height } = target.getBoundingClientRect()
-      y += height + 4
-      this.fastEdit.pos.left = x
-      this.fastEdit.pos.top = y
-    },
     async onChangeBackground({ LeftSideBarBgc, bgImg, bgc }) {
       const style = {
         backgroundImage: `${bgImg}`,
@@ -306,16 +348,6 @@ export default {
         console.log(err)
       }
     },
-    groupById(groupId) {
-      return this.groups.find((group) => group.id === groupId)
-    },
-    onStartEdit() {
-      this.isTitleOnEdit = true
-      this.$nextTick(() => {
-        this.$refs.titleInput.focus()
-        this.$refs.titleInput.select()
-      })
-    },
     async changeTitle() {
       try {
         await this.$store.dispatch({ type: 'updateBoardEntity', key: 'title', val: this.editedTitle })
@@ -324,7 +356,6 @@ export default {
         console.log(err)
       }
     },
-
   },
 }
 </script>

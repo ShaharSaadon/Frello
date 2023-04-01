@@ -1,14 +1,14 @@
-.quick-edit-background {
-    @include modal-background();
-}
+// .quick-edit-background {
+//     @include modal-background();
+// }
 
 .quick-edit {
-    width: 25vw;
-    height: 25vh;
-    background-color: inherit;
+    // width: 25vw;
+    // height: 25vh;
+    // background-color: inherit;
     font-size: em(14px);
     border-radius: $border-radius-3;
-    position: relative;
+    position: absolute;
     color: $clr-base-1;
 
     .quick-edit-buttons {

@@ -1,11 +1,10 @@
 <template>
   <section
-    v-click-outside="showEv"
     @drop.prevent="handleFile"
     @dragover.prevent="this.isDragover = true"
     class="task-details"
   >
-    <div class="task-details-container">
+    <div v-click-outside="showEv" class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
       <div v-if="!!this.task.cover?.color" :class="this.task.cover.color" :style="imgCover" class="task-details-cover">
         <button class="btn-card-cover" @click="toggleModal('CoverPicker', $event)"><span></span>Cover</button>

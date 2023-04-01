@@ -1,5 +1,5 @@
 <template>
-    <div class="quick-edit-background">
+    <!-- <div class="quick-edit-background"> -->
         <section class="quick-edit">
             <div class="main-edit">
                 <input type="text" v-model="currTask.title" v-if="currTask">
@@ -24,17 +24,23 @@
             </div>
         </section>
 
-        <ModalPicker v-if="modal.isModalOpen" :modal="modal" @closeModal="toggleModal" @updateEntityVal="updateEntityVal"
-            @removeEntityVal="removeEntityVal" @switchDynamicCmp="toggleModal" @updateLabel="updateLabel"
-            @removeLabel="removeLabel" @saveTask="saveTask" :style="modalPos" />
-    </div>
+        <ModalPicker v-if="modal.isModalOpen" :modal="modal" @closeModal="toggleModal" 
+        @updateEntityVal="updateEntityVal"
+        @removeEntityVal="removeEntityVal" 
+        @switchDynamicCmp="toggleModal" 
+        @updateLabel="updateLabel"
+        @removeLabel="removeLabel" 
+        @saveTask="saveTask"/>
+    <!-- </div> -->
 </template>
 
 <script>
 import ModalPicker from '../../cmps/ModalPicker.vue'
+import { utilService } from '../../services/util.service'
 export default {
     name: 'QuickEdit',
     emits: ['closeFastEdit'],
+  
     data() {
         return {
             modal: {
@@ -76,7 +82,7 @@ export default {
         },
         async saveTask({ key, newVal, activity }) {
             if (!activity) activity = ['added', key, 'from', this.task.title]
-            const task = JSON.parse(JSON.stringify(this.task))
+            const task = JSON.parse(JSON.stringify(this.currTask))
             task[key] = newVal
             const groupId = this.currTask.groupId
             try {
@@ -90,21 +96,24 @@ export default {
         updateEntityVal({ key, val }) {
             console.log('key:', key)
             console.log('val:', val)
+            console.log('this.currTask:', this.currTask)
             let activity
             const task = JSON.parse(JSON.stringify(this.currTask))
             const itemId = val.id ?? val
             // finds the item index and pushes or removes
             const idx = task[key].findIndex((item) => item.id === itemId)
             if (idx === -1) {
+                console.log('noHayBefore:')
                 task[key].push(val)
                 activity = ['added', `${key.slice(0, -1)}`, 'to', task.title]
             } else {
+                console.log('HayBefore:')
                 task[key].splice(idx, 1, val)
             }
             this.saveTask({ key, newVal: task[key], activity })
         },
         updateLabel(label) {
-            const labels = JSON.parse(JSON.stringify(this.labels))
+            const labels = JSON.parse(JSON.stringify(this.currTask.labels))
             const idx = labels.findIndex((l) => l.id === label.id)
             if (idx === -1) {
                 label.id = utilService.makeId()
@@ -122,7 +131,7 @@ export default {
         },
         removeEntityVal({ key, val }) {
             let activity
-            const task = JSON.parse(JSON.stringify(this.task))
+            const task = JSON.parse(JSON.stringify(this.currTask))
             let idx
             if (val.id) {
                 idx = task[key].findIndex((item) => item.id === val.id)
@@ -130,7 +139,7 @@ export default {
                 idx = task[key].findIndex((id) => id === val)
             }
             task[key].splice(idx, 1)
-            activity = ['removed', `${key.slice(0, -1)}`, 'from', this.task.title]
+            activity = ['removed', `${key.slice(0, -1)}`, 'from', task.title]
             this.saveTask({ key, newVal: task[key], activity })
         },
     },
@@ -147,13 +156,13 @@ export default {
         groupId(){
             return this.task.groupId
         },
-        modalPos() {
-            let x = this.modal.posX
-            const { width } = window.visualViewport
-            x += 198
-            if (width - x < 304) x = width - 304
-            return { top: '48px', left: x + 'px' }
-        },
+        // modalPos() {
+        //     let x = this.modal.posX
+        //     const { width } = window.visualViewport
+        //     x += 198
+        //     if (width - x < 304) x = width - 304
+        //     return { top: '48px', left: x + 'px' }
+        // },
     },
     mounted() {
         this.currTask = { ...this.task }
