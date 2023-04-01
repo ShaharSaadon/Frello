@@ -1,5 +1,5 @@
 <template>
-  <section ref="modal" class="modal-picker">
+  <section v-click-outside="check" class="modal-picker">
     <header class="modal-picker-header">
       <h3>{{ title }}</h3>
       <button class="btn-modal-close" @click="$emit('closeModal')"></button>
@@ -50,23 +50,30 @@ export default {
   data() {
     return {
       labelToEdit: null,
+      isModalOpen: false,
     }
   },
-  mounted() {
-    // this.$nextTick(this.checkHeight)
-    // setTimeout(()=> {
-    //   const modal = this.$refs.modal
-    //   const rect = modal.getBoundingClientRect()
-    //   if (rect.bottom > window.visualViewport.height) this.$emit('outOfView', { height: rect.height })
-    // }, 500 )
+  created() {
+    this.modalOpen = true
+  },
+
+  unmounted() {
+    this.modalOpen = false
   },
 
   name: '',
   methods: {
+    // closeModal() {
+    //   console.log("this.isModalOpen: ", this.isModalOpen);
+    //   if (this.isModalOpen) this.$emit('closeModal')
+    // },
+    check(ev){
+      console.log("ev: ", ev);
+    },
     checkHeight() {
       const modal = this.$refs.modal
       const rect = modal.getBoundingClientRect()
-      console.log("rect: ", rect);
+      console.log('rect: ', rect)
       // if (rect.bottom > window.visualViewport.height) this.$emit('outOfView', { height: rect.height })
     },
     getSvg(iconName) {

@@ -21,6 +21,7 @@ export const boardService = {
 window.cs = boardService
 
 async function query(filterBy = { txt: '', memberId: '' }) {
+  console.log("filterBy: ", filterBy);
   return httpService.get(STORAGE_KEY, filterBy)
 
   // var boards = await storageService.query(STORAGE_KEY)

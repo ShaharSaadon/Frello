@@ -4,9 +4,27 @@
       <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover">
       </div>
       <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
+        <draggable
+          class="dragarea-task-preview"
+          ghost-class="ghost-task-member"
+          v-model="memberList"
+          group="members"
+          item-key="id"
+        >
+          <template #item="{ element }">
+            <div class="list-group-item">
+              {{ element.name }}
+            </div>
+          </template>
+        </draggable>
         <div v-if="task.labels?.length" class="task-preview-labels">
-          <div v-for="label in labels" :key="label.id" :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
-            class="task-preview-label" @click.prevent="toggleLabelFullDisplay">
+          <div
+            v-for="label in labels"
+            :key="label.id"
+            :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
+            class="task-preview-label"
+            @click.prevent="toggleLabelFullDisplay"
+          >
             {{ isLabelFullDisplay ? label.title : '' }}
           </div>
         </div>
@@ -23,14 +41,18 @@
             </div>
             <div v-if="task.checklists?.length" class="badge-checklist" :class="getChecklistClass">
               <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
+              <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
             </div>
-            <div :class="getDateClass" @click.prevent="toggleKey('isComplete')" v-if="task.dueDate"
-              class="badge-date flex align-center">
+            <div
+              :class="getDateClass"
+              @click.prevent="toggleKey('isComplete')"
+              v-if="task.dueDate"
+              class="badge-date flex align-center"
+            >
               <span class="clock"></span><span class="date">{{ getDate }}</span>
             </div>
           </div>
-
-          <TaskMember :members="task.members" />
+            <TaskMember :members="task.members" />
         </div>
       </div>
     </div>
@@ -42,8 +64,7 @@
 <script>
 import TaskMember from '../TaskMember.vue'
 import { utilService } from '../../services/util.service.js'
-import { svgService } from '../../services/svg.service'
-import { eventBus } from '../../services/event-bus.service'
+
 export default {
   name: 'TaskPreview',
   props: {
@@ -133,7 +154,7 @@ export default {
       console.log('checklist.checkedItems:', this.checklist.checkedItems)
       console.log('checklist.totalItems:', this.checklist.totalItems)
       return {
-        complete: this.checklist.checkedItems === this.checklist.totalItems & this.checklist.totalItems !== 0
+        complete: this.checklist.checkedItems===this.checklist.totalItems&this.checklist.totalItems!==0
       }
     },
     checklist() {
@@ -169,11 +190,11 @@ export default {
         ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '200px' }
         : ''
     },
-
   },
-  created() { },
+  created() {},
   components: {
     TaskMember,
+    Draggable,
   },
 }
 </script>

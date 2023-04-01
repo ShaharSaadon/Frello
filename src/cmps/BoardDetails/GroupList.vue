@@ -1,6 +1,6 @@
 <template>
   <section class="group-list">
-    <div @click.right.prevent="" v-dragscroll.noleft="true" ref="groupList" class="draggable-group-list">
+    <div @click.right.prevent v-dragscroll.noleft="true" ref="groupList" class="draggable-group-list">
       <Draggable
         v-model="groupList"
         class="list-group"
