@@ -53,7 +53,7 @@
       @onChangeBackground="onChangeBackground"
     />
     <FilterBy v-if="isFilterOpen" :currFilterBy="filterBy" @setFilterBy="setFilterBy" @closeFilterBy="isFilterOpen = false"/>
-    <QuickEdit ref="quickEdit" v-if="quickEdit.isOn" :style="quickEditPos" />
+    <QuickEdit ref="quickEdit" v-if="quickEdit.isOn" />
     <RouterView />
   </section>
 </template>
@@ -254,7 +254,8 @@ export default {
       this.rightSideBar.type = ev
     },
     setQuickEditPos(ev) {
-      const target = ev.target.localName === 'span' ? ev.target.offsetParent : ev.target
+      const target = ev.target.localName === 'svg' ? ev.target.offsetParent : ev.target
+      console.log('target:', target)
       let { x, y, height } = target.getBoundingClientRect()
       y += height + 4
       this.quickEdit.pos.left = x
