@@ -116,7 +116,7 @@ export default {
       this.saveTask({ key, newVal: task[key], activity })
     },
     updateLabel(label) {
-      const labels = JSON.parse(JSON.stringify(this.currTask.labels))
+      const labels = JSON.parse(JSON.stringify(this.labels))
       const idx = labels.findIndex((l) => l.id === label.id)
       if (idx === -1) {
         label.id = utilService.makeId()
@@ -158,6 +158,9 @@ export default {
     },
     groupId() {
       return this.task.groupId
+    },
+    labels() {
+      return JSON.parse(JSON.stringify(this.$store.getters.labels))
     },
     // modalPos() {
     //     let x = this.modal.posX
