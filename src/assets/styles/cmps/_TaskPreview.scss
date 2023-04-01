@@ -125,6 +125,11 @@
       @include trello-icon($icon-eye, $color: $clr-base-4);
     }
 
+    .badge-comment{
+      @include trello-icon($icon-comment, $color: $clr-base-4);
+
+    }
+
     .badge-date {
       border-radius: $border-radius-3;
       color: $clr-base-1;

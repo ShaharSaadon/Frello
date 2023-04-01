@@ -37,6 +37,7 @@
           <div class="action-badges">
             <!-- <div v-if="task.members.length" class="badge-watch"></div> -->
             <div v-if="task.description" class="badge-description"></div>
+            <div v-if="task.comments.length" class="badge-comment"></div>
             <div v-if="task.attachments?.length" class="badge-attachments">
               <span>{{ task.attachments.length }}</span>
             </div>
