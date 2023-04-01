@@ -1,5 +1,5 @@
 <template>
-  <section v-click-outside="check" class="modal-picker">
+  <sectio class="modal-picker">
     <header class="modal-picker-header">
       <h3>{{ title }}</h3>
       <button class="btn-modal-close" @click="$emit('closeModal')"></button>
@@ -25,7 +25,7 @@
       @removeLabel="$emit('removeLabel', $event)"
       @switchDynamicCmp="switchDynamicCmp"
     />
-  </section>
+  </sectio>
 </template>
 
 <script>
