@@ -130,6 +130,10 @@ export default {
     }
   },
   methods: {
+    showEv(ev) {
+      console.log('heyyyy');
+      console.log('ev: ', ev)
+    },
     onInput() {
       this.$nextTick(() => {
         this.dropDown.pos.height = this.$refs.dropDown.$el.offsetHeight
