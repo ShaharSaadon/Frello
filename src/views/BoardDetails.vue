@@ -58,7 +58,12 @@
       @setFilterBy="setFilterBy"
       @closeFilterBy="isFilterOpen = false"
     />
-    <QuickEdit :quickEditPos="quickEditPos" ref="quickEdit" @closeFastEdit="quickEdit.isOn = false" v-if="quickEdit.isOn" />
+    <QuickEdit
+      :quickEditPos="quickEditPos"
+      ref="quickEdit"
+      @closeFastEdit="quickEdit.isOn = false"
+      v-if="quickEdit.isOn"
+    />
     <RouterView />
   </section>
 </template>
@@ -159,9 +164,9 @@ export default {
       let x = this.quickEdit.pos.left
       let y = this.quickEdit.pos.top
       // let quickEditHeight = this.quickEdit.pos.height
-      // const { width, height } = window.visualViewport
-      // if (width - x < 304) x = width - 308
-      // if (y + quickEditHeight > height) y = 48
+      const { width } = window.visualViewport
+      if (width - x < 265) x = width - 265
+      if (y > 495) y = 495
       return { top: y + 'px', left: x + 'px' }
     },
   },

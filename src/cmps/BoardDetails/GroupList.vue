@@ -1,6 +1,6 @@
 <template>
   <section class="group-list">
-    <div @click.right.prevent v-dragscroll.noleft="true" ref="groupList" class="draggable-group-list">
+    <div @click.right.prevent v-dragscroll.noleft="isDragScroll" ref="groupList" class="draggable-group-list">
       <Draggable
         v-model="groupList"
         class="list-group"
@@ -11,7 +11,7 @@
         @end="drag = false"
         handle=".drag-me"
       >
-        <template #item="{ element }" >
+        <template #item="{ element }">
           <div class="group-preview-container">
             <GroupPreview
               :key="element.id"
@@ -117,6 +117,11 @@ export default {
       set(groups) {
         this.$emit('updateGroups', groups)
       },
+    },
+    isDragScroll() {
+      const { width } = window.visualViewport
+      console.log("width: ", width);
+      return width > 680
     },
   },
   created() {},
