@@ -28,6 +28,7 @@
           </div>
         </div>
         <div class="task-body">
+
           <h2 class="task-preview-title">{{ task.title }}</h2>
           <button class="fast-edit-btn" @click.prevent="toggleEdit">
             <i className="icon" v-html="getSvg('edit')"></i>
@@ -37,7 +38,7 @@
           <div class="action-badges">
             <!-- <div v-if="task.members.length" class="badge-watch"></div> -->
             <div v-if="task.description" class="badge-description"></div>
-            <div v-if="task.comments.length" class="badge-comment"></div>
+            <div v-if="task.comments.length" class="badge-comment"><span>{{ task.comments.length }}</span></div>
             <div v-if="task.attachments?.length" class="badge-attachments">
               <span>{{ task.attachments.length }}</span>
             </div>
