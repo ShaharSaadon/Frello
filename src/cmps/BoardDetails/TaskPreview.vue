@@ -4,7 +4,7 @@
       <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover">
       </div>
       <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
-        <draggable
+        <Draggable
           class="dragarea-task-preview"
           ghost-class="ghost-task-member"
           v-model="memberList"
@@ -16,7 +16,7 @@
               {{ element.name }}
             </div>
           </template>
-        </draggable>
+        </Draggable>
         <div v-if="task.labels?.length" class="task-preview-labels">
           <div
             v-for="label in labels"
@@ -64,6 +64,8 @@
 <script>
 import TaskMember from '../TaskMember.vue'
 import { utilService } from '../../services/util.service.js'
+import Draggable from 'vuedraggable'
+
 
 export default {
   name: 'TaskPreview',
