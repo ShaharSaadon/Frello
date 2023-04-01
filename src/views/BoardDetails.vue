@@ -52,7 +52,12 @@
       @switchDynamicCmp="toggleSideBar"
       @onChangeBackground="onChangeBackground"
     />
-    <FilterBy :currFilterBy="filterBy" @setFilterBy="setFilterBy" @closeFilterBy="isFilterOpen = false" v-if="isFilterOpen" />
+    <FilterBy
+      :currFilterBy="filterBy"
+      @setFilterBy="setFilterBy"
+      @closeFilterBy="isFilterOpen = false"
+      v-if="isFilterOpen"
+    />
     <RouterView />
   </section>
 </template>
@@ -100,6 +105,7 @@ export default {
     board: {
       handler() {
         if (this.board) {
+          console.log('this.board: ', this.board)
           this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
           document.title = this.board.title + ' | Merllo'
           this.editedTitle = this.board.title
@@ -120,7 +126,12 @@ export default {
       return groups.map((group) => {
         group.tasks = group.tasks.filter((task) => {
           // if (task.members.includes('64257cdba8754b4d0079fd70')) return task
-          if (this.filterTasksByTxt(task) && this.filterTasksByMembers(task) && this.filterTasksByDate(task))
+          if (
+            this.filterTasksByTxt(task) &&
+            this.filterTasksByMembers(task) &&
+            this.filterTasksByDate(task) &&
+            this.filterTasksByLabels(task)
+          )
             return task
         })
         return group
@@ -169,6 +180,21 @@ export default {
         if (task.members.some((member) => members.includes(member))) return true
         if (members.includes('noMembers')) {
           if (!task.members.length) return true
+        }
+      } else {
+        return true
+      }
+
+      return false
+    },
+    filterTasksByLabels(task) {
+      const { labels } = this.filterBy
+
+      if (labels?.length) {
+        if (task.labels.some((label) => labels.includes(label))) return true
+
+        if (labels.includes('noLabels')) {
+          if (!task.labels.length) return true
         }
       } else {
         return true

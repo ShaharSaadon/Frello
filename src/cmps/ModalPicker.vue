@@ -1,5 +1,5 @@
 <template>
-  <section v-click-outside="check" ref="modal" class="modal-picker">
+  <section v-click-outside="check" class="modal-picker">
     <header class="modal-picker-header">
       <h3>{{ title }}</h3>
       <button class="btn-modal-close" @click="$emit('closeModal')"></button>

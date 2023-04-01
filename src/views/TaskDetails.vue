@@ -1,5 +1,10 @@
 <template>
-  <section v-click-outside="showEv" @drop.prevent="handleFile" @dragover.prevent="this.isDragover = true" class="task-details">
+  <section
+    v-click-outside="showEv"
+    @drop.prevent="handleFile"
+    @dragover.prevent="this.isDragover = true"
+    class="task-details"
+  >
     <div class="task-details-container">
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
       <div v-if="!!this.task.cover?.color" :class="this.task.cover.color" :style="imgCover" class="task-details-cover">
@@ -61,6 +66,7 @@
       </div>
 
       <ModalPicker
+        ref="modal"
         v-if="modal.isModalOpen"
         :modal="modal"
         @closeModal="toggleModal"
@@ -92,7 +98,6 @@ import { utilService } from '../services/util.service'
 import { uploadService } from '../services/upload.service'
 
 export default {
-
   watch: {
     taskId: {
       handler() {
@@ -130,7 +135,7 @@ export default {
       modal: {
         type: '',
         isModalOpen: false,
-        pos: { top: null, left: null },
+        pos: { top: null, left: null, height: null },
       },
       cmps: [
         { class: 'member', cmpType: 'MemberPicker', title: ' Members' },
@@ -189,15 +194,17 @@ export default {
     modalPos() {
       let x = this.modal.pos.left
       let y = this.modal.pos.top
-      const { width } = window.visualViewport
-      if (width - x < 304) x = width - 308
-      if (y > 350 || this.modal.type === 'DatePicker' || this.modal.type === 'LabelPicker') y = 48
+      let modalHeight = this.modal.pos.height
+      const { width, height } = window.visualViewport
+      if (width - x < 304) x = width - 308 
+      if (y + modalHeight > height) y = 48 
+      // if (y > 350 || this.modal.type === 'DatePicker' || this.modal.type === 'LabelPicker') y = 48
       return { top: y + 'px', left: x + 'px' }
     },
   },
   methods: {
-    showEv(ev){
-      console.log("ev: ", ev);
+    showEv(ev) {
+      console.log('ev: ', ev)
     },
     async handleFile(ev) {
       this.isDragover = false
@@ -308,6 +315,13 @@ export default {
       this.modal.isModalOpen = isModalOpen
       this.modal.type = type
       if (id) this.modal.id = id
+      if (isModalOpen) {
+        this.$nextTick(() => {
+          this.$nextTick(() => {
+           this.modal.pos.height = this.$refs.modal.$el.offsetHeight
+          })
+        })
+      }
     },
     toggleKey(key) {
       const newVal = !this.task[key]

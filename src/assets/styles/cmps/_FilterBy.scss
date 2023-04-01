@@ -11,7 +11,7 @@
   border-radius: $border-radius-3;
   z-index: 20;
   overflow-y: scroll;
-  
+
   .filter-header {
     position: sticky;
     top: 0;
@@ -47,11 +47,21 @@
       flex-direction: column;
       // gap: em(16px);
       padding: em(8px) 0 em(8px) em(8px);
+      input {
+        width: 90%;
+      }
+
+      .label-tag {
+        width: 90%;
+      }
 
       .filter-item-preview {
         display: flex;
         align-items: center;
         padding: em(8px) 0;
+        .check-box {
+          margin-inline-end: em(17px);
+        }
         &:hover {
           cursor: pointer;
           .check-box:not(.checked) {
@@ -77,14 +87,13 @@
       width: em(24px);
       height: em(24px);
       background-color: $clr-base-3;
-      margin-inline-start: em(11px);
       &.overdue {
         background-color: $clr-base-20;
       }
       &.due-soon {
         background-color: $clr-dynamic-star;
       }
-      .calender{
+      .calender {
         align-self: normal;
       }
       svg {
@@ -97,6 +106,11 @@
       color: inherit;
     }
 
+    .icon-label {
+      @include trello-icon($icon-label);
+      color: inherit;
+    }
+
     .icon-clock {
       @include trello-icon($icon-clock);
       color: $clr-base-1;
@@ -104,6 +118,25 @@
 
     input {
       @include input();
+    }
+  }
+
+  .drop-down {
+    width: em(312px);
+    position: fixed;
+    background-color: $clr6;
+    right: em(22px);
+    top: rem(88px);
+    max-height: em(300px);
+    box-shadow: $modal-picker-box-shadow;
+    padding: 0 em(12px) em(12px) em(12px);
+    color: $clr-base-4;
+    border-radius: $border-radius-3;
+    z-index: 20;
+    overflow-y: scroll;
+    .username {
+      font-size: em(12px);
+      margin-inline-start: em(10px);
     }
   }
 }
