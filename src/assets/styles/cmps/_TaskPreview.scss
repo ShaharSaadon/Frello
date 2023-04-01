@@ -107,7 +107,7 @@
     display: flex;
     align-items: center;
     margin-block: em(4px);
-    width: em(26px);
+    min-width: em(26px);
     height: em(26px);
 
     & > * {

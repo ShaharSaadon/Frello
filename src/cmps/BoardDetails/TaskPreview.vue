@@ -2,14 +2,10 @@
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
     <div ref="taskPreview" class="tp">
       <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover"></div>
-      <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" @click.right.prevent="toggleEdit" class="task-preview">
-        <Draggable
-          class="dragarea-task-preview"
-          ghost-class="ghost-task-member"
-          v-model="memberList"
-          group="members"
-          item-key="id"
-        >
+      <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']"
+        @click.right.prevent="toggleEdit" class="task-preview">
+        <Draggable class="dragarea-task-preview" ghost-class="ghost-task-member" v-model="memberList" group="members"
+          item-key="id">
           <template #item="{ element }">
             <div class="list-group-item">
               {{ element.name }}
@@ -17,13 +13,8 @@
           </template>
         </Draggable>
         <div v-if="task.labels?.length" class="task-preview-labels">
-          <div
-            v-for="label in labels"
-            :key="label.id"
-            :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
-            class="task-preview-label"
-            @click.prevent="toggleLabelFullDisplay"
-          >
+          <div v-for="label in labels" :key="label.id" :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
+            class="task-preview-label" @click.prevent="toggleLabelFullDisplay">
             {{ isLabelFullDisplay ? label.title : '' }}
           </div>
         </div>
@@ -45,12 +36,8 @@
             <div v-if="task.checklists?.length" class="badge-checklist" :class="getChecklistClass">
               <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
             </div>
-            <div
-              :class="getDateClass"
-              @click.prevent="toggleKey('isComplete')"
-              v-if="task.dueDate"
-              class="badge-date flex align-center"
-            >
+            <div :class="getDateClass" @click.prevent="toggleKey('isComplete')" v-if="task.dueDate"
+              class="badge-date flex align-center">
               <span class="clock"></span><span class="date">{{ getDate }}</span>
             </div>
           </div>
@@ -124,7 +111,7 @@ export default {
     toggleEdit() {
       this.setCurrTask()
       const { x, y } = this.$refs.taskPreview.getBoundingClientRect()
-      eventBus.emit('onFastEdit', {x, y})
+      eventBus.emit('onFastEdit', { x, y })
     },
   },
   computed: {
@@ -134,7 +121,8 @@ export default {
         this.task.checklists?.length ||
         this.task.dueDate ||
         this.task.members?.length ||
-        this.task.attachments?.length
+        this.task.attachments?.length ||
+        this.task.comments?.length
       )
         return true
     },
@@ -207,7 +195,7 @@ export default {
       },
     },
   },
-  created() {},
+  created() { },
   components: {
     TaskMember,
     Draggable,
