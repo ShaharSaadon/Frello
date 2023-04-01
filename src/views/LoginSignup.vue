@@ -9,13 +9,13 @@
     </div>
 
     <div v-else>
-      <h2>Log in</h2>
+      <div class="logo"></div>
+      <h2>Log in to continue</h2>
       <form @submit.prevent="doLogin">
         <input type="text" v-model="loginCred.username" placeholder="Username" />
         <input type="password" v-model="loginCred.password" placeholder="Password" />
-        <button>Login</button>
+        <button>Continue</button>
       </form>
-      <h2>Or</h2>
       <h2>Signup</h2>
       <form @submit.prevent="doSignup">
         <input type="text" v-model="signupCred.fullname" placeholder="Your full name" />

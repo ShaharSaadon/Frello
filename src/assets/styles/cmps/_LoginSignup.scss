@@ -5,10 +5,31 @@
   padding: em(32px) em(40px) em(32px) em(40px);
   display: flex;
   flex-direction: column;
-  margin: auto auto;
+  margin: 50px auto;
   background: rgb(255, 255, 255);
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+
+  .logo {
+    width: rem(140px);
+    height: rem(70px);
+    background-color: $clr-base-8-hover;
+    background-image: url(/src/assets/imgs/merlloLogo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    border-radius: $border-radius-3;
+    margin: auto;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: rem(16px);
+    line-height: 20px;
+    color: rgb(23, 43, 77);
+    margin-block-start: rem(24px) ;
+    margin-block-end: rem(16px) ;
+  }
 
   form {
     .asterisk {
@@ -33,11 +54,25 @@
         box-shadow: inset 0 0 0 2px $clr-base-20;
       }
       &:focus {
-        box-shadow: inset 0 0 0 2px $clr-base-8;
+        box-shadow: inset 0 0 0 1px $clr-base-8;
         &:hover.validRequired {
           box-shadow: inset 0 0 0 2px $clr-base-20;
         }
       }
+    }
+
+    button{
+        width: 100%;
+        height: rem(40px);
+        border-radius: $border-radius-3;
+        cursor: pointer;
+        color: $clr-base-1;
+        background-color: $clr-login-bgc;
+        font-size: 14px;
+
+        &:hover{
+            background: $clr-login-bgc-hover;
+        }
     }
   }
 }
