@@ -1,8 +1,7 @@
 <template>
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
     <div class="tp">
-      <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover">
-      </div>
+      <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover"></div>
       <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
         <Draggable
           class="dragarea-task-preview"
@@ -30,7 +29,9 @@
         </div>
         <div class="task-body">
           <h2 class="task-preview-title">{{ task.title }}</h2>
-          <button class="fast-edit-btn" @click.prevent="toggleEdit"><i className="icon" v-html="getSvg('edit')"></i></button>
+          <button class="fast-edit-btn" @click.prevent="toggleEdit">
+            <i className="icon" v-html="getSvg('edit')"></i>
+          </button>
         </div>
         <div v-if="showBadges" class="task-preview-footer">
           <div class="action-badges">
@@ -51,7 +52,7 @@
               <span class="clock"></span><span class="date">{{ getDate }}</span>
             </div>
           </div>
-            <TaskMember :members="task.members" />
+          <TaskMember :members="task.members" />
         </div>
       </div>
     </div>
@@ -64,9 +65,8 @@
 import TaskMember from '../TaskMember.vue'
 import { utilService } from '../../services/util.service.js'
 import Draggable from 'vuedraggable'
-import {svgService} from '../../services/svg.service'
+import { svgService } from '../../services/svg.service'
 import { eventBus } from '../../services/event-bus.service'
-
 
 export default {
   name: 'TaskPreview',
@@ -121,8 +121,8 @@ export default {
     },
     toggleEdit(ev) {
       this.setCurrTask()
-      eventBus.emit('onFastEdit',ev)
-    }
+      eventBus.emit('onFastEdit', ev)
+    },
   },
   computed: {
     showBadges() {
@@ -154,7 +154,7 @@ export default {
       console.log('checklist.checkedItems:', this.checklist.checkedItems)
       console.log('checklist.totalItems:', this.checklist.totalItems)
       return {
-        complete: this.checklist.checkedItems===this.checklist.totalItems&this.checklist.totalItems!==0
+        complete: (this.checklist.checkedItems === this.checklist.totalItems) & (this.checklist.totalItems !== 0),
       }
     },
     checklist() {
@@ -189,6 +189,19 @@ export default {
       return this.task.cover?.url
         ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '200px' }
         : ''
+    },
+    memberList: {
+      get() {
+        return []
+      },
+      set(member) {
+        member = member[member.length - 1]
+        let activity = ['enter', 'member', 'to', this.task.title]
+        const members = [...this.task.members]
+        if (members.find((m) => m === member)) return
+        members.push(member)
+        this.saveTask({ key: 'members', newVal: members, activity })
+      },
     },
   },
   created() {},
