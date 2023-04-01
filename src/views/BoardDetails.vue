@@ -5,8 +5,15 @@
       <header class="board-header flex space-between">
         <div class="left-side-header flex align-center">
           <h1 @click="onStartEdit" v-if="!isTitleOnEdit">{{ board.title }}</h1>
-          <input class="title-input" type="text" v-if="isTitleOnEdit" v-model="editedTitle" ref="titleInput"
-            @keydown.enter.prevent="changeTitle" @blur="changeTitle" />
+          <input
+            class="title-input"
+            type="text"
+            v-if="isTitleOnEdit"
+            v-model="editedTitle"
+            ref="titleInput"
+            @keydown.enter.prevent="changeTitle"
+            @blur="changeTitle"
+          />
           <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
           <span class="separate-line"></span>
         </div>
@@ -46,8 +53,7 @@
       @onChangeBackground="onChangeBackground"
     />
 
-    <QuickEdit ref="quickEdit" v-if="quickEdit.isOn" :style="quickEditPos"
-/>
+    <QuickEdit ref="quickEdit" v-if="quickEdit.isOn" :style="quickEditPos" />
     <RouterView />
   </section>
 </template>
@@ -74,11 +80,16 @@ export default {
       },
       isTitleOnEdit: false,
       editedTitle: '',
-      filterBy : {},
-      quickEdit:{
+      filterBy: {
+        txt: '',
+        members: [],
+        dueDate: [],
+        labels: [],
+      },
+      quickEdit: {
         isOn: false,
         pos: { top: null, left: null, height: null },
-      }
+      },
     }
   },
   watch: {
@@ -143,8 +154,8 @@ export default {
       let y = this.quickEdit.pos.top
       let quickEditHeight = this.quickEdit.pos.height
       const { width, height } = window.visualViewport
-      if (width - x < 304) x = width - 308 
-      if (y + quickEditHeight > height) y = 48 
+      if (width - x < 304) x = width - 308
+      if (y + quickEditHeight > height) y = 48
       return { top: y + 'px', left: x + 'px' }
     },
   },
@@ -155,7 +166,7 @@ export default {
       this.quickEdit.isOn = !this.quickEdit.isOn
       if (this.quickEdit.isOn) {
         this.$nextTick(() => {
-           this.quickEdit.pos.height = this.$refs.quickEdit.$el.offsetHeight
+          this.quickEdit.pos.height = this.$refs.quickEdit.$el.offsetHeight
         })
       }
     })
@@ -344,9 +355,6 @@ export default {
         console.log(err)
       }
     },
-
-   
-
   },
 }
 </script>
