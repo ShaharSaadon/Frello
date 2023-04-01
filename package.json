@@ -20,6 +20,7 @@
     "v-click-outside": "^3.2.0",
     "vue": "^3.2.47",
     "vue-chart-3": "^3.1.8",
+    "vue-click-outside": "^1.1.0",
     "vue-dragscroll": "^4.0.5",
     "vue-router": "^4.1.2",
     "vue-textarea-autosize": "^1.1.1",

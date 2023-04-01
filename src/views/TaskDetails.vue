@@ -1,10 +1,6 @@
 <template>
-  <section
-    @drop.prevent="handleFile"
-    @dragover.prevent="this.isDragover = true"
-    class="task-details"
-  >
-    <div v-click-outside="showEv" class="task-details-container">
+  <section @drop.prevent="handleFile" @dragover.prevent="this.isDragover = true" class="task-details" @click="$router.go(-1)">
+    <div v-click-outside="showEv" class="task-details-container" @click.stop>
       <div v-if="this.isDragover" class="task-darg-over">Drop files to upload.</div>
       <div v-if="!!this.task.cover?.color" :class="this.task.cover.color" :style="imgCover" class="task-details-cover">
         <button class="btn-card-cover" @click="toggleModal('CoverPicker', $event)"><span></span>Cover</button>
@@ -24,13 +20,8 @@
         </div> -->
           <!-- <button class="btn-link member"><span> Join</span></button> -->
           <h3>Add to card</h3>
-          <button
-            class="btn-link"
-            :class="cmp.class"
-            @click="toggleModal(cmp.cmpType, $event)"
-            v-for="cmp in cmps"
-            :key="cmp.title"
-          >
+          <button class="btn-link" :class="cmp.class" @click="toggleModal(cmp.cmpType, $event)" v-for="cmp in cmps"
+            :key="cmp.title">
             <span>{{ cmp.title }}</span>
           </button>
 
@@ -42,42 +33,18 @@
         </div>
         <TaskHeadTags @openModal="toggleModal" :task="task" @toggleKey="toggleKey" />
         <TaskDescription @saveDescription="saveTask" :taskDescription="task.description" />
-        <TaskAttachments
-          @edit="(ev, id) => toggleModal('AttachmentEditor', ev, id)"
-          @removeEntityVal="removeEntityVal"
-          @saveTask="saveTask"
-          :taskAttachments="task.attachments"
-          :taskCover="task.cover"
-        />
-        <TaskChecklist
-          :key="list.title"
-          v-for="list in task.checklists"
-          :taskChecklist="list"
-          @removeChecklist="removeChecklist"
-          @updateEntityVal="updateEntityVal"
-        />
-        <TaskActivities
-          :taskId="task.id"
-          :taskTitle="task.title"
-          @updateEntityVal="updateEntityVal"
-          :taskComments="task.comments"
-        />
+        <TaskAttachments @edit="(ev, id) => toggleModal('AttachmentEditor', ev, id)" @removeEntityVal="removeEntityVal"
+          @saveTask="saveTask" :taskAttachments="task.attachments" :taskCover="task.cover" />
+        <TaskChecklist :key="list.title" v-for="list in task.checklists" :taskChecklist="list"
+          @removeChecklist="removeChecklist" @updateEntityVal="updateEntityVal" />
+        <TaskActivities :taskId="task.id" :taskTitle="task.title" @updateEntityVal="updateEntityVal"
+          :taskComments="task.comments" />
       </div>
 
-      <ModalPicker
-        ref="modal"
-        v-if="modal.isModalOpen"
-        :modal="modal"
-        @closeModal="toggleModal"
-        @updateEntityVal="updateEntityVal"
-        @removeEntityVal="removeEntityVal"
-        @switchDynamicCmp="toggleModal"
-        @updateLabel="updateLabel"
-        @removeLabel="removeLabel"
-        @addChecklist="addChecklist"
-        @saveTask="saveTask"
-        :style="modalPos"
-      />
+      <ModalPicker ref="modal" v-if="modal.isModalOpen" :modal="modal" @closeModal="toggleModal"
+        @updateEntityVal="updateEntityVal" @removeEntityVal="removeEntityVal" @switchDynamicCmp="toggleModal"
+        @updateLabel="updateLabel" @removeLabel="removeLabel" @addChecklist="addChecklist" @saveTask="saveTask"
+        :style="modalPos" />
     </div>
   </section>
 </template>
@@ -95,6 +62,8 @@ import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
 import TaskActivities from '../cmps/TaskDetails/TaskActivities.vue'
 import { utilService } from '../services/util.service'
 import { uploadService } from '../services/upload.service'
+import vClickOutside from 'v-click-outside'
+
 
 export default {
   watch: {
@@ -148,6 +117,9 @@ export default {
       isDragover: false,
     }
   },
+  directives: {
+    vClickOutside
+  },
   computed: {
     boardId() {
       return this.$store.getters.watchedBoardId
@@ -195,8 +167,8 @@ export default {
       let y = this.modal.pos.top
       let modalHeight = this.modal.pos.height
       const { width, height } = window.visualViewport
-      if (width - x < 304) x = width - 308 
-      if (y + modalHeight > height) y = 48 
+      if (width - x < 304) x = width - 308
+      if (y + modalHeight > height) y = 48
       // if (y > 350 || this.modal.type === 'DatePicker' || this.modal.type === 'LabelPicker') y = 48
       return { top: y + 'px', left: x + 'px' }
     },
@@ -204,6 +176,9 @@ export default {
   methods: {
     showEv(ev) {
       console.log('ev: ', ev)
+    },
+    onClickOutside(event) {
+      console.log('Clicked outside. Event: ', event)
     },
     async handleFile(ev) {
       this.isDragover = false
@@ -318,7 +293,7 @@ export default {
       if (isModalOpen) {
         this.$nextTick(() => {
           this.$nextTick(() => {
-           this.modal.pos.height = this.$refs.modal.$el.offsetHeight
+            this.modal.pos.height = this.$refs.modal.$el.offsetHeight
           })
         })
       }

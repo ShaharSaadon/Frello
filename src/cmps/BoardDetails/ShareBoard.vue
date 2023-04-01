@@ -8,15 +8,8 @@
         </RouterLink>
       </header>
       <form @submit.prevent="shareBoard" class="form-share flex">
-        <input
-          placeholder="Full name"
-          v-model="fullname"
-          @input="getUsersDebounce"
-          @click.stop
-          @focus="isMemberSelect = true"
-          class="input-share"
-          type="text"
-        />
+        <input placeholder="Full name" v-model="fullname" @input="getUsersDebounce" @click.stop
+          @focus="isMemberSelect = true" class="input-share" type="text" />
         <button class="btn-share">Share</button>
       </form>
       <div class="members-select" v-if="isMemberSelect">
@@ -40,7 +33,7 @@
 </template>
 
 <script>
-import {utilService} from '../../services/util.service.js'
+import { utilService } from '../../services/util.service.js'
 
 export default {
   data() {
@@ -89,5 +82,6 @@ export default {
     this.$store.commit({ type: 'setUserFilterBy', filterBy: { txt: '' } })
     this.$store.dispatch({ type: 'loadUsers' })
   },
+  
 }
 </script>
