@@ -1,4 +1,5 @@
 .task-Checklist {
+
   @include TaskDetailsCmps($icon-checklist);
   grid-column: span 2;
   display: grid;
