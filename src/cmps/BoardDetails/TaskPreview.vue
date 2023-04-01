@@ -3,9 +3,27 @@
     <div class="tp">
       <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover"></div>
       <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
+        <draggable
+          class="dragarea-task-preview"
+          ghost-class="ghost-task-member"
+          v-model="memberList"
+          group="members"
+          item-key="id"
+        >
+          <template #item="{ element }">
+            <div class="list-group-item">
+              {{ element.name }}
+            </div>
+          </template>
+        </draggable>
         <div v-if="task.labels?.length" class="task-preview-labels">
-          <div v-for="label in labels" :key="label.id" :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
-            class="task-preview-label" @click.prevent="toggleLabelFullDisplay">
+          <div
+            v-for="label in labels"
+            :key="label.id"
+            :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
+            class="task-preview-label"
+            @click.prevent="toggleLabelFullDisplay"
+          >
             {{ isLabelFullDisplay ? label.title : '' }}
           </div>
         </div>
@@ -18,15 +36,18 @@
               <span>{{ task.attachments.length }}</span>
             </div>
             <div v-if="task.checklists?.length" class="badge-checklist" :class="getChecklistClass">
-              <span > {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
+              <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
             </div>
-            <div :class="getDateClass" @click.prevent="toggleKey('isComplete')" v-if="task.dueDate"
-              class="badge-date flex align-center">
-              <span class="clock"></span><span class="date">{{ getDate }}</span> 
+            <div
+              :class="getDateClass"
+              @click.prevent="toggleKey('isComplete')"
+              v-if="task.dueDate"
+              class="badge-date flex align-center"
+            >
+              <span class="clock"></span><span class="date">{{ getDate }}</span>
             </div>
           </div>
-
-          <TaskMember :members="task.members" />
+            <TaskMember :members="task.members" />
         </div>
       </div>
     </div>
@@ -38,6 +59,7 @@
 <script>
 import TaskMember from '../TaskMember.vue'
 import { utilService } from '../../services/util.service.js'
+import Draggable from 'vuedraggable'
 
 export default {
   name: 'TaskPreview',
@@ -57,7 +79,7 @@ export default {
   methods: {
     toggleKey(key) {
       const newVal = !this.task[key]
-      let activity = [newVal, key , 'to', this.task.title]
+      let activity = [newVal, key, 'to', this.task.title]
       this.saveTask({ key, newVal, activity })
     },
     async saveTask({ key, newVal, activity }) {
@@ -100,11 +122,11 @@ export default {
     board() {
       return this.$store.getters.watchedBoard
     },
-    getChecklistClass(){
+    getChecklistClass() {
       console.log('checklist.checkedItems:', this.checklist.checkedItems)
       console.log('checklist.totalItems:', this.checklist.totalItems)
       return {
-        complete: this.checklist.checkedItems===this.checklist.totalItems&this.checklist.totalItems!==0
+        complete: (this.checklist.checkedItems === this.checklist.totalItems) & (this.checklist.totalItems !== 0),
       }
     },
     checklist() {
@@ -140,10 +162,24 @@ export default {
         ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '200px' }
         : ''
     },
+    memberList: {
+      get() {
+        return []
+      },
+      set(member) {
+        member = member[member.length - 1]
+        let activity = ['enter', 'member', 'to', this.task.title]
+        const members = [...this.task.members]
+        if (members.find((m) => m === member)) return
+        members.push(member)
+        this.saveTask({ key: 'members', newVal: members, activity })
+      },
+    },
   },
-  created() { },
+  created() {},
   components: {
     TaskMember,
+    Draggable,
   },
 }
 </script>

@@ -21,6 +21,7 @@
       <span class="trello-boards-icon icon"></span>
       <h3>Boards</h3>
     </div>
+    
     <ul class="board-list clean-list">
       <BoardPreview
         v-for="board in boards"
