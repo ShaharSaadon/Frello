@@ -24,9 +24,18 @@
   &.with-cover {
     border-radius: 0 0 $border-radius-3 $border-radius-3;
   }
+  .fast-edit-btn{
+    position: absolute;
+    z-index: 100;
+    top:3px;
+    right: 3px;
 
+  }
   &:hover {
     background-color: $clr-base-2;
+    .fast-edit-btn{
+      opacity: 1;
+    }
   }
 
   .task-preview-labels {

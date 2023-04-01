@@ -293,6 +293,7 @@ export default {
       }
     },
     toggleModal(cmpType, ev, id) {
+      console.log('ev:', ev)
       if (ev) this.setModalPos(ev)
       let isModalOpen = true
       let type = cmpType

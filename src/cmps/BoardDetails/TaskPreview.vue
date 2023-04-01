@@ -1,7 +1,8 @@
 <template>
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
     <div class="tp">
-      <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover"></div>
+      <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover">
+      </div>
       <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
         <div v-if="task.labels?.length" class="task-preview-labels">
           <div v-for="label in labels" :key="label.id" :class="[label.color, isLabelFullDisplay ? 'label-tag' : '']"
@@ -9,7 +10,10 @@
             {{ isLabelFullDisplay ? label.title : '' }}
           </div>
         </div>
-        <h2 class="task-preview-title">{{ task.title }}</h2>
+        <div class="task-body">
+          <h2 class="task-preview-title">{{ task.title }}</h2>
+          <button class="fast-edit-btn" @click="toggleEdit"><i className="icon" v-html="getSvg('edit')"></i></button>
+        </div>
         <div v-if="showBadges" class="task-preview-footer">
           <div class="action-badges">
             <!-- <div v-if="task.members.length" class="badge-watch"></div> -->
@@ -18,11 +22,11 @@
               <span>{{ task.attachments.length }}</span>
             </div>
             <div v-if="task.checklists?.length" class="badge-checklist" :class="getChecklistClass">
-              <span > {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
+              <span> {{ checklist.checkedItems }}/{{ checklist.totalItems }} </span>
             </div>
             <div :class="getDateClass" @click.prevent="toggleKey('isComplete')" v-if="task.dueDate"
               class="badge-date flex align-center">
-              <span class="clock"></span><span class="date">{{ getDate }}</span> 
+              <span class="clock"></span><span class="date">{{ getDate }}</span>
             </div>
           </div>
 
@@ -38,7 +42,8 @@
 <script>
 import TaskMember from '../TaskMember.vue'
 import { utilService } from '../../services/util.service.js'
-
+import { svgService } from '../../services/svg.service'
+import { eventBus } from '../../services/event-bus.service'
 export default {
   name: 'TaskPreview',
   props: {
@@ -52,12 +57,14 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      isOnFastEdit: false,
+    }
   },
   methods: {
     toggleKey(key) {
       const newVal = !this.task[key]
-      let activity = [newVal, key , 'to', this.task.title]
+      let activity = [newVal, key, 'to', this.task.title]
       this.saveTask({ key, newVal, activity })
     },
     async saveTask({ key, newVal, activity }) {
@@ -73,6 +80,28 @@ export default {
     toggleLabelFullDisplay() {
       this.$store.dispatch('updateBoardEntity', { key: 'isLabelFullDisplay', val: !this.isLabelFullDisplay })
     },
+    getSvg(iconName) {
+      return svgService.getMerlloSvg(iconName)
+    },
+    setCurrTask() {
+      console.log('boardId:', this.boardId)
+      console.log('groupId:', this.groupId)
+      console.log('this.task:', this.task)
+      console.log('taskId:', this.task.id)
+      this.$store.commit({
+        type: 'setCurrTask',
+        boardId: this.boardId,
+        groupId: this.groupId,
+        taskId: this.task.id,
+      })
+    },
+    toggleEdit(ev) {
+      this.isOnFastEdit = !this.isOnFastEdit
+      this.setCurrTask()
+      console.log('ev:', ev.target)
+      console.log('ev:', ev)
+      eventBus.emit('onFastEdit',ev)
+    }
   },
   computed: {
     showBadges() {
@@ -100,11 +129,11 @@ export default {
     board() {
       return this.$store.getters.watchedBoard
     },
-    getChecklistClass(){
+    getChecklistClass() {
       console.log('checklist.checkedItems:', this.checklist.checkedItems)
       console.log('checklist.totalItems:', this.checklist.totalItems)
       return {
-        complete: this.checklist.checkedItems===this.checklist.totalItems&this.checklist.totalItems!==0
+        complete: this.checklist.checkedItems === this.checklist.totalItems & this.checklist.totalItems !== 0
       }
     },
     checklist() {
@@ -140,6 +169,7 @@ export default {
         ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '200px' }
         : ''
     },
+
   },
   created() { },
   components: {

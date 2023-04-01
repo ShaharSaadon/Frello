@@ -192,6 +192,7 @@ export const boardStore = {
       var group = board.groups.find((group) => group.id === groupId)
       var task = group.tasks.find((task) => task.id === taskId)
       state.currTask = task
+      state.currTask.groupId = groupId
     },
     updateCurrTask(state, { task }) {
       state.currTask = task

@@ -1,0 +1,72 @@
+.quick-edit-background {
+    @include modal-background();
+}
+
+.quick-edit {
+    width: 25vw;
+    height: 25vh;
+    background-color: inherit;
+    font-size: em(14px);
+    border-radius: $border-radius-3;
+    position: relative;
+    color: $clr-base-1;
+
+    .quick-edit-buttons {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        right: -160px;
+        top: 0;
+
+        .open {
+            @include trello-icon($icon-card, $color: $clr-base-33);
+        }
+
+        .labels {
+            @include trello-icon($icon-label, $color: $clr-base-33);
+        }
+
+        .members {
+            @include trello-icon($icon-member, $color: $clr-base-33);
+        }
+
+        .cover {
+            @include trello-icon($icon-card-cover, $color: $clr-base-33);
+        }
+
+        .dates {
+            @include trello-icon($icon-clock, $color: $clr-base-33);
+        }
+
+        .delete {
+            @include trello-icon($icon-archive, $color: $clr-base-33);
+        }
+    }
+
+    .quick-edit-btn {
+        background: #0009;
+        border-radius: 3px;
+        // clear: both;
+        color: $clr-base-33;
+        // display: block;
+        float: left;
+        margin: 0 0 4px 8px;
+        padding: 6px 12px 6px 8px;
+        text-decoration: none;
+        transition: transform 85ms ease-in;
+        height: 32px;
+        text-align: left;
+
+        .icon{
+            margin-inline-start: 4px;
+            margin-inline-end: 4px;
+        }
+
+        &:hover {
+            transform: translateX(5px);
+            background-color: #000c;
+            cursor: pointer;
+            color: $clr-base-1;
+        }
+    }
+}

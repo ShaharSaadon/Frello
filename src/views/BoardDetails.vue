@@ -5,15 +5,8 @@
       <header class="board-header flex space-between">
         <div class="left-side-header flex align-center">
           <h1 @click="onStartEdit" v-if="!isTitleOnEdit">{{ board.title }}</h1>
-          <input
-            class="title-input"
-            type="text"
-            v-if="isTitleOnEdit"
-            v-model="editedTitle"
-            ref="titleInput"
-            @keydown.enter.prevent="changeTitle"
-            @blur="changeTitle"
-          />
+          <input class="title-input" type="text" v-if="isTitleOnEdit" v-model="editedTitle" ref="titleInput"
+            @keydown.enter.prevent="changeTitle" @blur="changeTitle" />
           <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
           <span class="separate-line"></span>
         </div>
@@ -32,28 +25,20 @@
         </div>
       </header>
 
-      <GroupList
-        :groups="groups"
-        @updateGroup="updateGroup"
-        @removed="removeGroup"
-        @addGroup="addGroup"
-        @saveTask="saveTask"
-        @updateGroups="updateGroups"
-        @updateTasksPos="updateTasksPos"
-      />
+      <GroupList :groups="groups" @updateGroup="updateGroup" @removed="removeGroup" @addGroup="addGroup"
+        @saveTask="saveTask" @updateGroups="updateGroups" @updateTasksPos="updateTasksPos" />
     </div>
-    <RightSideBar
-      :type="rightSideBar.type"
-      @switchDynamicCmp="toggleSideBar"
-      @onChangeBackground="onChangeBackground"
-    />
+    <RightSideBar :type="rightSideBar.type" @switchDynamicCmp="toggleSideBar" @onChangeBackground="onChangeBackground" />
+
+    <QuickEdit v-if="fastEdit.isOnFastEdit" @closeFastEdit="fastEdit.isOnFastEdit = false" />
+
 
     <RouterView />
   </section>
 </template>
 
 <script>
-import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { eventBus, showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { socketService, SOCKET_EMIT_SET_BOARD_ID, SOCKET_EVENT_BOARD_UPDATED } from '../services/socket.service'
 import { svgService } from '../services/svg.service'
 import { getActionRemoveGroup, getActionUpdateBoard } from '../store/board.store'
@@ -63,6 +48,7 @@ import TaskHeadTags from '../cmps/TaskDetails/TaskHeadTags.vue'
 import BoardMembers from '../cmps/BoardDetails/BoardMembers.vue'
 import RightSideBar from '../cmps/BoardDetails/RightSideBar.vue'
 import { userService } from '../services/user.service'
+import QuickEdit from '../cmps/BoardDetails/QuickEdit.vue'
 
 export default {
   data() {
@@ -72,6 +58,11 @@ export default {
       },
       isTitleOnEdit: false,
       editedTitle: '',
+      fastEdit: {
+        isOnFastEdit: false,
+        pos: { top: null, left: null },
+      },
+
     }
   },
   watch: {
@@ -117,6 +108,11 @@ export default {
   },
   created() {
     socketService.on(SOCKET_EVENT_BOARD_UPDATED, this.updateBoard)
+    eventBus.on('onFastEdit', (ev) => {
+      console.log('ev:', ev)
+      // if (ev) this.setQuickEditPos(ev)toggleEdit
+      this.fastEdit.isOnFastEdit = !this.fastEdit.isOnFastEdit
+    })
   },
   unmounted() {
     document.title = 'Merllo'
@@ -127,6 +123,7 @@ export default {
     TaskHeadTags,
     BoardMembers,
     RightSideBar,
+    QuickEdit,
   },
   methods: {
     updateBoard(board) {
@@ -206,6 +203,13 @@ export default {
     toggleSideBar(ev) {
       this.rightSideBar.type = ev
     },
+    setQuickEditPos(ev) {
+      const target = ev.target.localName === 'span' ? ev.target.offsetParent : ev.target
+      let { x, y, height } = target.getBoundingClientRect()
+      y += height + 4
+      this.fastEdit.pos.left = x
+      this.fastEdit.pos.top = y
+    },
     async onChangeBackground({ LeftSideBarBgc, bgImg, bgc }) {
       const style = {
         backgroundImage: `${bgImg}`,
@@ -237,6 +241,7 @@ export default {
         console.log(err)
       }
     },
+
   },
 }
 </script>
