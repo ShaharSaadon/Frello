@@ -68,7 +68,7 @@
 
 <script>
 export default {
-  name: 'TaskPreview',
+  name: 'TaskChecklist',
   props: {
     taskChecklist: {
       type: Object,
