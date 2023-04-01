@@ -56,8 +56,8 @@
         class="preview"
       ></div>
     </div>
-    <button @click="$refs.uploadFile.click()" class="btn-cover-picker">Upload a cover image</button
-    ><input @change="handleFile" hidden ref="uploadFile" accept="image/*" type="file" />
+    <button @click="$refs.uploadFile.click()" class="btn-cover-picker">Upload a cover image</button>
+    <input @change="handleFile" hidden ref="uploadFile" accept="image/*" type="file" />
     <p>Tip: Darg an image on to the card to upload it.</p>
   </div>
 </template>
@@ -102,11 +102,10 @@ export default {
       return info.attachments.filter((attach) => attach.type === 'png' || 'jpg')
     },
     async handleFile() {
-      console.log(this.$refs.uploadFile.files[0]);
+      console.log(this.$refs.uploadFile.files[0])
       const val = await uploadService.handleFile(this.$refs.uploadFile.files[0])
       this.$emit('updateEntityVal', { key: 'attachments', val })
     },
-    
   },
   computed: {
     isGray() {
