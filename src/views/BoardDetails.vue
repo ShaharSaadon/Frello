@@ -52,7 +52,7 @@
       @switchDynamicCmp="toggleSideBar"
       @onChangeBackground="onChangeBackground"
     />
-
+    <FilterBy v-if="isFilterOpen" :currFilterBy="filterBy" @setFilterBy="setFilterBy" @closeFilterBy="isFilterOpen = false"/>
     <QuickEdit ref="quickEdit" v-if="quickEdit.isOn" :style="quickEditPos" />
     <RouterView />
   </section>
@@ -80,6 +80,7 @@ export default {
       },
       isTitleOnEdit: false,
       editedTitle: '',
+      isFilterOpen: false,
       filterBy: {
         txt: '',
         members: [],
