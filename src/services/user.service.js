@@ -30,7 +30,7 @@ async function getUsers(filterBy = { txt: '' }) {
   // }
   // return users
 
-  return await httpService.get(`user`)
+  return await httpService.get(`user`, filterBy)
 }
 
 function onUserUpdate(user) {

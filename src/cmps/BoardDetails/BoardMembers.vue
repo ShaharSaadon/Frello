@@ -1,36 +1,61 @@
 <template>
-    <div class="board-members">
-        <div class="member-profile-box flex align-center" v-for="(member,idx) in members" :key="member._id">
-            <img :src="member.imgUrl" class="member-profile" :style="{'z-index':members.length-idx}"/>
-            <img src="../../assets/imgs/memberProfile.png" class="arrow">
+  <div class="board-members">
+    <Draggable
+      v-model="memberList"
+      class="board-members-draggable flex"
+      ghost-class="ghost-member"
+      item-key="id"
+      drag-class="drag-member"
+      @start="drag = true"
+      @end="drag = false"
+      :clone="cloneDog"
+      :group="{ name: 'members', pull: 'clone', put: false }"
+    >
+      <template #item="{ element }">
+        <div class="member-profile-box flex align-center">
+          <img :src="element.imgUrl" class="member-profile" />
+          <img src="../../assets/imgs/memberProfile.png" class="arrow" />
         </div>
-    </div>
+      </template>
+    </Draggable>
+  </div>
 </template>
-  
+
 <script>
 import { svgService } from '../../services/svg.service'
+import Draggable from 'vuedraggable'
+
 export default {
-    name: 'BoardMembers',
-    data() {
-        return {
-        }
+  name: 'BoardMembers',
+  data() {
+    return {}
+  },
+  methods: {
+    getSvg(iconName) {
+      return svgService.getMerlloSvg(iconName)
     },
-    methods: {
-        getSvg(iconName) {
-            return svgService.getMerlloSvg(iconName)
-        }
+    cloneDog(member) {
+      return member._id
     },
-    computed: {
-        members() {
-            return this.$store.getters.watchedBoard.members
-        },
+  },
+  computed: {
+    members() {
+      return this.$store.getters.watchedBoard.members
     },
-    created() {
+    memberList: {
+      get() {
+        return this.members
+      },
+      set(members) {
+        console.log('members: ', members)
 
+        // this.$emit('updateTasks', {tasks, groupId:this.groupId})
+      },
     },
-    components: {
-
-    },
+  },
+  created() {},
+  components: {
+    Draggable,
+  },
 }
 </script>
-  

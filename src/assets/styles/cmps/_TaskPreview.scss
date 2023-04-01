@@ -229,7 +229,19 @@
     transform: rotate(3deg);
     opacity: 1;
   }
+}
 
-  
-  
+.dragarea-task-preview{
+  background-color: transparent;
+  position: absolute;
+  min-height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.ghost-task-member{
+  & > * {
+    display: none;
+  }
 }

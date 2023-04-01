@@ -1,11 +1,13 @@
 .task-Checklist {
+
   @include TaskDetailsCmps($icon-checklist);
-  // grid-column: span 2;
-  // display: grid;
-  // grid-template-columns: $task-details-content-grid;
-  // & > *:not(.checklist-item, .progress-bar) {
-  //   grid-column: 2;
-  // }
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: $task-details-content-grid;
+  & > *:not(.checklist-item, .progress-bar) {
+    grid-column: 2;
+  }
+
   .title {
     cursor: pointer;
   }
@@ -161,12 +163,12 @@
     gap: 4px;
   }
 
-  @include mq(mq-780) {
-    grid-column: span 2;
-    display: grid;
-    grid-template-columns: $task-details-content-grid;
-    & > *:not(.checklist-item, .progress-bar) {
-      grid-column: 2;
-    }
-  }
+  // @include mq(mq-780) {
+  //   grid-column: span 2;
+  //   display: grid;
+  //   grid-template-columns: $task-details-content-grid;
+  //   & > *:not(.checklist-item, .progress-bar) {
+  //     grid-column: 2;
+  //   }
+  // }
 }
