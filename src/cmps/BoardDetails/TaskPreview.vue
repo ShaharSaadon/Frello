@@ -1,6 +1,6 @@
 <template>
   <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
-    <div class="tp">
+    <div ref="taskPreview" class="tp">
       <div v-if="task.cover?.color" :style="imgCover" :class="task.cover.color" class="task-preview-cover"></div>
       <div :class="[task.cover ? 'with-cover' : '', task.cover?.isFull ? task.cover.color : '']" class="task-preview">
         <Draggable
@@ -119,9 +119,10 @@ export default {
         taskId: this.task.id,
       })
     },
-    toggleEdit(ev) {
+    toggleEdit() {
       this.setCurrTask()
-      eventBus.emit('onFastEdit', ev)
+      const { x, y } = this.$refs.taskPreview.getBoundingClientRect()
+      eventBus.emit('onFastEdit', {x, y})
     },
   },
   computed: {

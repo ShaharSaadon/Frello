@@ -52,8 +52,13 @@
       @switchDynamicCmp="toggleSideBar"
       @onChangeBackground="onChangeBackground"
     />
-    <FilterBy v-if="isFilterOpen" :currFilterBy="filterBy" @setFilterBy="setFilterBy" @closeFilterBy="isFilterOpen = false"/>
-    <QuickEdit ref="quickEdit" v-if="quickEdit.isOn" />
+    <FilterBy
+      v-if="isFilterOpen"
+      :currFilterBy="filterBy"
+      @setFilterBy="setFilterBy"
+      @closeFilterBy="isFilterOpen = false"
+    />
+    <QuickEdit :quickEditPos="quickEditPos" ref="quickEdit" @closeFastEdit="quickEdit.isOn = false" v-if="quickEdit.isOn" />
     <RouterView />
   </section>
 </template>
@@ -153,23 +158,23 @@ export default {
     quickEditPos() {
       let x = this.quickEdit.pos.left
       let y = this.quickEdit.pos.top
-      let quickEditHeight = this.quickEdit.pos.height
-      const { width, height } = window.visualViewport
-      if (width - x < 304) x = width - 308
-      if (y + quickEditHeight > height) y = 48
+      // let quickEditHeight = this.quickEdit.pos.height
+      // const { width, height } = window.visualViewport
+      // if (width - x < 304) x = width - 308
+      // if (y + quickEditHeight > height) y = 48
       return { top: y + 'px', left: x + 'px' }
     },
   },
   created() {
     socketService.on(SOCKET_EVENT_BOARD_UPDATED, this.updateBoard)
-    eventBus.on('onFastEdit', (ev) => {
-      if (ev) this.setQuickEditPos(ev)
+    eventBus.on('onFastEdit', ({ x, y }) => {
+      this.setQuickEditPos(x, y)
       this.quickEdit.isOn = !this.quickEdit.isOn
-      if (this.quickEdit.isOn) {
-        this.$nextTick(() => {
-          this.quickEdit.pos.height = this.$refs.quickEdit.$el.offsetHeight
-        })
-      }
+      // if (this.quickEdit.isOn) {
+      //   this.$nextTick(() => {
+      //     this.quickEdit.pos.height = this.$refs.quickEdit.$el.offsetHeight
+      //   })
+      // }
     })
   },
   unmounted() {
@@ -253,11 +258,7 @@ export default {
     toggleSideBar(ev) {
       this.rightSideBar.type = ev
     },
-    setQuickEditPos(ev) {
-      const target = ev.target.localName === 'svg' ? ev.target.offsetParent : ev.target
-      console.log('target:', target)
-      let { x, y, height } = target.getBoundingClientRect()
-      y += height + 4
+    setQuickEditPos(x, y) {
       this.quickEdit.pos.left = x
       this.quickEdit.pos.top = y
     },
