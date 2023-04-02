@@ -50,9 +50,13 @@ async function save(board) {
       activities: [newActivity],
       ...restOfBoard
     } = board
+    console.log('newActivity: ', newActivity)
+    console.log('restOfBoard: ', restOfBoard)
     // const {activities:}=board
     // const newBoard = {...board,activities:newActivity}
-    socketService.emit(SOCKET_EMIT_UPDATE_BOARD, { restOfBoard, newActivity })
+    // const topActivite = board.activities.slice(0, 50)
+    // socketService.emit(SOCKET_EMIT_UPDATE_BOARD, {...restOfBoard, activities: topActivite})
+    socketService.emit(SOCKET_EMIT_UPDATE_BOARD, board)
     savedBoard = await httpService.put(`board/${board._id}`, { restOfBoard, newActivity })
   } else {
     board.createdBy = userService.getLoggedinUser()
