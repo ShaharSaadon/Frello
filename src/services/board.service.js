@@ -46,8 +46,8 @@ async function remove(boardId) {
 async function save(board) {
   var savedBoard
   if (board._id) {
-    socketService.emit(SOCKET_EMIT_UPDATE_BOARD, board)
     savedBoard = await httpService.put(`board/${board._id}`, board)
+    socketService.emit(SOCKET_EMIT_UPDATE_BOARD, savedBoard)
   } else {
     board.createdBy = userService.getLoggedinUser()
     board.members.push(userService.getLoggedinUser())

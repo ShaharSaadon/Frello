@@ -24,17 +24,19 @@
   &.with-cover {
     border-radius: 0 0 $border-radius-3 $border-radius-3;
   }
-  .fast-edit-btn{
+  .fast-edit-btn {
     position: absolute;
     z-index: 100;
-    top:3px;
+    top: 3px;
     right: 3px;
     opacity: 0;
-
+    color: $clr-base-4;
+    border-radius: $border-radius-3;
+    background-color: $clr-dynamic-button;
   }
   &:hover {
     background-color: $clr-base-2;
-    .fast-edit-btn{
+    .fast-edit-btn {
       opacity: 1;
       cursor: pointer;
     }
@@ -94,7 +96,6 @@
       position: relative;
     }
   }
-
 }
 
 .task-preview-footer {
@@ -106,7 +107,7 @@
     display: flex;
     align-items: center;
     margin-block: em(4px);
-    width: em(26px);
+    min-width: em(26px);
     height: em(26px);
 
     & > * {
@@ -123,6 +124,10 @@
 
     .badge-watch {
       @include trello-icon($icon-eye, $color: $clr-base-4);
+    }
+
+    .badge-comment{
+      @include trello-icon($icon-comment, $color: $clr-base-4);
     }
 
     .badge-date {
@@ -163,7 +168,7 @@
         padding: rem(4px) rem(2px) rem(2px) rem(2px);
         margin-inline-end: rem(2px);
       }
-      .date{
+      .date {
         // padding-top: em(3px);
         height: fit-content;
         font-size: 12px;
@@ -242,7 +247,7 @@
   }
 }
 
-.dragarea-task-preview{
+.dragarea-task-preview {
   background-color: transparent;
   position: absolute;
   min-height: 100%;
@@ -252,7 +257,7 @@
   z-index: -100;
 }
 
-.ghost-task-member{
+.ghost-task-member {
   & > * {
     display: none;
   }

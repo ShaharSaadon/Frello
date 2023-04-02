@@ -2,7 +2,7 @@
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background-color: $clr-fade;
+  background-color: $close-cover-hover;
 }
 .quick-edit {
   font-size: em(14px);
@@ -10,23 +10,35 @@
   position: absolute;
   color: $clr-base-1;
 
-  // width: 25vw;
-  // height: 25vh;
-  // background-color: inherit;
+  .btn-save {
+    @include btn-main($clr-base-8, $clr-base-1, $clr-base-8-hover);
+  }
 
   .main-edit {
     textarea {
       height: em(90px);
       width: em(312px);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      &:focus-visible {
+        box-shadow: none;
+      }
     }
   }
 
   .quick-edit-buttons {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     position: absolute;
     right: -160px;
     top: 0;
+    &.menu-to-left{
+        right: em(310px);
+        align-items: flex-end;
+        & .quick-edit-btn:hover {
+            transform: translateX(-5px);
+        }
+    }
 
     .open {
       @include trello-icon($icon-card, $color: $clr-base-33);

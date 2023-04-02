@@ -2,10 +2,16 @@
   <div @click="$emit('closeFastEdit')" class="quick-edit-background"></div>
   <section :style="quickEditPos" class="quick-edit">
     <div class="main-edit">
-      <textarea @keydown.enter="saveTask" type="text" v-model="currTask.title" v-if="currTask"></textarea>
-      <button class="btn blue" @click="saveTask">Save</button>
+      <textarea
+        ref="textarea"
+        @keydown.enter="saveTask"
+        type="text"
+        v-model="currTask.title"
+        v-if="currTask"
+      ></textarea>
+      <button class="btn-save" @click="saveTask">Save</button>
     </div>
-    <div class="quick-edit-buttons">
+    <div class="quick-edit-buttons" :class="{ 'menu-to-left': menuToLeft }">
       <button class="quick-edit-btn" @click="$emit('closeFastEdit')">
         <RouterLink style="text-decoration: none" :to="'/board/' + boardId + '/' + this.groupId + '/' + task.id">
           <span class="open icon"></span>
@@ -25,6 +31,7 @@
   </section>
 
   <ModalPicker
+    ref="modal"
     v-if="modal.isModalOpen"
     :modal="modal"
     @closeModal="toggleModal"
@@ -34,6 +41,7 @@
     @removeLabel="removeLabel"
     @saveTask="saveTask"
     @removeEntityVal="removeEntityVal"
+    :style="modalPos"
   />
 </template>
 
@@ -55,6 +63,7 @@ export default {
         isModalOpen: false,
         pos: { top: null, left: null },
       },
+      menuToLeft: false,
       cmps: [
         { class: 'members', cmpType: 'MemberPicker', title: ' Change members' },
         { class: 'labels', cmpType: 'LabelPicker', title: ' Edit labels' },
@@ -64,6 +73,15 @@ export default {
       ],
       currTask: null,
     }
+  },
+  created() {
+    const x = this.quickEditPos.left.slice(0, this.quickEditPos.left.length - 2)
+    const { width } = window.visualViewport
+    if (width - x < 450) this.menuToLeft = true
+    this.$nextTick(() => {
+      this.$refs.textarea.focus()
+      this.$refs.textarea.select()
+    })
   },
   methods: {
     toggleModal(cmpType, ev, id) {
@@ -78,6 +96,13 @@ export default {
       this.modal.isModalOpen = isModalOpen
       this.modal.type = type
       if (id) this.modal.id = id
+      if (isModalOpen) {
+        this.$nextTick(() => {
+          this.$nextTick(() => {
+            this.modal.pos.height = this.$refs.modal.$el.offsetHeight
+          })
+        })
+      }
     },
     setModalPos(ev) {
       const target = ev.target.localName === 'span' ? ev.target.offsetParent : ev.target
@@ -161,13 +186,15 @@ export default {
     labels() {
       return JSON.parse(JSON.stringify(this.$store.getters.labels))
     },
-    // modalPos() {
-    //     let x = this.modal.posX
-    //     const { width } = window.visualViewport
-    //     x += 198
-    //     if (width - x < 304) x = width - 304
-    //     return { top: '48px', left: x + 'px' }
-    // },
+    modalPos() {
+      let x = this.modal.pos.left
+      let y = this.modal.pos.top
+      let modalHeight = this.modal.pos.height
+      const { width, height } = window.visualViewport
+      if (width - x < 304) x = width - 308
+      if (y + modalHeight > height) y = 48
+      return { top: y + 'px', left: x + 'px' }
+    },
   },
   mounted() {
     this.currTask = { ...this.task }
