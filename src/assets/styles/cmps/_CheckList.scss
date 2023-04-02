@@ -3,6 +3,7 @@
   grid-column: span 2;
   display: grid;
   grid-template-columns: $task-details-content-grid;
+  grid-template-columns: 56px 1fr;
   & > *:not(.checklist-item, .progress-bar) {
     grid-column: 2;
   }
@@ -170,6 +171,10 @@
   //     grid-column: 2;
   //   }
   // }
+
+  @include mq(mq-780){
+    grid-template-columns: $task-details-content-grid;
+  }
 
   
 }
