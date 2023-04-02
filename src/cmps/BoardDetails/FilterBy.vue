@@ -1,5 +1,5 @@
 <template>
-  <section class="filter-by">
+  <section @click="dropDown.type = ''" class="filter-by">
     <header class="filter-header">
       <h3>Filter</h3>
       <button class="btn-modal-close" @click="$emit('closeFilterBy')"></button>
@@ -31,7 +31,7 @@
             :placeholder="membersPlaceholder"
             @input="onInput"
             v-model="dropDown.txt"
-            @click="setDropDownPos($event, 'members')"
+            @click.stop="setDropDownPos($event, 'members')"
             type="text"
           />
         </div>
@@ -77,7 +77,7 @@
             @input="onInput"
             v-model="dropDown.txt"
             :placeholder="labelsPlaceholder"
-            @click="setDropDownPos($event, 'labels')"
+            @click.stop="setDropDownPos($event, 'labels')"
             type="text"
           />
         </div>
@@ -130,10 +130,6 @@ export default {
     }
   },
   methods: {
-    showEv(ev) {
-      console.log('heyyyy');
-      console.log('ev: ', ev)
-    },
     onInput() {
       this.$nextTick(() => {
         this.dropDown.pos.height = this.$refs.dropDown.$el.offsetHeight

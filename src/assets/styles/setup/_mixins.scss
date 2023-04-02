@@ -16,7 +16,7 @@ $breakpoints: (
   mq-Board-index-sm: em(450px),
   mq-Board-index-md: em(596px),
   mq-Board-index-lg: em(825px),
-  mq-780: em(780px)
+  mq-780: em(780px),
 );
 
 @mixin mq($key) {
@@ -63,7 +63,7 @@ $breakpoints: (
     padding-top: calc(($height / $width) * 100%);
   }
 
-  >* {
+  > * {
     position: absolute;
     top: 0;
     left: 0;
@@ -71,7 +71,7 @@ $breakpoints: (
     bottom: 0;
   }
 
-  >img {
+  > img {
     height: 100%;
     object-fit: cover;
   }
@@ -92,16 +92,11 @@ $breakpoints: (
 
   @if $type ==sm {
     font-size: 1rem;
-  }
-
-  @else if $type ==md {
+  } @else if $type ==md {
     font-size: 1.25rem;
-  }
-
-  @else if $type ==lg {
+  } @else if $type ==lg {
     font-size: 1.5rem;
-  }
-  @else if $type ==xl {
+  } @else if $type ==xl {
     font-size: 2.5rem;
   }
 
@@ -233,9 +228,7 @@ $breakpoints: (
 
   @if abs($color-brightness) < calc(($light-color/2)) {
     color: white;
-  }
-
-  @else {
+  } @else {
     color: $clr-base-5;
   }
 }
@@ -286,8 +279,6 @@ $breakpoints: (
       }
     }
   }
-
-
 }
 
 @mixin modal-background() {
@@ -313,5 +304,4 @@ $breakpoints: (
   height: 150px;
   background-color: $color;
   border-radius: $border-radius-3;
-
 }

@@ -116,7 +116,6 @@ export default {
       const task = JSON.parse(JSON.stringify(this.currTask))
       task[key] = newVal
       const groupId = this.currTask.groupId
-      this.$emit('closeFastEdit')
       try {
         this.$store.dispatch({ type: 'saveTask', groupId, task, activity })
         // showSuccessMsg('Task added')
