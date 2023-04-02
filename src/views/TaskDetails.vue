@@ -207,10 +207,9 @@ export default {
       this.$refs.textarea.blur()
     },
     addChecklist(title) {
-      let activity
       const task = JSON.parse(JSON.stringify(this.task))
       task.checklists.push({ title, checklist: [], id: utilService.makeId() })
-      activity = ['added', 'checklists', 'to', this.task.title]
+      const activity = ['added', 'checklists', 'to', this.task.title]
       this.saveTask({ key: 'checklists', newVal: task.checklists, activity })
       this.toggleModal()
     },
@@ -236,20 +235,33 @@ export default {
         showErrorMsg('Cannot add Task')
       }
     },
+    // updateEntityVal({ key, val }) {
+    //   let activity
+    //   const task = JSON.parse(JSON.stringify(this.task))
+    //   const itemId = val.id ?? val
+    //   // finds the item index and pushes or removes
+    //   const idx = task[key].findIndex((item) => item.id === itemId)
+    //   if (idx === -1) {
+    //     task[key].push(val)
+    //     activity = ['added', `${key.slice(0, -1)}`, 'to', this.task.title]
+    //   } else {
+    //     task[key].splice(idx, 1, val)
+    //   }
+    //   this.saveTask({ key, newVal: task[key], activity })
+    // },
     updateEntityVal({ key, val }) {
       let activity
-      const task = JSON.parse(JSON.stringify(this.task))
-      // var isObj = val.id
+      const valToChange = JSON.parse(JSON.stringify(this.task[key]))
       const itemId = val.id ?? val
       // finds the item index and pushes or removes
-      const idx = task[key].findIndex((item) => item.id === itemId)
+      const idx = valToChange.findIndex((item) => item.id === itemId)
       if (idx === -1) {
-        task[key].push(val)
+        valToChange.push(val)
         activity = ['added', `${key.slice(0, -1)}`, 'to', this.task.title]
       } else {
-        task[key].splice(idx, 1, val)
+        valToChange.splice(idx, 1, val)
       }
-      this.saveTask({ key, newVal: task[key], activity })
+      this.saveTask({ key, newVal: valToChange, activity })
     },
     removeEntityVal({ key, val }) {
       let activity

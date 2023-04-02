@@ -102,7 +102,6 @@ export default {
       return info.attachments.filter((attach) => attach.type === 'png' || 'jpg')
     },
     async handleFile() {
-      console.log(this.$refs.uploadFile.files[0])
       const val = await uploadService.handleFile(this.$refs.uploadFile.files[0])
       this.$emit('updateEntityVal', { key: 'attachments', val })
     },

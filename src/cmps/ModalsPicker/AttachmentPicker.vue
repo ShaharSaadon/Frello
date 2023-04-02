@@ -25,9 +25,7 @@ export default {
   },
   methods: {
    async handleFile() {
-     console.log("this.imgUrl: ", this.imgUrl);
       const val = await uploadService.handleFile(this.imgUrl)
-      console.log("val: ", val);
       val.title = this.title
       this.$emit('updateEntityVal', { key: 'attachments', val })
     },
