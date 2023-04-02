@@ -1,6 +1,6 @@
 <template>
     <aside class="left-side-bar" title="" :class="counterClass" @click="isExpended = true"
-        :style="{ backgroundColor: board.LeftSideBarBgc }">
+    :style="getStyle">
         <div class="open-side-bar" :style="getStyle" ><i className="icon open-side-bar" v-html="getSvg('arrowRight')" ></i>
 </div>
         <div class="toggle-menu" :hidden="!isExpended">

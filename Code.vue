@@ -14,6 +14,8 @@ export default {
         activity = ['added', `${key.slice(0, -1)}`, 'to', this.task.title]
       } else {
         valToChange.splice(idx, 1, val)
+        activity = ['updated', `${key.slice(0, -1)}`, 'from', this.task.title]
+
       }
       this.saveTask({ key, newVal: valToChange, activity })
     },
