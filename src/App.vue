@@ -29,7 +29,7 @@ export default {
   methods: {
     appHeight() {
       const doc = document.documentElement
-      doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+      doc.style.setProperty('--app-height', `${window.innerHeight - 0.01}px`)
     },
   },
   components: {
