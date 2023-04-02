@@ -9,31 +9,38 @@
       <div class="stats">
         <div class="members">
           <div class="icon-holder">
-          <span class="member-icon"></span>
-        </div>
+            <span class="member-icon"></span>
+          </div>
           <h2> {{ board.members.length }}</h2>
-          Members
+          <h2> Members </h2>
         </div>
         <div class="groups">
-          <span class="member-icon"></span>
-          <div class="box flex-columns">
+          <span class="group-icon"></span>
           <h2> {{ board.groups.length }} </h2>
-          groups
-        </div>
+          <h2> Groups </h2>
         </div>
         <div class="tasks">
-          <span class="member-icon"></span>
+          <span class="task-icon"></span>
           <h2> {{ sumOfTasks }} </h2>
-          sumOfTasks
+          <h2>Tasks</h2>
         </div>
 
       </div>
 
       <div class="charts">
 
-        <DoughnutChart :chartData="doughnutData" class="doughnut-chart" />
-        <BarChart :chartData="lineData" class="bar-chart" />
-        <LineChart :chartData="chartData" class="bar-chart" />
+        <div class="doughnut-chart chart">
+          <h2>Tasks By Status</h2>
+          <DoughnutChart :chartData="doughnutData" />
+        </div>
+        <div class="bar-chart">
+          <h2>Tasks per member</h2>
+          <BarChart :chartData="lineData" />
+        </div>
+        <div class="line-chart">
+          <h2>Tasks per group</h2>
+          <LineChart :chartData="chartData" :options="lineData.options" />
+        </div>
       </div>
     </section>
   </section>
@@ -50,11 +57,11 @@ export default {
   data() {
     return {
       doughnutData: {
-        labels: ['Overdue', 'Due soon', 'No due date',],
+        labels: ['Overdue', 'Due soon', 'No due date', 'Completed'],
         datasets: [
           {
             data: [],
-            backgroundColor: ['red', 'yellow', 'lightBlue'],
+            backgroundColor: ['#eb543d', 'yellow', '#669ff5', '#6fba52'],
           },
         ],
       },
@@ -66,7 +73,7 @@ export default {
             backgroundColor: '#f87979',
             data: [],
           }
-        ]
+        ],
       },
       lineData: {
         labels: [],
@@ -74,11 +81,37 @@ export default {
           {
             label: 'Tasks per member',
             backgroundColor: '#f87979',
-            data: []
+            data: [],
+            color: 'white'
           }
-        ]
-      }
+        ],
+        options: {
+          legend: {
+            display: false
+          },
+          tooltips: {
+            callbacks: {
+              label: function (tooltipItem) {
+                return tooltipItem.yLabel;
+              }
+            }
+          }
+        }
+      },
+      
 
+    }
+  },
+  options: {
+    legend: {
+      display: false
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem) {
+          return tooltipItem.yLabel;
+        }
+      }
     }
   },
   methods: {
@@ -88,8 +121,10 @@ export default {
       let overdueTasks = 0;
       let tasksDueToday = 0;
       let tasksWithNoDueDate = 0;
+      let completed = 0;
       groups.forEach(group => {
         group.tasks.forEach(task => {
+          if (task.isComplete) completed++
           if (task.dueDate) {
             const dueDate = new Date(task.dueDate);
             const timeDiff = dueDate.getTime() - currentTime;
@@ -105,7 +140,7 @@ export default {
         })
       })
       console.log('[overdueTasks, tasksDueToday, tasksWithNoDueDate];:', overdueTasks, tasksDueToday, tasksWithNoDueDate)
-      return [overdueTasks, tasksDueToday, tasksWithNoDueDate];
+      return [overdueTasks, tasksDueToday, tasksWithNoDueDate, completed];
     },
     tasksPerGroup() {
       const groups = this.board.groups

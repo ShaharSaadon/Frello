@@ -1,5 +1,5 @@
 <template>
-  <section class="modal-picker">
+  <section class="modal-picker" >
     <header class="modal-picker-header">
       <h3>{{ title }}</h3>
       <button class="btn-modal-close" @click="$emit('closeModal')"></button>

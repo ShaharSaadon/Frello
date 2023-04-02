@@ -1,64 +1,125 @@
 .dashboard-container {
     @include modal-background();
-     &:hover {
+    &:hover {
         cursor: pointer;
     }
+    height: max-content;
 }
 
 .dashboard-modal {
-    width: 90vw;
-    height: 90vh;
-    background-color: inherit;
-    font-size: em(14px);
-    border-radius: $border-radius-3;
     position: relative;
+
+    width: 95vw;
+    min-height: max-content;
+    font-size: em(14px);
+    padding-bottom: 3vh;
+
+    border-radius: $border-radius-3;
+    background-color: inherit;
     color: $clr-base-1;
 
-    header{
+    &:hover {
+        cursor: auto;
+    }
+
+    header {
         text-align: center;
-        .title{
-            font-size:3rem;
+
+        .title {
+            font-size: 3rem;
             margin-block-end: 1.5rem;
             margin-block-start: 2rem;
         }
-        .subtitle{
+
+        .subtitle {
             font-size: 2rem;
             font-weight: 300;
         }
     }
 
-    .stats{
+    .stats {
         display: grid;
-        grid-auto-flow: column;
+        grid-auto-flow: row;
         place-content: center;
-        gap:3vw;
-        margin-block-end: 10vh;
-        margin-block-start: 10vh;
-    }
-    &:hover {
-        cursor:auto;
-    }
-    .member-icon{
-        @include trello-icon($icon-member, $type: xl, $color:$clr-base-1);
-    }
+        gap: 3vw;
+        margin-block-end: em(64px);
+        margin-block-start: em(64px);
+
+          //MORE THAN 596 PX
+
+          @include mq(mq-home-page-md){
+            grid-auto-flow: column;
 
 
-    .members {
-        @include dashboard-box($clr12);
-    }
+        }
 
-    .groups {
-        @include dashboard-box($clr13)
-    }
+        .members {
+            @include dashboard-box($clr12);
 
-    .tasks {
-        @include dashboard-box($clr14)
+            .member-icon {
+                @include trello-icon($icon-member, $type: xl, $color: $clr-base-1);
+            }
+        }
+
+        .groups {
+            @include dashboard-box($clr13);
+
+            .group-icon {
+                @include trello-icon($icon-two-members, $type: xl, $color: $clr-base-1);
+            }
+        }
+
+        .tasks {
+            @include dashboard-box($clr14);
+
+            .task-icon {
+                @include trello-icon($icon-checklist, $type: xl, $color: $clr-base-1);
+            }
+        }
+
+        @include mq(mq-home-page-lg) {
+
+            .members,
+            .groups,
+            .tasks {
+                width: 200px;
+                height: 200px;
+            }
+        }
     }
 
     .charts {
         display: grid;
-        grid-template-columns: 33% 33% 33%;
-        grid-template-rows: 300px 300px 300px;
+        grid-template-columns: 80%;
+        place-content: center;
+        gap: 2%;
 
+        h2 {
+            text-align: center;
+            margin-block-end: em(24px);
+        }
+
+        //MORE THAN 596 PX
+
+        @include mq(mq-home-page-md){
+            grid-template-columns: 45% 45%;
+            .line-chart{
+                grid-column: 1/-1;
+                max-width: 66%;
+                margin: em(32px) auto;
+            }
+        }
+
+        //MORE THAN 1000 PX
+        @include mq(mq-home-page-lg) {
+            grid-template-columns: 30% 30% 30%;
+            .line-chart{
+                grid-column: 3;
+                max-width: 100%;
+                margin: 0;
+            }
+        }
     }
+
+    
 }

@@ -126,18 +126,17 @@ export default {
     },
     updateEntityVal({ key, val }) {
       let activity
-      let task = JSON.parse(JSON.stringify(this.task))
-      // var isObj = val.id
+      const valToChange = JSON.parse(JSON.stringify(this.task[key]))
       const itemId = val.id ?? val
       // finds the item index and pushes or removes
-      const idx = task[key].findIndex((item) => item.id === itemId)
+      const idx = valToChange.findIndex((item) => item.id === itemId)
       if (idx === -1) {
-        task[key].push(val)
-        activity = ['added', `${key.slice(0, -1)}`, 'to', task.title]
+        valToChange.push(val)
+        activity = ['added', `${key.slice(0, -1)}`, 'to', this.task.title]
       } else {
-        task[key].splice(idx, 1, val)
+        valToChange.splice(idx, 1, val)
       }
-      this.saveTask({ key, newVal: task[key], activity })
+      this.saveTask({ key, newVal: valToChange, activity })
     },
     updateLabel(label) {
       const labels = JSON.parse(JSON.stringify(this.labels))

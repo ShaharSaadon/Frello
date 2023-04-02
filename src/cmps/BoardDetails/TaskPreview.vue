@@ -131,7 +131,7 @@ export default {
     },
     getDateClass() {
       const msDay = 1000 * 60 * 60 * 24
-      const diff = this.task.dueDate - Date.now()
+      const diff = new Date(this.task.dueDate).getTime() - Date.now()
       return {
         complete: this.task.isComplete,
         closeToDate: diff < msDay && diff > 0,
