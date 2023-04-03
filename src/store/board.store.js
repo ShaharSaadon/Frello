@@ -446,7 +446,8 @@ export const boardStore = {
     async removeTask({ commit, getters }, { groupId, taskId }) {
       const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
       const currGroup = savedBoard.groups.find((g) => g.id === groupId)
-      const taskIdx = currGroup.tasks.findIndex((task) => (task.id = taskId))
+      const taskIdx = currGroup.tasks.findIndex((task) => (task.id === taskId))
+      console.log('taskIdx:', taskIdx)
       currGroup.tasks.splice(taskIdx, 1)
       try {
         const board = await boardService.save(savedBoard)
