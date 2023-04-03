@@ -288,6 +288,7 @@ export default {
     },
     recording() {``
       const Recognition = window.speechRecognition || window.webkitSpeechRecognition
+      Recognition.lang = "he";
       this.sr = new Recognition()
       this.sr.continuous = true
       this.sr.interimResults = true
@@ -323,7 +324,7 @@ export default {
         setTimeout(() => {
           this.onChangeBackground(this.blue)
         }, 2500);
-      }
+      }   
       if (this.text.includes('תחליף')) {
         this.sr.stop()
         setTimeout(() => {
@@ -343,6 +344,18 @@ export default {
         }, 2500);
       }
       if (this.text.includes('בבקשה')) {
+        this.sr.stop()
+        setTimeout(() => {
+          this.onChangeBackground(this.blue)
+        }, 2500);
+      }
+      if (this.text.includes('blue')) {
+        this.sr.stop()
+        setTimeout(() => {
+          this.onChangeBackground(this.blue)
+        }, 2500);
+      }
+      if (this.text.includes('background')) {
         this.sr.stop()
         setTimeout(() => {
           this.onChangeBackground(this.blue)
