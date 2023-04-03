@@ -29,7 +29,7 @@
             <button class="btn-share"><i className="icon" v-html="getSvg('share')"></i><span>Share</span></button>
           </RouterLink>
           <RouterLink :to="board._id + '/dashboard'">
-            <button class="btn-share"><i className="icon" v-html="getSvg('share')"></i><span>Dashboard </span></button>
+            <button class="btn-share"><i className="icon dashboard" v-html="getSvg('dashboard')"></i><span>Dashboard </span></button>
           </RouterLink>
 
           <span class="separate-line"></span>
