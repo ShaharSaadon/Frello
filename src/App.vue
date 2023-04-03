@@ -38,7 +38,6 @@ export default {
       }
     },
     loadBoards() {
-      console.log('hey im loading boars');
       this.$store.dispatch({ type: 'loadBoards' })
     },
   },

@@ -5,15 +5,8 @@
       <header class="board-header flex space-between">
         <div class="left-side-header flex align-center">
           <h1 @click="onStartEdit" v-if="!isTitleOnEdit">{{ board.title }}</h1>
-          <input
-            class="title-input"
-            type="text"
-            v-if="isTitleOnEdit"
-            v-model="editedTitle"
-            ref="titleInput"
-            @keydown.enter.prevent="changeTitle"
-            @blur="changeTitle"
-          />
+          <input class="title-input" type="text" v-if="isTitleOnEdit" v-model="editedTitle" ref="titleInput"
+            @keydown.enter.prevent="changeTitle" @blur="changeTitle" />
           <button :class="getStarClass" @click="onToggleStarred(board)" class="btn-header-star"></button>
           <span class="separate-line"></span>
         </div>
@@ -23,6 +16,12 @@
             Filter
             <button @click.stop="clearFilter" class="btn-filter-clear" v-if="isFiltering"></button>
           </button>
+
+          <button class="btn-record" @click="toggleMic">
+            <i class="filter-icon" :class="isActive" v-html="getSvg('record')" ></i>
+            Talk to me
+          </button>
+
           <span class="separate-line"></span>
           <!-- right side of header goes here -->
           <BoardMembers />
@@ -38,34 +37,14 @@
         </div>
       </header>
 
-      <GroupList
-        v-if="groups?.length"
-        :groups="groups"
-        @updateGroup="updateGroup"
-        @removed="removeGroup"
-        @addGroup="addGroup"
-        @saveTask="saveTask"
-        @updateGroups="updateGroups"
-        @updateTasksPos="updateTasksPos"
-      />
+      <GroupList v-if="groups?.length" :groups="groups" @updateGroup="updateGroup" @removed="removeGroup"
+        @addGroup="addGroup" @saveTask="saveTask" @updateGroups="updateGroups" @updateTasksPos="updateTasksPos" />
     </div>
-    <RightSideBar
-      :type="rightSideBar.type"
-      @switchDynamicCmp="toggleSideBar"
-      @onChangeBackground="onChangeBackground"
-    />
-    <FilterBy
-      v-if="isFilterOpen"
-      :currFilterBy="filterBy"
-      @setFilterBy="setFilterBy"
-      @closeFilterBy="isFilterOpen = false"
-    />
-    <QuickEdit
-      :quickEditPos="quickEditPos"
-      ref="quickEdit"
-      @closeFastEdit="quickEdit.isOn = false"
-      v-if="quickEdit.isOn"
-    />
+    <RightSideBar :type="rightSideBar.type" @switchDynamicCmp="toggleSideBar" @onChangeBackground="onChangeBackground" />
+    <FilterBy v-if="isFilterOpen" :currFilterBy="filterBy" @setFilterBy="setFilterBy"
+      @closeFilterBy="isFilterOpen = false" />
+    <QuickEdit :quickEditPos="quickEditPos" ref="quickEdit" @closeFastEdit="quickEdit.isOn = false"
+      v-if="quickEdit.isOn" />
     <RouterView />
   </section>
 </template>
@@ -102,6 +81,14 @@ export default {
       quickEdit: {
         isOn: false,
         pos: { top: null, left: null, height: null },
+      },
+      sr: null,
+      isRecording: false,
+      text: null,
+      blue: {
+        bgc: '#07479E',
+        bgImg: 'url(https://a.trellocdn.com/prgb/assets/707f35bc691220846678.svg)',
+        LeftSideBarBgc: 'hsla(215,90%,37.7%,0.9)',
       },
     }
   },
@@ -176,6 +163,9 @@ export default {
       if (!!txt || !!dueDate?.length || !!labels?.length || !!members?.length) return true
       else return false
     },
+    isActive(){
+      return this.isRecording ? 'active' : ''
+    }
   },
   created() {
     socketService.on(SOCKET_EVENT_BOARD_UPDATED, this.updateBoard)
@@ -188,6 +178,7 @@ export default {
       //   })
       // }
     })
+    this.recording()
   },
   unmounted() {
     document.title = 'Merllo'
@@ -291,6 +282,56 @@ export default {
         this.$refs.titleInput.focus()
         this.$refs.titleInput.select()
       })
+    },
+    recording() {
+      const Recognition = window.speechRecognition || window.webkitSpeechRecognition
+      this.sr = new Recognition()
+      this.sr.continuous = true
+      this.sr.interimResults = true
+      this.sr.onstart = () => {
+        console.log('SR started')
+        this.isRecording = true
+      }
+      this.sr.onend = () => {
+        console.log('SR stopped')
+        this.isRecording = false
+      }
+      this.sr.onresult = (evt) => {
+        const text = Array.from(evt.results).map(result => result[0]).map(result => result.transcript).join('')
+        console.log('text:', text)
+        this.text = text
+        this.checkForCommand()
+      }
+    },
+    toggleMic() {
+      console.log('this.isRecording:', this.isRecording)
+      if (this.isRecording) {
+        console.log('checking')
+        this.sr.stop()
+      } else {
+        this.sr.start()
+      }
+    },
+    checkForCommand() {
+      setTimeout(() => {
+        if (this.text.includes('להחליף')) {
+          this.onChangeBackground(this.blue)
+          this.sr.stop()
+        }
+        if (this.text.includes('תחליף')) {
+          this.onChangeBackground(this.blue)
+          this.sr.stop()
+        }
+        if (this.text.includes('רקע')) {
+          this.onChangeBackground(this.blue)
+          this.sr.stop()
+        }
+        if (this.text.includes('רכב')) {
+          this.onChangeBackground(this.blue)
+          this.sr.stop()
+        }
+      }, 2000);
+
     },
     async removeGroup(groupId) {
       try {
