@@ -30,11 +30,17 @@ export default {
     appHeight() {
       const doc = document.documentElement
       doc.style.setProperty('--app-height', `${window.innerHeight - 0.01}px`)
+      const elBoardHeader = document.querySelector('.board-header')
+      if (elBoardHeader) {
+        doc.style.setProperty('--board-header-height', `${elBoardHeader.clientHeight + 8}px`)
+      }
     },
   },
   components: {
     AppHeader,
     UserMsg,
+  },
+  mounted(){
   },
   data() {
     return {

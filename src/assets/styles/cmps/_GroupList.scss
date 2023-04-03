@@ -1,5 +1,5 @@
 .group-list {
-  height: calc(100% - 3rem - 8px);
+  height: calc(100% - var(--board-header-height));
   margin-bottom: 8px;
 }
 
