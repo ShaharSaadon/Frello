@@ -2,12 +2,15 @@ import App from './App.vue'
 import { createApp } from 'vue'
 import { router } from './router.js'
 import { store } from './store/store.js'
+import { OpenAIApi } from 'openai';
+
 import vClickOutside from 'v-click-outside'
 import ElementPlus from 'element-plus'
 import VCalendar from 'v-calendar'
 import 'element-plus/dist/index.css'
 import 'v-calendar/style.css'
 import './assets/styles/main.scss'
+
 
 
 const app = createApp(App)

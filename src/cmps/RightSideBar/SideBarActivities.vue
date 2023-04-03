@@ -8,7 +8,7 @@
                 <span class="time-ago">{{ getTime(activity.createdAt) }} </span>
              </div>
         </li>
-        <button v-if="maximum&activities.length===15" class="btn-show-more" @click="$emit('switchDynamicCmp', 'SideBarActivities')"> View all activity...</button>
+        <button v-if="maximum&activities?.length===15" class="btn-show-more" @click="$emit('switchDynamicCmp', 'SideBarActivities')"> View all activity...</button>
     </ul>
 </template>
 
@@ -38,7 +38,8 @@ export default {
             return this.$store.getters.watchedBoard
         },
         activities() {
-            if (this.maximum) return this.board.activities.slice(0,15)
+            console.log('this.board:', this.board)
+            if (this.maximum&&this.board.activities) return this.board.activities.slice(0,15)
             return this.board.activities
         },
     

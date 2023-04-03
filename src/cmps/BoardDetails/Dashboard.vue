@@ -72,8 +72,12 @@ export default {
             label: 'Tasks per group',
             backgroundColor: '#f87979',
             data: [],
-          }
+            borderColor: 'white',
+            strokeColor : 'green',
+
+          },
         ],
+
       },
       lineData: {
         labels: [],
