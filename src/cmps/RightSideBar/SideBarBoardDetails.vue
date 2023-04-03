@@ -1,54 +1,72 @@
 <template>
     <h4>Board admins</h4>
     <BoardMembers />
-    <button @click="generateCompletion">Generate Completion</button>
-
+    <button @click="toggleMic">Record</button>
+    <div class="transcript">
+       <p v-if="text"> {{ text }} </p>
+    </div>
     <h4>Description</h4>
 </template>
 
 <script>
 import BoardMembers from '../BoardDetails/BoardMembers.vue';
-import { OpenAIApi } from 'openai';
-import axios from 'axios';
-
+import {ref} from 'vue'
 export default {
     name: 'SideBarBoardDetails',
     data() {
         return {
+            sr: null,
+            isRecording: false,
+            text: null,
         }
+
     },
-    methods: {
-        async generateCompletion() {
-            const response = await this.openai.createCompletion({
-                model: 'text-davinci-002',
-                prompt: 'Hello world',
-                max_tokens: 50,
-                n: 1,
-                stop: ['\n'],
-                temperature: 0.5,
-            });
-            console.log(response.data.choices[0].text);
+created() {
+
+
+    const Recognition = window.speechRecognition || window.webkitSpeechRecognition  
+    this.sr = new Recognition () 
+
+    this.sr.continuous = true
+    this.sr.interimResults = true
+    
+    this.sr.onstart = () =>{
+    console.log('SR started')
+    this.isRecording=true
+    }
+
+    this.sr.onend = () =>{
+        console.log('SR stopped')
+        this.isRecording=true
+    }
+
+    this.sr.onresult = (evt) =>{
+
+        const text = Array.from(evt.results).map(result => result[0]).map(result =>result.transcript).join('')
+        console.log('text:', text)
+        this.text=text
+       }
+
+},
+
+methods: {
+    toggleMic(){
+        console.log('this.isRecording:', this.isRecording)
+        if(this.isRecording){
+            this.sr.stop()
+        } else {
+            this.sr.start()
         }
+    }
+},
+computed: {
+    board() {
+        return this.$store.getters.watchedBoard
     },
-    computed: {
-        board() {
-            return this.$store.getters.watchedBoard
-        },
-    },
-    created() {
-        const openaiAxios = axios.create({
-            baseURL: 'https://api.openai.com/v1/',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ssk-V4USteB9w1PlsH7pGnzjT3BlbkFJoNjoybdmty8VygBuS4XW`,
-            },
-        });
-        this.openai = new OpenAIApi(openaiAxios);
-        this.generateCompletion()
-    },
-    components: {
-        BoardMembers
-    },
+},
+components: {
+    BoardMembers
+},
 }
 </script>
 

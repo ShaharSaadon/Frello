@@ -12,7 +12,6 @@ import { store } from './store/store'
 
 import AppHeader from './cmps/AppHeader.vue'
 import UserMsg from './cmps/UserMsg.vue'
-
 export default {
   created() {
     const user = userService.getLoggedinUser()
