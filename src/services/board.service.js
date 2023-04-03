@@ -21,7 +21,7 @@ export const boardService = {
 window.cs = boardService
 
 async function query(filterBy = { txt: '', memberId: '' }) {
-  console.log("filterBy: ", filterBy);
+  console.log('filterBy: ', filterBy)
   return httpService.get(STORAGE_KEY, filterBy)
 
   // var boards = await storageService.query(STORAGE_KEY)
@@ -46,8 +46,18 @@ async function remove(boardId) {
 async function save(board) {
   var savedBoard
   if (board._id) {
-    savedBoard = await httpService.put(`board/${board._id}`, board)
-    socketService.emit(SOCKET_EMIT_UPDATE_BOARD, savedBoard)
+    const {
+      activities: [newActivity],
+      ...restOfBoard
+    } = board
+    console.log('newActivity: ', newActivity)
+    console.log('restOfBoard: ', restOfBoard)
+    // const {activities:}=board
+    // const newBoard = {...board,activities:newActivity}
+    // const topActivite = board.activities.slice(0, 50)
+    // socketService.emit(SOCKET_EMIT_UPDATE_BOARD, {...restOfBoard, activities: topActivite})
+    socketService.emit(SOCKET_EMIT_UPDATE_BOARD, board)
+    savedBoard = await httpService.put(`board/${board._id}`, { restOfBoard, newActivity })
   } else {
     board.createdBy = userService.getLoggedinUser()
     board.members.push(userService.getLoggedinUser())
@@ -92,7 +102,7 @@ function getEmptyGroup() {
 
 function getEmptyBoard() {
   // return _getDemoDataBoard()
-   return _getEmptyBoard()
+  return _getEmptyBoard()
 }
 
 function getEmptyTask() {

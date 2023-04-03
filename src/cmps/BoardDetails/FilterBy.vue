@@ -71,7 +71,7 @@
           <div :class="label.color" class="label-tag">{{ label.title }}</div>
         </div>
         <div class="filter-item-preview">
-          <span @click="clearLabelsSelected" :class="labelSelected" class="check-box"></span>
+          <span @click="clearLabelsSelected" :class="{ checked: !!labelSelected }" class="check-box"></span>
           <input
             class="labels-drop-down"
             @input="onInput"
@@ -231,10 +231,10 @@ export default {
       if (numOfSelectedMembers > 1) return `${numOfSelectedMembers} members selected`
     },
     labelSelected() {
-      return this.filterBy.labels.filter((label) => label !== 'noLabels')
+      return this.filterBy.labels.filter((label) => label !== 'noLabels').length
     },
     labelsPlaceholder() {
-      const numOfSelectedLabels = this.labelSelected.length
+      const numOfSelectedLabels = this.labelSelected
       if (!numOfSelectedLabels) return 'Select labels'
       if (numOfSelectedLabels === 1) return '1 label selected'
       if (numOfSelectedLabels > 1) return `${numOfSelectedLabels} labels selected`
