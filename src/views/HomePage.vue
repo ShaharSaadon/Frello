@@ -16,7 +16,8 @@
     <div class="left-box">
       <h1>Merllo brings all your tasks, teammates, and tools together</h1>
       <p>Keep everything in the same place-even if your team isn’t.</p>
-      <RouterLink to="/board"> <button class="btn-demo">Try Our Demo!</button> </RouterLink>
+      <!-- <RouterLink to="/board"> <button class="btn-demo">Try Our Demo!</button> </RouterLink> -->
+      <button @click="doLogin" class="btn-demo">Try Our Demo!</button>
     </div>
     <div class="right-box">
       <img src="../assets/imgs/TrelloUICollage_4x.webp" />
@@ -26,9 +27,11 @@
 
 <script>
 import { svgService } from '../services/svg.service.js'
+import { userService } from '../services/user.service.js'
+
 export default {
   name: 'HomePage',
-  emits:['toggleHeader'], 
+  emits: ['toggleHeader'],
   data() {
     return {}
   },
@@ -41,6 +44,21 @@ export default {
   methods: {
     getSvg(iconName) {
       return svgService.getMerlloSvg(iconName)
+    },
+    async doLogin() {
+      const loginCred = {
+        username: 'guest',
+        password: '1234',
+      }
+      if (!userService.getLoggedinUser()) {
+        try {
+          await this.$store.dispatch({ type: 'login', userCred: loginCred })
+        } catch (err) {
+          console.log(err)
+          this.msg = 'Failed to login'
+        }
+      }
+      this.$router.push('/board')
     },
   },
   computed: {},
