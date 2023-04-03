@@ -19,7 +19,9 @@
         </div>
         <div class="right-side-header flex align-center">
           <button class="btn-filter" @click="isFilterOpen = true">
-            <i class="filter-icon" v-html="getSvg('filter')"></i>Filter
+            <i class="filter-icon" v-html="getSvg('filter')"></i>
+            Filter
+            <button @click.stop="clearFilter" class="btn-filter-clear" v-if="isFiltering"></button>
           </button>
           <span class="separate-line"></span>
           <!-- right side of header goes here -->
@@ -169,6 +171,11 @@ export default {
       if (y > 495) y = 495
       return { top: y + 'px', left: x + 'px' }
     },
+    isFiltering() {
+      const { txt, dueDate, labels, members } = this.filterBy
+      if (!!txt || !!dueDate?.length || !!labels?.length || !!members?.length) return true
+      else return false
+    },
   },
   created() {
     socketService.on(SOCKET_EVENT_BOARD_UPDATED, this.updateBoard)
@@ -197,6 +204,14 @@ export default {
   methods: {
     setFilterBy(filterBy) {
       this.filterBy = filterBy
+    },
+    clearFilter() {
+      this.filterBy = {
+        txt: '',
+        members: [],
+        dueDate: [],
+        labels: [],
+      }
     },
     filterTasksByTxt(task) {
       const { txt } = this.filterBy
