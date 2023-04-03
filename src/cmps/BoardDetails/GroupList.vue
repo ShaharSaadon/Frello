@@ -120,9 +120,16 @@ export default {
     },
     isDragScroll() {
       const { width } = window.visualViewport
-      console.log("width: ", width);
+      console.log('width: ', width)
       return width > 680
     },
+  },
+  mounted() {
+    const doc = document.documentElement
+    const elBoardHeader = document.querySelector('.board-header')
+    if (elBoardHeader) {
+      doc.style.setProperty('--board-header-height', `${elBoardHeader.clientHeight + 8}px`)
+    }
   },
   created() {},
   components: {
