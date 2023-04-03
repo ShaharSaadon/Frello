@@ -12,6 +12,7 @@ import { store } from './store/store'
 
 import AppHeader from './cmps/AppHeader.vue'
 import UserMsg from './cmps/UserMsg.vue'
+import { socketService, SOCKET_EVENT_LOAD_BOARDS } from './services/socket.service'
 
 export default {
   created() {
@@ -25,6 +26,7 @@ export default {
     this.$store.dispatch({ type: 'loadUsers' })
     window.addEventListener('resize', this.appHeight)
     this.appHeight()
+    socketService.on(SOCKET_EVENT_LOAD_BOARDS, this.loadBoards)
   },
   methods: {
     appHeight() {
@@ -35,13 +37,16 @@ export default {
         doc.style.setProperty('--board-header-height', `${elBoardHeader.clientHeight + 8}px`)
       }
     },
+    loadBoards() {
+      console.log('hey im loading boars');
+      this.$store.dispatch({ type: 'loadBoards' })
+    },
   },
   components: {
     AppHeader,
     UserMsg,
   },
-  mounted(){
-  },
+  mounted() {},
   data() {
     return {
       isHomePage: true,

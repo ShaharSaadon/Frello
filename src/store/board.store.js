@@ -1,6 +1,6 @@
 // import { boardService } from '../services/board.service.local.js'
 import { boardService } from '../services/board.service.js'
-import { socketService, SOCKET_EMIT_UPDATE_BOARD } from '../services/socket.service'
+import { socketService, SOCKET_EMIT_ADDED_TO_BOARD } from '../services/socket.service'
 
 export function getActionRemoveBoard(boardId) {
   return {
@@ -387,7 +387,8 @@ export const boardStore = {
       try {
         if (context.getters.watchedBoard.members.find((m) => m._id === member._id)) return
         context.commit({ type: 'addMember', member })
-        context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+        await context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
+        socketService.emit(SOCKET_EMIT_ADDED_TO_BOARD, member._id)
       } catch (err) {
         console.log('boardStore: Error in addMember', err)
         throw err
@@ -446,7 +447,7 @@ export const boardStore = {
     async removeTask({ commit, getters }, { groupId, taskId }) {
       const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
       const currGroup = savedBoard.groups.find((g) => g.id === groupId)
-      const taskIdx = currGroup.tasks.findIndex((task) => (task.id === taskId))
+      const taskIdx = currGroup.tasks.findIndex((task) => task.id === taskId)
       console.log('taskIdx:', taskIdx)
       currGroup.tasks.splice(taskIdx, 1)
       try {
