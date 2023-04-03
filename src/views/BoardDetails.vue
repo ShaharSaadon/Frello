@@ -18,8 +18,8 @@
           </button>
 
           <button class="btn-record" @click="toggleMic">
-            <i class="filter-icon" :class="isActive" v-html="getSvg('record')" ></i>
-            Talk to me
+            <i class="filter-icon" :class="isActive" v-html="getSvg('record')"></i>
+            {{this.isActive ? recordMode : 'Talk to me'}}
           </button>
 
           <span class="separate-line"></span>
@@ -163,8 +163,11 @@ export default {
       if (!!txt || !!dueDate?.length || !!labels?.length || !!members?.length) return true
       else return false
     },
-    isActive(){
+    isActive() {
       return this.isRecording ? 'active' : ''
+    },
+    recordMode(){
+    return 'Listening...'  
     }
   },
   created() {
@@ -283,7 +286,7 @@ export default {
         this.$refs.titleInput.select()
       })
     },
-    recording() {
+    recording() {``
       const Recognition = window.speechRecognition || window.webkitSpeechRecognition
       this.sr = new Recognition()
       this.sr.continuous = true
@@ -313,24 +316,42 @@ export default {
       }
     },
     checkForCommand() {
-      setTimeout(() => {
-        if (this.text.includes('להחליף')) {
+      // if (this.text.includes('להחליף')) {
+      //   this.sr.stop()
+      //   setTimeout(() => {
+      //     this.onChangeBackground(this.blue)
+      //   }, 2500);
+      // }
+      if (this.text.includes('לשנות')) {
+        this.sr.stop()
+        setTimeout(() => {
           this.onChangeBackground(this.blue)
-          this.sr.stop()
-        }
-        if (this.text.includes('תחליף')) {
+        }, 2500);
+      }
+      if (this.text.includes('תחליף')) {
+        this.sr.stop()
+        setTimeout(() => {
           this.onChangeBackground(this.blue)
-          this.sr.stop()
-        }
-        if (this.text.includes('רקע')) {
+        }, 2500);
+      }
+      if (this.text.includes('רקע')) {
+        this.sr.stop()
+        setTimeout(() => {
           this.onChangeBackground(this.blue)
-          this.sr.stop()
-        }
-        if (this.text.includes('רכב')) {
+        }, 2500);
+      }
+      if (this.text.includes('רכב')) {
+        this.sr.stop()
+        setTimeout(() => {
           this.onChangeBackground(this.blue)
-          this.sr.stop()
-        }
-      }, 2000);
+        }, 2500);
+      }
+      if (this.text.includes('בבקשה')) {
+        this.sr.stop()
+        setTimeout(() => {
+          this.onChangeBackground(this.blue)
+        }, 2500);
+      }
 
     },
     async removeGroup(groupId) {
