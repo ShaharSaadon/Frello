@@ -12,6 +12,7 @@
             rows="1"
             cols="50"
             @keydown.enter.prevent="onGroupEnter"
+            @blur="updateGroup"
           ></textarea>
         </form>
       </header>
