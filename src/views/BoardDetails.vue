@@ -19,7 +19,7 @@
 
           <button class="btn-record" @click="toggleMic">
             <i class="filter-icon" :class="isActive" v-html="getSvg('record')"></i>
-            {{this.isActive ? recordMode : 'Talk to me'}}
+            {{this.isActive ? recordMode   : 'Talk to me'}}
           </button>
 
           <span class="separate-line"></span>
@@ -316,12 +316,8 @@ export default {
       }
     },
     checkForCommand() {
-      // if (this.text.includes('להחליף')) {
-      //   this.sr.stop()
-      //   setTimeout(() => {
-      //     this.onChangeBackground(this.blue)
-      //   }, 2500);
-      // }
+ 
+      
       if (this.text.includes('לשנות')) {
         this.sr.stop()
         setTimeout(() => {

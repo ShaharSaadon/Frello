@@ -36,20 +36,16 @@ created() {
 
     const Recognition = window.speechRecognition || window.webkitSpeechRecognition
     this.sr = new Recognition()
-
     this.sr.continuous = true
     this.sr.interimResults = true
-
     this.sr.onstart = () => {
         console.log('SR started')
         this.isRecording = true
     }
-
     this.sr.onend = () => {
         console.log('SR stopped')
         this.isRecording = true
     }
-
     this.sr.onresult = (evt) => {
 
         const text = Array.from(evt.results).map(result => result[0]).map(result => result.transcript).join('')
