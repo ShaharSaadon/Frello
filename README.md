@@ -1,2 +1,3 @@
-# Coding Academy
-## Vue Frontend Starter
+# Merllo Project
+
+# By Shahar Saadon, Ido Peri, Tomer Huberman
