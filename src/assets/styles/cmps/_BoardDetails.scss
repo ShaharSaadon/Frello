@@ -72,7 +72,12 @@
       i {
         height: 45%;
       }
-
+      .dashboard {
+        svg {
+          width: 100%;
+          padding-bottom: 6px;
+        }
+      }
       span {
         height: fit-content;
         font-size: 14px;
