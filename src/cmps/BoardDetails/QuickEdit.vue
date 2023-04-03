@@ -4,12 +4,12 @@
     <div class="main-edit">
       <textarea
         ref="textarea"
-        @keydown.enter="saveTask"
+        @keydown.enter="saveTaskAndClose"
         type="text"
         v-model="currTask.title"
         v-if="currTask"
       ></textarea>
-      <button class="btn-save" @click="saveTask">Save</button>
+      <button class="btn-save" @click="saveTaskAndClose">Save</button>
     </div>
     <div class="quick-edit-buttons" :class="{ 'menu-to-left': menuToLeft }">
       <button class="quick-edit-btn" @click="$emit('closeFastEdit')">
@@ -123,6 +123,11 @@ export default {
         console.log(err)
         // showErrorMsg('Cannot add Task')
       }
+    },
+    saveTaskAndClose() {
+      this.saveTask({key:'title', newVal: this.currTask.title})
+      this.$emit('closeFastEdit')
+
     },
     updateEntityVal({ key, val }) {
       let activity

@@ -21,9 +21,17 @@
         <input type="text" v-model="signupCred.fullname" placeholder="Your full name" />
         <input type="text" v-model="signupCred.username" placeholder="Username" />
         <input type="password" v-model="signupCred.password" placeholder="Password" />
-        <ImgUploader @uploaded="onUploaded" />
+        <!-- <ImgUploader @uploaded="onUploaded" /> -->
+        <button @click.prevent="$refs.uploadFile.click()" class="btn-profile-picker">Upload an image</button>
         <button>Signup</button>
       </form>
+      <input
+        hidden
+        @change="handleFile"
+        ref="uploadFile"
+        accept="image/*"
+        type="file"
+      />
     </div>
     <!-- <hr />
     <details>
@@ -39,7 +47,8 @@
 </template>
 
 <script>
-import ImgUploader from '../cmps/ImgUploader.vue'
+// import ImgUploader from '../cmps/ImgUploader.vue'
+import { uploadService } from '../services/upload.service'
 
 export default {
   name: 'login-signup',
@@ -100,9 +109,13 @@ export default {
     onUploaded(imgUrl) {
       this.signupCred.imgUrl = imgUrl
     },
+    async handleFile() {
+      const { url } = await uploadService.handleFile(this.$refs.uploadFile.files[0])
+      this.signupCred.imgUrl = url
+    },
   },
   components: {
-    ImgUploader,
+    // ImgUploader,
   },
 }
 </script>

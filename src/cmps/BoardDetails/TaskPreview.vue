@@ -142,8 +142,8 @@ export default {
       return this.$store.getters.watchedBoard
     },
     getChecklistClass() {
-      console.log('checklist.checkedItems:', this.checklist.checkedItems)
-      console.log('checklist.totalItems:', this.checklist.totalItems)
+      // console.log('checklist.checkedItems:', this.checklist.checkedItems)
+      // console.log('checklist.totalItems:', this.checklist.totalItems)
       return {
         complete: (this.checklist.checkedItems === this.checklist.totalItems) & (this.checklist.totalItems !== 0),
       }

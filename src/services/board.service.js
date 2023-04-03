@@ -50,8 +50,6 @@ async function save(board) {
       activities: [newActivity],
       ...restOfBoard
     } = board
-    console.log('newActivity: ', newActivity)
-    console.log('restOfBoard: ', restOfBoard)
     // const {activities:}=board
     // const newBoard = {...board,activities:newActivity}
     // const topActivite = board.activities.slice(0, 50)
