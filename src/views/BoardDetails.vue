@@ -19,7 +19,7 @@
 
           <button class="btn-record" @click="toggleMic">
             <i class="filter-icon" :class="isActive" v-html="getSvg('record')"></i>
-            {{this.isActive ? recordMode   : 'Talk to me'}}
+            {{this.isActive ? recordMode   : 'Marla'}}
           </button>
 
           <span class="separate-line"></span>
@@ -323,39 +323,45 @@ export default {
         this.sr.stop()
         setTimeout(() => {
           this.onChangeBackground(this.blue)
-        }, 2500);
+        }, 1800);
       }   
       if (this.text.includes('תחליף')) {
         this.sr.stop()
         setTimeout(() => {
           this.onChangeBackground(this.blue)
-        }, 2500);
+        }, 1800);
       }
       if (this.text.includes('רקע')) {
         this.sr.stop()
         setTimeout(() => {
           this.onChangeBackground(this.blue)
-        }, 2500);
+        }, 1800);
       }
       if (this.text.includes('רכב')) {
         this.sr.stop()
         setTimeout(() => {
           this.onChangeBackground(this.blue)
-        }, 2500);
+        }, 1800);
       }
       if (this.text.includes('בבקשה')) {
         this.sr.stop()
         setTimeout(() => {
           this.onChangeBackground(this.blue)
-        }, 2500);
+        }, 1800);
       }
       if (this.text.includes('blue')) {
         this.sr.stop()
         setTimeout(() => {
           this.onChangeBackground(this.blue)
-        }, 2500);
+        }, 1800);
       }
       if (this.text.includes('background')) {
+        this.sr.stop()
+        setTimeout(() => {
+          this.onChangeBackground(this.blue)
+        }, 2500);
+      }
+      if (this.text.includes('please')) {
         this.sr.stop()
         setTimeout(() => {
           this.onChangeBackground(this.blue)
