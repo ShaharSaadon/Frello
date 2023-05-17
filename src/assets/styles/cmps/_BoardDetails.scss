@@ -69,6 +69,7 @@
       margin-inline-start: 5px;
       padding: 0px 8px 0px 4px;
       height: 31px;
+      max-width: em(120px);
 
       i {
         height: 45%;
@@ -137,13 +138,17 @@
         &.active {
           svg {
             fill: red;
-            animation: blinking .5s alternate infinite
+            animation: blinking 0.5s alternate infinite;
           }
         }
 
         @keyframes blinking {
-          0%   {opacity: 1;}
-          100% {opacity: 0;}
+          0% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
         }
       }
 
