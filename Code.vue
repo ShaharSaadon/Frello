@@ -19,6 +19,7 @@
         }
         this.saveTask({ key, newVal: entityValues, activity })
       },
+      
       // Task Activities Component
       addComment() {
         this.$emit('updateEntityVal', { key: 'comments', val: this.newComment })

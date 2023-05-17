@@ -3126,7 +3126,6 @@ function _getDemoDataBoard() {
   }
 }
 
-
 // function _getEmptyBoard() {
 //   return {
 //     title: '',

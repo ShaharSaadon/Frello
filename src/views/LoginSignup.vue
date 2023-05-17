@@ -25,13 +25,7 @@
         <button @click.prevent="$refs.uploadFile.click()" class="btn-profile-picker">Upload an image</button>
         <button>Signup</button>
       </form>
-      <input
-        hidden
-        @change="handleFile"
-        ref="uploadFile"
-        accept="image/*"
-        type="file"
-      />
+      <input hidden @change="handleFile" ref="uploadFile" accept="image/*" type="file" />
     </div>
     <!-- <hr />
     <details>
