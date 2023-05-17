@@ -10,7 +10,6 @@ import { socketService, SOCKET_EVENT_REVIEW_ADDED, SOCKET_EVENT_REVIEW_ABOUT_YOU
 ;(() => {
   setTimeout(()=>{
     socketService.on(SOCKET_EVENT_REVIEW_ADDED, (review) => {
-      console.log('GOT from socket', review)
       store.commit({type: 'addReview', review})
     })
     socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {

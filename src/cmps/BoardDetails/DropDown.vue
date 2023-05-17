@@ -57,9 +57,6 @@ export default {
     }
   },
   methods: {
-    showEv() {
-      console.log('heyyyyy')
-    },
     setFilterBy(key, val) {
       if (this.filterBy[key]?.includes(val)) {
         const idx = this.filterBy[key].findIndex((item) => item === val)
@@ -82,7 +79,7 @@ export default {
       return this.$store.getters.watchedBoard.members.filter((member) => member._id !== this.loggedInUser._id)
     },
     filteredMembers() {
-      const regex = new RegExp(this.dropDown.txt, 'i')
+      const regex = new RegExp(this.dropDown.members, 'i')
       return this.members.filter((member) => regex.test(member.fullname) || regex.test(member.username))
     },
     isCheckedMembers() {
@@ -99,7 +96,7 @@ export default {
       return JSON.parse(JSON.stringify(this.$store.getters.labels))
     },
     filteredLabels() {
-      const regex = new RegExp(this.dropDown.txt, 'i')
+      const regex = new RegExp(this.dropDown.labels, 'i')
       return this.labels.filter((label) => regex.test(label.title) || regex.test(label.color))
     },
     isCheckedLabels() {

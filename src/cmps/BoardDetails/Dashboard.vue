@@ -143,7 +143,6 @@ export default {
           }
         })
       })
-      console.log('[overdueTasks, tasksDueToday, tasksWithNoDueDate];:', overdueTasks, tasksDueToday, tasksWithNoDueDate)
       return [overdueTasks, tasksDueToday, tasksWithNoDueDate, completed];
     },
     tasksPerGroup() {

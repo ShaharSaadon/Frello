@@ -120,7 +120,6 @@ export default {
     },
     isDragScroll() {
       const { width } = window.visualViewport
-      console.log('width: ', width)
       return width > 680
     },
   },

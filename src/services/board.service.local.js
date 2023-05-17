@@ -59,7 +59,6 @@ async function saveTask(boardId, groupId, task,activity) {
 
   const board = await getById(boardId)
   board.activities=[activity,...board.activities]
-  console.log('activity:', activity)
 
   const group = board.groups.find((group) => group.id === groupId)
   if (!task.id) {

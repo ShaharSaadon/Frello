@@ -39,7 +39,6 @@ export default {
       return this.$store.getters.watchedBoard.members
     },
     board() {
-      console.log('var:', this.$store.getters.watchedBoard)
       return this.$store.getters.watchedBoard
     },
     memberList: {
@@ -47,7 +46,7 @@ export default {
         return this.members
       },
       set(members) {
-        console.log('members: ', members)
+        // console.log('members: ', members)
 
         // this.$emit('updateTasks', {tasks, groupId:this.groupId})
       },

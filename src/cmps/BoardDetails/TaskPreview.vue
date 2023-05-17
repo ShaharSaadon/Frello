@@ -97,10 +97,6 @@ export default {
       return svgService.getMerlloSvg(iconName)
     },
     setCurrTask() {
-      console.log('boardId:', this.boardId)
-      console.log('groupId:', this.groupId)
-      console.log('this.task:', this.task)
-      console.log('taskId:', this.task.id)
       this.$store.commit({
         type: 'setCurrTask',
         boardId: this.boardId,
@@ -142,8 +138,6 @@ export default {
       return this.$store.getters.watchedBoard
     },
     getChecklistClass() {
-      // console.log('checklist.checkedItems:', this.checklist.checkedItems)
-      // console.log('checklist.totalItems:', this.checklist.totalItems)
       return {
         complete: (this.checklist.checkedItems === this.checklist.totalItems) & (this.checklist.totalItems !== 0),
       }

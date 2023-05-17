@@ -318,7 +318,6 @@ export const boardStore = {
       }
     },
     async addBoard(context, { board }) {
-      console.log('board: ', board)
       try {
         board = await boardService.save(board)
         context.commit(getActionAddBoard(board))
@@ -374,15 +373,6 @@ export const boardStore = {
         throw err
       }
     },
-    // async addActivity(context, { activity }) {
-    //   try {
-    //     context.commit({ type: 'addActivity', activity })
-    //     // context.dispatch(getActionUpdateBoard(context.getters.watchedBoard))
-    //   } catch (err) {
-    //     console.log('boardStore: Error in addActivity', err)
-    //     throw err
-    //   }
-    // },
     async addMember(context, { member }) {
       try {
         if (context.getters.watchedBoard.members.find((m) => m._id === member._id)) return
@@ -448,7 +438,6 @@ export const boardStore = {
       const savedBoard = JSON.parse(JSON.stringify(getters.watchedBoard))
       const currGroup = savedBoard.groups.find((g) => g.id === groupId)
       const taskIdx = currGroup.tasks.findIndex((task) => task.id === taskId)
-      console.log('taskIdx:', taskIdx)
       currGroup.tasks.splice(taskIdx, 1)
       try {
         const board = await boardService.save(savedBoard)

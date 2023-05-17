@@ -38,7 +38,6 @@ export default {
             return this.$store.getters.watchedBoard
         },
         activities() {
-            console.log('this.board:', this.board)
             if (this.maximum&&this.board.activities) return this.board.activities.slice(0,15)
             return this.board.activities
         },

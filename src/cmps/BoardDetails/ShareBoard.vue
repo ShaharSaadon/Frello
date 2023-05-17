@@ -52,8 +52,6 @@ export default {
       return this.$route.params.id
     },
     members() {
-      console.log("this.boardMembers: ", this.boardMembers);
-      console.log("this.$store.getters.users: ", this.$store.getters.users);
       return this.$store.getters.users.filter((member) => !this.boardMembers.find((m) => m._id === member._id))
     },
   },

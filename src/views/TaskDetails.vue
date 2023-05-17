@@ -158,10 +158,6 @@ export default {
         ? { backgroundImage: `url(${this.task.cover.url})`, backgroundColor: this.task.cover.color, height: '160px' }
         : ''
     },
-    // setBottom({height}) {
-    //   console.log("height: ", height);
-    //   this.modal.pos.top = window.visualViewport.height - height
-    // },
     modalPos() {
       let x = this.modal.pos.left
       let y = this.modal.pos.top
@@ -176,9 +172,6 @@ export default {
   methods: {
     showEv(ev) {
       console.log('ev: ', ev)
-    },
-    onClickOutside(event) {
-      console.log('Clicked outside. Event: ', event)
     },
     async handleFile(ev) {
       this.isDragover = false

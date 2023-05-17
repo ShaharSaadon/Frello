@@ -105,7 +105,6 @@ export default {
     board: {
       handler() {
         if (this.board) {
-          console.log('this.board: ', this.board)
           this.$store.commit({ type: 'setAppHeaderBgc', bgc: this.board.appHeaderBgc })
           document.title = this.board.title + ' | Merllo'
           this.editedTitle = this.board.title
@@ -293,24 +292,19 @@ export default {
       this.sr.continuous = true
       this.sr.interimResults = true
       this.sr.onstart = () => {
-        console.log('SR started')
         this.isRecording = true
       }
       this.sr.onend = () => {
-        console.log('SR stopped')
         this.isRecording = false
       }
       this.sr.onresult = (evt) => {
         const text = Array.from(evt.results).map(result => result[0]).map(result => result.transcript).join('')
-        console.log('text:', text)
         this.text = text
         this.checkForCommand()
       }
     },
     toggleMic() {
-      console.log('this.isRecording:', this.isRecording)
       if (this.isRecording) {
-        console.log('checking')
         this.sr.stop()
       } else {
         this.sr.start()

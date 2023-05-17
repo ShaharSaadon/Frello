@@ -30,7 +30,7 @@
             class="member-drop-down"
             :placeholder="membersPlaceholder"
             @input="onInput"
-            v-model="dropDown.txt"
+            v-model="dropDown.members"
             @click.stop="setDropDownPos($event, 'members')"
             type="text"
           />
@@ -75,7 +75,7 @@
           <input
             class="labels-drop-down"
             @input="onInput"
-            v-model="dropDown.txt"
+            v-model="dropDown.labels"
             :placeholder="labelsPlaceholder"
             @click.stop="setDropDownPos($event, 'labels')"
             type="text"
@@ -120,7 +120,9 @@ export default {
       debounceEmitFilterBy: null,
       dropDown: {
         type: '',
-        txt: '',
+        // txt: '',
+        labels: '',
+        members: '',
         pos: {
           x: null,
           y: null,
@@ -170,7 +172,6 @@ export default {
     setDropDownPos(ev, type) {
       this.setDropDownType(type)
       let { x, y, height } = ev.target.getBoundingClientRect()
-      console.log('x, y, height: ', x, y, height)
       y += height + 4
       this.dropDown.pos.x = x
       this.dropDown.pos.y = y

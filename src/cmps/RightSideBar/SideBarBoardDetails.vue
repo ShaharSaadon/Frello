@@ -39,11 +39,9 @@ created() {
     this.sr.continuous = true
     this.sr.interimResults = true
     this.sr.onstart = () => {
-        console.log('SR started')
         this.isRecording = true
     }
     this.sr.onend = () => {
-        console.log('SR stopped')
         this.isRecording = true
     }
     this.sr.onresult = (evt) => {
@@ -59,7 +57,6 @@ created() {
 
 methods: {
     toggleMic() {
-        console.log('this.isRecording:', this.isRecording)
         if (this.isRecording) {
             this.sr.stop()
         } else {
@@ -67,7 +64,6 @@ methods: {
         }
     },
     checkForCommand() {
-        console.log('this.text:', this.text)
         if (this.text.includes('להחליף')) {
             this.$emit('onChangeBackground', this.red)
         }

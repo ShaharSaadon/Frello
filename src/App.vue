@@ -17,6 +17,7 @@ import { socketService, SOCKET_EVENT_LOAD_BOARDS } from './services/socket.servi
 export default {
   created() {
     const user = userService.getLoggedinUser()
+    this.drawWine()
     if (user) {
       store.commit({ type: 'setLoggedinUser', user })
       const memberId = this.$store.getters.loggedinUser._id
@@ -39,6 +40,36 @@ export default {
     },
     loadBoards() {
       this.$store.dispatch({ type: 'loadBoards' })
+    },
+    drawWine() {
+      console.log('🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log(' 🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('   🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('     🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('      🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷') 
+      console.log('       🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('         🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('           🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('             🍷🍷🍷🍷🍷🍷')
+      console.log('                🍷🍷🍷🍷')
+      console.log('                  🍷🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('                   🍷🍷')
+      console.log('             🍷🍷🍷🍷🍷🍷🍷')
+      console.log('           🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('        🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷🍷')
+      console.log('Hey we are Merllo team, if you like what you see feel free to contact us!')
+      console.log('LinkedIn: Tomer Huberman, Shahar Saadon and Ido Peri')
     },
   },
   components: {

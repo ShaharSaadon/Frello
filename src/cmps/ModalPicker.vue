@@ -67,13 +67,9 @@ export default {
     //   console.log("this.isModalOpen: ", this.isModalOpen);
     //   if (this.isModalOpen) this.$emit('closeModal')
     // },
-    check(ev){
-      console.log("ev: ", ev);
-    },
     checkHeight() {
       const modal = this.$refs.modal
       const rect = modal.getBoundingClientRect()
-      console.log('rect: ', rect)
       // if (rect.bottom > window.visualViewport.height) this.$emit('outOfView', { height: rect.height })
     },
     getSvg(iconName) {

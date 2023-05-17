@@ -21,7 +21,6 @@ export const boardService = {
 window.cs = boardService
 
 async function query(filterBy = { txt: '', memberId: '' }) {
-  console.log('filterBy: ', filterBy)
   return httpService.get(STORAGE_KEY, filterBy)
 
   // var boards = await storageService.query(STORAGE_KEY)
@@ -69,7 +68,6 @@ async function saveTask(boardId, groupId, task, activity) {
 
   const board = await getById(boardId)
   board.activities = [activity, ...board.activities]
-  console.log('activity:', activity)
 
   const group = board.groups.find((group) => group.id === groupId)
   if (!task.id) {

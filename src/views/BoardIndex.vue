@@ -121,7 +121,6 @@ export default {
     //   }
     // },
     async updateBoard(board) {
-      console.log("board: ", board);
       try {
         await this.$store.dispatch(getActionUpdateBoard(board))
         showSuccessMsg('Board updated')

@@ -34,7 +34,6 @@ export default {
     },
   },
   created() {
-    console.log("this.info.attachments: ", this.info.attachments);
     this.attachToEdit =  this.attach
     this.$nextTick(() => this.$refs.mainInput.focus())
     this.$nextTick(() => this.$refs.mainInput.select())

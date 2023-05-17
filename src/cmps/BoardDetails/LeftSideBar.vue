@@ -41,9 +41,6 @@ export default {
         }
     },
     methods: {
-        toggleSideBar() {
-            console.log('hola')
-        },
         getSvg(iconName) {
             return svgService.getMerlloSvg(iconName)
         },
