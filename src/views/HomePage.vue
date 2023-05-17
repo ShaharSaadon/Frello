@@ -8,7 +8,7 @@
     </div>
     <div class="right-nav flex clean-list">
       <RouterLink class="nav-link" to="/login">Log in</RouterLink>
-      <RouterLink class="nav-link-signup nav-link" to="/board">Try Our Demo!</RouterLink>
+      <button class="nav-link-signup nav-link" @click="doLogin">Try Our Demo!</button>
     </div>
   </header>
 
