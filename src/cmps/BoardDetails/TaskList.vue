@@ -2,7 +2,8 @@
   <section class="task-list">
     <div class="draggable-task-list">
       <Draggable
-        
+        delay="250"
+        :delay-on-touch-only="true"
         v-model="taskList"
         class="list-task"
         ghost-class="ghost-task"
